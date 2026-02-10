@@ -1,0 +1,151 @@
+<!-- patTemplate:tmpl name="content" -->
+<form name="frmInput" method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+<input type="hidden" name="kegref_id" value="{KEGIATAN}"  />
+   <table>
+      <tr>
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 95px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" value="{KODE}" size="40" />
+         </td>
+      </tr>
+     <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <td>
+            <input type="text" name="nama" value="{NAMA}" size="40" />
+         </td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Cari Komponen &raquo;" class="buttonSubmit"/>
+            <input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th width="10">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <th>
+            no. coa
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="formula" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="harga_satuan" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="7" align="center">
+                  <em>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --</em>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+               <tr class="{CLASS_NAME}">
+                  <td align="center">
+                     {NOMOR}
+                  </td>
+                  <td>
+                     {KODE}
+                  </td>
+                  <td width="165">
+                     {NAMA}
+                  </td>
+                  <td width="65" align="center">
+                     {AKUN_KODE}
+                  </td>
+                  <td>
+                     {FORMULA}
+                  </td>
+                  <td align="right" width="115">
+                     {HARGA_SATUAN}
+                  </td>
+                  <td align="center" class="links" style="text-align:center; width:20px;">
+                     <a href="javascript:void(0);" onclick="javascript:setData('{ID}')" onmouseover="status='Set preferences...';return true" >
+                        <img src="images/icons/16/button-check.gif" alt="Pilih"/>
+                     </a>
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<script type="text/javascript">
+var komponen         = {KOMPONEN_DATA};
+var tBodyKomponen    = document.getElementById('komponen-PlaceHolder');
+var setData          = function(id){
+   var komponenData  = komponen[id];
+   tBodyKomponen.addRows(
+      komponenData.id,
+      komponenData.kode,
+      komponenData.nama,
+      komponenData.akun_id,
+      komponenData.akun_kode,
+      komponenData.akun_nama,
+      komponenData.deskripsi,
+      komponenData.satuan,
+      komponenData.jumlah,
+      komponenData.mak_id,
+      komponenData.mak_kode,
+      komponenData.mak_nama,
+      komponenData.bas_id,
+      komponenData.bas_kode,
+      komponenData.bas_nama,
+      komponenData.bas_id_komponen,
+      komponenData.formula,
+      komponenData.hasil_formula,
+      komponenData.komponen_nominal,
+      komponenData.status,
+      komponenData.sumber_dana_id,
+      komponenData.total_biaya,
+      komponenData.biaya,
+      komponenData.biaya_max,
+      komponenData.is_sbu,
+      komponenData.rencana_pengeluaran_id,
+      0,
+      0,
+      0
+   );
+}
+</script>
+<!-- /patTemplate:tmpl -->

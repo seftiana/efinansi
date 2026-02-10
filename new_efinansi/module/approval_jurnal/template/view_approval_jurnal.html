@@ -1,0 +1,326 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+   function disableBentukTransaksi(value,idName){
+   if(value =='Y'){
+      document.getElementById(idName).disabled=false;
+   } else{
+      document.getElementById(idName).disabled=true;
+      document.getElementById(idName).value='';
+   }
+}
+</script>
+
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="approval_jurnal" / -->
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterbox" name="filterbox" class="dataquest xhr_simple_form dest_subcontent-element">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tipe_transaksi" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tipe_transaksi"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="status" / -->
+         </th>
+         <td>
+            <!-- patTemplate:tmpl name="status_radio" -->
+               <div>
+                  <input type="radio" value="{ID}" name="status" style="margin-right: 6px;" {CHECKED} /> <label>{NAME}</label>
+               </div>
+            <!-- /patTemplate:tmpl -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="interval_pencatatan" / -->
+         </th>
+         <td>
+            <div style="display:block; width: 100%;">
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="start_date"  / -->
+            </div>
+            <label style="display: block; padding: 0.2em 04.em; font-weight: bold; margin: 0.4em 0em;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="s_d" / -->
+            </label>
+            <div style="display:block; width: 100%;">
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="end_date"  / -->
+            </div>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="referensi" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" size="35" value="{KODE}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+
+<br />
+<form method="POST" action="{URL_APPROVE}" class="xhr_form dest_subcontent-element" id="form_list">
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar">
+         <!-- patTemplate:tmpl name="content_button" type="condition" conditionvar="STATUS" -->
+            <!-- patTemplate:sub condition="APPROVAL" -->
+               <input type="submit" name="btnApprove" value="Approve" class="inputButton" />
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="UNAPPROVAL" -->
+               <input type="submit" name="btnApprove" value="UN-Approve" class="inputButton" />
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </div>
+   </div>
+   <table class="table-common" style="width: 100%;">
+      <thead>
+         <tr>
+            <th width="5" rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+               <input type="hidden" name="approve_act" value="{APPROVE_ACT}">
+            </th>
+            <th width="5" rowspan="2">
+               <input type="checkbox" class="CheckBoxFW_parent" />
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="referensi" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="tanggal_transaksi" / -->
+            </th>
+            <th rowspan="2" style="display: none;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="is_kas" / -->
+            </th>
+            <th rowspan="2" style="display: none;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="bentuk_transaksi" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / -->.
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="debet_rp" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="kredit_rp" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="petugas" / -->
+            </th>
+         </tr>
+         <tr>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="sub_account" / -->
+            </th>
+         </tr>
+      </thead>
+      <tbody>
+         <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+            <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="13" align="center">
+                  <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+               </td>
+            </tr>
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+               <!-- patTemplate:tmpl name="data_list" -->
+                  <!-- patTemplate:tmpl name="data_jurnal" type="condition" conditionvar="LEVEL" -->
+                     <!-- patTemplate:sub condition="PARENT" -->
+                        <tr class="{CLASS_NAME}">
+                           <td rowspan="{ROW_SPAN}" style="text-align: center;">
+                              {NOMOR}
+                           </td>
+                           <td rowspan="{ROW_SPAN}" style="text-align: center;">
+                              <!-- patTemplate:tmpl name="content_checkbox" type="condition" conditionvar="ATTR" -->
+                                 <!-- patTemplate:sub condition="ENABLE" -->
+                                    <input {DISABLED_CHECKBOX} type="checkbox" name="id[{ID}]" value="{ID}" class="CheckBoxFW_child" {CHECKED} />
+                                 <!-- /patTemplate:sub -->
+                                 <!-- patTemplate:sub condition="DISABLED" -->
+                                    <input {DISABLED_CHECKBOX} type="checkbox" name="id[{ID}]" value="{ID}" class="CheckBoxFW_child" {CHECKED} />
+                                 <!-- /patTemplate:sub --> 
+                              <!-- /patTemplate:tmpl -->
+                           </td>
+                           <td rowspan="{ROW_SPAN}" style="text-align: center;">
+                              {REFERENSI}
+                           </td>
+                           <td rowspan="{ROW_SPAN}" style="text-align: center;">
+                              <!-- patTemplate:var name="TANGGAL" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+                           </td>
+                           <td rowspan="{ROW_SPAN}" style="display: none;">
+                              <!-- patTemplate:tmpl name="status_kas" type="condition" conditionvar="STATUS" -->
+                                 <!-- patTemplate:sub condition="APPROVE" -->
+                                    <center>
+                                       {STATUS_KAS}
+                                    </center>
+                                 <!-- /patTemplate:sub -->
+                                 <!-- patTemplate:sub condition="UNAPPROVE" -->
+                                    <select name="jurnal[{ID}][status_kas]">
+                                       <!-- patTemplate:tmpl name="cmb_status_kas" -->
+                                          <option value="{ID}" {SELECTED}>
+                                             {NAME}
+                                          </option>
+                                       <!-- /patTemplate:tmpl -->
+                                    </select>
+                                 <!-- /patTemplate:sub -->
+                              <!-- /patTemplate:tmpl -->
+                           </td>
+                           <td rowspan="{ROW_SPAN}" style="text-align: center; display: none;">
+                              <!-- patTemplate:tmpl name="bentuk_transaksi" type="condition" conditionvar="STATUS" -->
+                                 <!-- patTemplate:sub condition="APPROVE" -->
+                                    <label style="text-align: left; display: block; width: 100%">
+                                       {KELOMPOK_LAPORAN}
+                                    </label>
+                                 <!-- /patTemplate:sub -->
+                                 <!-- patTemplate:sub condition="UNAPPROVE" -->
+                                    <select name="jurnal[{ID}][bentuk_transaksi]">
+                                       <!-- patTemplate:tmpl name="cmb_bentuk_transaksi" -->
+                                          <option value="{ID}" {SELECTED}>
+                                             {NAME}
+                                          </option>
+                                       <!-- /patTemplate:tmpl -->
+                                    </select>
+                                 <!-- /patTemplate:sub -->
+                              <!-- /patTemplate:tmpl -->
+                           </td>
+                           <td style="padding: 0px;">
+                              <label style="padding: 0.2em 0.4em;">
+                                 {KODE}
+                              </label>
+                              <label style="border: none; border-top: 1px solid #DDD; padding: 0.2em 0.4em; margin: 0.4em 0em 0.6em;">
+                                 {SUB_ACCOUNT}
+                              </label>
+                           </td>
+                           <td>
+                              {NAMA}
+                           </td>
+                           <td style="text-align: right;">
+                              {NOMINAL_DEBET}
+                           </td>
+                           <td style="text-align: right;">
+                              {NOMINAL_KREDIT}
+                           </td>
+                           <td rowspan="{ROW_SPAN}">
+                              {PENANGGUNG_JAWAB}
+                           </td>
+                        </tr>
+                     <!-- /patTemplate:sub -->
+                     <!-- patTemplate:sub condition="DATA" -->
+                        <tr class="{CLASS_NAME}">
+                           <td style="padding: 0px;">
+                              <label style="padding: 0.2em 0.4em;">
+                                 {KODE}
+                              </label>
+                              <label style="border: none; border-top: 1px solid #DDD; padding: 0.2em 0.4em; margin: 0.4em 0em 0.6em;">
+                                 {SUB_ACCOUNT}
+                              </label>
+                           </td>
+                           <td>
+                              {NAMA}
+                           </td>
+                           <td style="text-align: right;">
+                              {NOMINAL_DEBET}
+                           </td>
+                           <td style="text-align: right;">
+                              {NOMINAL_KREDIT}
+                           </td>
+                        </tr>
+                     <!-- /patTemplate:sub -->
+                  <!-- /patTemplate:tmpl -->
+               <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </tbody>
+   </table>
+</form>
+<script type="text/javascript">
+CheckBoxFW_initiate = function (Obj)
+{
+   if (!Obj || Obj.className.indexOf('CheckBoxFW_parent') < 0 || !Obj.form) return;
+
+   var CBList     = new Array;
+   var CheckedAll = true;
+   var FormObj    = Obj.form;
+
+   for (var i = 0; i < FormObj.length; i++) if (FormObj[i] == Obj) break;
+   if (i == FormObj.length) return;
+
+   for(i += 1; i < FormObj.length; i++)
+   {
+      var CBObj = FormObj[i];
+      if (CBObj.type.toUpperCase() != 'CHECKBOX') continue;
+      if (CBObj.className.indexOf('CheckBoxFW_child') >= 0)
+      {
+         CBObj.onchange = function () {
+            Obj.checkChild();
+         }
+         CBList[CBList.length] = CBObj;
+         if (!CBObj.checked) CheckedAll = false;
+      }
+      if (CBObj.className.indexOf('CheckBoxFW_parent') >= 0) break;
+   }
+
+   if (CBList.length > 0)
+   {
+      Obj.onchange = function ()
+      {
+         for (var i = 0; i < CBList.length; i++){
+            if(CBList[i].getAttribute('disabled') == null){
+               CBList[i].checked = this.checked;
+            }
+         }
+      }
+
+      Obj.checkChild = function ()
+      {
+         var CheckedAll = true;
+         for (var i = 0; i < CBList.length; i++) if (!CBList[i].checked)
+         {
+            CheckedAll = false;
+            break;
+         }
+         this.checked = CheckedAll;
+      }
+
+      Obj.checked = CheckedAll;
+   }
+}
+var formObj       = document.getElementById('form_list');
+if(typeof(formObj) != 'undefined' && formObj != null){
+   for (var i = 0; i < formObj.length; i++){
+      CheckBoxFW_initiate(formObj[i]);
+   }
+}
+</script>
+<!-- /patTemplate:tmpl -->

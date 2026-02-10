@@ -1,0 +1,184 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>Posting Jurnal Sudah Tutup Buku</h1>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<form method="POST" action="{URL_SUBMIT}" class="xhr_form std_form" name="frmPosting" id="frmPosting">
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="posting" / -->
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 135px;">
+            Posting Terakhir
+         </th>
+         <td>
+            <!-- patTemplate:tmpl name="tgl_posting" type="condition" conditionvar="AVAILABLE" -->
+               <!-- patTemplate:sub condition="DISABLED" -->
+                  <label style="font-weight: bold;">
+                      <i>-- belum ada jurnal yang diposting --</i>
+                  </label>
+               <!-- /patTemplate:sub -->
+               <!-- patTemplate:sub condition="ENABLE" -->
+                    <label style="font-weight: bold;">
+                       <!-- patTemplate:var name="LAST_POSTING" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+                    </label>
+               <!-- /patTemplate:sub -->
+            <!-- /patTemplate:tmpl -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal_posting" / -->
+         </th>
+         <td>
+            <input type="text" name="tahun" id="txt_last_posting" value="{TAHUN}" />
+            <input type="text" name="last_posting" id="txt_last_posting" value="{LAST_POSTING}" />
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_posting"  / -->
+         </td>
+      </tr>
+      <tr class="buttons">
+         <th>&nbsp;</th>
+         <td>
+            <!-- patTemplate:tmpl name="buttons" type="condition" conditionvar="ACTION" -->
+               <!-- patTemplate:sub condition="DISABLED" -->
+                  <label style="font-weight: bold;">
+                     
+                  </label>
+               <!-- /patTemplate:sub -->
+               <!-- patTemplate:sub condition="ENABLE" -->
+                  <input type="submit" name="btnposting" id="btnposting" value=" Posting Jurnal &raquo;" class="buttonSubmit"/>
+               <!-- /patTemplate:sub -->
+               <!-- patTemplate:sub condition="ALL_POSTING" -->
+                  <label style="font-weight: bold;">
+                     Semua jurnal sudah terposting
+                  </label>
+               <!-- /patTemplate:sub -->
+            <!-- /patTemplate:tmpl -->
+         </td>
+      </tr>
+   </table>
+</form>
+
+<!-- patTemplate:tmpl name="jurnal_due_date" visibility="hidden" -->
+   <!-- start: Table List -->
+   <h3>Daftar Jurnal Yang Belum Diposting</h3>
+   <table class="table-common" width="100%">
+      <thead>
+         <tr>
+            <th style="width: 25px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+            </th>
+            <th style="width: 95px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="referensi" / -->
+            </th>
+            <th style="width: 115px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="tanggal_transaksi" / -->
+            </th>
+            <th style="width: 105px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / --><br />
+               <!-- patTemplate:gtfwgetconfig config="language" name="sub_account" / -->
+            </th>
+            <th style="width: 165px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / -->
+            </th>
+            <th style="width: 115px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="debet" / -->
+            </th>
+            <th style="width: 115px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="kredit" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="petugas" / -->
+            </th>
+            <th style="width: 30px;display: none">
+               <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+            </th>
+         </tr>
+      </thead>
+      <tbody>
+         <!-- patTemplate:tmpl name="data_list" -->
+            <!-- patTemplate:tmpl name="data_jurnal" type="condition" conditionvar="LEVEL" -->
+               <!-- patTemplate:sub condition="PARENT" -->
+                  <tr class="{CLASS_NAME}">
+                     <td rowspan="{ROW_SPAN}" style="text-align: center;">
+                        {NOMOR}
+                     </td>
+                     <td rowspan="{ROW_SPAN}" style="text-align: center;">
+                        {REFERENSI}
+                     </td>
+                     <td rowspan="{ROW_SPAN}" style="text-align: center;">
+                        <!-- patTemplate:var name="TANGGAL" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+                     </td>
+                     <td style="padding: 0px;">
+                        <label style="padding: 0.2em 0.4em;">
+                           {KODE}
+                        </label>
+                        <label style="border: none; border-top: 1px solid #DDD; padding: 0.2em 0.4em; margin: 0.4em 0em 0.6em;">
+                           {SUB_ACCOUNT}
+                        </label>
+                     </td>
+                     <td>
+                        {NAMA}
+                     </td>
+                     <td style="text-align: right;">
+                        {NOMINAL_DEBET}
+                     </td>
+                     <td style="text-align: right;">
+                        {NOMINAL_KREDIT}
+                     </td>
+                     <td rowspan="{ROW_SPAN}">
+                        {PENANGGUNG_JAWAB}
+                     </td>
+                     <td rowspan="{ROW_SPAN}" class="links" style="display: none">
+                        <a href="javascript:void(0);" onclick="showPopup('{URL_UPDATE}', '', 400, 135);">
+                           <img src="images/icons/16/transkrip_nilai.gif" />
+                        </a>
+                     </td>
+                  </tr>
+               <!-- /patTemplate:sub -->
+               <!-- patTemplate:sub condition="DATA" -->
+                  <tr class="{CLASS_NAME}">
+                     <td style="padding: 0px;">
+                        <label style="padding: 0.2em 0.4em;">
+                           {KODE}
+                        </label>
+                        <label style="border: none; border-top: 1px solid #DDD; padding: 0.2em 0.4em; margin: 0.4em 0em 0.6em;">
+                           {SUB_ACCOUNT}
+                        </label>
+                     </td>
+                     <td>
+                        {NAMA}
+                     </td>
+                     <td style="text-align: right;">
+                        {NOMINAL_DEBET}
+                     </td>
+                     <td style="text-align: right;">
+                        {NOMINAL_KREDIT}
+                     </td>
+                  </tr>
+               <!-- /patTemplate:sub -->
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:tmpl -->
+      </tbody>
+   </table>
+   <!-- end: Table List -->
+<!-- /patTemplate:tmpl -->
+
+<!--<div class="petunjuk-area">
+   <h4>Petunjuk:</h4>
+   <div style="margin:10px 0px 0px 10px;font-weight:bold;color:#965F11">
+   <div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFBDD; border:#D1C698 1px solid; float: left;">
+   </div> = Sudah di jurnal </div>
+
+   <div style="margin:10px 0px 0px 10px;">
+   <div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFDEF; border:#D1C698 1px solid; float: left;">
+   </div> = Belum di jurnal </div>
+</div>-->
+<!-- /patTemplate:tmpl -->

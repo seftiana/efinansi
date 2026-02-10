@@ -1,0 +1,173 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+/**
+	function centangin_semua(varname, start_num, end_num) {
+		var obj = document.getElementById('cek_all');
+		var ceks;
+		if(obj.checked == false) {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+				if(ceks) ceks.checked = false;
+			}
+		} else {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+				if(ceks) ceks.checked = true;
+			}
+		}
+	}
+	function show_checkbox () {
+		if(document.getElementById('cek_all'))
+			document.getElementById('cek_all').style.display='';
+	}
+	document.onload = show_checkbox();
+	var xpopup;
+	function fokus(elemId) {
+		document.getElementById(elemId).focus();
+		document.getElementById(elemId).select;
+	}
+	function focusPopup() {
+		if(xpopup) xpopup.focus();
+		return true;
+	}
+	function bukaPopupSatker(xurl) {
+		showPopup(xurl,'',550,550);
+		//xpopup.focus();
+	}
+    */
+	function bukaPopupUnitkerja(xurl) {
+	   /**
+		var satker=document.getElementById('satker').value;
+		var satker_label=document.getElementById('satker_label').value;
+		if(!satker) {
+			alert('Silakan Pilih Unit Kerja.');
+			fokus('but_satker');
+		} else {
+			showPopup(xurl+'&satker='+satker+'&satker_label='+satker_label,'',550, 550);
+		}
+		//xpopup.focus();
+        */
+        showPopup(xurl,'',550,550);
+	}
+    /**
+	function bukaPopupSatkerPimpinan(xurl) {
+		showPopup(xurl,'',550,550);
+		//xpopup.focus();
+	}
+	function bukaPopupUnitkerjaPimpinan(xurl) {
+		var satker_pimpinan=document.getElementById('satker_pimpinan').value;
+		var satker_pimpinan_label=document.getElementById('satker_pimpinan_label').value;
+		if(!satker_pimpinan) {
+			alert('Silakan Pilih Unit Kerja.');
+			fokus('but_satker_pimpinan');
+		} else {
+			showPopup(xurl+'&satker_pimpinan='+satker_pimpinan+'&satker_pimpinan_label='+satker_pimpinan_label,'',550, 550);
+		}
+		//xpopup.focus();
+	}
+	function bukaPopupProgram(xurl) {
+		var tahun_anggaran;
+		var tahun_anggaran_label;
+		if(document.getElementById('tahun_anggaran_label')) {
+			tahun_anggaran=document.getElementById('tahun_anggaran').value;
+			tahun_anggaran_label=document.getElementById('tahun_anggaran_label').value;
+		} else {
+			tahun_anggaran=document.getElementById('tahun_anggaran').value;
+			tahun_anggaran_label=document.getElementById('tahun_anggaran').options[document.getElementById('tahun_anggaran').selectedIndex].text;
+		}
+		showPopup(xurl+'&tahun_anggaran='+tahun_anggaran+'&tahun_anggaran_label='+tahun_anggaran_label,'',550,550);
+		//xpopup.focus();
+	}
+	function bukaPopupCetak(xurl) {
+		xpopup=window.open(xurl,'xpopup','width=900,height=600,resizable=yes,scrollbars=yes,right=0;center');
+		xpopup.focus();
+	}
+*/
+	//document.onmousedown=focusPopup();
+</script>
+
+<h1>Daftar <!-- patTemplate:gtfwgetconfig config="language" name="pau" / --></h1>
+<br/>
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="notebox-alert">
+      {ISI_PESAN}
+   </div>
+   <br/>
+   <!-- /patTemplate:tmpl -->
+   
+   
+   <form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
+   <input type="hidden" name="pagu_id" value="{PAGU_ID}"  />
+      <table class="table-edit" width="100%">
+         <tr class="subhead">
+            <th colspan="2">{JUDUL} <!-- patTemplate:gtfwgetconfig config="language" name="pau" / --></th>
+         </tr>
+      
+         <tr>
+            <th width="40%"><!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / --> Asal</th>
+            <td>
+				<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tahun_anggaran_asal"  / -->&nbsp;*
+			</td>
+         </tr>
+         <tr>
+            <th width="40%"><!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / --> Tujuan</th>
+            <td>
+				<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tahun_anggaran_tujuan"  / -->&nbsp;*
+			</td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / --></th>
+            <!-- td><input type="hidden" name="satker" id="satker" value="{SATKER}" /><input type="text" name="satker_label" id="satker_label" value="{SATKER_LABEL}" size="40" readonly="readonly" /><input type="button" name="but_satker" id="but_satker" onclick="javascript:bukaPopupSatker('{URL_POPUP_SATKER}')" value=" ... " />&nbsp;*</td -->
+            <td><input type="hidden" name="satker" id="satker" value="{SATKER}" />
+            <label id="satker_label">{SATKER_LABEL}</label></td>
+         </tr>
+		  <tr>
+			 <th><!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / --></th>
+			 <td>
+             <input type="hidden" name="unitkerja" id="unitkerja" value="{UNITKERJA}" />
+              <!-- patTemplate:tmpl name="role" type="condition" conditionvar="IS_SUB_UNIT" -->
+                <!-- patTemplate:sub condition="NO" -->
+                    <textarea name="unitkerja_label" id="unitkerja_label"
+                     cols="40" rows="1" readonly="readonly">{UNITKERJA_LABEL}</textarea>
+                    <!-- input type="text" name="unitkerja_label" id="unitkerja_label"
+                     value="{UNITKERJA_LABEL}" size="40" readonly="readonly" /-->
+                     <input type="button"
+                       name="but_unitkerja"
+                        onclick="javascript:bukaPopupUnitkerja('{URL_POPUP_UNITKERJA}')" value=" ... " />&nbsp;*
+        		 <!-- /patTemplate:sub -->
+         
+               <!-- patTemplate:sub condition="YES" -->
+             <input type="hidden" name="unitkerja_label" id="unitkerja_label" value="{UNITKERJA_LABEL}"/>
+             {UNITKERJA_LABEL}
+ 		 <!-- /patTemplate:sub -->         
+	  <!-- /patTemplate:tmpl -->            
+             </td>
+		  </tr>
+		  <tr>
+			 <th><!-- patTemplate:gtfwgetconfig config="language" name="perubahan_pagu" / --></th>
+			 <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="perubahan_pagu"  / -->
+            <input type="text" name="persen_perubahan" id="persen_perubahan" size="3" maxlength="3">&nbsp;%
+          </td>
+         </tr>
+         <tr class="buttons">
+            <th>&nbsp;
+            </th>
+            <td>
+               <input type="submit" name="btnsimpan" value=" Salin " class="buttonSubmit"/>
+               <input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+            </td>
+         </tr>
+      </table>
+   </form>
+   
+   <br/>
+   
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+      <ul>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --> </li>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

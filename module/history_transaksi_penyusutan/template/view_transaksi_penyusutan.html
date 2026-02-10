@@ -1,0 +1,405 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript" src="js/cookie.js"></script>
+<script language="javascript" type="text/javascript">
+	var file_attach_nomor = 2;
+	var nomor_invoice_list = 0;
+	var arr_invoice_list = new Array();
+	var xpopup;
+
+	//getButton('hapus', 'http://ddd','test()')
+	function getButton(xjenis, xhref, xonclick) {
+		var xlink = document.createElement('a');
+		var gbr = document.createElement('img');
+		if(xjenis == 'hapus' || xjenis == 'delete') {
+			xlink.setAttribute("title", "Hapus");
+			gbr.setAttribute("src", "images/button-delete.gif");
+			gbr.setAttribute("alt", "Hapus");
+		} else {
+			//edit
+			xlink.setAttribute("title", "Edit");
+			gbr.setAttribute("src", "images/button-edit.gif");
+			gbr.setAttribute("alt", "Edit");
+		}
+		xlink.setAttribute("class", "xhr dest_subcontent-element");
+		xlink.setAttribute("href", xhref);
+		xlink.setAttribute("onclick", xonclick);
+		xlink.appendChild(gbr);
+		return xlink;
+	}
+
+	function buatBaris(xId, isiNomor, objIsi, objAksi) {
+		var tr = document.createElement('tr');
+		var td_nomor = document.createElement('td');
+		var td_isi = document.createElement('td');
+		var td_aksi = document.createElement('td');
+		var nomor = document.createTextNode(isiNomor+1);
+
+		tr.setAttribute("id", "tr_" + xId + "_" + isiNomor);
+		td_nomor.align = "center";
+		//alert(isiNomor);
+		td_nomor.appendChild(nomor);
+		//td_isi.setAttribute("title", "666");
+		td_isi.appendChild(objIsi);
+		td_aksi.appendChild(objAksi);
+
+		//tr.appendChild(td_nomor);
+		tr.appendChild(td_isi);
+		tr.appendChild(td_aksi);
+		return tr;
+	}
+	function tambahInvoice() {
+
+		//membuat isi elemen2
+		var isi;
+		var isi_container;
+		//membuat input hidden
+		var input_hidden;
+
+		var button_hapus;
+		var baris;
+
+		var tbodi = document.getElementById("tbody_invoice_list");
+		var obj = document.getElementById('no_invoice');
+
+		input_hidden = document.createElement('input');
+		input_hidden.type = 'hidden';
+		input_hidden.name = 'no_invoice_list[]';
+		input_hidden.value = obj.value;
+
+		isi = document.createTextNode(obj.value);
+		isi_container = document.createElement('div');
+		isi_container.appendChild(isi);
+		isi_container.appendChild(input_hidden);
+
+		button_hapus = getButton("hapus", "javascript:void(0)", "hapusInvoice(this)");
+
+		baris = buatBaris('invoice_list', '', isi_container, button_hapus);
+		tbodi.appendChild(baris);
+		if(document.getElementById('invoice_empty'))
+			document.getElementById('invoice_empty').style.display='none';
+		obj.value='';
+	}
+
+	function hapusInvoice(obj) {
+		document.getElementById("tbody_invoice_list").removeChild(obj.parentNode.parentNode);
+	}
+
+	function hapusInvoiceEdit(obj, xid) {
+		var tr = obj.parentNode.parentNode;
+		tr.setAttribute('style', 'display:none');
+		//membuat input hidden untuk dihapus
+		var input_hidden;
+		input_hidden = document.createElement('input');
+		input_hidden.type = 'hidden';
+		input_hidden.name = 'no_invoice_list_delete[]';
+		input_hidden.value = xid;
+		obj.parentNode.appendChild(input_hidden);
+	}
+/*
+	function buatInvoice() {
+		var obj = document.getElementById('no_invoice_simpan');
+		var objNilai = document.getElementById('no_invoice');
+		if(objNilai.value=="" || typeof(objNilai.value) == "undefined") {
+			alert("Silakan isikan Invoice");
+		} else {
+			if(obj.value == "Edit") {
+				arr_invoice_list[document.getElementById('no_invoice_kunci').value] = objNilai.value;
+				obj.value="Simpan";
+				document.getElementById('no_invoice_kunci').value="";
+			} else {
+				arr_invoice_list[nomor_invoice_list] = objNilai.value;
+			}
+			objNilai.value="";
+			reloadInvoice();
+		}
+	}
+
+	function reloadInvoice() {
+
+		//membuat isi elemen2
+		var isi;
+		var isi_container;
+		//membuat input hidden
+		var input_hidden;
+
+		var button_edit;
+		var button_hapus;
+		var button_container;
+
+		var baris;
+
+		var tbodi = document.getElementById("tbody_invoice_list");
+		while (tbodi.rows.length > 0) {
+			tbodi.removeChild(tbodi.firstChild);
+		}
+
+		for(var i=0;i<arr_invoice_list.length;i++) {
+			input_hidden = document.createElement('input');
+			input_hidden.setAttribute("type", "hidden");
+			input_hidden.setAttribute("name", "no_invoice_list[]");
+			input_hidden.value = arr_invoice_list[i];
+			input_hidden.id = "no_invoice_list_" + i;
+
+			isi = document.createTextNode(arr_invoice_list[i]);
+			isi_container = document.createElement('div');
+			isi_container.appendChild(isi);
+			isi_container.appendChild(input_hidden);
+
+			button_edit = getButton("edit", "javascript:void(0)", "editInvoice('" + i + "')");
+			button_hapus = getButton("hapus", "javascript:void(0)", "hapusInvoice('" + i + "')");
+			button_container = document.createElement('div');
+
+			button_container.appendChild(button_edit);
+			button_container.appendChild(button_hapus);
+
+			baris = buatBaris('invoice_list', i, isi_container, button_container);
+			tbodi.appendChild(baris);
+		}
+		nomor_invoice_list=i;
+	}
+
+	function editInvoice(nomor) {
+		document.getElementById('no_invoice').value = arr_invoice_list[nomor];
+		document.getElementById('no_invoice_kunci').value = nomor;
+		document.getElementById('no_invoice_simpan').value = "Edit";
+	}
+
+	function hapusInvoice(nomor) {
+		arr_invoice_list.splice(nomor,1);
+		reloadInvoice();
+	}
+*/
+	function uploadFile(obj) {
+		var arr_namafile = obj.value.split("\\");
+		var namafile = arr_namafile[(arr_namafile.length-1)];
+
+		//membuat elemen2
+		var tr = document.createElement('tr');
+		var td_nomor = document.createElement('td');
+		var td_isi = document.createElement('td');
+		var td_aksi = document.createElement('td');
+
+		//membuat input file baru
+		var input_file = document.createElement('input');
+		input_file.setAttribute("type", "file");
+		input_file.setAttribute("readonly", "true");
+		input_file.setAttribute("name", "file_attach[]");
+		input_file.setAttribute("onchange", "uploadFile(this)");
+		input_file.id = "file_attach_" + file_attach_nomor;
+		obj.parentNode.appendChild(input_file);
+
+		//menyembunyikan yang lama
+		obj.setAttribute("style", "display:none");
+
+		//membuat isi elemen2
+		var nomor = document.createTextNode(file_attach_nomor-1);
+		var isi = document.createTextNode(namafile);
+
+		//mengisikan elemen2 dengan isinya
+		tr.setAttribute("id", "tr_file_bohong_" + (file_attach_nomor-1));
+		td_nomor.setAttribute("align", "center");
+		td_nomor.appendChild(nomor);
+		td_isi.setAttribute("title", obj.value);
+		td_isi.appendChild(isi);
+		//td_isi.appendChild(input_file);
+
+		//untuk tombol deletenya
+		var button_hapus = getButton("hapus", "javascript:void(0)", "hapusFile('" + (file_attach_nomor-1) + "')");
+		td_aksi.appendChild(button_hapus);
+
+		//tr.appendChild(td_nomor);
+		tr.appendChild(td_isi);
+		tr.appendChild(td_aksi);
+		document.getElementById('file_attach_tbody').appendChild(tr);
+		if(document.getElementById('file_empty'))
+			document.getElementById('file_empty').style.display='none';
+		file_attach_nomor++;
+	}
+
+	function hapusFile(xid) {
+		var elem = document.getElementById("tr_file_bohong_" + xid);
+		elem.parentNode.removeChild(elem);
+		var elem2 = document.getElementById("file_attach_" + xid);
+		elem2.parentNode.removeChild(elem2);
+	}
+
+	function hapusSkenarioBohong(xid) {
+		var elem = document.getElementById(xid);
+		elem.parentNode.removeChild(elem);
+	}
+
+	function bukaPopupSkenario(xurl) {
+		xpopup=window.open(xurl,'xpopup','width=600,height=500,resizable=yes,scrollbars=yes,right=0;center');
+		xpopup.focus();
+	}
+
+	function cek(objId, msg) {
+		var obj = document.getElementById(objId);
+		if(!obj.value) {
+			alert(msg);
+			obj.focus();
+			obj.select;
+			return false;
+		}
+		return true;
+	}
+
+	function cekIsiForm() {
+		//if(false == cek('unitkerja', 'Silakan isi Unit/ Sub Unit')) return;
+		//if(false == cek('jenis_transaksi', 'Silakan isi Jenis Transaksi')) return;
+		if(false == cek('kib_label', 'Silakan Pilih KIB')) return;
+
+		if(false == cek('ba_penyusutan', 'Silakan isi Berita Acara Penyusutan')) return;
+		if(false == cek('penanggung_jawab', 'Silakan isi Penanggung Jawab')) return;
+		if(false == cek('skenario', 'Silakan Pilih Skenario yang digunakan')) return;
+		document.getElementById('simpan').click();
+	}
+
+   function bukaPopupKIB(xurl) {
+      //xpopup = window.open('{URL_POPUP_KIB}', 'xpopup','width=600,height=500,resizable=yes,scrollbars=yes,right=0;center');
+      showPopup(xurl,'',550,550);
+      //xpopup.focus();
+   }
+
+   function bukaPopupDetilPenyusutanKIB(xurl) {
+      var
+         kib = document.getElementById('kib_id');
+
+      if(!kib.value)
+         alert('Silakan Pilih KIB');
+      else {
+         showPopup(xurl + '&kib=' + kib.value,'',550,550);
+         //xpopup = window.open('{URL_POPUP_PENYUSUTAN_KIB}' + '&kib=' + kib.value, 'xpopup','width=600,height=500,resizable=yes,scrollbars=yes,right=0;center');
+         //xpopup.focus();
+      }
+   }
+
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="tambah_transaksi_penyusutan" / --></h1>
+<br />
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+   <div class="toolbar">
+      <a class="xhr dest_subcontent-element" href="{URL_DETIL_PENYUSUTAN}" title="List Penyusutan"><img src="images/button-add.gif" alt="">List Penyusutan</a>
+      <a class="xhr dest_subcontent-element" href="{URL_DETIL}" title="Detail Transaksi"><img src="images/button-add.gif" alt="">Lihat History</a>
+   </div>
+   <form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" enctype="multipart/form-data" >
+      <input type="hidden" name="id_trans" id="id_trans" value="{ID_TRANS}" />
+      <table class="table-edit" width="100%">
+         <tr class="subhead">
+            <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="tambah_transaksi" / --></th>
+         </tr>
+         <tr>
+            <th width="20%"><!-- patTemplate:gtfwgetconfig config="language" name="jenis_transaksi" / --></th>
+            <td><!-- patTemplate:gtfwgetconfig config="language" name="penyusutan_aset" / --></td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="tipe_transaksi" / --></th>
+            <td><!-- patTemplate:gtfwgetconfig config="language" name="pengeluaran" / --></td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="kib" / --></th>
+            <td>
+               <input type="hidden" name="kib_id" id="kib_id" value="{KIB_ID}" />
+               <input type="text" name="kib_label" id="kib_label" value="{KIB_LABEL}" size="35" readonly="readonly" />
+               <input type="button" name="but_kib" id="but_kib" onclick="bukaPopupKIB('{URL_POPUP_KIB}')" value=" ... " /> <br />
+               <!-- patTemplate:gtfwgetconfig config="language" name="detil_penyusutan_barang_sesuai_kib" / -->
+               <input type="button" name="but_penyusutan_kib" id="but_penyusutan_kib" onclick="bukaPopupDetilPenyusutanKIB('{URL_POPUP_PENYUSUTAN_KIB}')" value=" ... " />
+            </td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="periode_penyusutan" / --></th>
+            <td><!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="periode_penyusutan" / --></td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="tanggal_transaksi" / --></th>
+            <td><!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_transaksi" / --></td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="nominal_penyusutan" / --></th>
+            <td><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. <input type="text" name="nominal_penyusutan" id="nominal_penyusutan" value="{NOMINAL_PENYUSUTAN_RP}" readonly="true"><input type="hidden" name="nominal_penyusutan_hidden" id="nominal_penyusutan_hidden" value="" /></td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="ba_penyusutan" / --></th>
+            <td><input type="text" name="ba_penyusutan" id="ba_penyusutan" value="{BA_PENYUSUTAN}" /> *</td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="catatan_transaksi" / --></th>
+            <td><textarea name="catatan_transaksi" cols="30" rows="5">{CATATAN}</textarea></td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="penanggung_jawab" / --></th>
+            <td><input type="text" name="penanggung_jawab" id="penanggung_jawab" value="{PENANGGUNG_JAWAB}" /> *</td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="attachment" / --></th>
+            <td><input type="file" name="file_attach[]" id="file_attach_1" onchange="uploadFile(this)" /></td>
+         </tr>
+         <tr>
+            <td colspan="2" style="padding-left:50px">
+               <table class="table-edit" id="file_attach_table" width="500">
+                  <tr class="subhead">
+
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_file" / --></th>
+                     <th width="33"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+                  </tr>
+                  <tbody id="file_attach_tbody">
+                  <!-- patTemplate:tmpl name="tpl_file_list" type="condition" conditionvar="FILE_LIST_EMPTY" -->
+                     <!-- patTemplate:sub condition="YES" -->
+                     <tr id="file_empty"><td colspan="2" align="center"><em>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --</em></td></tr>
+                     <!-- /patTemplate:sub -->
+                     <!-- patTemplate:sub condition="NO" -->
+                        <!-- patTemplate:tmpl name="tpl_file_item" -->
+                        <tr class="{DATA_CLASS_NAME}">
+                           <td>{DATA_NAMA}</td>
+                           <td>
+                              <a href="javascript:void(0)" onclick="hapusFileEdit(this, '{DATA_ID_DELETE}', '{DATA_NAMA}')" title="Hapus"><img src="images/button-delete.gif" alt="Hapus"/></a>
+                           </td>
+                     </tr>
+                     <!-- /patTemplate:tmpl -->
+                     <!-- /patTemplate:sub -->
+                  <!-- /patTemplate:tmpl -->
+                  </tbody>
+               </table>
+               <br />
+            </td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="skenario_auto_jurnal" / --></th>
+            <td><input type="text" id="skenario_label" name="skenario_label" value="{SKENARIO_LABEL}" readonly="readonly" />
+			<input type="hidden" name="skenario" value="{SKENARIO}" id="skenario" /><input type="button" onclick="bukaPopupSkenario('{URL_POPUP_SKENARIO}')" value=" ... " name="" />*</td>
+         </tr>
+         <tr>
+			<td colspan="2" style="padding-left:50px">
+				<table class="table-edit" id="skenario_bohong_table" width="500" style="display:none">
+					<tr class="subhead">
+
+						<th><!-- patTemplate:gtfwgetconfig config="language" name="skenario_auto_jurnal" / --></th>
+						<th width="33"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+					</tr>
+					<tbody id="skenario_bohong_tbody">
+						<!-- <tr><td colspan="3" align="center"><em>-- Data tidak ditemukan --</em></td></tr> --><!-- patTemplate:gtfwgetconfig config="language" name="lihat_detil_transaksi" / -->
+					</tbody>
+				</table>
+			</td>
+         </tr>
+         <tr class="buttons">
+            <th>&nbsp;</th>
+            <td>
+               <div style="display:none;"><input type="submit" name="btnsimpan" value=" <!-- patTemplate:gtfwgetconfig config="language" name="simpan" / --> " id="simpan" /></div>
+            <input type="button" name="btnsimpanBohong" value=" <!-- patTemplate:gtfwgetconfig config="language" name="simpan" / --> " onclick="cekIsiForm()" />
+            </td>
+         </tr>
+      <tr>
+         <td colspan="2"></td>
+      </tr>
+   </table>
+</form>
+<div class="toolbar">
+   <a class="xhr dest_subcontent-element" href="{URL_DETIL_PENYUSUTAN}" title="<!-- patTemplate:gtfwgetconfig config="language" name="list_penyusutan" / -->"><img src="images/button-add.gif" alt=""><!-- patTemplate:gtfwgetconfig config="language" name="list_penyusutan" / --></a>
+   <a class="xhr dest_subcontent-element" href="{URL_DETIL}" title="<!-- patTemplate:gtfwgetconfig config="language" name="detil_transaksi" / -->"><img src="images/button-add.gif" alt=""><!-- patTemplate:gtfwgetconfig config="language" name="lihat_detil_transaksi" / --></a>
+</div>
+<!-- /patTemplate:tmpl -->

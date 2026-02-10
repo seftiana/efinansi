@@ -1,0 +1,71 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+   function popup(url,label){
+      showPopup(url,label,550, 550);
+   }
+// ]]>
+</script>
+<h1>Indikator Kinerja Utama</h1>
+<br/>
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="notebox-alert">
+{ISI_PESAN}
+</div>
+<br/>
+<!-- /patTemplate:tmpl -->
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" name="frmInput">
+   <input type="hidden" name="dataId" value="{ID}"  />
+   
+<table class="table-edit" width="100%">
+<tr class="subhead">
+   <th colspan="2">{JUDUL} Indikator Kinerja Utama</th>
+</tr>
+<tr>
+   <th width="150">
+   <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+   </th>
+   <td>
+   <input type="text" name="kode" value="{KODE}" size="20"/>&nbsp;*
+   </td>
+</tr>
+<tr>
+   <th width="150">
+   <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+   </th>
+   <td>
+   <input type="text" name="nama" value="{NAMA}" size="50"/>&nbsp;*
+   </td>
+</tr>
+<tr>
+   <th width="150">
+   Kode Program
+   </th>
+   <td>
+      <input type="text" name="program" value="{PROGRAM}" id="txt_program" size="20" maxlength="20" />
+      <input type="button" id="popup_program" name="popup_program" value=" ... " title="Popup Program" class="inputButton" 
+   onclick="popup('{URL_POPUP}','Popup Program')" />
+      <input type="hidden" name="id_program" id="txt_id_program" value="{PROGRAM_ID}" size="20" maxlength="20" />
+   </td>
+</tr>
+<tr class="buttons">
+   <th>&nbsp;</th>
+   <td>
+      <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+      <input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+   </td>
+</tr>
+</table>
+
+<div id="calc" style="margin:20px; margin-bottom:50px; position:absolute; z-index:999999">
+&nbsp;
+</div>
+</form>
+   
+<div class="petunjuk-area" id="petunjuk">
+<h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+<ul>
+<li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --></li>
+</ul>
+</div>
+<!-- /patTemplate:tmpl -->

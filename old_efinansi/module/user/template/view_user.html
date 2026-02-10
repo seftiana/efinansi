@@ -1,0 +1,84 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_pengguna" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+      <tr>              
+         <th width="20%"><input type="checkbox" {USER_CHECKED} value="user" name="check[user]"> &nbsp; <!-- patTemplate:gtfwgetconfig config="language" name="nama_pengguna" / --></th>
+         <td width="25"><input type="text" name="username" value="{USERNAME}" size="30" /></td>
+      </tr>
+      <tr>         
+         <th><input type="checkbox" {REAL_CHECKED} value="real" name="check[real]">&nbsp;<!-- patTemplate:gtfwgetconfig config="language" name="nama_asli" / --></th>
+         <td><input type="text" name="realname" value="{REALNAME}" size="30" /></td>
+         
+                
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+   
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar"> 
+   		<a class="xhr dest_subcontent-element" href="{USER_URL_ADD}" title="Tambah Data Pengguna" ><img src="images/button-add.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / --></a> 	
+      </div>
+   </div>
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_pengguna" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_asli" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="grup" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="status" / --></th>
+         <th width="93"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_user" type="condition" conditionvar="USER_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="6" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_user_item" -->
+            <tr class="{USER_CLASS_NAME}">
+               <td align="center">{USER_NUMBER}</td>
+               <td>{USER_USER_NAME}</td>
+               <td>{USER_REAL_NAME}</td>
+               <td>{USER_GROUP_NAME}</td>
+               <td>{USER_STATUS}</td>
+               <td class="links" align="center">
+                  <a class="xhr dest_subcontent-element" href="{USER_URL_EDIT}" title="Ubah"><img src="images/button-edit.gif" alt="Ubah"/></a>
+                  <a class="xhr dest_subcontent-element" href="{USER_URL_DELETE}"><img src="images/button-delete.gif" alt="Hapus" /></a>                                    
+                  <a href="{USER_URL_UPDATEPASSWORD}" title="Ubah Password"  style="display:{USER_DISPLAY_STATUS}"><img src="images/button-reset_password.gif" alt=""></a>                                   	
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   <br /> 
+   
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+      <ul>
+         <li>Pengguna dapat dicari dengan menggunakan nama pengguna ataupun nama asli. </li>
+         <li>Nama pengguna adalah nama yang dipakai untuk login, sedangkan nama asli adalah nama asli pengguna tersebut. </li>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

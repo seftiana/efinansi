@@ -1,0 +1,15 @@
+<!-- patTemplate:tmpl name="content" -->     
+   <select name="data[program_id]" id="data[program_id]">
+      <!-- patTemplate:tmpl name="list_program" type="condition" conditionvar="IS_EMPTY" -->
+		<!-- patTemplate:sub condition="YES" -->               
+               <option value=""><!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --></option>
+		<!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->               
+               <option value="" {COMBO_SELECTED}>-- {STATUS} --</option>
+               <!-- patTemplate:tmpl name="item_program" -->                 
+                  <option value="{COMBO_VALUE}" {COMBO_SELECTED}>{COMBO_LABEL}</option>
+               <!-- /patTemplate:tmpl -->               
+            <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </select>
+<!-- /patTemplate:tmpl -->

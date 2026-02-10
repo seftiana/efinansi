@@ -1,0 +1,187 @@
+<!-- patTemplate:tmpl name="content" -->
+
+<script language="javascript" type="text/javascript">
+	var xpopup = false;
+	function fokus(elemId) {
+		document.getElementById(elemId).focus();
+		document.getElementById(elemId).select;
+	}
+	function bukaPopupSubProgram(xurl) {
+		//xpopup = window.open(xurl,'xpopup','width=400,height=500,resizable=yes,scrollbars=yes,alwaysRaised=yes,right=0;center');
+		showPopup(xurl,'','550','600');
+		//xpopup.focus();
+	}
+
+	function bukaPopupTupoksi(xurl){
+		showPopup(xurl,'','550','600');
+	}
+	function bukaPopupKegiatanRef(xurl,subprogramId) {
+		/*var subprogramId=document.getElementById('subprogram').value;
+		if(!subprogramId || subprogramId == 'undefined') {
+			alert('Silakan Pilih Kegiatan');
+			fokus('but_subprogram');
+			return false;
+		}
+		*/
+		showPopup(xurl,'List Sub Kegiatan','600','600');
+		//xpopup = window.open(xurl + '&subprogramId=' + subprogramId,'xpopup','width=400,height=500,resizable=yes,scrollbars=yes,alwaysRaised=yes,right=0;center');
+		//xpopup.focus();
+	}
+	//document.onmousedown=focusPopup();
+	
+	
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="daftar_kegiatan_unit" / --></h1>
+<br/>
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="notebox-alert">
+      {ISI_PESAN}
+   </div>
+   <br/>
+   <!-- /patTemplate:tmpl -->
+
+
+   <form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
+      <table class="table-edit" width="700px">
+         <tr class="subhead">
+            <th colspan="2">{JUDUL} <!-- patTemplate:gtfwgetconfig config="language" name="usulan_kegiatan" / --></th>
+         </tr>
+         <tr>
+            <th width="200px"><!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / --></th>
+            <td width="500px">{TAHUN_ANGGARAN_LABEL}</td>
+         </tr>
+         <!-- tr>
+            <th></th>
+            <td>{SATKER_LABEL}</td >
+         </tr -->
+		  <tr>
+			 <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / 
+			     <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / --></th>
+			 <td>{UNITKERJA_LABEL}</td>
+		  </tr>
+		  <tr>
+			 <th><!-- patTemplate:gtfwgetconfig config="language" name="program" / --></th>
+			 <td>{PROGRAM_LABEL}</td>
+		  </tr>
+		  <tr>
+			 <th><!-- patTemplate:gtfwgetconfig config="language" name="ik" / --></th>
+			 <td><input type="hidden" name="ik_id" id="ik_id" value="{IK_ID}" />
+             <input type="hidden" name="ik_nama" id="ik_nama" value="{IK_NAMA}" />
+                <label id="ik_nama_label">{IK_NAMA}</label>
+             </td>
+		  </tr>
+          
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --></th>
+            <td><input type="hidden" name="subprogram" id="subprogram" value="{SUBPROGRAM}" />
+			<label id="subprogram_label_text">{SUBPROGRAM_LABEL} </label> &nbsp;**
+			
+			<input type="hidden" name="subprogram_label" id="subprogram_label" value="{SUBPROGRAM_LABEL}" />
+			
+			<!--textarea name="subprogram_label" id="subprogram_label" cols="40" rows="2" readonly="readonly" disabled="disabled">{SUBPROGRAM_LABEL}</textarea--> 
+			</td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / --></th>
+            <td style="vertical-align:top;">
+                <input type="hidden" name="kegiatanref" id="kegiatanref" value="{KEGIATANREF}" />
+                <textarea name="kegiatanref_label" id="kegiatanref_label" cols="40" rows="2" 
+                readonly="readonly" style="resize:none;">{KEGIATANREF_LABEL}</textarea>&nbsp;
+                <input type="button"  name="but_kegiatanref" 
+                onclick="bukaPopupKegiatanRef('{URL_POPUP_KEGIATANREF}')" value=" ... " 
+                style="vertical-align:top;" />
+                &nbsp;*
+            </td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="iku" / --></th>
+            <td><input type="hidden" name="iku" id="iku" value="{IKU}" /><input type="text" name="iku_label" id="iku_label" size="50" value="{IKU_LABEL}" readonly="readonly" />&nbsp;<input type="button" name="but_iku" id="but_iku" onclick="bukaPopupSubProgram('{URL_POPUP_IKU}')" value=" ... " />&nbsp;</td>
+         </tr>
+		 <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="ikk" / --></th>
+            <td><input type="hidden" name="ikk" id="ikk" value="{IKK}" /><input type="text" name="ikk_label" id="ikk_label" size="50" value="{IKK_LABEL}" readonly="readonly" />&nbsp;<input type="button" name="but_ikk" id="but_ikk" onclick="bukaPopupSubProgram('{URL_POPUP_IKK}')" value=" ... " />&nbsp;</td>
+         </tr>
+         
+         <tr>
+         
+         <!-- tupoksi -->
+         	<th><!-- patTemplate:gtfwgetconfig config="language" name="tupoksi" / --></th>
+         	<td>
+			 	<input type="hidden" name="tupoksi_id" id="tupoksi_id" value="{TUPOKSI_ID}" />
+			 	<input type="text" name="tupoksi_nama" id="tupoksi_nama" value="{TUPOKSI_NAMA}" size="50"/>
+				 <input type="button" name="but_tupoksi" id="but_tupoksi" 
+				 	onclick="bukaPopupTupoksi('{URL_POPUP_TUPOKSI}')" value=" ... " />
+		 	</td>
+         </tr>
+         <!-- end tupoksi -->
+         <tr style="display:none;">
+            <th>Deskripsi</th>
+            <td><textarea name="deskripsi" id="deskripsi" cols="100" rows="10">{DESKRIPSI}</textarea></td>
+         </tr>
+         <tr>
+            <th>Catatan</th>
+            <td><textarea name="catatan" id="catatan" cols="100" rows="10">{CATATAN}</textarea></td>
+         </tr>
+
+		  <tr id="tr_waktu_mulai" style="display: {DISPLAY_MULAI}">
+			 <th>Waktu Pelaksanaan Mulai</th>
+			 <td><!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="waktu_pelaksanaan_mulai" / --></td>
+		  </tr>
+		  <tr id="tr_waktu_selesai" style="display: {DISPLAY_MULAI}">
+			 <th>Waktu Pelaksanaan Selesai</th>
+			 <td><!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="waktu_pelaksanaan_selesai" / --></td>
+		  </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="output_rkakl" / --></th>
+            <td><input type="hidden" name="output_rkakl" id="output_rkakl" value="{OUTPUT_RKAKL}" /><input type="text" name="output_rkakl_label" id="output_rkakl_label" size="65" value="{OUTPUT_RKAKL_LABEL}" readonly="readonly">&nbsp;<input type="button" name="but_output_rkakl" id="but_output_rkakl" onclick="bukaPopupSubProgram('{URL_POPUP_OUTPUT_RKAKL}')" value=" ... " />&nbsp;</td>
+         </tr>
+		 <tr id="tr_output" style="display: {DISPLAY_MULAI}">
+            <th>Catatan Tambahan Output Kegiatan</th>
+            <td style="vertical-align:top;">
+            <textarea name="output" id="output" cols="100" rows="10" style="resize:none;">{OUTPUT}</textarea>
+            </td>
+         </tr>
+         
+   		<tr>
+            <th>Prioritas</th>
+            <td><!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="prioritas"  / -->&nbsp;*</td>
+   		</tr>
+		<tr>
+            <th>Masukan</th>
+            <td>
+				 <table class="table-common" width="100%">
+				 <tr><th>tolok ukur kinerja</th><th>target kerja</th></tr>
+				 <tr><td><textarea name="mastuk" id="mastuk" cols="30" rows="2">{MASTUK}</textarea></td><td><textarea name="mastk" id="mastk" cols="30" rows="2">{MASTK}</textarea></td></tr>
+				 </table>
+			</td>
+         </tr>
+		 <tr>
+            <th>Keluaran</th>
+            <td>
+				 <table class="table-common" width="100%">
+				 <tr><th>tolok ukur kinerja</th><th>target kerja</th></tr>
+				 <tr><td><textarea name="keltuk" id="keltuk" cols="30" rows="2">{KELTUK}</textarea></td><td><textarea name="keltk" id="keltk" cols="30" rows="2">{KELTK}</textarea></td></tr>
+				 </table>
+			</td>
+         </tr>
+         <tr class="buttons">
+            <th>&nbsp;
+            </th>
+            <td>
+               <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+               <input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+            </td>
+         </tr>
+      </table>
+   </form>
+
+   <br/>
+
+   <div class="petunjuk-area">
+      <h4>Petunjuk:</h4>
+      <ul>
+         <li>Tanda * menunjukkan bahwa field tersebut harus diisi atau dipilih. </li>
+         <li>Tanda ** menunjukkan terisi bila Sub Kegiatan dipilih.</label>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

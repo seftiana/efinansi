@@ -1,0 +1,151 @@
+<!-- patTemplate:tmpl name="content" -->
+   <br />
+   <h1><!-- patTemplate:gtfwgetconfig config="language" name="laporan_aliran_kas" / --></h1>
+   <table class="empty-table">
+   <tr>
+      <td align="left" width="100"> 
+         <!-- patTemplate:gtfwgetconfig config="language" name="interval_waktu" / -->
+      </td>
+      <td align="left">
+         : {TGL_AWAL} s/d {TGL_AKHIR}
+      </td>
+   </tr>
+   </table>
+   <br />
+   
+   <h1><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_dari_aktivitas_operasi" / --></h1>
+   <table width="600px">
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="arus_masuk" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_rp" / --></th>
+      </tr>
+         <!-- patTemplate:tmpl name="data_item_operasional_masuk" -->
+         <tr class="{LAP_CLASS_NAME}">
+            <td>{LAP_NAMA_KEL_LAP}</td>
+            <td align="right">{LAP_JML}</td>
+         </tr>
+         <!-- /patTemplate:tmpl -->
+      <tr>
+            <td><strong><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_masuk_operasional" / --></strong></td>
+            <td align="right">{KAS_BERSIH_OPERASIONAL_MASUK}</td>
+      </tr>
+      
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="arus_keluar" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_rp" / --></th>
+      </tr>
+         <!-- patTemplate:tmpl name="data_item_operasional_keluar" -->
+         <tr class="{LAP_CLASS_NAME}">
+            <td>{LAP_NAMA_KEL_LAP}</td>
+            <td align="right">{LAP_JML}</td>
+         </tr>
+         <!-- /patTemplate:tmpl -->
+      <tr>
+            <td><strong><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_keluar_operasional" / --></strong></td>
+            <td align="right">{KAS_BERSIH_OPERASIONAL_KELUAR}</td>
+      </tr>
+      <tr>
+         <td><h1><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_total_operasional" / --></h1></td>
+         <td align="right"><b>{KAS_BERSIH_OPERASIONAL}</b></td>
+      </tr>   
+   </table>
+   <br /> 
+   
+   <h1><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_dari_aktivitas_investasi" / --></h1>
+   <table width="600px">
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="arus_masuk" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_rp" / --></th>
+      </tr>
+        <!-- patTemplate:tmpl name="data_item_investasi_masuk" -->
+         <tr class="{LAP_CLASS_NAME}">
+            <td>{LAP_NAMA_KEL_LAP}</td>
+            <td align="right">{LAP_JML}</td>
+         </tr>
+         <!-- /patTemplate:tmpl -->
+      <tr>
+            <td><strong><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_masuk_investasi" / --></strong></td>
+            <td align="right">{KAS_BERSIH_INVESTASI_MASUK}</td>
+      </tr>
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="arus_keluar" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_rp" / --></th>
+      </tr>
+        <!-- patTemplate:tmpl name="data_item_investasi_keluar" -->
+         <tr class="{LAP_CLASS_NAME}">
+            <td>{LAP_NAMA_KEL_LAP}</td>
+            <td align="right">{LAP_JML}</td>
+         </tr>
+         <!-- /patTemplate:tmpl -->
+      <tr>
+            <td><strong><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_keluar_investasi" / --></strong></td>
+            <td align="right">{KAS_BERSIH_INVESTASI_KELUAR}</td>
+      </tr>
+      <tr>
+         <td><h1><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_total_investasi" / --></h1></td>
+         <td align="right"><b>{KAS_BERSIH_INVESTASI}</b></td>
+      </tr>
+    </table>
+   <br /> 
+   
+   <h1><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_dari_aktivitas_pendanaan" / --></h1>
+   <table width="600px">
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="arus_masuk" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_rp" / --></th>
+      </tr>
+
+         <!-- patTemplate:tmpl name="data_item_pendanaan_masuk" -->
+         <tr class="{LAP_CLASS_NAME}">
+            <td>{LAP_NAMA_KEL_LAP}</td>
+            <td align="right">{LAP_JML}</td>
+         </tr>
+         <!-- /patTemplate:tmpl -->
+      <tr>
+            <td><strong><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_masuk_pendanaan" / --></strong></td>
+            <td align="right">{KAS_BERSIH_PENDANAAN_MASUK}</td>
+      </tr>
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="arus_keluar" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_rp" / --></th>
+      </tr>
+
+         <!-- patTemplate:tmpl name="data_item_pendanaan_keluar" -->
+         <tr class="{LAP_CLASS_NAME}">
+            <td>{LAP_NAMA_KEL_LAP}</td>
+            <td align="right">{LAP_JML}</td>
+         </tr>
+         <!-- /patTemplate:tmpl -->
+      <tr>
+            <td><strong><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_keluar_pendanaan" / --></strong></td>
+            <td align="right">{KAS_BERSIH_PENDANAAN_KELUAR}</td>
+      </tr>
+      <tr>
+         <td><h1><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_total_pendanaan" / --></h1></td>
+         <td align="right"><b>{KAS_BERSIH_PENDANAAN}</b></td>
+      </tr>
+
+   </table>
+   <br />
+   
+   <table>
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kenaikan_bersih_kas_dan_setara_kas" / --></th>
+         <td><strong><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {TOTAL_KAS}</strong></td>
+      </tr>
+      <tr>
+         <th align="left"><strong><!-- patTemplate:gtfwgetconfig config="language" name="kas_dan_setara_kas_awal_tahun" / --></strong></th>
+         <th align="right"><strong></strong></th>
+      </tr>
+         <!-- patTemplate:tmpl name="data_item_kas_setarakas_awal_tahun" -->
+      <tr class="{LAP_CLASS_NAME}">
+         <td>{LAP_NAMA_KEL_LAP}</td>
+         <td align="right">{LAP_JML}</td>
+      </tr>
+         <!-- /patTemplate:tmpl -->
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kas_dan_setara_kas_akhir_tahun" / --></th>
+         <td><strong><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {SETARA_KAS_AKHIR_THN}</strong></td>
+      </tr>
+   </table>
+<!-- /patTemplate:tmpl -->

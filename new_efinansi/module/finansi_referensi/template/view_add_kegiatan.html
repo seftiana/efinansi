@@ -1,0 +1,135 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css">
+.std_form, 
+.std_form tr td{
+   vertical-align: top;
+}
+input[type="button"], 
+button{
+   vertical-align: top;
+}
+</style>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="manajemen_program" / -->, 
+   <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --> dan 
+   <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+</h1>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form dest_subcontent-element" id="frmInput" data-target="{URL_RETURN}">
+   <input type="hidden" name="data_id" value="{ID}" />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+         </th>
+         <td>
+            <input type="hidden" name="tahun_anggaran" id="tahun_anggaran" value="{TA_ID}" />
+            <label style="font-weight: bold;">
+               {TA_NAME}
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" id="txt_kode" size="35" value="{KODE}" /> *
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <td>
+            <input type="text" name="nama" id="txt_nama" size="35" value="{NAMA}" /> *
+         </td>
+      </tr>
+      
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="indikator_program" / -->
+         </th>
+         <td>
+            <textarea name="indikator_program" id="indikator_program" style="resize: none; width: 60%;" rows="4">{INDIKATOR_PROGRAM}</textarea>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="strategi_program" / -->
+         </th>
+         <td>
+            <textarea name="strategi_program" id="strategi_program" style="resize: none; width: 60%;" rows="4">{STRATEGI_PROGRAM}</textarea>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kebijakan_program" / -->
+         </th>
+         <td>
+            <textarea name="kebijakan_program" id="kebijakan_program" style="resize: none; width: 60%;" rows="4">{KEBIJAKAN_PROGRAM}</textarea>
+         </td>
+      </tr>
+      <tr class="buttons">
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+            <input type="reset" name="btnReset" value="Batal" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<script type="text/javascript">
+var xhr_reset_form = {
+   '.xhr_simple_form': function(element) {
+      element.onreset   = function(){
+         var dest    = /\sdest_(.*?)\s/.exec(' '+this.className+' ');
+         var url     = this.getAttribute('action');
+         var target  = this.getAttribute('data-target');
+         if(typeof(target) != 'undefined' && target != null){
+            urlActions     = target;
+         }else{
+            urlActions     = url;
+         }
+         if(dest){
+            GtfwAjax.replaceContentWithUrl(dest[1], urlActions + '&ascomponent=1');
+         }
+
+         return false;
+      }
+   }, 
+   '.xhr_form': function(element) {
+      element.onreset   = function(){
+         var dest    = /\sdest_(.*?)\s/.exec(' '+this.className+' ');
+         var url     = '?mod=home&sub=Home&act=view&typ=html';
+         var target  = this.getAttribute('data-target');
+         if(typeof(target) != 'undefined' && target != null){
+            urlActions     = target;
+         }else{
+            urlActions     = url;
+         }
+         if(dest){
+            GtfwAjax.replaceContentWithUrl(dest[1], urlActions + '&ascomponent=1');
+         }
+
+         return false;
+      }
+   }
+}
+
+Behaviour.register(xhr_reset_form);
+</script>
+<!-- /patTemplate:tmpl -->

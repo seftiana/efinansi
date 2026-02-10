@@ -1,0 +1,178 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function centangin_semua(varname, start_num, end_num) {
+		var obj = document.getElementById('cek_all');
+		var ceks;
+		if(obj.checked == false) {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+				if(ceks) ceks.checked = false;
+			}
+		} else {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+				if(ceks) ceks.checked = true;
+			}
+		}
+	}
+	function show_checkbox () {
+		if(document.getElementById('cek_all'))
+			document.getElementById('cek_all').style.display='';
+	}
+	document.onload = show_checkbox();
+	var xpopup;
+	function fokus(elemId) {
+		document.getElementById(elemId).focus();
+		document.getElementById(elemId).select;
+	}
+	function focusPopup() {
+		if(xpopup) xpopup.focus();
+		return true;
+	}
+	function bukaPopupSatker(xurl) {
+		showPopup(xurl,'',550,550);
+		//xpopup.focus();
+	}
+    /**
+	function bukaPopupUnitkerja(xurl) {
+		var satker=document.getElementById('satker').value;
+		var satker_label=document.getElementById('satker_label').value;
+		if(!satker) {
+			alert('Silakan Pilih Unit Kerja.');
+			fokus('but_satker');
+		} else {
+			showPopup(xurl+'&satker='+satker+'&satker_label='+satker_label,'',550, 550);
+		}
+		//xpopup.focus();
+	}
+    */
+    function bukaPopupUnitKerja(xurl) {
+		showPopup(xurl,'',600, 500);
+		
+	}
+	function bukaPopupProgram(xurl) {
+		var tahun_anggaran;
+		var tahun_anggaran_label;
+		if(document.getElementById('tahun_anggaran_label')) {
+			tahun_anggaran=document.getElementById('tahun_anggaran').value;
+			tahun_anggaran_label=document.getElementById('tahun_anggaran_label').value;
+		} else {
+			tahun_anggaran=document.getElementById('tahun_anggaran').value;
+			tahun_anggaran_label=document.getElementById('tahun_anggaran').options[document.getElementById('tahun_anggaran').selectedIndex].text;
+		}
+		showPopup(xurl+'&tahun_anggaran='+tahun_anggaran+'&tahun_anggaran_label='+tahun_anggaran_label,'',550,550);
+		//xpopup.focus();
+	}
+	function bukaPopupCetak(xurl) {
+		xpopup=window.open(xurl,'xpopup','width=900,height=600,resizable=yes,scrollbars=yes,right=0;center');
+		xpopup.focus();
+	}
+	function resetFormIni() {
+	   GtfwAjax.replaceContentWithUrl("subcontent-element","{URL_RESET}&ascomponent=1");
+       /**
+		if(document.getElementById('satker')) document.getElementById('satker').value='';
+		if(document.getElementById('satker_label')) document.getElementById('satker_label').innerHTML='';
+		if(document.getElementById('unitkerja')) document.getElementById('unitkerja').value='';
+		if(document.getElementById('unitkerja_label')) document.getElementById('unitkerja_label').innerHTML='';
+		if(document.getElementById('program')) document.getElementById('program').value='';
+		if(document.getElementById('program_label')) document.getElementById('program_label').innerHTML='';
+        */
+	}
+	//document.onmousedown=focusPopup();
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="pengaturan_jumlah_kelas" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+      <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / --></th>
+            <td>
+				<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tahun_anggaran"  / -->
+			</td>
+         </tr>
+         
+		  <tr>
+			 <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+			 <td>
+			 	<input type="hidden" name="unitkerja" id="unitkerja" value="{UNITKERJA}" />
+			 	<!-- patTemplate:tmpl name="cek_unitkerja_parent" 
+				 	type="condition" conditionvar="IS_PARENT" -->
+   					<!-- patTemplate:sub condition="YES" --> 
+				 <textarea name="unitkerja_label" id="unitkerja_label" readonly="readonly" 
+				 cols="40" rows="1">{UNITKERJA_LABEL}</textarea>
+				 <input type="button"  name="but_program" 
+				 onclick="javascript:bukaPopupUnitKerja('{URL_POPUP_UNITKERJA}')" value=" ... " />
+				 	<!-- /patTemplate:sub -->
+				 	
+				 	<!-- patTemplate:sub condition="NO" --> 
+				 	<label><b>{UNITKERJA_LABEL}</b></label>
+				 	<input type="hidden" name="unitkerja_label" 
+				 		id="unitkerja_label" value="{UNITKERJA_LABEL}" />
+				 	<!-- /patTemplate:sub -->
+				 <!-- /patTemplate:tmpl -->
+			 </td>
+		  </tr>         
+      <tr>
+         <th>&nbsp;</th>
+         <td><input type="submit" name="btnTampilkan" value=" Tampilkan " class="buttonSubmit"/><input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" onclick="resetFormIni();" />
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+   <form method="POST" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar"> 
+   		<a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Pagu Anggaran Unit" tabindex="2"><img src="images/button-add.gif" alt=""> Tambah</a>
+		<input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="inputButton" />
+      </div>
+   </div>
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+		 <th width="10"><input type="checkbox" style="display:none" name="cek_all" id="cek_all" value="ALL" onclick="centangin_semua('jumlah_kelas_per_unit_id_','{FIRST_NUMBER}','{LAST_NUMBER}');" /></th>
+         <th width="120"><!-- patTemplate:gtfwgetconfig config="language" name="kode_unit" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / --></th>
+         <th width="110"><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_kelas" / --> Gasal</th>
+         <th width="110"><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_kelas" / --> Genap</th>
+         <th width="30"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_jumlah_kelas_per_unit" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="7" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_jumlah_kelas_per_unit_item" -->
+            <tr class="{DATACLASS_NAME}">
+               <td align="center">{DATA_NUMBER}</td>
+			   <td align="center">
+					<input type="checkbox" name="id[]" id="jumlah_kelas_per_unit_id_{DATA_NUMBER}" value="{DATA_KELAS_ID}" /><input type="hidden" name="name[{DATA_KELAS_ID}]" value="{DATA_UNIT_KERJA_NAMA} - {DATA_JUMLAH_KELAS}" /></td>
+               <td>{DATA_UNIT_KERJA_KODE}</td>
+               <td>{DATA_UNIT_KERJA_NAMA}</td>
+		       <td align="center">{DATA_JUMLAH_KELAS_GASAL}</td>   
+		       <td align="center">{DATA_JUMLAH_KELAS_GENAP}</td>               
+               <td class="links" align="center">
+                  <a class="xhr dest_subcontent-element" href="{DATA_URL_EDIT}" title="Ubah"><img src="images/button-edit.gif" alt="Ubah"/></a>
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   </form>
+ 
+  
+<!-- /patTemplate:tmpl -->

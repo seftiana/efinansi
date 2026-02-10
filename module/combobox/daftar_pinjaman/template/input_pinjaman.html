@@ -1,0 +1,83 @@
+<!-- patTemplate:tmpl name="content" -->
+
+<h1>Manajemen Pinjaman</h1>
+
+<br/>
+<!-- patTemplate:tmpl name="status_koneksi" type="condition" conditionvar="BERHASIL" -->
+   <!-- patTemplate:sub condition="NO" -->
+           <div class="notebox-warning">
+           <h4>Gagal Koneksi</h4>
+      <!-- patTemplate:tmpl name="warning" -->
+         <ul>
+            <li>
+               {ISI_PESAN_SIA} 
+            </li>            
+         </ul>
+         <a href="{URL_KEMBALI_SIA}" class="xhr dest_subcontent-element">Klik Untuk Kembali</a>
+      <!-- /patTemplate:tmpl -->
+         </div>
+		 
+   <!-- /patTemplate:sub -->
+   <!-- patTemplate:sub condition="YES" -->
+      <!-- patTemplate:tmpl name="warning_box" -->
+            <div class="notebox-alert">
+      <!-- patTemplate:tmpl name="warningb" -->  
+               {ISI_PESAN}             
+      <!-- /patTemplate:tmpl -->
+            </div>
+			<br>
+      <!-- /patTemplate:tmpl -->
+      <form method="POST"  class="xhr_form std_form" action="{URL_ACTION}" id="frmInput" >
+      <input type="hidden" name="dataId" value="{DATAID}"  />
+      <input type="hidden" name="page" value="{PAGE}"  />
+         <table class="table-edit" width="100%">
+            <tr class="subhead">
+               <th colspan="2">{JUDUL} Pinjaman</th>
+            </tr>
+            <tr>
+               <th width="150">Kode Pinjaman</th>
+                 <td>
+                     <input type="text"  name="pinjaman_kode" value="{PINJAMAN_KODE}" size="20" maxLength="20" notab="1" />&nbsp;*
+                 </td>
+            </tr>
+            <tr>
+               <th width="150">Nama Peminjam</th>
+                 <td>
+                     <input type="text"  name="pinjaman_nama" value="{PINJAMAN_NAMA}" size="50" maxLength="100" notab="2" />&nbsp;*
+                 </td>
+            </tr>
+			<tr>
+               <th width="150">Jumlah</th>
+                 <td>
+                     <input type="text"  name="pinjaman_jumlah" value="{PINJAMAN_JUMLAH}" class="gvNum" size="30" maxLength="100" notab="3" />&nbsp;*
+                 </td>
+            </tr>
+			<tr>
+               <th width="150">Angsuran</th>
+                 <td>
+                     <input type="text"  name="pinjaman_angsuran" value="{PINJAMAN_ANGSURAN}" class="gvNum" size="30" maxLength="100" notab="4" />&nbsp;*
+                 </td>
+            </tr>
+            <tr class="buttons">
+               <th>&nbsp;
+               </th>
+               <td>
+                  <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+                  <input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+               </td>
+            </tr>
+         </table>
+      </form>
+      
+      <br/>
+      
+      <div class="petunjuk-area">
+         <h4>Petunjuk:</h4>
+         <ul>
+            <li>Tanda * menunjukkan bahwa field tersebut harus diisi. </li>
+         </ul>
+      </div>
+         <!-- /patTemplate:sub -->
+   <!-- /patTemplate:tmpl -->
+<!-- /patTemplate:tmpl -->
+

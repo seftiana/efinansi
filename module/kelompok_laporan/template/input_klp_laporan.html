@@ -1,0 +1,109 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_kelompok_laporan" / --></h1>
+<br/>
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="notebox-alert">
+      {ISI_PESAN}
+   </div>
+   <br/>
+   <!-- /patTemplate:tmpl -->
+   <form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" name="frmInput" >    
+   <input type="hidden" name="kellap_id" value="{DATA_KELLAP_ID}"  />
+   <input type="hidden" name="kellap_tipe" value="{DATA_KELLAP_TIPE}"  />
+   <input type="hidden" name="kellap_kode_sistem" value="{DATA_KELLAP_KODE_SISTEM}"  />
+   <input type="hidden" name="kellap_level" value="{DATA_KELLAP_LEVEL}"  />
+   <input type="hidden" name="page" value="{PAGE}"  />
+      <table class="table-edit" width="100%">
+         <tr class="subhead">
+            <th colspan="2">{JUDUL} <!-- patTemplate:gtfwgetconfig config="language" name="kelompok_laporan" / --></th>
+         </tr>
+			<tr>
+            <th>Parent</th>
+            <td>
+                <!-- patTemplate:tmpl name="root_data" type="condition" conditionvar="DATA_EMPTY" -->
+                    <!-- patTemplate:sub condition="YES" -->
+                        -
+                    <!-- /patTemplate:sub -->
+                    <!-- patTemplate:sub condition="NO" -->
+                        <!-- patTemplate:tmpl name="root_data_item" -->
+                        <span style="padding-left: {KELLAP_PADDING}px">{KELLAP_NAMA}</span><br />
+
+                        <!-- /patTemplate:tmpl -->
+                   <!-- /patTemplate:sub -->
+                <!-- /patTemplate:tmpl -->
+                <input type="hidden" name="kellap_pid" value="{DATA_KELLAP_PID}" id="kellap_pid" />
+                <input type="hidden" name="kellap_parent_id" value="{DATA_KELLAP_PARENT_ID}" id="kellap_parent_id" />
+                <input type="hidden" name="kellap_parent_tipe" value="{DATA_KELLAP_PARENT_TIPE}" id="kellap_parent_tipe" />
+                <span style="padding-left: {PADDING}px;"><input type="text" name="kellap_parent_nama" value="{DATA_KELLAP_PARENT_NAMA}" id="kellap_parent_nama" readonly size="40" /></span>
+                <input type="hidden" name="kellap_parent_kode_sistem" value="{DATA_KELLAP_PARENT_KODE_SISTEM}" id="kellap_parent_kode_sistem" />   
+                <input type="hidden" name="kellap_parent_level" value="{DATA_KELLAP_PARENT_LEVEL}" id="kellap_parent_level" />   
+                <input type="button" value=" ... " onclick="popupParentChild();" />
+            </td>
+         </tr>
+         <tr>
+            <th width="150">Label Kelompok</th>
+            <td>
+                <input type="text" name="kellap_nama" value="{DATA_KELLAP_NAMA}" size="40" />&nbsp;*
+            </td>
+         </tr>
+         <!-- patTemplate:tmpl name="status" visibility="hidden" -->
+
+         <tr>
+            <th width="150">Fungsi</th>
+            <td>
+                <input type="radio" name="kellap_is_tambah" value="Y" {KELOMPOK_IT_Y_CHECKED} /> Penambahan
+                <input type="radio" name="kellap_is_tambah" value="T" {KELOMPOK_IT_T_CHECKED} /> Pengurangan
+            </td>
+         </tr>
+         <tr style="display: none;">
+            <th>Kelompok</th>
+            <td> 
+                <input type="radio" name="kellap_kelompok" value="AKTIVA" {KELOMPOK_A_CHECKED} /> Aktiva
+                <input type="radio" name="kellap_kelompok" value="PASIVA" {KELOMPOK_P_CHECKED} /> Pasiva
+                <input type="radio" name="kellap_kelompok" value="MODAL" {KELOMPOK_M_CHECKED} /> Modal
+                <input type="radio" name="kellap_kelompok" value="PENDAPATAN" {KELOMPOK_PP_CHECKED} /> Pendapatan
+                <input type="radio" name="kellap_kelompok" value="BEBAN" {KELOMPOK_B_CHECKED} /> Beban
+            </td>
+         </tr>
+         <tr>
+            <th>
+                <!-- patTemplate:gtfwgetconfig config="language" name="no_urut" / -->
+            </th>
+            <td id="no_urutan">
+               <input type="hidden" name="kellap_no_akhir" value="{KELLAP_NO_AKHIR}" id="kellap_no_akhir" />
+               <input type="text" name="kellap_no_selanjutnya" value="{KELLAP_NO_SELANJUTNYA}" size="5" class="gvNum" id="kellap_no_selanjutnya" />&nbsp;*
+               (<!-- patTemplate:gtfwgetconfig config="language" name="no_urutan_terakhir" / --> : {KELLAP_NO_AKHIR})
+            </td>            
+         </tr>
+        <!-- /patTemplate:tmpl -->
+         <tr class="buttons">
+            <th>&nbsp;
+            </th>
+            <td>
+               <input type="submit" name="btnsimpan" value=" <!-- patTemplate:gtfwgetconfig config="language" name="simpan" / --> " class="buttonSubmit"/>
+               <input  type="submit"  name="btnbalik" value=" <!-- patTemplate:gtfwgetconfig config="language" name="batal" / --> " class="buttonSubmit"/>
+            </td>
+         </tr>
+      </table>
+   </form>
+   
+   <br/>
+   
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+      <ul>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --></li>
+         <li>Pilihan Fungsi Sebagai pengurangan atau penambahan dalam laporan</li>
+      </ul>
+   </div>
+<script type="text/javascript">
+
+function popupParentChild() {
+  var url        = '{POPUP_PARENT_CHILD_KELLAP}';
+  var parentId   = document.getElementById('kellap_pid').value;
+
+  showPopup(url + '&parentId='+parentId,'',600, 500);
+}
+</script>
+<!-- /patTemplate:tmpl -->

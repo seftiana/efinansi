@@ -1,0 +1,635 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript" src="js/cookie.js"></script>
+<script language="javascript" type="text/javascript">
+   var file_attach_nomor = 2;
+   var nomor_invoice_list = 0;
+   var arr_invoice_list = new Array();
+   var xpopup;
+
+   //getButton('hapus', 'http://ddd','test()')
+   function getButton(xjenis, xhref, xonclick) {
+      var xlink = document.createElement('a');
+      var gbr = document.createElement('img');
+      if(xjenis == 'hapus' || xjenis == 'delete') {
+         xlink.setAttribute("title", "Hapus");
+         gbr.setAttribute("src", "images/button-delete.gif");
+         gbr.setAttribute("alt", "Hapus");
+      } else {
+         //edit
+         xlink.setAttribute("title", "Edit");
+         gbr.setAttribute("src", "images/button-edit.gif");
+         gbr.setAttribute("alt", "Edit");
+      }
+      xlink.setAttribute("class", "xhr dest_subcontent-element");
+      xlink.setAttribute("href", xhref);
+      xlink.setAttribute("onclick", xonclick);
+      xlink.appendChild(gbr);
+      return xlink;
+   }
+
+   function buatBaris(xId, isiNomor, objIsi, objAksi) {
+      var tr = document.createElement('tr');
+      var td_nomor = document.createElement('td');
+      var td_isi = document.createElement('td');
+      var td_aksi = document.createElement('td');
+      var nomor = document.createTextNode(isiNomor+1);
+
+      tr.setAttribute("id", "tr_" + xId + "_" + isiNomor);
+      td_nomor.align = "center";
+      //alert(isiNomor);
+      td_nomor.appendChild(nomor);
+      //td_isi.setAttribute("title", "666");
+      td_isi.appendChild(objIsi);
+      td_aksi.appendChild(objAksi);
+
+      //tr.appendChild(td_nomor);
+      tr.appendChild(td_isi);
+      tr.appendChild(td_aksi);
+      return tr;
+   }
+
+   function tambahInvoice() {
+
+      //membuat isi elemen2
+      var isi;
+      var isi_container;
+      //membuat input hidden
+      var input_hidden;
+
+      var button_hapus;
+      var baris;
+
+      var tbodi = document.getElementById("tbody_invoice_list");
+      var obj = document.getElementById('no_invoice');
+
+      input_hidden = document.createElement('input');
+      input_hidden.type = 'hidden';
+      input_hidden.name = 'no_invoice_list[]';
+      input_hidden.value = obj.value;
+
+      isi = document.createTextNode(obj.value);
+      isi_container = document.createElement('div');
+      isi_container.appendChild(isi);
+      isi_container.appendChild(input_hidden);
+
+      button_hapus = getButton("hapus", "javascript:void(0)", "hapusInvoice(this)");
+
+      baris = buatBaris('invoice_list', '', isi_container, button_hapus);
+      tbodi.appendChild(baris);
+      if(document.getElementById('invoice_empty'))
+         document.getElementById('invoice_empty').style.display='none';
+      obj.value='';
+   }
+
+   function hapusInvoice(obj) {
+      document.getElementById("tbody_invoice_list").removeChild(obj.parentNode.parentNode);
+   }
+
+   function hapusInvoiceEdit(obj, xid) {
+      var tr = obj.parentNode.parentNode;
+      //membuat input hidden untuk dihapus
+      var input_hidden;
+      input_hidden = document.createElement('input');
+      input_hidden.type = 'hidden';
+      input_hidden.name = 'no_invoice_list_delete[]';
+      input_hidden.value = xid;
+      document.forms['frmInput'].appendChild(input_hidden);
+      tr.parentNode.removeChild(tr);
+   }
+
+   function uploadFile(obj) {
+      var arr_namafile = obj.value.split("\\");
+      var namafile = arr_namafile[(arr_namafile.length-1)];
+
+      //membuat elemen2
+      var tr = document.createElement('tr');
+      var td_nomor = document.createElement('td');
+      var td_isi = document.createElement('td');
+      var td_aksi = document.createElement('td');
+
+      //membuat input file baru
+      var input_file = document.createElement('input');
+      input_file.setAttribute("type", "file");
+      input_file.setAttribute("readonly", "true");
+      input_file.setAttribute("name", "file_attach[]");
+      input_file.setAttribute("onchange", "uploadFile(this)");
+      input_file.id = "file_attach_" + file_attach_nomor;
+      obj.parentNode.appendChild(input_file);
+
+      //menyembunyikan yang lama
+      obj.setAttribute("style", "display:none");
+
+      //membuat isi elemen2
+      var nomor = document.createTextNode(file_attach_nomor-1);
+      var isi = document.createTextNode(namafile);
+
+      //mengisikan elemen2 dengan isinya
+      tr.setAttribute("id", "tr_file_bohong_" + (file_attach_nomor-1));
+      td_nomor.setAttribute("align", "center");
+      td_nomor.appendChild(nomor);
+      td_isi.setAttribute("title", obj.value);
+      td_isi.appendChild(isi);
+      //td_isi.appendChild(input_file);
+
+      //untuk tombol deletenya
+      var button_hapus = getButton("hapus", "javascript:void(0)", "hapusFile('" + (file_attach_nomor-1) + "')");
+      td_aksi.appendChild(button_hapus);
+
+      //tr.appendChild(td_nomor);
+      tr.appendChild(td_isi);
+      tr.appendChild(td_aksi);
+      document.getElementById('file_attach_tbody').appendChild(tr);
+      if(document.getElementById('file_empty'))
+         document.getElementById('file_empty').style.display='none';
+      file_attach_nomor++;
+   }
+
+   function hapusFile(xid) {
+      var elem = document.getElementById("tr_file_bohong_" + xid);
+      elem.parentNode.removeChild(elem);
+      var elem2 = document.getElementById("file_attach_" + xid);
+      elem2.parentNode.removeChild(elem2);
+   }
+
+   function hapusFileEdit(obj, valId, valNama) {
+      var tr = obj.parentNode.parentNode;
+      tr.setAttribute('style', 'display:none');
+      //membuat input hidden untuk dihapus
+      var input_hidden;
+      input_hidden = document.createElement('input');
+      input_hidden.type = 'hidden';
+      input_hidden.name = 'file_attach_delete[]';
+      input_hidden.value = valId;
+      var input_hidden2;
+      input_hidden2 = document.createElement('input');
+      input_hidden2.type = 'hidden';
+      input_hidden2.name = 'file_attach_delete_nama[]';
+      input_hidden2.value = valNama;
+      obj.parentNode.appendChild(input_hidden);
+      obj.parentNode.appendChild(input_hidden2);
+   }
+
+   function hapusSkenarioBohong(xid) {
+      var elem = document.getElementById(xid);
+      elem.parentNode.removeChild(elem);
+   }
+
+   function bukaPopupSkenario(xurl) {
+      showPopup(xurl,'',600,500);
+   }
+   function bukaPopupUnitkerja(xurl) {
+      showPopup(xurl,'',600,500);
+   }
+   function bukaPopupMAK(xurl) {
+      var
+         uk = document.getElementById('unitkerja'),
+         jenis_trans = document.getElementById('jenis_transaksi'),
+         tipe_trans = document.getElementById('tipe_transaksi');
+      if(!uk.value) alert('Silakan Pilih Unitkerja');
+      else {
+         if(jenis_trans.value == '5' && tipe_trans.value == '1')
+            showPopup('{URL_POPUP_MAK_PENERIMAAN}' + '&unitkerja=' + uk.value,'',600, 500);
+         else if (jenis_trans.value == '5' && tipe_trans.value == '4')
+            showPopup('{URL_POPUP_KEGIATAN_UNIT_KERJA}' + '&unitkerja=' + uk.value,'',600, 500);
+         else if (jenis_trans.value == '5' && tipe_trans.value == '5')
+            showPopup('{URL_POPUP_SISA_ANGGARAN}' + '&unitkerja=' + uk.value,'',600, 500);
+         else showPopup(xurl + '&unitkerja=' + uk.value,'',600, 500);
+      }
+   }
+
+   var showHideMAK = function (obj) {
+      tipe_transaksi = document.getElementById('tipe_transaksi');
+      if (!showHideMAK.stack) showHideMAK.stack = new Array;
+
+      if(obj.options[obj.selectedIndex].text != 'Anggaran') {
+         for (i = tipe_transaksi.options.length - 1; i >= 0; i--)
+            if (tipe_transaksi.options[i].value == 4 || tipe_transaksi.options[i].value == 5 || tipe_transaksi.options[i].value == 6)
+            {
+               if (tipe_transaksi.selectedIndex == i)
+                  //tipe_transaksi.onchange();
+               showHideMAK.stack[tipe_transaksi.options[i].value] = tipe_transaksi.options[i].text;
+               tipe_transaksi.options[i] = null;
+            }
+
+         document.getElementById('mak').value = '';
+         document.getElementById('mak_label').value = '';
+         document.getElementById('mak_label').disabled = true;
+         document.getElementById('but_mak').disabled = true;
+         document.getElementById('nominal_disetujui').disabled = true;
+      } else {
+         document.getElementById('mak_label').disabled = false;
+         document.getElementById('but_mak').disabled = false;
+         document.getElementById('nominal_disetujui').disabled = false;
+         for (i in showHideMAK.stack) if (showHideMAK.stack[i])
+            tipe_transaksi.options[tipe_transaksi.options.length] = new Option(showHideMAK.stack[i], i);
+         showHideMAK.stack = new Array;
+      }
+
+      if (window.event)
+      {
+         //document.getElementById('nominal').value = '';
+         //document.getElementById('nominal').removeAttribute('readonly');
+      }
+   }
+
+   function cek(objId, msg) {
+      var obj = document.getElementById(objId);
+      if(!obj.value && !obj.disabled) {
+         alert(msg);
+         obj.focus();
+         obj.select;
+         return false;
+      }
+      return true;
+   }
+
+   function ceknominal(objId1, objId2, msg) {
+      var obj1 = document.getElementById(objId1);
+      var obj2 = document.getElementById(objId2);
+      obj1Val = parseInt(obj1.value);
+      obj2Val = parseInt(obj2.value);
+
+      if (obj1.gvGetValue) obj1Val = parseInt(obj1.gvGetValue());
+      if (obj2.gvGetValue) obj2Val = parseInt(obj2.gvGetValue());
+
+      if(obj1Val > obj2Val) {
+         alert(msg);
+         obj1.focus();
+         obj1.select;
+         return false;
+      }
+      return true;
+   }
+
+   function cekIsiForm() {
+      if(false == cek('unitkerja', 'Silakan isi Unit/ Sub Unit')) return;
+      //if(false == cek('jenis_transaksi', 'Silakan isi Jenis Transaksi')) return;
+      if(false == cek('tipe_transaksi', 'Silakan isi Tipe Transaksi')) return;
+      var jenis = document.getElementById('jenis_transaksi');
+      if(jenis.value == 5 && !cek('mak', 'Silakan Pilih Mata Anggaran')) return;
+      //if(false == cek('no_kkb', 'Silakan isi Nomor BKK')) return;
+      //if(!document.getElementsByName('no_invoice_list[]').length && !document.getElementsByName('no_invoice_list_edit').length) {alert('Silahkan isi invoice!'); document.getElementById('no_invoice').focus(); return;}
+      if(false == cek('nominal', 'Silakan isi Nominal Transaksi')) return;
+      if(jenis.value == 5 && !ceknominal('nominal','nominal_disetujui_hidden', 'Nilai Nominal tidak boleh lebih dari nilai Nominal Disetujui.')) return;
+      var jumlah = update_total_jurnal('null');
+      if(jumlah == false) return alert('Jumlah debet dan kredit belum sama atau belum diisi!');
+      if(jumlah != document.getElementById('nominal').gvGetValue()) return alert('Jumlah debet dan kredit tidak sama dengan nominal!');
+      if(false == cek('penanggung_jawab', 'Silakan isi Penanggung Jawab')) return;
+
+      document.getElementById('simpan').click();
+   }
+
+/**
+ *non aktifkan
+ * diganti dengan GenerateNumber
+
+   function jsCheck(idTipe) {
+      var jenis = document.getElementById('jenis_transaksi').value;
+      var tipe = document.getElementById('tipe_transaksi').value;
+      var unitkerja_label = document.getElementById('unitkerja_label').value;
+      var unitkerja = document.getElementById('unitkerja').value;
+
+      GtfwAjax.replaceContentWithUrl('no_bkk', '<!-- patTemplate:gtfwgeturl module="transaksi_kode_jurnal" sub="no" action="view" type="html" htmlentities="no" / -->&ascomponent=1&dataId='+idTipe+'&check=yes&jenis_transaksi='+jenis+'&tipe_transaksi='+tipe+'&unitkerja='+unitkerja);
+      //document.forms[0].check.value = "yes";
+      //document.forms[0].submit();
+   }
+*/
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="transaksi_kode_jurnal" / --></h1>
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+   <br />
+   <!-- div class="toolbar">
+      <a class="xhr dest_subcontent-element" href="{URL_DETIL}" title="Detail Transaksi"><img src="images/button-add.gif" alt=""><!-- patTemplate:gtfwgetconfig config="language" name="lihat_detil_transaksi" / --></a>
+   </div -->
+   <br />
+   <form method="POST" action="{URL_ACTION}" name="frmInput" class="xhr_form std_form" id="frmInput" enctype="multipart/form-data" >
+      <input type="hidden" name="check" id="check" value="" />
+      <table class="table-edit" width="100%">
+         <tr class="subhead">
+            <th colspan="2">{MODE_20080109} <!-- patTemplate:gtfwgetconfig config="language" name="transaksi" / --></th>
+         </tr>
+          <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="nomor_bukti" / --></th>
+
+          <td>
+		  		<!-- patTemplate:tmpl name="is_tambah" type="condition" conditionvar="IS_TAMBAH" -->
+        		<!-- patTemplate:sub condition="YES" -->
+				<b>(<!-- patTemplate:gtfwgetconfig config="language" name="auto_number" / -->)</b>
+				<!-- /patTemplate:sub -->
+        		<!-- patTemplate:sub condition="NO" -->
+				<b>{NO_KKB}</b>
+				<input type="hidden" name="no_kkb" id="no_kkb" value="{NO_KKB}" />
+				<input type="hidden" name="unitkerja_lama" id="unitkerja_lama"
+							 value="{UNITKERJA_LAMA}"/>
+				<input type="hidden" name="tipe_transaksi_lama" id="tipe_transaksi_lama"
+							 value="{TIPE_TRANSAKSI_LAMA}" />
+				<!-- /patTemplate:sub -->
+        	<!-- /patTemplate:tmpl -->
+
+		  </td>
+
+        </tr>
+      <!-- patTemplate:tmpl name="role" type="condition" conditionvar="WHOAMI" -->
+         <!-- patTemplate:sub condition="ADMINISTRATOR" -->
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+          <td><input type="hidden" name="unitkerja" id="unitkerja" value="{UNITKERJA}" /><input type="text" name="unitkerja_label" id="unitkerja_label" value="{UNITKERJA_LABEL}" size="40" readonly="readonly" /><input type="button"  name="but_unitkerja" onclick="bukaPopupUnitkerja('{URL_POPUP_UNITKERJA}')" value=" ... " />*</td>
+        </tr>
+       <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="OPERATORUNIT" -->
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+          <td><input type="hidden" name="unitkerja" id="unitkerja" value="{UNITKERJA}" /><input type="text" name="unitkerja_label" id="unitkerja_label" value="{UNITKERJA_LABEL}" size="40" readonly="readonly" /><input type="button"  name="but_unitkerja" onclick="bukaPopupUnitkerja('{URL_POPUP_UNITKERJA}')" value=" ... " />*</td>
+        </tr>
+       <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="OPERATORSUBUNIT" -->
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+            <td><input type="hidden" name="unitkerja" id="unitkerja" value="{UNITKERJA}" />{UNITKERJA_LABEL}</td>
+         </tr>
+       <!-- /patTemplate:sub -->
+     <!-- /patTemplate:tmpl -->
+        <tr style="display: none;">
+          <th width="20%"><!-- patTemplate:gtfwgetconfig config="language" name="jenis_transaksi" / --></th>
+          <td><!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="jenis_transaksi"  / -->*</td>
+        </tr>
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="tipe_transaksi" / --></th>
+          <td><!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tipe_transaksi"  / -->*</td>
+        </tr>
+        <tr style="display: none;">
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="mak" / --></th>
+          <td>
+          <input type="hidden" name="mak_lama_id" id="mak_lama_id" value="{MAK_LAMA_ID}" />
+          <input type="hidden" name="mak_lama" id="mak_lama" value="{MAK_LAMA}" />
+          <input type="hidden" name="mak" id="mak" value="{MAK}" />
+          <input type="text" name="mak_label" id="mak_label" value="{MAK_LABEL}" size="50" readonly="readonly" {MAK_IS_DISABLED} /><input type="button" name="but_mak" id="but_mak" onclick="bukaPopupMAK('{URL_POPUP_MAK}')" value=" ... " {MAK_IS_DISABLED} /></td>
+        </tr>
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="tanggal_transaksi" / --></th>
+          <td><!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_transaksi" / --></td>
+        </tr>
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="due_date" / --></th>
+          <td><!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="due_date" / --></td>
+        </tr>
+
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="no_invoice" / --></th>
+          <td><input type="text" name="no_invoice" id="no_invoice" value="{NO_INVOICE}" /><input type="button" value="<!-- patTemplate:gtfwgetconfig config="language" name="simpan" / -->" name="no_invoice_simpan" id="no_invoice_simpan" onclick="tambahInvoice()" /></td>
+        </tr>
+      <tr>
+         <td colspan="2" style="padding-left:50px">
+            <table class="table-edit" width="500" id="table_invoice_list">
+               <tr class="subhead">
+
+                  <th><!-- patTemplate:gtfwgetconfig config="language" name="invoice" / --></th>
+                  <th width="33"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+               </tr>
+               <tbody id="tbody_invoice_list">
+                 <!-- patTemplate:tmpl name="tpl_invoice_list" type="condition" conditionvar="INVOICE_LIST_EMPTY" -->
+                   <!-- patTemplate:sub condition="YES" -->
+                   <tr id="invoice_empty"><td colspan="3" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+                   <!-- /patTemplate:sub -->
+                   <!-- patTemplate:sub condition="NO" -->
+                     <!-- patTemplate:tmpl name="tpl_invoice_item" -->
+                     <tr class="{DATA_CLASS_NAME}">
+                        <td>
+                           {DATA_NOMOR}
+                           <input type="hidden" name="no_invoice_list_edit" id="no_invoice_list_edit" value="{DATA_NOMOR}" />
+                        </td>
+                        <td>
+                           <a href="javascript:void(0)" onclick="hapusInvoiceEdit(this, '{DATA_ID_DELETE}')" title="Hapus"><img src="images/button-delete.gif" alt="Hapus"/></a>
+                        </td>
+                   </tr>
+                   <!-- /patTemplate:tmpl -->
+                   <!-- /patTemplate:sub -->
+                 <!-- /patTemplate:tmpl -->
+               </tbody>
+
+            </table>
+         </td>
+        </tr>
+        <tr style="display: none;">
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="nominal_disetujui" / --></th>
+          <td>
+            <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. <input type="text" name="nominal_disetujui" id="nominal_disetujui" value="{NOMINAL_DISETUJUI}" readonly="true" />
+            <input type="hidden" name="nominal_disetujui_hidden" id="nominal_disetujui_hidden" value="" />
+            <input type="hidden" name="peng_real_id" id="peng_real_id" value="" />
+          </td>
+        </tr>
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="nominal" / --></th>
+          <td><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. <input type="text" name="nominal" id="nominal" value="{NOMINAL}" class="gvFloat" />*</td>
+        </tr>
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="jurnal" / --></th>
+          <td>
+            <div class="toolbar">
+               <a title="Pilih Kode Jurnal" onclick="showPopup('{URL_POPUP_KODE_JURNAL}','',560,420);">
+			   <img src="images/button-check.gif" alt=""><!-- patTemplate:gtfwgetconfig config="language" name="kode_jurnal" / --></a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table class="table-common" width="100%">
+               <thead>
+                  <tr>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="debet_rp" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="kredit_rp" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+                  </tr>
+               </thead>
+               <tbody id="COA_Place_Holder">
+                  <tr>
+                     <td colspan="5" style='text-align: center; font-style: italic'>--<!-- patTemplate:gtfwgetconfig config="language" name="belum_ada_yang_dipilih" / -->! --</td>
+                  </tr>
+               </tbody>
+               <tbody id='total_debet_kredit' style="display: none;">
+                  <tr class="table-common-even1">
+                     <td colspan="2" align="right"><!-- patTemplate:gtfwgetconfig config="language" name="total" / --></td>
+                     <td style="padding: 2px; text-align: right"><input type="text" id="total_debet" class="gvFloat" readonly></td>
+                     <td style="padding: 2px; text-align: right"><input type="text" id="total_kredit" class="gvFloat" readonly></td>
+                     <td>&nbsp;</td>
+                  </tr>
+               </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="uraian_transaksi" / --></th>
+          <td><textarea name="catatan_transaksi" cols="50" rows="5">{CATATAN_TRANSAKSI}</textarea></td>
+        </tr>
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="penanggung_jawab" / --></th>
+          <td><input type="text" name="penanggung_jawab" id="penanggung_jawab" value="{PENANGGUNG_JAWAB}" size="40" />*</td>
+        </tr>
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="attachment" / --></th>
+          <td><input type="file" name="file_attach[]" id="file_attach_1" onchange="uploadFile(this)" /></td>
+        </tr>
+      <tr>
+         <td colspan="2" style="padding-left:50px">
+            <table class="table-edit" id="file_attach_table" width="500">
+               <tr class="subhead">
+
+                  <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_file" / --></th>
+                  <th width="33"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+               </tr>
+               <tbody id="file_attach_tbody">
+                 <!-- patTemplate:tmpl name="tpl_file_list" type="condition" conditionvar="FILE_LIST_EMPTY" -->
+                   <!-- patTemplate:sub condition="YES" -->
+                   <tr id="file_empty"><td colspan="2" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+                   <!-- /patTemplate:sub -->
+                   <!-- patTemplate:sub condition="NO" -->
+                     <!-- patTemplate:tmpl name="tpl_file_item" -->
+                     <tr class="{DATA_CLASS_NAME}">
+                        <td>{DATA_NAMA}</td>
+                        <td>
+                           <a href="javascript:void(0)" onclick="hapusFileEdit(this, '{DATA_ID_DELETE}', '{DATA_NAMA}')" title="Hapus"><img src="images/button-delete.gif" alt="Hapus"/></a>
+                        </td>
+                   </tr>
+                   <!-- /patTemplate:tmpl -->
+                   <!-- /patTemplate:sub -->
+                 <!-- /patTemplate:tmpl -->
+               </tbody>
+            </table>
+            <br />
+         </td>
+      </tr>
+      <tr class="buttons">
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btnsimpan" id="<!-- patTemplate:gtfwgetconfig config="language" name="simpan" / -->" value=" <!-- patTemplate:gtfwgetconfig config="language" name="simpan" / --> " onclick="cekIsiForm()" />
+         <div style="display:none;"><input type="button" name="btnsimpanBohong" value=" <!-- patTemplate:gtfwgetconfig config="language" name="simpan" / --> " onclick="cekIsiForm()" /></div>
+        <a class="xhr dest_subcontent-element button" href="{URL_RESET}"
+			title="<!-- patTemplate:gtfwgetconfig config="language" name="reset" / -->">
+				<!-- patTemplate:gtfwgetconfig config="language" name="reset" / -->
+			</a>
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<!-- div class="toolbar">
+   <a class="xhr dest_subcontent-element" href="{URL_DETIL}" title="<!-- patTemplate:gtfwgetconfig config="language" name="detil_transaksi" / -->"><img src="images/button-add.gif" alt=""><!-- patTemplate:gtfwgetconfig config="language" name="lihat_detil_transaksi" / --></a>
+</div -->
+<br />
+<div class="petunjuk-area">
+   <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+   <ul>
+      <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --></li>
+   </ul>
+</div>
+<script>
+showHideMAK(document.getElementById('jenis_transaksi'));
+if (document.getElementById('tipe_transaksi').value == 4 || document.getElementById('tipe_transaksi').value == 5)
+   document.getElementById('nominal').setAttribute('readonly', '');
+
+document.getElementById('COA_Place_Holder').addItem = function (detailId, kodeRekening, namaRekening, typeRekening, nominal)
+{
+   var id = 'detailId_'+detailId;
+   if (document.getElementById(id)) return true;
+   var childObj = this.getElementsByTagName('tr');
+   nomor = childObj.length;
+
+   var tr = document.createElement('tr');
+   tr.setAttribute("id", id);
+   if (nomor % 2 == 0) tr.setAttribute('class', 'table-common-even');
+
+   var tdKodeRekening = document.createElement('td');
+   tdKodeRekening.setAttribute("style", 'padding: 2px; text-align: center');
+   tdKodeRekening.innerHTML = kodeRekening +"<input type='hidden' name='COA[" + detailId + "][kodeRekening]' value='" + kodeRekening + "'>";
+
+   var tdNamaRekening = document.createElement('td');
+   tdNamaRekening.setAttribute("style", 'padding: 2px; text-align: left');
+   tdNamaRekening.innerHTML = namaRekening + " <input type='hidden' name='COA[" + detailId + "][namaRekening]' value='" + namaRekening + "'><input type='hidden' name='COA[" + detailId + "][typeRekening]' value='" + typeRekening + "'>";
+
+   var tdNominal = document.createElement('td');
+   tdNominal.setAttribute("style", 'padding: 2px; text-align: right');
+   tdNominal.innerHTML = "<input type='text' name='COA[" + detailId + "][nominal]' value='" + nominal + "' typeRekening='" + typeRekening + "' onkeyup='update_total_jurnal(this)'>";
+
+   var tdDelete = document.createElement('td');
+   tdDelete.setAttribute("class", "links");
+   tdDelete.setAttribute("align", 'center');
+   tdDelete.innerHTML = "<a onClick=\"document.getElementById('"+this.id+"').deleteItem('" + id + "');\" title='Hapus'><img src=\"images/button-delete.gif\" alt=\"Hapus\"/></a>";
+
+   tr.appendChild(tdKodeRekening);
+   tr.appendChild(tdNamaRekening);
+   if (typeRekening == 'debet')
+   {
+      tr.appendChild(tdNominal);
+      tr.appendChild(document.createElement('td'));
+   }
+   else
+   {
+      tr.appendChild(document.createElement('td'));
+      tr.appendChild(tdNominal);
+   }
+   tr.appendChild(tdDelete);
+   this.appendChild(tr);
+
+   var childNode = tdNominal.firstChild;
+   do {if (childNode.tagName && childNode.tagName.toUpperCase() == 'INPUT') gValidation20090108['.gvFloat'](childNode);} while (childNode = childNode.nextSibling);
+
+   childObj[0].style.display = 'none';
+   document.getElementById('total_debet_kredit').style.display = '';
+   return true;
+}
+
+document.getElementById('COA_Place_Holder').deleteItem = function (id)
+{
+   this.removeChild(document.getElementById(id));
+   var Obj = this.getElementsByTagName('tr');
+   update_total_jurnal(Obj);
+   if (Obj.length == 1)
+   {
+      Obj[0].style.display = '';
+      document.getElementById('total_debet_kredit').style.display = 'none';
+   }
+   else for (var i = 1; i < Obj.length; i++)
+      Obj[i].setAttribute('class',(i % 2)?'':'table-common-even');
+}
+
+document.getElementById('COA_Place_Holder').deleteAllItem = function ()
+{
+   var Obj = this.getElementsByTagName('tr');
+   for (i = Obj.length - 1; i > 0; i--)
+      if (Obj[i].id) this.removeChild(Obj[i]);
+   Obj[i].style.display = '';
+   document.getElementById('total_debet_kredit').style.display = 'none';
+   update_total_jurnal(Obj);
+}
+
+window.update_total_jurnal = function (Obj)
+{
+   if (Obj.type && !Obj.getAttribute('typeRekening')) return false;
+   ObjForm = document.forms['frmInput'];
+   var total_debet = 0;
+   var total_kredit = 0;
+
+   for (var i = 0; i < ObjForm.length; i++)
+   {
+      if (ObjForm[i].name.indexOf('COA[') !== 0 || !ObjForm[i].getAttribute('typeRekening')) continue;
+      var TypeRekening = ObjForm[i].getAttribute('typeRekening');
+      if (TypeRekening == 'debet') total_debet += ObjForm[i].gvGetValue();
+      else if (TypeRekening == 'kredit') total_kredit += ObjForm[i].gvGetValue();
+   }
+	nom = total_kredit;
+   document.getElementById('nominal').gvSetValue(nom);
+   document.getElementById('total_debet').gvSetValue(total_debet);
+   document.getElementById('total_kredit').gvSetValue(total_kredit);
+
+   if (total_kredit == total_debet)
+      return total_kredit;
+   else return false;
+}
+</script>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,123 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function centangin_semua(varname, start_num, end_num) {
+		var obj = document.getElementById('cek_all');
+		var ceks;
+		if(obj.checked == false) {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+				if(ceks) ceks.checked = false;
+			}
+		} else {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+				if(ceks) ceks.checked = true;
+			}
+		}
+	}
+	function show_checkbox() {
+		if(document.getElementById('cek_all'))
+			document.getElementById('cek_all').style.display='';
+	}
+	document.onload = show_checkbox();
+</script>
+<script language="javascript" type="text/javascript">
+   var xpopup;
+   function bukaPopupCetak(xurl) {
+      xpopup = window.open(xurl,'xpopup','width=900,height=600,resizable=yes,scrollbars=yes,right=0;center');
+      xpopup.focus();
+   }
+   
+   function bukaPopupUnitkerja(xurl) {
+      xpopup = window.open(xurl,'xpopup','width=600,height=500,resizable=yes,scrollbars=yes,right=0;center');
+      xpopup.focus();
+   }
+</script>
+<h1>Transaksi Pengendalian Aset</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table  width="800">
+      <tr>
+         <th colspan="2"><h2><strong>Pencarian</strong></h2></th>
+      </tr>
+      <tr>              
+          <th width="12%">Status Barang</th>
+          <td><!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="status_brg"  / --></td>
+        </tr>
+      <tr>              
+         <th width="30%">Tanggal</th>
+         <td><!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="mulai" / -->&nbsp;s.d.&nbsp;<!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="selesai" / --></td>
+      </tr>
+      <tr>
+         <th>Unit/ Sub Unit</th>
+         <td><input type="hidden" name="unitkerja" id="unitkerja" value="{UNITKERJA}" /><input type="text" name="unitkerja_label" id="unitkerja_label" value="{UNITKERJA_LABEL}" size="40" readonly="readonly" /><input type="button"  name="but_unitkerja" onclick="bukaPopupUnitkerja('{URL_POPUP_UNITKERJA}')" value=" ... " /></td>
+        </tr>
+      <tr>
+         <th>Kode / Nama Aset</th>
+         <td>
+            <input type="text" name="key" id="key" value="{KEY}" />
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar"> 
+   		<a href="javascript:void(0)" onclick="bukaPopupCetak('{URL_CETAK}')" title="Cetak" ><img src="images/button-print.gif" alt="Cetak"> Cetak</a>
+         <a href="{URL_EXCEL}" title="Export Excel" ><img src="images/button-tindaklanjuti.gif" alt=""> Excel</a>
+      </div>
+   </div>
+   <table class="table-common" width="800">
+      <tr>
+         <th width="5">No</th>
+         <th>Tanggal Pengendalian</th>
+         <th>Status Barang</th>
+         <th>Kode Aset</th>
+         <th>Nama Aset</th>
+         <th>Unit PJ</th>
+         <th>PIC</th>
+         <th width="96">Aksi</th>
+      </tr>
+      <!-- patTemplate:tmpl name="data" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="9" align="center"><em>-- Data tidak ditemukan --</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">{NUMBER}</td>
+               <td>{PENG_TGL}</td>
+               <td>{STATUS_PENG_BRG}</td>
+               <td>{ASET_KODE}</td>
+               <td>{ASET_NAMA}</td>
+               <td>{UNIT_KERJA}</td>
+               <td>{PIC}</td>
+               <td class="links" align="center">
+                  <a class="xhr dest_subcontent-element" href="{URL_DETIL}" title="Detil">
+                     <img src="images/button-detail.gif" alt="Detil Barang"/>
+                  </a>
+                  <a class="xhr dest_subcontent-element" href="{URL_INPUT_BIAYA}" title="Input/Update Biaya">
+                     <img src="images/button-clipboard.gif" alt="Input/Update Biaya"/>
+                  </a>
+                  <a class="xhr dest_subcontent-element" href="{URL_LOG}" title="Log Pengendalian Barang">
+                     <img src="images/button-jam.gif" alt="Log Pengendalian Barang"/>
+                  </a>
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   <br /> 
+<!-- /patTemplate:tmpl -->

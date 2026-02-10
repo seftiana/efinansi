@@ -1,0 +1,72 @@
+<!-- patTemplate:tmpl name="content" -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" media="all" href="css/a-print-katalog.css" />
+<title><!-- patTemplate:gtfwgetconfig config="language" name="bukti_kas_keluar" / --></title>
+</head>
+
+<body id="common" onload="window.print()">
+	<div class="page">
+		<div class="header"></div>
+		<table class="table-print">
+			<tr>
+				<td>{NO_BUKTI}</td>
+			</tr>
+			<tr>
+				<td>{NO_POS}</td>
+			</tr>
+			<tr class="padding3"></tr>
+			<tr>
+				<td>{NOMINAL_TERBILANG}</td>
+			</tr>
+			<!--<tr>
+				<td>Lima Ratus Juta Tiga Puluh Ribu Rupiah</td>
+			</tr>-->
+			<tr class="padding2"></tr>
+			<tr>
+				<td>{CATATAN}</td>
+			</tr>
+			<tr class="padding2"></tr>
+			<tr>
+				<td><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {NOMINAL}</td>
+			</tr>
+			
+		</table>
+		
+		<table class="table-print2">
+			<tr>
+				<td class="left2"></td>
+				<td>{TANGGAL}</td>
+			</tr>
+			<tr class="padding2"></tr>
+		</table>
+		<div class="padding">
+			<table class="table-print2">
+				<tr class="padding2"></tr>
+				<tr>
+					<td class="left4">{REKTOR}</td>
+					<td>{PENERIMA}</td>
+				</tr>
+			</table>
+		</div>
+		<table class="table-print2">
+			<tr>
+				<td class="left3">{TANGGAL}</td>
+				<td></td>
+			</tr>
+		</table>
+		<div class="padding">
+			<table class="table-print2">
+				<tr class="padding4"></tr>
+				<tr>
+					<td class="left4">{BENDAHARA}</td>
+					<td>{MENGETAHUI}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
+<!-- /patTemplate:tmpl -->

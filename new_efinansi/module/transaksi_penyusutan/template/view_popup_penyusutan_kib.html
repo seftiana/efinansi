@@ -1,0 +1,47 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function setParent(xid, xlabel, nominal) {
+      document.getElementById('kib_id').value=xid;
+      document.getElementById('kib_label').value=xlabel;
+      document.getElementById('nominal_penyusutan').value=nominal;   
+     popupClose();
+   }
+</script>
+<h1>List Detail Penyusutan Barang</h1>
+<br />   
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   </div>
+   <br />
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <th>Kode Aset</th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_barang" / --></th>
+         <th>Nilai Perolehan (Rp)</th>
+         <th>Nilai Penyusutan</th>
+         <th>Umur Ekonomis Awal</th>
+         <th>Sisa Umur Ekonomis</th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_kib" type="condition" conditionvar="KIB_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="7" align="center"><em>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_kib_item" -->
+            <tr class="{CLASS_NAME}">
+               <td align="center">{NUMBER}</td>
+               <td align="center">{KODE_ASET}</td>
+               <td>{BRG_NAMA}</td>
+               <td align="right">{NILAI_PEROLEHAN}</td>
+               <td align="right">{NILAI_PENYUSUTAN_RP}</td>
+               <td align="center">{UMUR_EKONOMIS}</td>
+               <td align="center">{SISA_UMUR_EK}</td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   <br /> 
+<div>
+<!-- /patTemplate:tmpl -->

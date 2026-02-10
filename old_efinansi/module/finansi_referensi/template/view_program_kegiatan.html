@@ -1,0 +1,284 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css">
+.table-common tr td label{
+   padding-top: 4px;
+   padding-left: 26px;
+   background-position: 4px 50%;
+   background-repeat: no-repeat;
+}
+.table-common tr td label.kegiatan{
+   background-image: url('images/button-bukunutup.gif');
+   font-weight: bold;
+}
+.table-common tr td label.output{
+   background-image: url('images/button-clipboard.gif');
+   margin-left: 16px;
+}
+.table-common tr td label.komponen{
+   background-image: url('images/transkrip_nilai.gif');
+   margin-left: 30px;
+}
+</style>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="manajemen_program" / -->, 
+   <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --> dan 
+   <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterbox" name="filterbox" class="dataquest xhr_simple_form dest_subcontent-element">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="tahun_anggaran"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+         </th>
+         <td>
+            <input type="hidden" name="kegiatan_id" id="kegiatan_id" value="{KEGIATAN_ID}" />
+            <input type="hidden" name="kegiatan" id="kegiatan" value="{KEGIATAN}" />
+            <label id="kegiatan_label" style="font-weight: bold;">
+               {KEGIATAN}
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="output" / -->
+         </th>
+         <td>
+            <input type="hidden" name="output_id" id="output_id" value="{OUTPUT_ID}" />
+            <input type="text" name="output" id="output" value="{OUTPUT}" size="35" />
+            <input type="button" value=" ... " onclick="var ta = document.getElementById('cb_tahun_anggaran'); var taId = ta.options[ta.selectedIndex].value; var url= '{URL_POPUP_OUTPUT}&taId='+taId; showPopup(url, 'GTPopup', 600, 550);" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" id="kode" value="{KODE}" size="35" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <td>
+            <input type="text" name="nama" id="nama" value="{NAMA}" size="35" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   <div class="toolbar"> 
+      <a href="{URL_EXPORT_EXCEL}" title="Export Excel" target="_blank">
+         <img src="images/icons/export_excel.gif" alt="excel" /> Excel
+      </a>
+      <a class="xhr dest_subcontent-element" href="{URL_ADD_KEGIATAN}" title="Tambah <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->" >
+         <img src="images/button-add.gif" alt="add">
+         <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+      </a>
+      <a class="xhr dest_subcontent-element" href="{URL_ADD_OUTPUT}" title="Tambah <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->" >
+         <img src="images/button-add.gif" alt="add">
+         <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->
+      </a>
+      <a class="xhr dest_subcontent-element" href="{URL_ADD_KOMPONEN}" title="Tambah <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->" >
+         <img src="images/button-add.gif" alt="add">
+         <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+      </a>
+   </div>
+</div>
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->, 
+            <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->, 
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+         </th>
+         <th rowspan="2" style="width: 60px;">
+            Detail Belanja
+         </th>
+         <th rowspan="2" style="width: 95px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / --> &mdash; <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="3">
+                  <center>
+                     <em>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                     </em>
+                  </center>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+               <tr class="{CLASS_NAME}">
+                  <td>
+                     <label class="{LEVEL}">
+                        {LABEL}
+                     </label>
+                  </td> 
+                  <td align="center">
+                     {DETAIL_BELANJA}
+                  </td>
+                  <td class="links">
+                     <a class="xhr dest_subcontent-element" href="{URL_EDIT}" title="Ubah">
+                        <img src="images/button-edit.gif" alt="Ubah" />
+                     </a>
+                     <!-- patTemplate:tmpl name="links_level" type="condition" conditionvar="DELETEABLE" -->
+                        <!-- patTemplate:sub condition="YES" -->
+                           <a class="xhr dest_subcontent-element" href="{URL_DELETE}" title="Delete">
+                              <img src="images/button-delete.gif" alt="Delete" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="NO" -->
+                           <a href="javascript:void(0);" title="Delete">
+                              <img src="images/button-batal.gif" alt="delete" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                     <!-- /patTemplate:tmpl -->
+                     <!-- patTemplate:tmpl name="level" type="condition" conditionvar="LEVEL" -->
+                        <!-- patTemplate:sub condition="KEGIATAN" -->
+                           &nbsp;
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="OUTPUT" -->
+                           &nbsp;
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="KOMPONEN" -->
+                           <a class="xhr dest_subcontent-element" href="{URL_DETAIL_BELANJA}" title="Komponen Belanja">
+                              <img src="images/button-detail.gif" alt="Komponen Belanja" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                     <!-- /patTemplate:tmpl -->
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<!-- end: Table List -->
+<br />
+<div class="petunjuk-area" id="petunjuk">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         Gunakan form pencarian untuk filter data
+      </li>
+      <li>
+         <img src="images/button-bukunutup.gif" style="margin-bottom: -3px;" /> Data <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+      </li>
+      <li>
+         <img src="images/button-clipboard.gif" style="margin-bottom: -3px;" /> Data <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->
+      </li>
+      <li>
+         <img src="images/transkrip_nilai.gif" style="margin-bottom: -3px;" /> Data <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+      </li>
+      <li>
+         <img src="images/button-add.gif" style="margin-bottom: -3px;" /> Untuk melakukan penambahan data
+      </li>
+      <li>
+         <img src="images/button-edit.gif" style="margin-bottom: -3px;" /> Untuk melakukan editing data
+      </li>
+      <li>
+         <img src="images/button-delete.gif" style="margin-bottom: -3px;" /> Untuk melakukan penghapusan data
+      </li>
+      <li>
+         <img src="images/button-batal.gif" style="margin-bottom: -3px;" /> Data tidak bisa di hapus karena mempunya data atau sudah memiliki komponen
+      </li>
+      <li>
+         <img src="images/button-detail.gif" style="margin-bottom: -3px;" /> Untuk melihat Komponen Belanja atau melakukan penambahan data komponen belanja
+      </li>
+      <li>
+         <img src="images/icons/export_excel.gif" style="margin-bottom: -3px;" /> Untuk export excel data program kegiatan
+      </li>
+   </ul>
+</div>
+<script type="text/javascript">
+var xhr_reset_form = {
+   '.xhr_simple_form': function(element) {
+      element.onreset   = function(){
+         var dest    = /\sdest_(.*?)\s/.exec(' '+this.className+' ');
+         var url     = this.getAttribute('action');
+         var target  = this.getAttribute('data-target');
+         if(typeof(target) != 'undefined' && target != null){
+            urlActions     = target;
+         }else{
+            urlActions     = url;
+         }
+         if(dest){
+            GtfwAjax.replaceContentWithUrl(dest[1], urlActions + '&ascomponent=1');
+         }
+
+         return false;
+      }
+   }, 
+   '.xhr_form': function(element) {
+      element.onreset   = function(){
+         var dest    = /\sdest_(.*?)\s/.exec(' '+this.className+' ');
+         var url     = '?mod=home&sub=Home&act=view&typ=html';
+         var target  = this.getAttribute('data-target');
+         if(typeof(target) != 'undefined' && target != null){
+            urlActions     = target;
+         }else{
+            urlActions     = url;
+         }
+         if(dest){
+            GtfwAjax.replaceContentWithUrl(dest[1], urlActions + '&ascomponent=1');
+         }
+
+         return false;
+      }
+   }
+}
+Behaviour.register(xhr_reset_form);
+document.onload = function() { Behaviour.register(xhr_reset_form); };
+</script>
+<!-- /patTemplate:tmpl -->

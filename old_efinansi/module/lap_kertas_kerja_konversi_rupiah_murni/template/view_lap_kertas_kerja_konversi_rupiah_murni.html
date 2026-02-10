@@ -1,0 +1,137 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+function cetak(xurl) {
+   var width  = 940;
+   var height = 600;
+   var left   = (screen.width  - width)/2;
+   var top    = (screen.height - height)/2;
+   var params = 'width='+width+', height='+height;
+   params += ', top='+top+', left='+left;
+   params += ', directories=no';
+   params += ', location=no';
+   params += ', menubar=no';
+   params += ', resizable=no';
+   params += ', scrollbars=yes';
+   params += ', status=no';
+   params += ', toolbar=no';
+   newwin = window.open(xurl,'Cetak', params);
+   if (window.focus) {
+      newwin.focus();
+   }
+
+   return false;
+}
+// ]]>
+</script>
+<h1>
+   Laporan Kertas Kerja Konversi Rupiah Murni
+</h1>
+<br />
+<form method="post" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2">
+            <h2>Pencarian Berdasarkan Periode</h2>
+         </th>
+      </tr>
+      <tr>
+         <th width="150">
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode_tahun" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tahun_anggaran"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Sampai dengan Tanggal
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="tanggal" action="view" name="tanggal"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <th>
+            <input type="submit" name="btn-search" value="Cari &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btn-reset" value="Reset" class="buttonSubmit" />
+         </th>
+      </tr>
+   </table>
+</form>
+
+<br />
+
+<div class="pageBar">
+<!-- patTemplate:gtfwrendermodule module="paging" submodule="paging"
+   action="view" name="paging_top"  / -->
+   <div class="toolbar">
+      <a href="#" onclick="cetak('{URL_PRINT}')" title="Cetak" tabindex="0">
+      <img src="images/button-print.gif" alt="Cetak" /> Cetak</a>
+       <a href="{URL_EXCEL}" title="Export Excel" tabindex="1">
+       <img src="images/button-tindaklanjuti.gif" alt="" />
+       <!-- patTemplate:gtfwgetconfig config="language" name="excel" / --></a>
+   </div>
+</div>
+
+<!-- start: Table List -->
+      <table class="table-common" width="100%">
+         <tr>
+            <th colspan="3" height="20">SAK</th>
+            <th colspan="3">SAP
+            </th>
+         </tr>
+         <tr>
+            <th height="20">
+               AKUN
+            </th>
+            <th>
+               URAIAN
+            </th>
+            <th>
+               JUMLAH
+            </th>
+            <th>
+               AKUN
+            </th>
+            <th>
+               URAIAN
+            </th>
+            <th>
+               JUMLAH
+            </th>
+         </tr>
+
+         <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+            <!-- patTemplate:sub condition="YES" -->
+            <tr><td colspan="6" align="center"><em>-- Data tidak ditemukan --</em></td></tr>
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+               <!-- patTemplate:tmpl name="data_item" -->
+               <tr class="{CLASS_NAME}">
+                  <td style="text-align:center">
+                     {SAK_AKUN}
+                  </td>
+                  <td width="200">
+                     {SAK_URAIAN}
+                  </td>
+                  <td style="text-align:right">
+                     {SAK_JUMLAH}
+                  </td>
+                  <td style="text-align:center">
+                     {SAP_AKUN}
+                  </td>
+                  <td width="200">
+                     {SAP_URAIAN}
+                  </td>
+                  <td style="text-align:right">
+                     {SAP_JUMLAH}
+                  </td>
+               </tr>
+               <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </table>
+   <!-- stop: Table List -->
+<!-- /patTemplate:tmpl -->

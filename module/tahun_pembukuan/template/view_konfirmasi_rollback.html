@@ -1,0 +1,35 @@
+<!-- patTemplate:tmpl name="content" -->
+<form action="{URL_ACTION}" class="xhr_form dest_subcontent-element" method="POST" id="formKonfirmasi" data-target="{URL_KEMBALI}">
+    <div class="alert-box">
+        <div class="alert-box-header">
+            <h2>Konfirmasi Rollback Tahun Pembukuan</h2>
+        </div>
+        <div class="alert-box-content">
+            <div class="notebox-alert">
+                Proses rollback akan membatalkan posting yang telah dilakukan di tahun pembukuan <b>{TPP_AKTIF_NAMA}</b>
+            </div>
+            <div>
+                <input type="checkbox" name="aktif_sebelumnya" value="Ya" id="aktif_sebelumnya">
+                <label for="aktif_sebelumnya">Aktifkan Tahun Pembukuan <b> {TPP_AKTIF_SEBELUM_NAMA}</b></label>
+            </div>
+        </div>
+        <div class="alert-box-footer">
+            <div class="alert-actions">
+                <input type="submit" name="btnSimpan" value="Simpan" class="btn" />
+                <input type="reset" name="btnReset" value="Kembali" class="btn" />
+            </div>
+         </div>
+    </div>
+</form>
+
+<div class="petunjuk-area">
+    <h4>
+       <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+    </h4>
+    <ul>
+        <li>
+            Checklist Untuk melakukan rollback dan mengaktifkan tahun pembukuan sebelumnya 
+        </li>
+    </ul>
+ </div>
+<!-- /patTemplate:tmpl -->

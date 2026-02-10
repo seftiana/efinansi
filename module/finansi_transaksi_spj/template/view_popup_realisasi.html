@@ -1,0 +1,161 @@
+<!-- patTemplate:tmpl name="content" -->
+<form method="POST" action="{URL_SEARCH}" id="filterboxpopup" name="filterboxpopup"
+class="dataquest xhr_simple_form dest_popup-subcontent">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 95px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / -->
+         </th>
+         <td>
+            <input type="hidden" name="unit_id" value="{UNIT_ID}" id="src_unit_id" />
+            <label style="font-weight: bold;">
+               {UNIT_NAMA}
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" id="src_kode" size="35" value="{KODE}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <td>
+            <input type="text" name="nama" id="src_nama" size="35" value="{NAMA}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th rowspan="2" style="width: 30px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th rowspan="2" style="width: 95px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <th rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <th colspan="3">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal" / -->
+         </th>
+         <th rowspan="2" style="width: 18px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_pencairan_disetujui_rp" / -->
+         </th>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_yang_sudah_dicairkan_rp" / -->
+         </th>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_spj_rp" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="7">
+                  <center>
+                     <em>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                     </em>
+                  </center>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+               <tr class="{CLASS_NAME}">
+                  <td align="center">
+                     {NOMOR}
+                  </td>
+                  <td>
+                     {KODE}
+                  </td>
+                  <td>
+                     {NAMA}
+                  </td>
+                  <td align="right">
+                     {NOMINAL_APPROVE}
+                  </td>
+                  <td align="right">
+                     {NOMINAL_REALISASI}
+                  </td>
+                  <td align="right">
+                     {NOMINAL_SPJ}
+                  </td>
+                  <td class="links">
+                     <a href="javascript:void(0);" title="Pilih" onclick="setData('{ID}');">
+                        <img src="images/icons/16/button-check.gif" alt="Pilih" />
+                     </a>
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<!-- end: Table List -->
+<script type="text/javascript">
+var dataRealisasi    = {REALISASI_DATA};
+var form             = document.forms['frmInput'];
+var setData          = function(xid){
+   var data          = dataRealisasi[xid];
+   if(form){
+      var elements   = form.elements;
+      var inpAkunId           = elements.akun_id;
+      var inpAkunNama         = elements.akun_nama;
+      var inpRealisasiId      = elements.realisasi_id;
+      var inpKegiatanId       = elements.kegiatan_id;
+      var inpNominalApprove   = elements.nominal_approve;
+      var inpNominalRealisasi = elements.nominal_realisasi;
+      var inpNominal          = elements.nominal;
+
+      inpKegiatanId.value     = data.kegdet_id;
+      inpRealisasiId.value    = data.pengreal_id;
+      inpAkunId.value         = data.kegdet_id;
+      inpAkunNama.value       = data.nama;
+      inpNominalApprove.gvSetValue(data.nominal_approve);
+      inpNominalRealisasi.gvSetValue(data.nominal_realisasi);
+      inpNominal.gvSetValue(parseFloat(data.nominal_approve)-parseFloat(data.nominal_realisasi));
+   }
+
+   popupClose();
+}
+</script>
+<!-- /patTemplate:tmpl -->

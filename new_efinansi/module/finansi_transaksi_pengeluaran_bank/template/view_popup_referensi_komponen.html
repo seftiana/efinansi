@@ -1,0 +1,165 @@
+<!-- patTemplate:tmpl name="content" -->
+<form method="POST" action="{URL_SEARCH}" id="filterboxpopup" name="filterboxpopup" class="dataquest xhr_simple_form dest_popup-subcontent">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+   
+      <tr>
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="bpkb" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" id="kode" size="35" value="{KODE}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+   <thead>
+       <tr>
+           <th style="width: 25px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+           </th>
+           <th  style="width: 130px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+           </th>
+           <th  style="width: 60px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="kode" / --> SPPU
+           </th>
+           <th >
+               BPKB 
+           </th>
+           <th  style="width: 120px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="nominal" / -->
+           </th>
+           <th style="width: 30px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+           </th>
+       </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="6">
+                  <center>
+                     <em>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                     </em>
+                  </center>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+               <tr class="{CLASS_NAME}">
+                   <td>
+                       {NOMOR}
+                   </td>
+                   <td>
+                       <!-- patTemplate:var name="TANGGAL" modifier="gtfwindonesiandate" format="long" separator="-" / -->
+                   </td>
+                   <td>
+                       {KODE}
+                   </td>
+                   <td>
+                       {BPKB_BANK}
+                   </td>
+                   <td align="right">
+                       {NOMINAL_F}
+                   </td>
+                  <td class="links">
+                     <a href="javascript:void(0);" onclick="javascript:setData('{ID}', '{BPKB_BANK}','{NOMINAL}','{KETERANGAN}','{HARI}','{BULAN}','{TAHUN}','{TANGGAL_TBANK}');update_COA_list('{ID}');" title="Pilih">
+                        <img src="images/icons/16/button-check.gif" alt="Pilih" />
+                     </a>
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<!-- end: Table List -->
+
+<script type="text/javascript">
+var form             = document.forms['frmInput'];
+var setData          = function(id,bpkb_bank,nominal,keterangan,hari,bulan,tahun,tanggal_ymd){ 
+        if(form){
+           var formElements     = form.elements;
+           var inReferensiId    = formElements.referensi_id;
+           var inReferensiNo    = formElements.referensi_no;
+           var inNominal        = formElements.nominal;
+           var inKeterangan     = formElements.keterangan;
+           var tDay             = formElements.referensi_tanggal_day;
+           var tMon             = formElements.referensi_tanggal_mon;
+           var tYear            = formElements.referensi_tanggal_year;
+           var tYMD              = formElements.tanggal_ymd;
+           inReferensiId.value  = id;
+           inReferensiNo.value  = bpkb_bank;
+           inNominal.gvSetValue(parseFloat(nominal));
+           inKeterangan.value   = keterangan;
+           tDay.value           = hari;
+           tDay.disabled        = true;
+           tMon.value           = bulan;
+           tMon.disabled        = true;
+           tYear.value          = tahun;
+           tYear.disabled       = true;
+           tYMD.value            = tanggal_ymd;
+        }
+    
+}
+
+
+
+ 
+   document.update_COA_list = function (id)
+   {
+      document.getElementById('button-coa-debet').style.display = 'block';
+      document.getElementById('CoaPlaceHolder_debet').deleteAllItem();
+     
+        var data = {DATA_COA};
+        if(data[id]) {
+            var dataToMount   = data[id];
+            if(dataToMount.length > 0){
+               for (var i in dataToMount){
+                  document.getElementById('CoaPlaceHolder_debet').addItem(
+                     dataToMount[i]['coa_id'],            
+                     dataToMount[i]['coa_kode'],
+                     dataToMount[i]['coa_nama'],
+                     '',
+                     '',
+                     '',
+                     dataToMount[i]['nominal'],
+                     1 // artinya untuk menandai bahwa coa berasal dari sppu
+                  );
+               }
+            }
+        }
+           //document.getElementById('button-coa-debet').style.display = 'none';
+      //}
+      popupClose();
+   }
+
+</script>
+
+<!-- /patTemplate:tmpl -->

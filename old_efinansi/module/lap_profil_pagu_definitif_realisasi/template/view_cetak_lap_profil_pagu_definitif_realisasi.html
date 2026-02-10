@@ -1,0 +1,39 @@
+<!-- patTemplate:tmpl name="content" -->
+<center><h1><!-- patTemplate:gtfwgetconfig config="language" name="lap_profil_pagu_definitif_realisasi" / --></h1></center>
+<br>
+<center><h1><!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / --> {TAHUN_PERIODE}</h1></center>
+<br>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / 
+<!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --> : {UNIT_KERJA_LABEL}</h1>   
+   <table class="table-common" width="100%">
+   <tr>
+	   
+        <th width="20"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+        <th><!-- patTemplate:gtfwgetconfig config="language" name="uraian" / --> ( Unit Kerja/Kegiatan/Output/Komponen)</th>
+        <th width="150">Total Pagu Definitif</th>
+        <th width="150">Total Realisasi</th>
+    </tr>
+
+    <!-- patTemplate:tmpl name="list_data" type="condition" conditionvar="IS_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="4" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+				<!-- patTemplate:tmpl name="list_data_item" -->
+				<tr class="{CLASS_NAME}" style="{FONT_STYLE}">
+					<td align="right">{KODE}</td>
+					<td align="left">{URAIAN}</td>
+					<td align="right">{TOTAL_PAGU_DEF}</td>
+					<td align="right">{TOTAL_REALISASI}</td>
+				</tr>
+					
+			<!-- /patTemplate:tmpl -->
+				<tr >
+					<td align="center" colspan="2"><b>JUMLAH TOTAL</b></td>
+					<td align="right"><b>{TOTAL_NOMINAL_PAGU_DEF}</b></td>
+					<td align="right"><b>{TOTAL_NOMINAL_REALISASI}</b></td>
+				</tr>			
+		<!-- /patTemplate:sub -->
+     <!-- /patTemplate:tmpl -->
+    </table> 
+<!-- /patTemplate:tmpl -->

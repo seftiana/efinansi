@@ -1,0 +1,50 @@
+<!-- patTemplate:tmpl name="content" -->
+<form method="POST" name="frm_coa" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2"><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></th>
+      </tr>
+      <tr>
+         <th width="25%"><!-- patTemplate:gtfwgetconfig config="language" name="kode_transaksi" / --></th>
+         <td><input type="text" name="transReferensi" value="{TRANSREFERENSI}" size='40'></td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Show Data &raquo; " class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<table class="table-common" width="100%">
+   <tr>
+      <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+      <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_transaksi" / --></th>
+      <th><!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / --></th>
+      <th><!-- patTemplate:gtfwgetconfig config="language" name="nilai_rp" / --></th>
+      <th width="31"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+   </tr>
+   <!-- patTemplate:tmpl name="data_item" type="condition" conditionvar="DATA_EMPTY" -->
+      <!-- patTemplate:sub condition="YES" -->
+      <tr><td colspan="5" align="center"><em>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --</em></td></tr>
+      <!-- /patTemplate:sub -->
+      <!-- patTemplate:sub condition="NO" -->
+         <!-- patTemplate:tmpl name="item" -->
+         <tr class="{CLASS_NAME}">
+            <td align="center">{NUMBER}</td>
+            <td>{TRANSREFERENSI}</td>
+            <td>{TRANSCATATAN}</td>
+            <td>{TRANSNILAILABEL}</td>
+            <td class='links'>
+               <a onclick="popup_trans_set({TRANSID})"><img src="images/button-check.gif"/></a>
+            </td>
+         </tr>
+         <!-- /patTemplate:tmpl -->
+      <!-- /patTemplate:sub -->
+   <!-- /patTemplate:tmpl -->
+</table>
+<!-- /patTemplate:tmpl -->

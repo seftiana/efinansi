@@ -1,0 +1,60 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="transaksi_spj" / -->
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterbox" name="filterbox" class="dataquest xhr_simple_form dest_subcontent-element">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 95px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode" / -->
+         </th>
+         <td>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="start_date"  / -->
+            </div>
+            <div>
+               <!-- patTemplate:gtfwgetconfig config="language" name="s_d" / -->
+            </div>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="end_date"  / -->
+            </div>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="no_bukti" / -->
+         </th>
+         <td>
+            <input type="text" name="no_referensi" size="35" id="txt_referensi" value="{NOMOR_REFERENSI}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="status" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="status"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+
+<!-- /patTemplate:tmpl -->

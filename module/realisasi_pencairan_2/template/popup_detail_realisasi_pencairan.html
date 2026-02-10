@@ -1,0 +1,144 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="detil_usulan_pencairan_anggaran_kegiatan" / --></h1>
+   <table class="table-details" width="100%">
+      <tr class="subhead">
+            <th colspan="2">Data <!-- patTemplate:gtfwgetconfig config="language" name="rencana_realisasi_pencairan" / --></th>
+         </tr>
+      <tr>          
+         <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / --></th>		 
+		 <td>
+		     {DATA_TA_NAMA}			 
+		 </td>
+	  </tr>
+      <tr>
+            <th width="30%"><!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / 
+			<!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / --></th>
+            <td>{DATA_UNIT_NAMA}				
+            </td>
+         </tr>	
+		 <!-- tr>
+			 <th>patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja"</th>
+			 <td>{DATA_SUBUNIT_NAMA}</td>
+		  </tr -->
+	  <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="program" / --></th>
+            <td>{DATA_PROGRAM_NAMA}</td>
+         </tr>
+	  <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --></th>
+            <td>{DATA_KEGIATAN_NAMA}</td>
+
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / --></th>
+            <td>{DATA_SUBKEGIATAN_NAMA}</td>
+         </tr>
+	  <tr>
+	     <th><!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / --></th>  
+		 <td>{DATA_KETERANGAN}</td>
+	  </tr>
+	  <tr>
+	     <th><!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / --></th>
+		 <td>{DATA_TANGGAL}</td>
+	  </tr>
+	  <tr>
+	    <th><!-- patTemplate:gtfwgetconfig config="language" name="nomor_pengajuan" / --></th>
+		<td>{DATA_NOMOR_PENGAJUAN}</td>
+	  </tr>
+	  <tr>
+	     <th ><!-- patTemplate:gtfwgetconfig config="language" name="nominal" / --></th>
+		 <td>{DATA_NOMINAL}</td>		 
+	  </tr>	   
+      <tr>
+         <th > <!-- patTemplate:gtfwgetconfig config="language" name="disetujui_oleh" / --></th>
+         <td> {DATA_USER_APPROVAL}</td>         
+      </tr>   	
+      <tr>
+         <th > <!-- patTemplate:gtfwgetconfig config="language" name="attachment" / --></th>
+         <td> 
+            <a href="{DATA_FILE_DOWNLOAD}" target="_blank" title="FPA File">
+               {DATA_FILE}
+            </a>
+         </td>         
+      </tr>  		
+      <tr class="subhead">
+         <th colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+         </th>
+      </tr>
+      <tr>
+         <td colspan="2" style="padding: 0px;">
+            <table class="table-common" style="width: 100%;">
+               <thead>
+               <tr>
+                  <th colspan="2" style="text-align: center; vertical-align: middle; font-weight: bold;">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+                  </th>
+                  <th rowspan="2" style="text-align: center; vertical-align: middle; font-weight: bold; width: 115px;">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="kode_coa" / -->
+                  </th>
+                  <th rowspan="2" style="text-align: center; vertical-align: middle; font-weight: bold; width: 115px;">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / -->
+                  </th>                  
+                  <th colspan="2" style="text-align: center; vertical-align: middle; font-weight: bold;">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="nominal" / -->
+                  </th>
+               </tr>
+               <tr>
+                  <th style="text-align: center; vertical-align: middle; font-weight: bold; width: 95px;">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+                  </th>
+                  <th style="text-align: center; vertical-align: middle; font-weight: bold;">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+                  </th>
+                  <th style="width: 95px; text-align: center; vertical-align: middle; font-weight: bold;">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="nominal_usulan_rp" / -->
+                  </th>
+                  <th style="width: 95px; text-align: center; vertical-align: middle; font-weight: bold;">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="nominal_setuju_rp" / -->
+                  </th>
+               </tr>
+               </thead>
+               <tbody>
+               <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+                  <!-- patTemplate:sub condition="YES" -->
+                     <tr>
+                        <td colspan="6" align="center" style="font-style: italic;">
+                           <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                        </td>
+                     </tr>
+                  <!-- /patTemplate:sub -->
+                  <!-- patTemplate:sub condition="NO" -->
+                     <!-- patTemplate:tmpl name="data_list" -->
+                        <tr>
+                           <td align="center">
+                              {KOMPONENKODE}
+                           </td>
+                           <td>
+                              {KOMPONENNAMA}
+                           </td>
+                           <td align="center">
+                              {MAKKODE}
+                           </td>
+                           <td align="left">
+                              {DESKRIPSI}
+                           </td>
+                           <td align="right">
+                              {NOMINALBUDGET}
+                           </td>
+                           <td align="right">
+                              {NOMINALAPPROVE}
+                           </td>
+                        </tr>
+                     <!-- /patTemplate:tmpl -->
+                  <!-- /patTemplate:sub -->
+               <!-- /patTemplate:tmpl -->
+               </tbody>
+            </table>
+         </td>
+      </tr>
+   </table>  
+<!-- /patTemplate:tmpl -->

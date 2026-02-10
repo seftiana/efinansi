@@ -1,0 +1,29 @@
+<!-- patTemplate:tmpl name="content" -->
+<div>
+   <center>
+      <div id="loginWrapper">
+         <div id="loginBox">
+            <div id="loginBox-head">
+               <div id="loginBoxhead_img">
+                  <img src="images/logo-sample.png"/>
+               </div>
+               <h1><!-- patTemplate:gtfwgetconfig config="organization" name="company_name" / --></h1>
+            </div>
+            <div id="loginBox-title">
+               <h2>{APPLICATION_NAME}</h2>
+			    <img src="images/loginBox-title-img.jpg" alt="" />
+            </div>
+            <div id="loginBox-body">
+               <div id="login-box-info">
+                  <img src="images/login-warning.gif" alt="Login tidak berhasil" />
+                  Proses login tidak berhasil. <br />Username atau password yang anda masukkan salah.  <br /><br />
+                  Klik <a href="<!-- patTemplate:gtfwgeturl module="login_default" sub="login" action="view" type="html" / -->"><b>kembali</b></a> untuk melakukan login ulang
+               </div>
+            </div>
+            <div id="loginBox-foot"></div>
+         </div>
+		</div>
+   </center>
+
+</div>
+<!-- /patTemplate:tmpl -->

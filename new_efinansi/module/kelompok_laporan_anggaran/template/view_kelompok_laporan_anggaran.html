@@ -1,0 +1,137 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function centangin_semua(varname, start_num, end_num) {
+		var obj = document.getElementById('cek_all');
+		var ceks;
+		if(obj.checked == false) {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+				if(ceks) ceks.checked = false;
+			}
+		} else {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+				if(ceks) ceks.checked = true;
+			}
+		}
+	}
+	function show_checkbox () {
+		if(document.getElementById('cek_all'))
+			document.getElementById('cek_all').style.display='';
+	}
+	
+	function popupDetilKelompokLaporan(url)
+	{
+		showPopup(url,"Detil Kelompok Laporan Anggaran", 600, 500);
+	}
+	document.onload = show_checkbox();
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="kelompok_laporan_anggaran" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+      <tr>              
+         <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kelompok_laporan" / --></th>
+         <td><input type="text" name="key" value="{KEY}" size="30" /></td>
+      </tr>
+      </tr>
+			<tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="jenis_laporan" / --></th>
+            <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="jns_lap"  / -->
+            </td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan" / --> &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+   <form method="POST" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar"> 
+   		<a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Data Kelompok Laporan" ><img src="images/button-add.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / --></a>
+		<input type="submit" id="btnHapus" name="btnHapus" value="<!-- patTemplate:gtfwgetconfig config="language" name="hapus" / -->" class="inputButton" />
+      </div>
+   </div>
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <th width="5"><input type="checkbox" style="display:none" name="cek_all" id="cek_all" value="ALL" onclick="centangin_semua('id_klp_lap_','{FIRST_NUMBER}','{LAST_NUMBER}');" /></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kelompok_laporan" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="bentuk_transaksi" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="jenis_laporan" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="is_tambah" / --></th>
+         <th width="95"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="7" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">{DATA_NUMBER}</td>
+			   <td align="center">
+					<input type="checkbox" name="id[]" id="id_klp_lap_{DATA_NUMBER}" value="{DATA_ID}" /><input type="hidden" name="name[{DATA_ID}]" value="{DATA_NAMA}" /></td>
+               <td>{DATA_NAMA}</td>
+               <td>{DATA_BENTUK_TRANSAKSI}</td>
+               <td>{DATA_JENIS_LAPORAN}</td>
+               <td>{DATA_IS_TAMBAH}</td>
+               <td class="links" align="center">
+                  <a class="xhr dest_subcontent-element" href="{DATA_URL_EDIT}" title="<!-- patTemplate:gtfwgetconfig config="language" name="ubah" / -->"><img src="images/button-edit.gif" alt="Ubah"/></a>
+                  <!-- a class="xhr dest_subcontent-element" href="{DATA_URL_DETIL}" title="<!-- patTemplate:gtfwgetconfig config="language" name="detil" / -->"><img src="images/button-detail.gif" alt="Ubah"/></a -->      
+                  <a class="dest_subcontent-element" href="javascript:void(0)" 
+					onClick="popupDetilKelompokLaporan('{DATA_URL_DETIL}')"
+					title="<!-- patTemplate:gtfwgetconfig config="language" name="detil" / -->"><img src="images/button-detail.gif" alt="View Detil"/></a>      
+                  <a class="xhr dest_subcontent-element" href="{DATA_URL_DELETE}" title="<!-- patTemplate:gtfwgetconfig config="language" name="hapus" / -->"><img src="images/button-delete.gif" alt="Hapus"/></a>      
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   </form>
+   <br /> 
+	<div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+      <ul>
+			<li>
+            <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / --> 
+            <img src="images/button-add.gif" /> <!-- patTemplate:gtfwgetconfig config="language" name="untuk_menambah_data" / -->
+            </li>
+			
+            <li>
+                <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / --> 
+                <img src="images/button-edit.gif"/> 
+                <!-- patTemplate:gtfwgetconfig config="language" name="untuk_mengupdate_data" / -->
+            </li>
+			<li>
+                <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / --> 
+                <img src="images/button-detail.gif"/> View Detail Kelompok Laporan Anggaran
+            </li>
+			<li>
+            <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / -->
+            <img src="images/button-delete.gif"/> 
+            <!-- patTemplate:gtfwgetconfig config="language" name="untuk_mendelete_data" / -->
+            </li>
+		 
+      </ul>
+   </div>   
+<!-- /patTemplate:tmpl -->

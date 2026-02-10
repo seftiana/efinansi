@@ -1,0 +1,29 @@
+<!-- patTemplate:tmpl name="content" -->
+<form class="xhr_form std_form" name="FORM_UPLOAD" enctype="multipart/form-data" method="post" action="{ACTION_URL}">
+   <input type="hidden" name="data_id" value="{DATA_ID}" />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            Upload File
+         </th>
+      </tr>
+      <tr>
+         <th>
+            RAB File
+         </th>
+         <td>
+            <input type="file" name="rab_file" />
+            <label style="display: block;">
+               filetype : doc,docx,xls,xlsx,pdf,rar,zip,rtf
+            </label>
+         </td>
+      </tr>
+      <tr class="buttons">
+         <td>&nbsp;</td>
+         <td>
+            <input name="action" type="submit" value="Upload" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<!-- /patTemplate:tmpl -->

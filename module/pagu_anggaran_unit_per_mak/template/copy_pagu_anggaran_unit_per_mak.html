@@ -1,0 +1,726 @@
+<!-- patTemplate:tmpl name="content" -->
+<!-- GtfwAjax.loadUrl('/GT/project/upn/gtFinansiAnggaran/index.php?mod=realisasi_pencairan_2&sub=Program&act=view&typ=json&id_ta='+idTa, false, 'json'); -->
+<style type="text/css">
+.toolbar a, .toolbar a:hover {
+   padding: 5px 9px;
+}
+.toolbar a:active {
+   border: #FCE171 1px solid;
+   height: 14px;
+   padding: 5px 9px;
+   margin: 1px 1px 0px 0px;
+   display: block;
+   float: left;
+   overflow: hidden;
+   cursor: default;
+   background-color: #ffffff;
+}
+table.table-common thead tr:first-child th{
+   border-top: 1px solid #F9D54B !important;
+}
+table.table-common > thead > tr > th{
+   text-align: center;
+   vertical-align: middle;
+}
+</style>
+<h1>
+   Daftar <!-- patTemplate:gtfwgetconfig config="language" name="pau" / -->
+</h1>
+<br/>
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br/>
+<!-- /patTemplate:tmpl -->
+
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
+   <input type="hidden" name="pagu_id" value="{PAGU_ID}"  />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            {JUDUL} <!-- patTemplate:gtfwgetconfig config="language" name="pau" / -->
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / --> Asal
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tahun_anggaran_asal"  / -->*
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / --> Tujuan
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tahun_anggaran_tujuan"  / -->*
+         </td>
+      </tr>
+      <!-- patTemplate:tmpl name="role" type="condition" conditionvar="WHOAMI" -->
+         <!-- patTemplate:sub condition="ADMINISTRATOR" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="satker" id="satker" value="{UNITKERJA}" />
+                  <input type="text" name="satker_label" id="satker_label" value="{UNITKERJA_LABEL}" size="40" readonly="readonly" />
+                  <input type="button" onclick="javascript:openPopup('{URL_POPUP_UNITKERJA}')" value=" ... " /> *
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="OPEARATORUNIT" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="satker" id="satker" value="{UNITKERJA}" />
+                  <input type="text" name="satker_label" id="satker_label" value="{UNITKERJA_LABEL}" size="40" readonly="readonly" />
+                  <input type="button" onclick="javascript:openPopup('{URL_POPUP_UNITKERJA}')" value=" ... " />*
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="OPEARATORSUBUNIT" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="satker" id="satker" value="{UNITKERJA}" />
+                  <input type="hidden" name="satker_label" id="satker_label" value="{UNITKERJA_LABEL}" />
+                  <label style="font-weight: bold;">
+                     {UNITKERJA_LABEL}
+                  </label>*
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+      <tr style="display: none;">
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="perubahan_pagu" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="perubahan_pagu"  / -->
+            <input type="text" name="persen_perubahan" id="persen_perubahan" size="3" maxlength="3">&nbsp;%
+         </td>
+      </tr>
+      <tr class="subhead">
+         <th colspan="2">
+            <div class="toolbar" style="float: none;">
+               <a href="javascript:void(0);" id="load-pagu">
+                  Tampilkan data Pagu Anggaran Unit per MAK
+               </a>
+            </div>
+         </th>
+      </tr>
+      <tr>
+         <td colspan="2" style="padding: 0px;">
+            <table class="table-common" width="100%" id="list-pagu">
+               <thead>
+                  <tr>
+                     <th style="width: 20px;" rowspan="2">
+                        &nbsp;
+                     </th>
+                     <th colspan="2">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/
+                        <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+                     </th>
+                     <th rowspan="2">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->-
+                        <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->-
+                        <!-- patTemplate:gtfwgetconfig config="language" name="output" / -->-
+                        <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+                     </th>
+                     <th rowspan="2">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="mak_kode" / -->
+                     </th>
+                     <th rowspan="2">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+                     </th>
+                     <th colspan="2">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+                     </th>
+                     <th rowspan="2">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+                     </th>
+                  </tr>
+                  <tr>
+                     <th>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+                     </th>
+                     <th>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+                     </th>
+                     <th>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="tipe" / -->
+                     </th>
+                     <th>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="nilai" / --> %
+                     </th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr id="empty-row">
+                     <td colspan="9" style="text-align: center; font-style: italic;">
+                        --<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </td>
+      </tr>
+      <tr class="buttons">
+         <td colspan="2">
+            <input type="submit" name="btnsimpan" value=" Salin " class="buttonSubmit"/>
+            <input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+<br/>
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / -->
+      </li>
+      <li>
+         Pilih <!-- patTemplate:gtfwgetconfig config="language" name="periode_tahun" / --> Asal dan tentukan <!-- patTemplate:gtfwgetconfig config="language" name="periode_tahun" / --> Tujuan Lalu pilih <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/<!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --> Untuk menampilkan daftar Pagu Anggaran per MAK klik Tombol "Tampilkan data Pagu Anggaran Unit per MAK".
+      </li>
+   </ul>
+</div>
+<div id="data-pagu">
+
+</div>
+<script type="text/javascript">
+function clearCurrency(str){
+   num      = str.toString();
+   num      = num.replace(/\$|\./g, '');
+   num      = num.replace(/\$|\,/g,'.');
+   num      = parseFloat(num);
+   return num;
+}
+
+function setCurrency(str, cent){
+   var num = str.toString();
+   var ret = 0;
+   num = num.replace(/\$|\,/g,".");
+   num = num.toString().replace(/\$|\,/g,"");
+   if(isNaN(num))
+   num = "0";
+   sign = (num == (num = Math.abs(num)));
+   num = Math.floor(num*100+0.50000000001);
+   cents = num%100;
+   num = Math.floor(num/100).toString();
+   if(cents<10)
+   cents = "0" + cents;
+   for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+   num = num.substring(0,num.length-(4*i+3))+"."+
+   num.substring(num.length-(4*i+3));
+   if(cent == true){
+      ret = ((sign)?"":"-") + num + "," + cents;
+   }else{
+      ret = ((sign)?"":"-") + num;
+   }
+   return ret
+}
+
+changeTotal    = function(element,id, nominal){
+   var labelElement     = document.getElementById('nominal_'+id);
+   var persenElement    = document.getElementById('persen_'+id);
+   var paguElement      = document.getElementById('final_'+id);
+   var nilai            = clearCurrency(persenElement.value);
+   var nominal          = parseFloat(nominal);
+   var paguNominal      = 0;
+   if(nilai == ''){
+      nilai             = 0;
+   }
+
+   if(element.value.toUpperCase() === 'TETAP'){
+      persenElement.setAttribute('readonly', 'readonly');
+      persenElement.value     = setCurrency(0, true);
+      labelElement.innerHTML  = setCurrency(nominal);
+      paguNominal             = nominal;
+   }else if(element.value.toUpperCase() === 'NAIK'){
+      persenElement.removeAttribute('readonly');
+      paguNominal             = nominal+((nominal*nilai)/100);
+   }else if(element.value.toUpperCase() === 'TURUN'){
+      persenElement.removeAttribute('readonly');
+      if(nilai > 100){
+         nilai                = 0;
+         persenElement.value  = setCurrency(0, true);
+         alert('Maksimal Penurunan Nilai adalah 100%');
+         persenElement.focus();
+      }
+      paguNominal             = nominal-((nominal*nilai)/100);
+   }
+   labelElement.innerHTML     = setCurrency(parseFloat(paguNominal));
+   paguElement.value          = parseFloat(paguNominal);
+}
+
+setTotal          = function(elemen, id, nominal){
+   var nilai            = parseFloat(clearCurrency(elemen.value));
+   var labelElement     = document.getElementById('nominal_'+id);
+   var paguElement      = document.getElementById('final_'+id);
+   var cmbElement       = document.getElementById('aksi_pagu_'+id);
+   var nominal          = parseFloat(nominal);
+   var paguNominal      = 0;
+
+
+   if(cmbElement.value.toUpperCase() === 'TETAP'){
+      elemen.setAttribute('readonly', 'readonly');
+      elemen.value            = setCurrency(0, true);
+      elemen.innerHTML        = setCurrency(nominal);
+      paguNominal             = nominal;
+   }else if(cmbElement.value.toUpperCase() === 'NAIK'){
+      elemen.removeAttribute('readonly');
+      paguNominal             = nominal+((nominal*nilai)/100);
+   }else if(cmbElement.value.toUpperCase() === 'TURUN'){
+      if(nilai > 100){
+         elemen.focus();
+         elemen.value      = setCurrency(0, true);
+         nilai             = parseFloat(0);
+         alert('Maksimal Penurunan Nilai adalah 100%');
+      }
+      elemen.removeAttribute('readonly');
+      paguNominal             = nominal-((nominal*nilai)/100);
+   }
+
+   labelElement.innerHTML     = setCurrency(parseFloat(paguNominal));
+   paguElement.value          = parseFloat(paguNominal);
+}
+
+function openPopup (url) {
+   showPopup(url, 'gtPopup', 600, 550);
+}
+
+var periodeTahun     = {PERIODETAHUN_DATA};
+document.getElementById('src_periode_tahun').onchange    = function(){
+   var destPeriodeTahun             = document.getElementById('dest_periode_tahun');
+   destPeriodeTahun.selectedIndex   = 0;
+   document.getElementById('list-pagu').setEmptyRecord();
+   return true;
+}
+document.getElementById('dest_periode_tahun').onchange    = function(){
+   var srcTahunPeriode     = document.getElementById('src_periode_tahun');
+   var srcPeriodeTahunId   = srcTahunPeriode.options[srcTahunPeriode.selectedIndex].value;
+   // var srcPeriodeTahunName = srcTahunPeriode.options[srcTahunPeriode.selectedIndex].text;
+   var destPeriodeTahunId  = this.options[this.selectedIndex].value;
+   for (var i = periodeTahun.length - 1; i >= 0; i--) {
+      if(periodeTahun[i].id === srcPeriodeTahunId){
+         var srcPeriodeTahunStartDate  = new Date(periodeTahun[i].startDate);
+      }
+   };
+   for (var a = periodeTahun.length - 1; a >= 0; a--) {
+      if(periodeTahun[a].id === destPeriodeTahunId){
+         var destPeriodeTahunStartDate  = new Date(periodeTahun[a].startDate);
+      }
+   };
+   document.getElementById('list-pagu').setEmptyRecord();
+
+   if(srcPeriodeTahunId == '' || srcPeriodeTahunId == null){
+      alert('Pilih Periode Tahun Asal');
+   }else if(srcPeriodeTahunStartDate > destPeriodeTahunStartDate){
+      alert("Periode Tahun Tujuan tidak boleh lebih dari periode tahun asal");
+   }else if(srcPeriodeTahunId == destPeriodeTahunId){
+      alert('Salin pagu anggaran hanya bisa di lakukan pada tahun periode yang beda');
+   }
+
+   return true;
+}
+document.getElementById('load-pagu').onclick       = function(){
+   var srcTahunPeriode     = document.getElementById('src_periode_tahun');
+   var destPeriodeTahun    = document.getElementById('dest_periode_tahun');
+   var unitId              = document.getElementById('satker').value;
+   var unitNama            = document.getElementById('satker_label').value;
+   var srcPeriodeTahunId   = srcTahunPeriode.options[srcTahunPeriode.selectedIndex].value;
+   var destPeriodeTahunId  = destPeriodeTahun.options[destPeriodeTahun.selectedIndex].value;
+   if(srcPeriodeTahunId == ''){
+      alert('Definisikan tahun periode asal pagu anggaran yang akan di salin');
+   }else if(destPeriodeTahunId == ''){
+      alert('Definisikan tahun periode tujuan pagu anggaran');
+   }else if(unitId == ''){
+      alert('Definisikan Unit Kerja Pagu anggaran yang akan di salin untuk menentukan data pagu anggaran');
+   }else{
+      var urLData       = '{URL_DATA_PAGU}'+'&srcTaId='+srcPeriodeTahunId+'&destTaId='+destPeriodeTahunId+'&unitId='+unitId+'&unitNama='+unitNama;
+      GtfwAjax.loadUrl(urLData, false, 'json');
+   }
+
+   return false;
+   // var data                = GtfwAjax.loadUrl('{URL_DATA_PAGU}', false, 'json');
+   // document.getElementById('data-pagu').innerHTML     = data;
+}
+
+loadData       = function(dataArray){
+   var tBodyEl          = document.getElementById('list-pagu');
+   if(typeof(dataArray) != 'undefined' && dataArray != null){
+      if(typeof(tBodyEl) != 'undefined' && tBodyEl != null){
+         // delete all childs element of tBodyEl
+         var countPagu           = 0;
+         tBodyEl.deleteAllItems();
+         for(var i in dataArray){
+            tBodyEl.addItem(
+               dataArray[i].id,
+               dataArray[i].unitId,
+               dataArray[i].unitKode,
+               dataArray[i].unitNama,
+               dataArray[i].programId,
+               dataArray[i].programKode,
+               dataArray[i].programNama,
+               dataArray[i].kegiatanId,
+               dataArray[i].kegiatanKode,
+               dataArray[i].kegiatanNama,
+               dataArray[i].outputId,
+               dataArray[i].outputKode,
+               dataArray[i].outputNama,
+               dataArray[i].komponenId,
+               dataArray[i].komponenKode,
+               dataArray[i].komponenNama,
+               dataArray[i].makId,
+               dataArray[i].makKode,
+               dataArray[i].makNama,
+               dataArray[i].taId,
+               dataArray[i].taNama,
+               dataArray[i].nominal
+            );
+            countPagu+=1;
+         }
+
+         // jika tidak ada pagu dari data yang di pilih, set record empty
+         if(countPagu === 0){
+            document.getElementById('list-pagu').setEmptyRecord();
+         }
+      }else{
+         console.log('HTML Table Cell Element Body Not Found');
+      }
+   }else{
+      if(typeof(tBodyEl) != 'undefined' && tBodyEl != null){
+         tBodyEl.setEmptyRecord();
+      }else{
+         console.log('HTML Table Cell Element Body Not Found');
+      }
+   }
+
+   return false;
+}
+
+document.getElementById('list-pagu').addItem    = function(id, unitId, unitKode, unitNama, programId, programKode, programNama, kegiatanId, kegiatanKode, kegiatanNama, outputId, outputKode, outputNama, komponenId, komponenKode, komponenNama, makId, makKode, makNama, taId, taNama, paguNominal, type, nilai, persen){
+   var tBody         = this.getElementsByTagName('tbody')[0];
+   var frag          = document.createDocumentFragment();
+   if(typeof(type) == 'undefined' || type == null || type == ''){
+      type           = 'tetap';
+   }
+
+   if(typeof(persen) == 'undefined' || persen == null || persen == ''){
+      persen         = 0;
+   }
+   // check child object untuk tbody
+   var childObj      = tBody.getElementsByTagName('tr');
+   for (var i = childObj.length - 1; i >= 0; i--) {
+      if(childObj[i].id === 'empty-row'){
+         tBody.removeChild(childObj[i]);
+      }
+   };
+   var nomor         = childObj.length;
+   var className     = '';
+   if(nomor % 2 == 0){
+      className      = 'table-common-even';
+   }
+
+   var paguKode            = programKode+'-'+kegiatanKode+'-'+outputKode+'-'+komponenKode;
+   var inputUnitId         = document.createElement('input');
+   inputUnitId.value       = unitId;
+   inputUnitId.type        = 'hidden';
+   inputUnitId.name        = 'pagu['+id+'][unitId]';
+   var inputUnitKode       = document.createElement('input');
+   inputUnitKode.value     = unitKode;
+   inputUnitKode.type      = 'hidden';
+   inputUnitKode.name      = 'pagu['+id+'][unitKode]';
+   var inputUnitNama       = document.createElement('input');
+   inputUnitNama.type      = 'hidden';
+   inputUnitNama.value     = unitNama;
+   inputUnitNama.name      = 'pagu['+id+'][unitNama]';
+   var inputProgramId      = document.createElement('input');
+   inputProgramId.type     = 'hidden';
+   inputProgramId.value    = programId;
+   inputProgramId.name     = 'pagu['+id+'][programId]';
+   var inputProgramKode    = document.createElement('input');
+   inputProgramKode.type   = 'hidden';
+   inputProgramKode.value  = programKode;
+   inputProgramKode.name   = 'pagu['+id+'][programKode]';
+   var inputProgramNama    = document.createElement('input');
+   inputProgramNama.type   = 'hidden';
+   inputProgramNama.value  = programNama;
+   inputProgramNama.name   = 'pagu['+id+'][programNama]';
+   var inputKegiatanId     = document.createElement('input');
+   inputKegiatanId.type    = 'hidden';
+   inputKegiatanId.value   = kegiatanId;
+   inputKegiatanId.name    = 'pagu['+id+'][kegiatanId]';
+   var inputKegiatanKode   = document.createElement('input');
+   inputKegiatanKode.type  = 'hidden';
+   inputKegiatanKode.value = kegiatanKode;
+   inputKegiatanKode.name  = 'pagu['+id+'][kegiatanKode]';
+   var inputKegiatanNama   = document.createElement('input');
+   inputKegiatanNama.type  = 'hidden';
+   inputKegiatanNama.value = kegiatanNama;
+   inputKegiatanNama.name  = 'pagu['+id+'][kegiatanNama]';
+   var inputOutputId       = document.createElement('input');
+   inputOutputId.type      = 'hidden';
+   inputOutputId.value     = outputId;
+   inputOutputId.name      = 'pagu['+id+'][outputId]';
+   var inputOutputKode     = document.createElement('input');
+   inputOutputKode.type    = 'hidden';
+   inputOutputKode.value   = outputKode;
+   inputOutputKode.name    = 'pagu['+id+'][outputKode]';
+   var inputOutputNama     = document.createElement('input');
+   inputOutputNama.type    = 'hidden';
+   inputOutputNama.value   = outputNama;
+   inputOutputNama.name    = 'pagu['+id+'][outputNama]';
+   var inputKomponenId     = document.createElement('input');
+   inputKomponenId.type    = 'hidden';
+   inputKomponenId.value   = komponenId;
+   inputKomponenId.name    = 'pagu['+id+'][komponenId]';
+   var inputKomponenKode   = document.createElement('input');
+   inputKomponenKode.type  = 'hidden';
+   inputKomponenKode.value = komponenId;
+   inputKomponenKode.name  = 'pagu['+id+'][komponenKode]';
+   var inputKomponenNama   = document.createElement('input');
+   inputKomponenNama.type  = 'hidden';
+   inputKomponenNama.value = komponenNama;
+   inputKomponenNama.name  = 'pagu['+id+'][komponenNama]';
+   var inputMakId          = document.createElement('input');
+   inputMakId.type         = 'hidden';
+   inputMakId.value        = makId;
+   inputMakId.name         = 'pagu['+id+'][makId]';
+   var inputMakKode        = document.createElement('input');
+   inputMakKode.type       = 'hidden';
+   inputMakKode.value      = makKode;
+   inputMakKode.name       = 'pagu['+id+'][makKode]';
+   var inputMakNama        = document.createElement('input');
+   inputMakNama.type       = 'hidden';
+   inputMakNama.value      = makNama;
+   inputMakNama.name       = 'pagu['+id+'][makNama]';
+   var inputTaId           = document.createElement('input');
+   inputTaId.type          = 'hidden';
+   inputTaId.value         = taId;
+   inputTaId.name          = 'pagu['+id+'][taId]';
+   var inputTaNama         = document.createElement('input');
+   inputTaNama.type        = 'hidden';
+   inputTaNama.value       = taNama;
+   inputTaNama.name        = 'pagu['+id+'][taNama]';
+   var inputPaguId         = document.createElement('input');
+   inputPaguId.type        = 'hidden';
+   inputPaguId.value       = id;
+   inputPaguId.name        = 'paguId[]';
+   var tr                  = document.createElement('tr');
+   tr.setAttribute('class', className);
+   tr.id                   = id;
+
+   var tdAksi        = document.createElement('td');
+   tdAksi.setAttribute('style', 'text-align: center;');
+   var aksiDelete    = document.createElement('a');
+   aksiDelete.setAttribute('href', 'javascript:void(0);');
+   aksiDelete.setAttribute('onclick', 'deleteRecord("'+this.id+'", this);');
+   var aksiItem      = document.createElement('img');
+   aksiItem.setAttribute('src', 'images/icons/16/button-delete.gif');
+   aksiDelete.appendChild(aksiItem);
+   tdAksi.appendChild(aksiDelete);
+
+   var tdUnitKode          = document.createElement('td');
+   tdUnitKode.innerHTML    = unitKode;
+
+   var tdUnitNama    = document.createElement('td');
+   tdUnitNama.innerHTML    = unitNama;
+
+   var tdPaguKode    = document.createElement('td');
+   tdPaguKode.innerHTML    = paguKode;
+
+   var tdMakKode     = document.createElement('td');
+   tdMakKode.innerHTML     = makKode;
+
+   var tdPaguNominal = document.createElement('td');
+   tdPaguNominal.setAttribute('style', 'text-align: right;');
+
+   var inputNominal  = document.createElement('input');
+   inputNominal.type       = 'hidden';
+   inputNominal.name       = 'pagu['+id+'][pagu_nominal]';
+   inputNominal.value      = parseFloat(paguNominal);
+   inputNominal.id         = 'nominalPagu_'+id;
+
+   tdPaguNominal.innerHTML = setCurrency(parseFloat(paguNominal));
+   tdPaguNominal.appendChild(inputNominal);
+
+   var tdComboAksi   = document.createElement('td');
+
+   var selectTypeAksi   = document.createElement('select');
+   selectTypeAksi.name  = 'pagu['+id+'][tipe]';
+   selectTypeAksi.id    = 'aksi_pagu_'+id;
+   selectTypeAksi.setAttribute('onchange', 'changeTotal(this, "'+id+'", '+parseFloat(paguNominal)+')');
+
+   var opsType          = new Array('Tetap', 'Naik', 'Turun');
+   for (var i = opsType.length - 1; i >= 0; i--) {
+      var options       = document.createElement('option');
+      var optionValue   = document.createTextNode(opsType[i]);
+      options.value     = opsType[i];
+
+      if(opsType[i].toUpperCase() == type.toUpperCase()){
+         options.setAttribute('selected', 'selected');
+      }
+      options.appendChild(optionValue);
+      selectTypeAksi.appendChild(options);
+   };
+   tdComboAksi.appendChild(selectTypeAksi);
+
+   var tdAksiNilai      = document.createElement('td');
+   var inputAksiNilai   = document.createElement('input');
+   inputAksiNilai.type  = 'text';
+   inputAksiNilai.id    = 'persen_'+id;
+   inputAksiNilai.name  = 'pagu['+id+'][persen]';
+   inputAksiNilai.value = persen;
+   if(type.toUpperCase() == 'TETAP'){
+      inputAksiNilai.setAttribute('readonly', 'readonly');
+   }
+   inputAksiNilai.setAttribute('style', 'width: 50px;');
+   inputAksiNilai.setAttribute('class', 'gvFloat');
+   inputAksiNilai.setAttribute('maxlength', '6');
+   inputAksiNilai.setAttribute('onkeyup', 'setTotal(this, "'+id+'", '+parseFloat(paguNominal)+')');
+   inputAksiNilai.width = '10';
+   tdAksiNilai.appendChild(inputAksiNilai);
+
+   var tdSummary        = document.createElement('td');
+   var labelSummary     = document.createElement('label');
+   labelSummary.id      = 'nominal_'+id;
+   labelSummary.setAttribute('style', 'text-align: right; font-weight: bold;');
+   var inputSummary     = document.createElement('input');
+   inputSummary.name    = 'pagu['+id+'][nominal]';
+   inputSummary.type    = 'hidden';
+   inputSummary.id      = 'final_'+id;
+   // untuk nilai perubahan
+   if(typeof(nilai) === 'undefined' && nilai == null){
+      var nominal       = parseFloat(paguNominal);
+   }else{
+      var nominal       = parseFloat(nilai);
+   }
+
+   labelSummary.innerHTML     = setCurrency(nominal);
+   inputSummary.value         = nominal;
+   tdSummary.appendChild(labelSummary);
+   tdSummary.appendChild(inputSummary);
+
+   tr.appendChild(tdAksi);
+   tr.appendChild(tdUnitKode);
+   tr.appendChild(tdUnitNama);
+   tr.appendChild(tdPaguKode);
+   tr.appendChild(tdMakKode);
+   tr.appendChild(tdPaguNominal);
+   tr.appendChild(tdComboAksi);
+   tr.appendChild(tdAksiNilai);
+   tr.appendChild(tdSummary);
+
+   frag.appendChild(tr);
+   tBody.insertBefore(frag, tBody.firstChild);
+
+   var childNode = tdAksiNilai.firstChild;
+   do {
+      if (childNode.tagName && childNode.tagName.toUpperCase() == 'INPUT' && childNode.getAttribute('class') != null && childNode.getAttribute('class').toUpperCase() == 'GVFLOAT'){
+         gValidation20090108['.gvFloat'](childNode);
+      }
+   } while (childNode   = childNode.nextSibling);
+
+   return true;
+};
+
+document.getElementById('list-pagu').deleteAllItems   = function(){
+   var tBody         = this.getElementsByTagName('tbody')[0];
+   var childObj      = tBody.getElementsByTagName('tr');
+
+   for (var i = childObj.length - 1; i >= 0; i--) {
+      tBody.removeChild(childObj[i]);
+   };
+
+   return true;
+};
+
+document.getElementById('list-pagu').setEmptyRecord   = function(){
+   var tBody         = this.getElementsByTagName('tbody')[0];
+   var childObj      = tBody.getElementsByTagName('tr');
+
+   for (var i = childObj.length - 1; i >= 0; i--) {
+      tBody.removeChild(childObj[i]);
+   };
+
+   var frag          = document.createDocumentFragment();
+   var oTr           = document.createElement('tr');
+   oTr.setAttribute('id', 'empty-row');
+   var oTd           = document.createElement('td');
+   oTd.setAttribute('colspan', 9);
+   oTd.setAttribute('style', 'text-align: center; font-style: italic;');
+
+   oTd.innerHTML     = '--Data Tidak Ditemukan--';
+   oTr.appendChild(oTd);
+   frag.appendChild(oTr);
+   tBody.insertBefore(frag, tBody.firstChild);
+
+   return true;
+};
+
+
+deleteRecord      = function(el_id, node){
+   var elements      = document.getElementById(el_id);
+   var bodyElem      = elements.getElementsByTagName('tbody')[0];
+   var childBody     = bodyElem.getElementsByTagName('tr');
+   var parentNode    = node.parentNode.parentNode;
+
+   if(childBody[0].id !== 'empty-row'){
+      bodyElem.removeChild(parentNode);
+      if(childBody.length === 0){
+         elements.setEmptyRecord();
+      }
+   }
+
+   return false;
+}
+
+var dataPaguAnggaran    = {PAGU_ANGGARAN_DATA};
+if(typeof(dataPaguAnggaran) != 'undefined' && dataPaguAnggaran != null){
+   for(var i in dataPaguAnggaran){
+      document.getElementById('list-pagu').addItem(
+         dataPaguAnggaran[i].id,
+         dataPaguAnggaran[i].unitId,
+         dataPaguAnggaran[i].unitKode,
+         dataPaguAnggaran[i].unitNama,
+         dataPaguAnggaran[i].programId,
+         dataPaguAnggaran[i].programKode,
+         dataPaguAnggaran[i].programNama,
+         dataPaguAnggaran[i].kegiatanId,
+         dataPaguAnggaran[i].kegiatanKode,
+         dataPaguAnggaran[i].kegiatanNama,
+         dataPaguAnggaran[i].outputId,
+         dataPaguAnggaran[i].outputKode,
+         dataPaguAnggaran[i].outputNama,
+         dataPaguAnggaran[i].komponenId,
+         dataPaguAnggaran[i].komponenKode,
+         dataPaguAnggaran[i].komponenNama,
+         dataPaguAnggaran[i].makId,
+         dataPaguAnggaran[i].makKode,
+         dataPaguAnggaran[i].makNama,
+         dataPaguAnggaran[i].taId,
+         dataPaguAnggaran[i].taNama,
+         dataPaguAnggaran[i].nominal,
+         dataPaguAnggaran[i].type,
+         dataPaguAnggaran[i].nilai,
+         dataPaguAnggaran[i].persen
+      );
+   }
+}
+</script>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,73 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+   function pilih(id,kode){
+      form                   = document.frmInput;
+      document.getElementById('txt_kode_keg').value    = kode;
+      document.getElementById('txt_id_keg').value       = id;
+      popupClose();
+   };
+// ]]>
+</script>
+   <h1 id=""><!-- patTemplate:gtfwgetconfig config="language" name="list_kegiatan" / --></h1>
+   <br />
+   <form method="post" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterbox">
+      <table>
+         <tr>
+            <th colspan="2"><h2><!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --></h2></th>
+         </tr>
+         <tr>
+            <th>kode / nama <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --></th>
+            <th><input type="text" name="nama" value="{NAMA}" size="20" maxlength="20" /></th>
+         </tr>
+         <tr>
+            <th></th>
+            <th>
+               <input type="submit" name="action" value="Cari &raquo;" class="buttonSubmit" />
+            </th>
+         </tr>
+      </table>
+   </form>
+   <br />
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   </div>
+   <!-- start: Table List -->
+         <table class="table-common" width="500px">
+            <tr>
+               <th width="30" align="left">No</th>
+               <th>
+                  Kode
+               </th>
+               <th>
+                  Nama
+               </th>
+               <th>
+                  Aksi
+               </th>
+            </tr>
+            <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+               <!-- patTemplate:sub condition="YES" -->
+               <tr><td colspan="6" align="center"><em>-- Data tidak ditemukan --</em></td></tr>
+               <!-- /patTemplate:sub -->
+               <!-- patTemplate:sub condition="NO" -->
+                  <!-- patTemplate:tmpl name="data_item" -->
+                  <tr class="{CLASS_NAME}">
+                     <td align="center">{NO}</td>
+                     <td>
+                        {KODE}
+                     </td>
+                     <td>
+                        {NAMA}
+                     </td>
+                     <td class="links" align="center">
+                        <a href="#" onclick="pilih('{ID}','{KODE}')" title="Pilih">
+                  <img src="images/button-check.gif"></a>
+                     </td>
+                  </tr>
+                  <!-- /patTemplate:tmpl -->
+               <!-- /patTemplate:sub -->
+            <!-- /patTemplate:tmpl -->
+         </table>
+      <!-- stop: Table List -->
+<!-- /patTemplate:tmpl -->

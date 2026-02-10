@@ -1,0 +1,35 @@
+<!-- patTemplate:tmpl name="content" -->
+<script>
+	function HideAllMenu(){
+		id = '{ID_MENU}';
+		arrId = id.split('|');
+		for(i=0;i<arrId.length;i++){
+			document.getElementById(arrId[i]).style.display='none';
+		}
+	}
+	
+	function ShowMenu(id){
+		HideAllMenu();
+		document.getElementById(id).style.display='block';
+	}
+</script>
+   <div class="section-active">
+      
+      <h5>Sidebar Navigation</h5>
+   </div>
+   <!-- patTemplate:tmpl name="nav_left" -->
+      <h3><a href="{LEFT_NAV}" onMouseUp="ShowMenu({UL_ID})" class="xhr dest_subcontent-element">{LEFT_NAV_VALUE}</a></h3>
+
+		<!-- patTemplate:tmpl name="sub_nav" visibility="hidden" -->
+			<ul id={UL_ID}>
+			<!-- patTemplate:tmpl name="sub_nav_item" -->
+				<li><a href="{LEFT_SUB_NAV}" class="xhr dest_subcontent-element">{LEFT_SUB_NAV_VALUE}</a></li>
+			<!-- /patTemplate:tmpl -->
+			</ul>
+		<!-- /patTemplate:tmpl -->
+  
+	<!-- /patTemplate:tmpl -->
+<script>
+	HideAllMenu();
+</script>
+<!-- /patTemplate:tmpl -->

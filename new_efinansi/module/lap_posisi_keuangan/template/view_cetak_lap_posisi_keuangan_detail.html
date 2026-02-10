@@ -1,0 +1,67 @@
+<!-- patTemplate:tmpl name="content" -->
+   <br />
+   <h1><!-- patTemplate:gtfwgetconfig config="language" name="laporan_cetak_aktivitas" / --></h1>
+   <table class="empty-table">
+   <tr>
+      <td align="left" width="130">  
+         <!-- patTemplate:gtfwgetconfig config="language" name="interval_waktu" / -->
+      </td>
+      <td align="left">
+         : {TGL_AWAL} s/d {TGL_AKHIR}
+      </td>
+   </tr>
+   </table>
+   <br />
+   
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="aset" / --></h1>
+	<table class="table-common" >
+<!-- patTemplate:tmpl name="aktiva" -->	
+	
+      <tr>
+         <th align="left">{KELJNSNAMA}</th>
+         <th width="130"><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_rp" / --></th>
+      </tr>
+         <!-- patTemplate:tmpl name="aktiva_item" -->
+         <tr class="{LAP_CLASS_NAME}">
+            <td style="{STYLE}">{NAMA_KEL_LAP}</td>
+            <td align="right" style="{STYLE_NOMINAL}">{NILAI}</td>
+         </tr>
+         <!-- /patTemplate:tmpl -->
+
+         <tr class="{LAP_CLASS_NAME}">
+            <td><strong style="font-style:italic">Total {KELJNSNAMA}</strong></td>
+            <td align="right"><strong>{TOTAL_NILAI}</strong></td>
+         </tr>
+<!-- /patTemplate:tmpl -->   
+         <tr class="{LAP_CLASS_NAME}">
+            <td><strong><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_aktiva" / --></strong></td>
+			   <td align="right"><strong>{JUMLAH_AKTIVA}</strong></td>
+         </tr>
+   </table>
+
+   <h1><!-- patTemplate:gtfwgetconfig config="language" name="kewajiban_dan_aktiva_bersih" / --></h1>
+   <table class="table-common" width="600px">
+<!-- patTemplate:tmpl name="kewajiban" -->   
+
+      <tr>
+         <th align="left">{KELJNSNAMA}</th>
+         <th width="130"><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_rp" / --></th>
+      </tr>
+         <!-- patTemplate:tmpl name="kewajiban_item" -->
+         <tr class="{LAP_CLASS_NAME}">
+            <td style="{STYLE}">{NAMA_KEL_LAP}</td>
+            <td align="right" style="{STYLE_NOMINAL}">{NILAI}</td>
+         </tr>
+         <!-- /patTemplate:tmpl -->
+
+         <tr class="{LAP_CLASS_NAME}">
+            <td><strong style="font-style:italic">Total {KELJNSNAMA}</strong></td>
+            <td align="right"><strong>{TOTAL_NILAI}</strong></td>
+         </tr>   
+<!-- /patTemplate:tmpl -->    
+      <tr class="{LAP_CLASS_NAME}">
+            <td><strong><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_kewajiban_dan_aktiva_bersih" / --></strong></td>
+            <td align="right"><strong>{JUMLAH_KEWAJIBAN_AKTIVA_BERSIH}</strong></td>
+      </tr>
+    </table>
+<!-- /patTemplate:tmpl -->

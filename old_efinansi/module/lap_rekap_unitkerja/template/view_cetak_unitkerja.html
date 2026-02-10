@@ -1,0 +1,135 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css" media="all">
+table.table-common tr.table-common-even1 td{
+   background-color: #CCCCCC;
+   font-weight: bold;
+}
+table.table-common tr.table-common-even2 td{
+   background-color: #DCDCDC;
+}
+</style>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="laporan_rekapitulasi_anggaran_program_dan_kegiatan_unit" / -->
+</h1>
+<table class="empty-table">
+   <tr>
+      <td style="width:90px;">
+         <!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / -->
+      </td>
+      <td>
+         : {TAHUN_ANGGARAN}
+      </td>
+   </tr>
+   <tr>
+      <td>
+         <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->
+      </td>
+      <td>
+         : {UNIT_KERJA}
+      </td>
+   </tr>
+</table>
+
+<table class="table-common" width="100%" border="1px" cellpadding="2" cellspacing="0">
+   <thead>
+      <tr>
+         <th >
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama_unit" / --> /<!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->(<!-- patTemplate:gtfwgetconfig config="language" name="program" / -->, <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->, <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->)
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_usulan_rp" / -->
+         </th>
+         <th >
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_setuju_rp" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="6" align="center">
+                  <em>
+                     -- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --
+                  </em>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+               <tr class="{CLASS_NAME}">
+                  <td>
+                     {UNIT_NAMA}
+                  </td>
+                  <td align="center">
+                     {KODE}
+                  </td>
+                  <td>
+                     {NAMA}
+                  </td>
+                  <td style="text-align:right;">
+                     {NOMINAL_USULAN}
+                  </td>
+                  <td style="text-align:right;">
+                     {NOMINAL_SETUJU}
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<br />
+<h3>
+   <!-- patTemplate:gtfwgetconfig config="language" name="resume" / -->
+</h3>
+<table width="80%">
+    <tr>
+      <th >
+         <!-- patTemplate:gtfwgetconfig config="language" name="nama_unit" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+      </th>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="nominal_usulan_rp" / -->
+      </th>
+      <th >
+         <!-- patTemplate:gtfwgetconfig config="language" name="nominal_setuju_rp" / -->
+      </th>
+   </tr>
+   <!-- patTemplate:tmpl name="resume" type="condition" conditionvar="RESUME_EMPTY" -->
+      <!-- patTemplate:sub condition="YES" -->
+         <tr>
+            <td colspan="3" align="center">
+               <em>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --</em>
+            </td>
+         </tr>
+      <!-- /patTemplate:sub -->
+      <!-- patTemplate:sub condition="NO" -->
+         <!-- patTemplate:tmpl name="resume_item" -->
+            <tr class="table-common-even1">
+               <td>
+                  {UNIT_NAMA}
+               </td>
+               <td style="text-align:right;">
+                  {NOMINAL_USULAN}
+               </td>
+               <td style="text-align:right;">
+                  {NOMINAL_SETUJU}
+               </td>
+            </tr>
+         <!-- /patTemplate:tmpl -->
+      <!-- /patTemplate:sub -->
+   <!-- /patTemplate:tmpl -->
+</table>
+<div class="sign">
+   <p><!-- patTemplate:gtfwgetconfig config="organization" name="city" / -->, {DATE}</p>
+   <p><!-- patTemplate:gtfwgetconfig config="language" name="pimpinan_unit_kerja" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></p>
+   <p class="date">{UNIT_KERJA}</p>
+   <p>({NAMA_PIMPINAN})</p>
+</div>
+<!-- /patTemplate:tmpl -->

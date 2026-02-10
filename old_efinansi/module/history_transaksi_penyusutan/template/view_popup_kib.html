@@ -1,0 +1,81 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function setParent(xid, xlabel, nominal, nominal_hidden, kode_kib) {
+      var now = new Date;  
+      
+      //var bulan = getUTC;
+      document.getElementById('kib_id').value=xid;
+      document.getElementById('kib_label').value=xlabel;
+      document.getElementById('nominal_penyusutan').value=nominal;
+      document.getElementById('nominal_penyusutan_hidden').value=nominal_hidden;
+      document.getElementById('ba_penyusutan').value='Aset/'+kode_kib+'/'+(now.getMonth()+1)+'/'+now.getFullYear()+'/';  
+      popupClose();
+   }
+</script>
+<h1>List Penyusutan KIB</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>            
+         <th width="30%"><!-- patTemplate:gtfwgetconfig config="language" name="kata_kunci" / --></label></th>
+         <td><input type="text" name="keyword" value="{KEYWORD}" size="30" /></td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value="<!-- patTemplate:gtfwgetconfig config="language" name="tampilkan" / -->" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   </div>
+   <br />
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <th>KIB</th>
+         <th>Nilai Perolehan (Rp)</th>
+         <th>Nilai Penyusutan (Rp)</th>
+         <th width="31"><!-- patTemplate:gtfwgetconfig config="language" name="pilih" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_kib" type="condition" conditionvar="KIB_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="5" align="center"><em>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_kib_item" -->
+            <tr class="{CLASS_NAME}">
+               <td align="center">{NUMBER}</td>
+               <td>{KIB_NAMA}</td>
+               <td align="right">{NILAI_PEROLEHAN}</td>
+               <td align="right">{NILAI_PENYUSUTAN_RP}</td>
+			      <td class="links" align="center">
+			      <!-- patTemplate:tmpl name="penyusutan" type="condition" conditionvar="KIB_ZERO" -->
+			         <!-- patTemplate:sub condition="YES" -->
+			         <!-- /patTemplate:sub -->
+			         <!-- patTemplate:sub condition="NO" -->
+			            <a href="javascript:setParent('{KIB_ID}', '{KIB_NAMA}', '{NILAI_PENYUSUTAN_RP}', '{NILAI_PENYUSUTAN}','{KIB_KODE}')" onclick=""><img alt="Pilih" src="images/button-check.gif"/></a>
+			         <!-- /patTemplate:sub -->
+					<!-- /patTemplate:tmpl -->
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   <br /> 
+<div>
+<!-- /patTemplate:tmpl -->

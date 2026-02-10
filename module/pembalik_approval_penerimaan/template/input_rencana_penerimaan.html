@@ -1,0 +1,158 @@
+<!-- patTemplate:tmpl name="content" -->
+
+<script language="javascript" type="text/javascript">	
+   anime = new janime;
+   anime.element = 'month-list';
+   anime.speed = 50;
+   anime.minHeight = 0;
+   anime.maxHeight = 370;
+	function showhidemonth(valueName){
+		if(valueName == 'show'){
+			document.getElementById('btn-show-hide').value = 'hide';
+			anime.slideOpen();
+		}else{
+			document.getElementById('btn-show-hide').value = 'show';
+			anime.slideClose();
+		}
+	}
+</script>
+<h1>Pembalik Approval Rencana Penerimaan</h1>
+<br/>
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="notebox-alert">
+      {ISI_PESAN}
+   </div>
+   <br/>
+   <!-- /patTemplate:tmpl -->
+		<form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
+		<input type="hidden" name="dataId" value="{DATAID}"  />
+		<input type="hidden" name="page" value="{PAGE}"  />
+			<table class="table-details" width="100%">
+				<tr class="subhead">
+					<th colspan="2">{JUDUL} Rencana Penerimaan</th>
+				</tr>
+				<tr>
+					<th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / --></th>
+					<td>{TAHUN_ANGGARAN_LABEL}</td>
+				</tr>
+				<tr>
+					<th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+					<td>{UNITKERJA_LABEL}</td>
+				</tr>
+				<tr>
+					<th><!-- patTemplate:gtfwgetconfig config="language" name="kode_penerimaan" / --></th>
+					<td>{KODEPENERIMAAN_LABEL}</td>
+				</tr>
+				<tr>
+					<th><!-- patTemplate:gtfwgetconfig config="language" name="nama_penerimaan" / --></th>
+					<td>{NAMAPENERIMAAN_LABEL}</td>
+				</tr>
+				<tr>
+					<th>Volume Mahasiswa</th>
+					<td>{VOLUME}</td>
+				</tr>
+				<tr>
+					<th>Tarif Per Mahasiswa (Rp.)</th>
+					<td>{TARIF}</td>
+				</tr>
+				<tr>
+					<th>Volume x Tarif (<!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->.)</th>
+					<td>{TOTALTERIMA}</td>
+				</tr>
+				<tr>
+					<th>% Pagu</th>
+					<td>{PAGU}</td>
+				</tr>
+				<tr>
+					<th>Jumlah Pagu (<!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->.)</th>
+					<td>{TOTALPAGU}</td>
+				</tr>
+				<tr>
+					<th>Catatan/Keterangan</th>
+					<td>{KETERANGAN}</td>
+				</tr>
+				<tr>
+					<th><!-- patTemplate:gtfwgetconfig config="language" name="total_penerimaan" / --> (<!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->.)</th>
+					<td>{TOTALPENERIMAAN}</td>
+				</tr>
+				<tr>
+					<th style="padding-left:25px;" colspan="2"><b><!-- patTemplate:gtfwgetconfig config="language" name="rencana_penerimaan_perbulan" / --> </b> <input type="button" value="show" onclick="showhidemonth(this.value)" id="btn-show-hide" style="display:none;" /></th>
+				</tr>
+				<tr>
+					<td colspan='2'>
+						<div id='month-list' style='height:370px;overflow:hidden;'>
+							<table style='width:100%;height:370px;' id="month-table">
+								<tr>
+									<th style="padding-left:50px;"><!-- patTemplate:gtfwgetconfig config="language" name="januari" / --></th>
+									<td><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {JANUARI}</td>
+								</tr>
+								<tr>
+									<th style="padding-left:50px;"><!-- patTemplate:gtfwgetconfig config="language" name="februari" / --></th>
+									<td><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {FEBRUARI}</td>
+								</tr>
+								<tr>
+									<th style="padding-left:50px;"><!-- patTemplate:gtfwgetconfig config="language" name="maret" / --></th>
+									<td><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {MARET}</td>
+								</tr>
+								<tr>
+									<th style="padding-left:50px;"><!-- patTemplate:gtfwgetconfig config="language" name="april" / --></th>
+									<td><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {APRIL}</td>
+								</tr>
+								<tr>
+									<th style="padding-left:50px;"><!-- patTemplate:gtfwgetconfig config="language" name="mei" / --></th>
+									<td><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {MEI}</td>
+								</tr>
+								<tr>
+									<th style="padding-left:50px;"><!-- patTemplate:gtfwgetconfig config="language" name="juni" / --></th>
+									<td><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {JUNI}</td>
+								</tr>
+								<tr>
+									<th style="padding-left:50px;"><!-- patTemplate:gtfwgetconfig config="language" name="juli" / --></th>
+									<td><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {JULI}</td>
+								</tr>
+								<tr>
+									<th style="padding-left:50px;"><!-- patTemplate:gtfwgetconfig config="language" name="agustus" / --></th>
+									<td><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {AGUSTUS}</td>
+								</tr>
+								<tr>
+									<th style="padding-left:50px;"><!-- patTemplate:gtfwgetconfig config="language" name="september" / --></th>
+									<td><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {SEPTEMBER}</td>
+								</tr>
+								<tr>
+									<th style="padding-left:50px;"><!-- patTemplate:gtfwgetconfig config="language" name="oktober" / --></th>
+									<td><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {OKTOBER}</td>
+								</tr>
+								<tr>
+									<th style="padding-left:50px;"><!-- patTemplate:gtfwgetconfig config="language" name="november" / --></th>
+									<td><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {NOVEMBER}</td>
+								</tr>
+								<tr>
+									<th style="padding-left:50px;"><!-- patTemplate:gtfwgetconfig config="language" name="desember" / --></th>
+									<td><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {DESEMBER}</td>
+								</tr>
+							</table>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>&nbsp;</th>
+					<td>
+						<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="approval"  / -->
+					</td>
+				</tr>
+				<tr class="buttons">
+					<th>&nbsp;</th>
+					<td>
+						<input type="submit" name="btnsimpan" value=" Ubah" class="buttonSubmit"/>
+						<input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+					</td>
+				</tr>
+			</table>
+		</form>
+   <br/>
+<script>
+	document.getElementById('month-list').style.height = 0;
+	document.getElementById('btn-show-hide').style.display = '';
+</script>
+<!-- /patTemplate:tmpl -->

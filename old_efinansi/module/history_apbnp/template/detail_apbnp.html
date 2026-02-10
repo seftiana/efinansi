@@ -1,0 +1,161 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript">
+function closePopupDetailApprovalIntern(){
+   popupClose();
+}
+</script>
+<h2><!-- patTemplate:gtfwgetconfig config="language" name="detil_movement_anggaran" / --></h2>
+<table class="table-details" width="100%">
+<tr class="subhead">
+    <th colspan="3">
+        Kegiatan Asal
+    </th>
+</tr>
+<tr>
+    <th width="80">
+        Unit Kerja
+    </th>
+    <th colspan="2">
+        {UNIT_KERJA_KODE_ASAL} - {UNIT_KERJA_NAMA_ASAL}
+    </th>
+</tr>
+<tr>
+    <th width="80">
+        Kegiatan
+    </th>
+    <th colspan="2">
+        {KODE_KEGIATAN_ASAL} - {NAMA_KEGIATAN_ASAL}
+    </th>
+</tr>
+<tr>
+    <th width="80">
+        Bulan
+    </th>
+    <th colspan="2">
+        {BULAN_KEGIATAN_ASAL}
+    </th>
+</tr>
+</table>
+<table class="table-common" width="100%">
+<tr>
+    <th style="width:95px;">Kode Komponen</th>
+    <th>Nama Komponen</th>
+    <th>Nilai Lalu (Rp.)</th>
+    <th>Nilai Revisi(Rp.)</th>
+    <th>Nilai Sekarang (Rp.)</th>
+</tr>
+<!-- patTemplate:tmpl name="komp_asal_grid" type="condition" conditionvar="DATA_EMPTY" -->
+<!-- patTemplate:sub condition="YES" -->
+<tr>
+    <td colspan="5">
+        <em> -- Data tidak ditemukan -- </em>
+    </td>
+</tr>
+<!-- /patTemplate:sub -->
+<!-- patTemplate:sub condition="NO" -->
+<!-- patTemplate:tmpl name="komp_asal_list" -->
+<tr>
+    <td align="center">
+        {KODE}
+    </td>
+    <td>
+        {NAMA}
+    </td>
+    <td align="right">
+        {NILAI_LALU}
+    </td>
+    <td align="right">
+        {NILAI}
+    </td>
+    <td align="right">
+        {NILAI_SEKARANG}
+    </td>
+</tr>
+<!-- /patTemplate:tmpl -->
+<!-- /patTemplate:sub -->
+<!-- /patTemplate:tmpl -->
+</table>
+<table class="table-details" width="100%">
+<tr class="subhead">
+    <th colspan="3">
+        Kegiatan Tujuan
+    </th>
+</tr>
+<tr>
+    <th width="80">
+        Unit Kerja
+    </th>
+    <th colspan="2">
+        {UNIT_KERJA_KODE_TUJUAN} - {UNIT_KERJA_NAMA_TUJUAN}
+    </th>
+</tr>
+<tr>
+    <th width="80">
+        Kegiatan
+    </th>
+    <th colspan="2">
+        {KODE_KEGIATAN_TUJUAN} - {NAMA_KEGIATAN_TUJUAN}
+    </th>
+</tr>
+<tr>
+    <th width="80">
+        Bulan
+    </th>
+    <th colspan="2">
+        {BULAN_KEGIATAN_TUJUAN}
+    </th>
+</tr>
+</table>
+<table class="table-common" width="100%">
+<tr>
+    <th style="width:95px;">Kode Komponen</th>
+    <th>Nama Komponen</th>
+    <th>Nilai Lalu (Rp.)</th>
+    <th>Nilai Pengalihan (Rp.)</th>
+    <th>Nilai Sekarang (Rp.)</th>
+</tr>
+<!-- patTemplate:tmpl name="komp_tujuan_grid" type="condition" conditionvar="DATA_EMPTY" -->
+<!-- patTemplate:sub condition="YES" -->
+<tr>
+    <td colspan="5">
+        <em> -- Data tidak ditemukan -- </em>
+    </td>
+</tr>
+<!-- /patTemplate:sub -->
+<!-- patTemplate:sub condition="NO" -->
+<!-- patTemplate:tmpl name="komp_tujuan_list" -->
+<tr>
+    <td align="center">
+        {KODE}
+    </td>
+    <td>
+        {NAMA}
+    </td>
+    <td align="right">
+        {NILAI_LALU}
+    </td>
+    <td align="right">
+        {NILAI}
+    </td>
+    <td align="right">
+        {NILAI_SEKARANG}
+    </td>
+</tr>
+<!-- /patTemplate:tmpl -->
+<!-- /patTemplate:sub -->
+<!-- /patTemplate:tmpl -->
+</table>
+<table class="table-details"  width="100%">
+<tr>
+    <td align="center">
+    </td>
+   
+</tr>    
+<tr class="subhead">
+    <th align="center">
+         <input  type="button"  name="btnbalik" value=" Tutup " class="buttonSubmit" onclick="closePopupDetailApprovalIntern();"/>
+        
+    </th>
+</tr>
+</table>
+<!-- /patTemplate:tmpl -->

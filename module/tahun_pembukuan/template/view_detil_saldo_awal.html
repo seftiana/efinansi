@@ -1,0 +1,125 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function centangin_semua(varname, start_num, end_num) {
+		var obj = document.getElementById('cek_all');
+		if(obj.checked == false) {
+			for(i=start_num;i<=end_num;i++) {
+				document.getElementById(varname + i).checked = false;
+			}
+		} else {
+			for(i=start_num;i<=end_num;i++) {
+				document.getElementById(varname + i).checked = true;
+			}
+		}
+	}
+	function show_checkbox (varname, start_num, end_num) {
+		document.getElementById('cek_all').style.display='';
+	}
+	function konfirmasi_delete(varname, start_num, end_num) {
+		if (start_num != '' && end_num != ''){
+			for(i=start_num;i<=end_num;i++) {
+				if(document.getElementById(varname + i).checked == true) {
+					document.getElementById('btnHapus').type="submit";
+					document.getElementById('btnHapus').click();
+					return true;
+				}
+			}
+		}
+		alert('Silakan beri tanda cek pada minimal 1 data');
+		return false;
+	}
+	document.onload = show_checkbox('kodejurnal_id_','{FIRST_NUMBER}','{LAST_NUMBER}');
+</script>
+
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="tahun_pembukuan_detil" / --></h1>
+	<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+    <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+    </div>
+    <!-- /patTemplate:tmpl -->
+<br />
+   
+   <table class="table-details">
+   	<tr class="subhead"><th colspan="2">Detil Rekening</th></tr>
+   	<tr><td width="120px"><!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / --></td><td>{HEADER_KODE_AKUN}</td></tr>
+   	<tr><td><!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / --></td><td>{HEADER_NAMA_AKUN}</td></tr>	
+   </table>
+      
+   <br />
+   <form method="POST" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <div class="pageBar" style="width:800px;">
+      <div class="toolbar">
+      	<a class="xhr dest_subcontent-element" href="{URL_BACK}" title="Kembali" ><img src="images/prev.gif" width="16px" height="16px" alt="Kembali"> <!-- patTemplate:gtfwgetconfig config="language" name="kembali" / --></a><div style="float:left;">&nbsp;&nbsp;&nbsp;</div>
+   		<a class="xhr dest_subcontent-element" href="{URL_TAMBAH}" title="Tambah Saldo Awal" style="display:{TAMBAH_VIEW};"><img src="images/button-add.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / --></a>
+		<input type="submit" id="btnHapus" name="btnHapus" style="display:{DELETE_VIEW};" value="<!-- patTemplate:gtfwgetconfig config="language" name="hapus" / -->" class="inputButton" onclick="konfirmasi_delete('kodejurnal_id_','{FIRST_NUMBER}','{LAST_NUMBER}')" />
+      </div>
+   </div>
+   <table class="table-common" width="800px">
+      <tr>
+		 <th width="5" rowspan="2"><input type="checkbox" style="display:none" name="cek_all" id="cek_all" value="ALL" onclick="centangin_semua('kodejurnal_id_','{FIRST_NUMBER}','{LAST_NUMBER}');" /></th>
+          <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / --></th>
+         <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="sub_account" / --></th>         
+		 <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="saldo_normal" / --></th>		 
+		 <th rowspan="2"  style="display: none;"><!-- patTemplate:gtfwgetconfig config="language" name="tipe_akun" / --></th>
+		 <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="saldo_akhir_tahun" / --></th>
+		 <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="debet_rp" / --></th>
+      	 <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="kredit_rp" / --></th>
+		 <!-- <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="saldo_awal" / --></th>-->
+		 <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="saldo_awal_tahun" / --></th>
+       <th width="35" rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <tr>
+      	<!-- <th><!-- patTemplate:gtfwgetconfig config="language" name="debet" / --> (<!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->.)</th>
+      	<th><!-- patTemplate:gtfwgetconfig config="language" name="kredit_rp" / --></th>-->
+      </tr> 
+      <!-- patTemplate:tmpl name="data" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="10" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+			   <td align="center">
+			    <!-- patTemplate:tmpl name="data_act" type="condition" conditionvar="IS_EDIT" -->
+			    	<!-- patTemplate:sub condition="YES" -->
+			   			<input type="checkbox" name="id[]" id="kodejurnal_id_{DATA_NUMBER}" value="{DATA_ID}.{DATA_COAID}" />
+                        <input type="hidden" name="name[{DATA_ID}.{DATA_COAID}]" value="{DATA_SUBACC}" />
+			   		<!-- /patTemplate:sub -->
+			   		<!-- patTemplate:sub condition="NO" -->
+			   		<!-- /patTemplate:sub -->
+				<!-- /patTemplate:tmpl -->
+			   </td>
+               <td>{DATA_KODE_AKUN}</td>
+               <td>{DATA_SUBACC}</td>
+               <td align="center">{DATA_SALDO_NORMAL}</td>
+               <td style="display: none;">{DATA_TIPE_AKUN}</td>
+			   <td style="text-align:right;">{DATA_SALDO_AWAL}</td>
+			   <td style="text-align:right;">{DATA_DEBET}</td>
+			   <td style="text-align:right;">{DATA_KREDIT}</td>
+			   <td style="text-align:right;" >{DATA_SALDO_AKHIR}</td>
+               <td class="links" align="center">
+			   <!-- patTemplate:tmpl name="aksi_ubah" type="simpleCondition" requiredvars="URL_UBAH" -->
+					<a class="xhr dest_subcontent-element" href="{URL_UBAH}" title="Ubah Saldo Awal">
+						<img src="images/button-edit.gif" alt="Edit">
+					</a>
+				<!-- /patTemplate:tmpl -->
+				<!-- patTemplate:tmpl name="not_ubah" type="simpleCondition" requiredvars="NOT_UBAH" -->
+					{NOT_UBAH}
+				<!-- /patTemplate:tmpl -->
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   </form>
+   <br /> 
+   <!--
+   <div class="petunjuk-area">
+      <h4>Petunjuk:</h4>
+      <ul>
+         <li>Sudah jelas</li>
+      </ul>
+   </div>
+   -->
+<!-- /patTemplate:tmpl -->

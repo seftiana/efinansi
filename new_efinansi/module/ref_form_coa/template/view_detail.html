@@ -1,0 +1,59 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_form_transaksi" / --></h1>
+<br/>
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+{ISI_PESAN}
+</div>
+<br/>
+<!-- /patTemplate:tmpl -->
+
+   <!--div class="toolbar"> 
+      <a class="xhr dest_subcontent-element" href="{URL_BACK}" title="<!-- patTemplate:gtfwgetconfig config="language" name="kembali" / -->" >
+	  <img width='16px' height='16px' src="images/prev.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="kembali" / -->
+	  </a-->
+
+   </div>
+
+   <table class="table-details" width="100%">
+      <tr class="subhead">
+         <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="detil_setting_form" / --></th>
+      </tr>
+      <tr>
+         <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kode_form" / --></th>
+         <td>{FORMCODE}</td>
+      </tr>
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_form" / --></th>
+         <td>{FORMNAME}</td>
+      </tr>
+      <tr>
+         <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="konfigurasi_coa" / --></th>
+      </tr>
+   </table>
+   <table class="table-common" width="100%">
+      <thead>
+         <tr>
+            <th width='5px' nowrap><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / --></th>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / --></th>
+            <th colspan='2'><!-- patTemplate:gtfwgetconfig config="language" name="debet" / -->/<!-- patTemplate:gtfwgetconfig config="language" name="kredit" / --></th>
+         </tr>
+      </thead>
+      <tbody id="COA_Place_Holder">
+         <tr style='display: {COA_EMPTY}'>
+            <td colspan="5" style='text-align: center; font-style: italic'>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --</td>
+         </tr>
+         <!-- patTemplate:tmpl name="list_coa" visibility="hidden" -->
+         <TR class="{CLASS_NAME}">
+            <TD style="padding: 2px; text-align: center">{NOMOR}</TD>
+            <TD style="padding: 2px; text-align: center">{COAKODEAKUN}</TD>
+            <TD style="padding: 2px; text-align: left">{COANAMAAKUN}</TD>
+            <TD style="padding: 2px; text-align: center; width: 50px"><LABEL style='display: inline'>{DEBET}</LABEL></TD>
+            <TD style="padding: 2px; text-align: center; width: 50px"><LABEL style='display: inline'>{KREDIT}</LABEL></TD>
+         </TR>
+         <!-- /patTemplate:tmpl -->
+      </tbody>
+
+<!-- /patTemplate:tmpl -->

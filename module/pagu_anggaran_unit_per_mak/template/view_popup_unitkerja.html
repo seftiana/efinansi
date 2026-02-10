@@ -1,0 +1,150 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+   function setParent(xid, xlabel) {
+      //var satker = getUrlVars()['satker'];
+      // alert(satker);
+      var list_pagu     = document.getElementById('list-pagu');
+      var satker = '{SATKER}';
+      if(satker == ''){
+         document.getElementById('satker').value=xid;
+         document.getElementById('satker_label').value=xlabel.replace("\'","'");
+      }else{
+         document.getElementById('unitkerja').value=xid;
+         document.getElementById('unitkerja_label').value=xlabel.replace("\'","'");
+      }
+      if(typeof(list_pagu) != 'undefined' && list_pagu != null){
+         var tBody         = list_pagu.getElementsByTagName('tbody')[0];
+         var childObj      = tBody.getElementsByTagName('tr');
+
+         for (var i = childObj.length - 1; i >= 0; i--) {
+            tBody.removeChild(childObj[i]);
+         };
+
+         var frag          = document.createDocumentFragment();
+         var oTr           = document.createElement('tr');
+         oTr.setAttribute('id', 'empty-row');
+         var oTd           = document.createElement('td');
+         oTd.setAttribute('colspan', 9);
+         oTd.setAttribute('style', 'text-align: center; font-style: italic;');
+
+         oTd.innerHTML     = '--Data Tidak Ditemukan--';
+         oTr.appendChild(oTd);
+         frag.appendChild(oTr);
+         tBody.insertBefore(frag, tBody.firstChild);
+      }
+      popupClose();
+   }
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="list_unit_kerja" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+   <table>
+      <tr>
+         <th>
+            <h2>
+               <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th width="30%">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode_unit" / --> /
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" value="{SEARCH_KODE}" id="txt_kode" size="30" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+            <!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> /
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+         </th>
+         <td>
+            <input type="text" name="nama" value="{SEARCH_NAMA}" id="txt_nama" size="30" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tipe_unit" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tipeunit"  / -->
+         </td>
+      </tr>
+      <tr class="buttons">
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="hidden" name="satker_id" value="{SATKER}" />
+            <input type="submit" name="btnCari" value="Cari &rarr;" id="txtSubmit" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Tampilkan Semua" class="buttonSubmit" />
+        </td>
+    </tr>
+</table>
+</form>
+
+<br />
+
+<div class="pageBar">
+<!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<br />
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th width="5">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tipe" / -->
+         </th>
+         <th width="31">
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_unitkerja" type="condition" conditionvar="UNITKERJA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="6" align="center">
+                  <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_unitkerja_item" -->
+            <tr class="{UNITKERJA_CLASS_NAME}" style="{UNITKERJA_STYLE}">
+               <td align="center">
+                  {UNITKERJA_NUMBER}
+               </td>
+               <td>
+                  {UNITKERJA_KODE}
+               </td>
+               <td>
+                  {UNITKERJA_NAMA}
+               </td>
+               <td>
+                  {UNITKERJA_TIPE_UNIT}
+               </td>
+               <td class="links" align="center">
+                  <a onclick="javascript:setParent('{UNITKERJA_ID}','{UNITKERJA_LINK}');">
+                     <img alt="Pilih" src="images/icons/16/button-check.gif"/>
+                  </a>
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<!-- /patTemplate:tmpl -->

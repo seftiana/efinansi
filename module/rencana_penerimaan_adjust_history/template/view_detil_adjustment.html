@@ -1,0 +1,244 @@
+<!-- patTemplate:tmpl name="content" -->
+<h2>
+    Detail Adjustment Rencana Penerimaan
+</h2>
+<br />
+<table class="table-edit" width="100%">
+    <tr class="subhead">
+        <th colspan="2">
+            Manajement Adjustment Rencana Penerimaan
+        </th>
+    </tr>
+    <tr>
+        <th width="150">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+        </th>
+        <td>
+            {TAHUN_ANGGARAN_LABEL}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ 
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+        </th>
+        <td>
+            {UNITKERJA_LABEL}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode_penerimaan" / -->
+        </th>
+        <td>
+            {KODE_PENERIMAAN}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama_penerimaan" / -->
+        </th>
+        <td>
+            {NAMA_PENERIMAAN}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Volume
+        </th>
+        <td>
+            {VOLUME}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Tarif
+        </th>
+        <td>
+            <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {TARIF}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Volume x Tarif
+        </th>
+        <td>
+            <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {TOTALTERIMA}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            % pagu
+        </th>
+        <td>
+            {PAGU}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Jumlah Pagu
+        </th>
+        <td>
+            <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {TOTALPAGU}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Catatan/Keterangan
+        </th>
+        <td>
+            {KETERANGAN}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="total_penerimaan" / -->
+        </th>
+        <td>
+            <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {TOTALTERIMA}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Status Adjustment
+        </th>
+        <td>
+            {STATUS_ADJUSTMENT}
+        </td>
+    </tr>
+    <tr style="display:none;">
+        <th>
+            Nilai Adjustment
+        </th>
+        <td>
+            <input type="text" name="adjust" id="adjust" class="gvFloat" value="{ADJUSTMENT}" />
+        </td>
+    </tr>
+    <tr class="subhead">
+        <th colspan="2">
+            Rincian Adjustment Rencana Penerimaan
+        </th>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div>
+                <table style='width:100%;' id="month-table">
+                    <tr style="font-weight:bold;">
+                        <th>
+                            <strong>Bulan</strong>
+                        </th>
+                        <th>
+                            <strong>Nominal (Rp.)</strong>
+                        </th>
+                    </th>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="januari" / -->
+                        </th>
+                        <td align="right">
+                            {JANUARIADJUST}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="februari" / -->
+                        </th>
+                        <td align="right">
+                            {FEBRUARIADJUST}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="maret" / -->
+                        </th>
+                        <td align="right">
+                            {MARETADJUST}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="april" / -->
+                        </th>
+                        <td align="right">
+                            {APRILADJUST}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="mei" / -->
+                        </th>
+                        <td align="right">
+                            {MEIADJUST}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="juni" / -->
+                        </th>
+                        <td align="right">
+                            {JUNIADJUST}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="juli" / -->
+                        </th>
+                        <td align="right">
+                            {JULIADJUST}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="agustus" / -->
+                        </th>
+                        <td align="right">
+                            {AGUSTUSADJUST}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="september" / -->
+                        </th>
+                        <td align="right">
+                            {SEPTEMBERADJUST}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="oktober" / -->
+                        </th>
+                        <td align="right">
+                            {OKTOBERADJUST}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="november" / -->
+                        </th>
+                        <td align="right">
+                            {NOVEMBERADJUST}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="desember" / -->
+                        </th>
+                        <td align="right">
+                            {DESEMBERADJUST}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;"><strong>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="jumlah" / --></strong>
+                        </th>
+                        <td align="right">
+                            <strong>{TNOMINAL}</strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<!-- /patTemplate:tmpl -->

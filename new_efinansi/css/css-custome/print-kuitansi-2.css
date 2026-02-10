@@ -1,0 +1,54 @@
+.content table{
+   border :0px;
+}
+
+.table-common td{
+   vertical-align: top;
+   margin:0px;
+   padding:2px;
+}
+
+.table-header
+{
+   border: 0px;
+   font-size: inherit;
+}
+
+.table-header td, .table-header th
+{
+   border: 0px;
+   vertical-align: top;
+   padding: 2px;
+   margin: 0px;
+}
+
+.table-header th
+{
+   width: 12px;
+   background: none;
+   text-align: left;
+   text-transform: none;
+   white-space: pre; 
+}
+
+.div-ttd
+{
+   width: 40%;
+   text-align: center;
+}
+
+.div-footnote
+{
+   width: 100%;
+   text-align: left;
+}
+
+.empty-table td, th{
+   border-left:0px;
+}
+
+.empty-table{
+   border-left:0px;
+   margin:0px;
+   padding:0px;
+}

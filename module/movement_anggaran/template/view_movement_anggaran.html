@@ -1,0 +1,492 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript" charset="utf-8">
+    // <![CDATA[
+    function mvPopupUnitKerja(url){ 
+      var kegiatan_asal = document.getElementById("kegrefId");
+      var unit_id_asal  = document.getElementById("unit_kerja_id");
+
+      if(unit_id_asal.value == ''){
+            alert('Silakan pilih Unit Kerja anggaran asal');
+      }else if(kegiatan_asal.value == ''){
+            alert('Silakan pilih kegiatan asal');
+      }else{   
+        showPopup(url,'',550,550);
+      }
+    }
+    
+    function popupMak(){
+        var url = '{POPUP_MAK}';
+        showPopup(url,'',550,550);
+    }
+    function popupAnggaranAwal(){
+        // var bas = document.getElementById("bas");
+        // var bas_val = bas.options[bas.selectedIndex].value;
+        // var bas_text = bas.options[bas.selectedIndex].text;
+        //var mak     = document.getElementById("mak_id").value;
+        var unit_id = document.getElementById("unit_kerja_id");
+        var unit_nama = document.getElementById("unit_kerja_nama");
+        //alert(unit_id);
+        if(unit_id.value == ''){
+            alert('Silakan pilih Unit Kerja anggaran asal');
+        }else{
+        /**
+        if(mak == '')
+        {
+            alert('Pilih MAK');
+        }
+        else
+        {*/
+            //alert(mak);
+            showPopup('{URL_KEGIATAN}' + '&unit_id=' + unit_id.value + '&unit_nama=' + unit_nama.value,'',800,550);
+        //}
+        }
+        
+    }
+    
+    function popupAnggaranTujuan(){
+        // var bas = document.getElementById("bas");
+        var kegiatan_asal = document.getElementById("kegrefId");
+        // var bas_val = bas.options[bas.selectedIndex].value;
+        // var bas_text = bas.options[bas.selectedIndex].text;
+        var anggaran_awal = document.getElementById("kegrefNomor").value;
+        //var mak     = document.getElementById("mak_id").value;
+        var unit_id = document.getElementById("unit_kerja_id_tujuan");
+        var unit_nama = document.getElementById("unit_kerja_nama_tujuan");
+        if(kegiatan_asal.value == ''){
+            alert('Silakan pilih kegiatan asal');
+        }else if(unit_id.value == ''){
+            alert('Silakan pilih Unit Kerja anggaran tujuan');
+        }else{
+            showPopup('{URL_KEGIATAN_TUJUAN}' + '&unit_id=' + unit_id.value + '&unit_nama=' + unit_nama.value,'',800,550);
+        }
+    }
+    
+    function check_val(id){
+        var nilai_asal  = document.getElementById("KOMP_" +id+ "_nominal_hidden");
+        if(this.value > nilai_asal.value){
+            alert('nilai anggaran terlalu besar');
+        }
+    }
+    // ]]>
+</script>
+    <h1 id="">
+        <!-- patTemplate:gtfwgetconfig config="language" name="movement_anggaran" / -->
+    </h1>
+    <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+    	<br />
+    	<div class="{CLASS_PESAN}">
+    		{ISI_PESAN}
+    	</div>
+    	
+    <!-- /patTemplate:tmpl -->
+    
+    <br />
+    <form class="xhr_form std_form" name="movement_anggaran" enctype="multipart/form-data" 
+    method="post" action="{URL_ACTION}">
+        <table class="table-edit" width="100%">
+            <tr class="subhead">
+                <th colspan="2">
+                    Filter 
+                    
+                </th>
+            </tr>
+            <tr>
+                <th width="170">
+                    Tahun Periode Aktif
+                </th>
+                <td>
+                    <strong>
+                        {TAHUN_PERIODE}
+                        <input type="hidden" name="tahun_periode_id" value="{TAHUN_PERIODE_ID}" id="tahun_periode_id" />
+                    </strong>
+                </td>
+            </tr>
+               <tr>
+            <th width="30%">
+                <!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / 
+                <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / -->
+            </th>
+            <td>
+                <label><b>{USER_UNIT_KERJA_NAMA}</b></label>
+            </td>
+        </tr>
+        
+            <tr style="display:none;">
+                <th>
+                    <!-- patTemplate:gtfwgetconfig config="language" name="bas" / -->
+                </th>
+                <td>
+                    <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" 
+                    name="bas"  / -->
+                </td>
+            </tr>
+            <tr style="display: none">
+                <th>
+                    <!-- patTemplate:gtfwgetconfig config="language" name="mak" / -->
+                </th>
+                <td>
+                    <input type="hidden" name="mak_id" value="{MAK_ID}" id="mak_id" />
+                    <input type="text" name="mak_nama" value="{MAK_NAMA}" id="mak_nama" onclick="javascript:popupMak();" 
+                     onfocus="javascript:popupMak();" onkeyup="javascript:popupMak();" onkeydown="javascript:popupMak();" 
+                     readonly />
+                    <input type="button" name="popup_mak" value=" ... " id="popupmak" class="inputButton" 
+                    title="popup_mak" onclick="javascript:popupMak();" />
+                </td>
+            </tr>
+             <tr style="display: none">
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    <textarea name="mak_nama_ro" rows="3" cols="40" id="mak_nama_ro" style="resize:none;" readonly>{MAK_NAMA}</textarea>
+                </td>
+            </tr>
+            
+            <tr class="subhead">
+                <th colspan="2">
+                    <!-- patTemplate:gtfwgetconfig config="language" name="anggaran_asal" / -->
+                </th>
+            </tr>
+            </tr>
+            <tr {DISPLAY_UNIT}>
+            <th>
+                <!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / 
+                <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / -->
+            </th>
+            <td>
+                <!-- <input type="text" name="unitKerjaId" value="{UNIT_KERJA_ID}" id="unitKerjaId" />
+                <input type="text" name="unitKerjaNama" value="{UNIT_KERJA_NAMA}" id="unitKerjaNama" />
+                <label id="unitKerjaNamaLabel">{UNIT_KERJA_NAMA}</label> ** -->
+
+                <input type="hidden" name="unitKerjaId" id="unit_kerja_id" value="{UNIT_KERJA_ID}" />
+                <input type="text" style="width: 235px" name="unitKerjaNama" id="unit_kerja_nama" value="{UNIT_KERJA_NAMA}" readonly="readonly" />
+                <input type="button" value=" ... " onclick="showPopup('{URL_POPUP_UNIT}&type=asal', '', 600, 550);" /> *
+            </td>
+        </tr>            
+            <tr>
+                <th>
+                    <!-- patTemplate:gtfwgetconfig config="language" name="kode_kegiatan" / -->
+                </th>
+                <td>
+                   <input type="hidden" name="kegDetId" value="{KEG_DET_ID}" id="kegDetId" />
+                    <input type="hidden" name="kegrefId" value="{KEG_REF_ID}" id="kegrefId" />
+                    <input type="text" name="kegrefNomor" value="{KEG_REF_NOMOR}" id="kegrefNomor" readonly /> 
+                    <input type="button" id="popup_anggaran_asal" name="anggaran_asal" value=" ... " 
+                    title="Popup Anggaran Asal" class="inputButton" onclick="popupAnggaranAwal();" />
+                     <span style="vertical-align:top;">*</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <!-- patTemplate:gtfwgetconfig config="language" name="nama_kegiatan" / -->
+                </th>
+                <td>
+                    <textarea name="kegrefNama" rows="3" cols="40" readonly 
+                    style="resize:none;" id="kegrefNama">{KEG_REF_NAMA}</textarea>
+                     <span style="vertical-align:top;">*</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+                </th>
+                <td>
+                    <!-- start: Table List -->
+                    <table class="table-common" width="600px">
+                        <tr>
+                            <th>
+                                <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+                            </th>
+                            <th>
+                                <!-- patTemplate:gtfwgetconfig config="language" name="kode_komponen" / -->
+                            </th>
+                            <th>
+                                <!-- patTemplate:gtfwgetconfig config="language" name="nilai_rp" / --> Tersedia
+                            </th>
+                            <th>
+                                <!-- patTemplate:gtfwgetconfig config="language" name="nilai_yang_dipindah" / -->
+                            </th>
+                        </tr>
+                        <tbody id="KOMP_Place_Holder">
+                            <tr>
+                                <td colspan="6" align="center">
+                                    <em>-- 
+                                        <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                                     --</em>
+                                </td>
+                            </tr>
+                        </tbody>
+                        
+                    </table>
+                    <!-- stop: Table List -->
+                </td>
+            </tr>
+
+            <tr class="subhead">
+                <th colspan="2">
+                    <!-- patTemplate:gtfwgetconfig config="language" name="anggaran_tujuan" / -->
+                </th>
+            </tr>
+      <tr {DISPLAY_UNIT}>
+            <th >
+                <!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / 
+                <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / -->
+            </th>
+            <td>
+                 <!-- <input type="hidden" name="unitKerjaIdTujuan" value="{UNIT_KERJA_ID_TUJUAN}" id="unitKerjaIdTujuan" />
+                 <input type="hidden" name="unitKerjaNamaTujuan" value="{UNIT_KERJA_NAMA_TUJUAN}" id="unitKerjaNamaTujuan" />
+                <label id="unitKerjaNamaTujuanLabel">{UNIT_KERJA_NAMA_TUJUAN}</label> ** -->
+
+                <input type="hidden" name="unitKerjaIdTujuan" id="unit_kerja_id_tujuan" value="{UNIT_KERJA_ID_TUJUAN}" />
+                <input type="text" style="width: 235px" name="unitKerjaNamaTujuan" id="unit_kerja_nama_tujuan" value="{UNIT_KERJA_NAMA_TUJUAN}" readonly="readonly" />
+                <input type="button" value=" ... " onclick="mvPopupUnitKerja('{URL_POPUP_UNIT}&type=tujuan', '', 600, 550);" /> *
+            </td>
+        </tr>                        
+            <tr>
+                <th>
+                    <!-- patTemplate:gtfwgetconfig config="language" name="kode_kegiatan" / -->
+                </th>
+                <td>
+                    <input type="hidden" name="kegDetIdTujuan" value="{KEG_DET_ID_TUJUAN}" id="kegDetIdTujuan" />
+                    <input type="hidden" name="kegrefIdTujuan" value="{KEG_REF_ID_TUJUAN}" id="kegrefIdTujuan" />
+                    <input type="text" name="kegrefNomorTujuan" value="{KEG_REF_NOMOR_TUJUAN}" id="kegrefNomorTujuan" readonly />
+                    <input type="button" id="popup_anggaran_tujuan" name="anggaran_tujuan" value=" ... " 
+                    title="Popup Anggaran Tujuan" class="inputButton" onclick="popupAnggaranTujuan();" />
+                     <span style="vertical-align:top;">*</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <!-- patTemplate:gtfwgetconfig config="language" name="nama_kegiatan" / -->
+                </th>
+                <td>
+                    <textarea name="kegrefNamaTujuan" rows="3" cols="40" 
+                    id="kegrefNamaTujuan" readonly 
+                    style="resize:none;">{KEG_REF_NAMA_TUJUAN}</textarea> <span style="vertical-align:top;">*</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+                </th>
+                <td>
+                    <!-- start: Table List -->
+                    <table class="table-common" width="600px">
+                        <tr>
+                            <th>
+                                <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+                            </th>
+                            <th>
+                                <!-- patTemplate:gtfwgetconfig config="language" name="kode_komponen" / -->
+                            </th>
+                            <th>
+                                <!-- patTemplate:gtfwgetconfig config="language" name="nilai_rp" / --> Anggaran
+                            </th>
+                            <th>
+                                <!-- patTemplate:gtfwgetconfig config="language" name="nilai_rp" / -->
+                            </th>
+                        </tr>
+                        <tbody id="KOMP_Place_Holder2">
+                        <tr>
+                            <td colspan="7" align="center">
+                                <em>-- 
+                                    <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                                --</em>
+                            </td>
+                           </tr>
+                        </tbody>
+                        
+                    </table>
+                    <!-- stop: Table List -->
+                </td>
+            </tr>
+            <tr class="buttons">
+                <td>&nbsp;</td>
+                <td>
+                <input name="save" type="submit" value="Save" class="buttonSubmit" />
+                <input name="cancel" type="submit" value="Cancel" class="buttonSubmit" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    <div class="petunjuk-area">
+   <h4>
+      Petunjuk:
+   </h4>
+   <ul>
+      <li>
+         Tanda * menunjukkan bahwa field tersebut harus diisi atau dipilih.
+      </li>
+      <li>
+         Tanda ** menunjukkan terisi bila Kode Output dipilih.
+      </li>
+   </ul>
+</div>
+    <script>        
+        document.getElementById('KOMP_Place_Holder').addItem = function (detailId, kodeKomponen, namaKomponen, nominal,nominal_hid)
+        {
+           var id = 'detailId_'+detailId;
+           if (document.getElementById(id)) return true;
+           var childObj = this.getElementsByTagName('tr');
+           nomor = childObj.length;
+
+           var tr = document.createElement('tr');
+           tr.setAttribute("id", id);
+           if (nomor % 2 == 0) tr.setAttribute('class', 'table-common-even');
+
+           var tdKodeKomponen = document.createElement('td');
+           tdKodeKomponen.setAttribute("style", 'padding: 2px; text-align: center');
+           tdKodeKomponen.innerHTML = kodeKomponen +"<input type='hidden' name='KOMP[" + detailId + "][kodeKomponen]' value='" + kodeKomponen + "'><input type='hidden' name='KOMP[" + detailId + "][rp_id]' value='" + detailId + "'>";
+
+           var tdNamaKomponen = document.createElement('td');
+           tdNamaKomponen.setAttribute("style", 'padding: 2px; text-align: left');
+           tdNamaKomponen.innerHTML = namaKomponen + " <input type='hidden' name='KOMP[" + detailId + "][namaKomponen]' value='" + namaKomponen + "'>";
+           var tdNominalLabel = document.createElement('td');
+           tdNominalLabel.setAttribute("style", 'padding: 2px; text-align: right');
+           tdNominalLabel.innerHTML = formatCurrency(nominal_hid);
+           
+           var tdNominal = document.createElement('td');
+           tdNominal.setAttribute("style", 'padding: 2px; text-align: right');
+           
+           tdNominal.innerHTML = "<input type='text' name='KOMP[" + detailId + "][nominal]' value='" + nominal + "'> <input type='hidden' name='KOMP[" + detailId + "][nominal_hid]' value='" + nominal_hid + "'>";
+
+           tr.appendChild(tdKodeKomponen);
+           tr.appendChild(tdNamaKomponen);
+           tr.appendChild(tdNominalLabel);
+           tr.appendChild(tdNominal);
+           this.appendChild(tr);
+
+           var childNode = tdNominal.firstChild;
+           do {if (childNode.tagName && childNode.tagName.toUpperCase() == 'INPUT') gValidation20090108['.gvFloat'](childNode);} while (childNode = childNode.nextSibling);
+
+           childObj[0].style.display = 'none';
+           return true;
+        }
+
+        document.getElementById('KOMP_Place_Holder').deleteItem = function (id)
+        {
+           this.removeChild(document.getElementById(id));
+           var Obj = this.getElementsByTagName('tr');
+           if (Obj.length == 1)
+           {
+              Obj[0].style.display = '';
+           }
+           else for (var i = 1; i < Obj.length; i++)
+              Obj[i].setAttribute('class',(i % 2)?'':'table-common-even');
+        }
+
+        document.getElementById('KOMP_Place_Holder').deleteAllItem = function ()
+        {
+           var Obj = this.getElementsByTagName('tr');
+           for (i = Obj.length - 1; i > 0; i--)
+              if (Obj[i].id) this.removeChild(Obj[i]);
+           Obj[i].style.display = '';
+        }
+        
+        document.getElementById('KOMP_Place_Holder2').addItem = function (detailId, kodeKomponen, namaKomponen, nominal,nominal_hid)
+        {
+           var id = 'detailId_'+detailId;
+           if (document.getElementById(id)) return true;
+           var childObj = this.getElementsByTagName('tr');
+           nomor = childObj.length;
+
+           var tr = document.createElement('tr');
+           tr.setAttribute("id", id);
+           if (nomor % 2 == 0) tr.setAttribute('class', 'table-common-even');
+
+           var tdKodeKomponen = document.createElement('td');
+           tdKodeKomponen.setAttribute("style", 'padding: 2px; text-align: center');
+           tdKodeKomponen.innerHTML = kodeKomponen +"<input type='hidden' name='KOMPTUJUAN[" + detailId + "][kodeKomponen]' value='" + kodeKomponen + "'><input type='hidden' name='KOMPTUJUAN[" + detailId + "][rp_id]' value='" + detailId + "'>";
+
+           var tdNamaKomponen = document.createElement('td');
+           tdNamaKomponen.setAttribute("style", 'padding: 2px; text-align: left');
+           tdNamaKomponen.innerHTML = namaKomponen + " <input type='hidden' name='KOMPTUJUAN[" + detailId + "][namaKomponen]' value='" + namaKomponen + "'>";
+           var tdNominalLabel = document.createElement('td');
+           tdNominalLabel.setAttribute("style", 'padding: 2px; text-align: right');
+           tdNominalLabel.innerHTML = formatCurrency(nominal_hid);
+           
+           var tdNominal = document.createElement('td');
+           tdNominal.setAttribute("style", 'padding: 2px; text-align: right');
+           tdNominal.innerHTML = "<input type='text' name='KOMPTUJUAN[" + detailId + "][nominal]' value='"+nominal+"'><input type='hidden' name='KOMPTUJUAN[" + detailId + "][nominal_hid]' value='"+nominal_hid+"'>";
+
+           tr.appendChild(tdKodeKomponen);
+           tr.appendChild(tdNamaKomponen);
+           tr.appendChild(tdNominalLabel);
+           tr.appendChild(tdNominal);
+           this.appendChild(tr);
+
+           var childNode = tdNominal.firstChild;
+           do {if (childNode.tagName && childNode.tagName.toUpperCase() == 'INPUT') gValidation20090108['.gvFloat'](childNode);} while (childNode = childNode.nextSibling);
+
+           childObj[0].style.display = 'none';
+           return true;
+        }
+
+        document.getElementById('KOMP_Place_Holder2').deleteItem = function (id)
+        {
+           this.removeChild(document.getElementById(id));
+           var Obj = this.getElementsByTagName('tr');
+           if (Obj.length == 1)
+           {
+              Obj[0].style.display = '';
+           }
+           else for (var i = 1; i < Obj.length; i++)
+              Obj[i].setAttribute('class',(i % 2)?'':'table-common-even');
+        }
+
+        document.getElementById('KOMP_Place_Holder2').deleteAllItem = function ()
+        {
+           var Obj = this.getElementsByTagName('tr');
+           for (i = Obj.length - 1; i > 0; i--)
+              if (Obj[i].id) this.removeChild(Obj[i]);
+           Obj[i].style.display = '';
+        }
+        
+        function formatCurrency(num) {
+            num = num.replace(/\$|\,/g,'.');
+            num = num.toString().replace(/\$|\,/g,'');
+            if(isNaN(num))
+            num = "0";
+            sign = (num == (num = Math.abs(num)));
+            num = Math.floor(num*100+0.50000000001);
+            cents = num%100;
+            num = Math.floor(num/100).toString();
+            if(cents<10)
+            cents = "0" + cents;
+            for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+            num = num.substring(0,num.length-(4*i+3))+'.'+
+            num.substring(num.length-(4*i+3));
+            return (((sign)?'':'-')+ num + ',' + cents);
+        }
+    
+
+      
+        var dataM = {KOMPONEN_ASAL};
+        if(typeof(dataM) != "undefined"){
+            for (var i in dataM)  {
+                document.getElementById('KOMP_Place_Holder').addItem
+                (
+                    dataM[i]['rp_id'],
+                    dataM[i]['kodeKomponen'],
+                    dataM[i]['namaKomponen'],
+                    dataM[i]['nominal'],
+                    dataM[i]['nominal_hid']
+                );
+            }
+        }
+        
+      var dataMT = {KOMPONEN_TUJUAN};
+        if(typeof(dataMT) != "undefined"){
+            for (var i in dataMT)  {
+                document.getElementById('KOMP_Place_Holder2').addItem
+                (
+                    dataMT[i]['rp_id'],
+                    dataMT[i]['kodeKomponen'],
+                    dataMT[i]['namaKomponen'],                    
+                    dataMT[i]['nominal'],
+                    dataMT[i]['nominal_hid']
+                );
+            }
+        }
+    </script>
+<!-- /patTemplate:tmpl -->

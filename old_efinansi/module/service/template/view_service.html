@@ -1,0 +1,339 @@
+<!-- patTemplate:tmpl name="content" -->
+<script>
+	openDiv = function(id){
+		$('#'+id).toggle();
+		return true;
+	}
+</script>
+	Service yang di sediakan:
+   <ul>
+      <li>
+         RESTfull API Untuk Mengirim Transaksi - Dengan method GET:
+         <br />
+         http://acs.gamatechno.net:81/gtfin_akun/service/service/SendTransaksi/rest/rest/<b>[token]</b>/kode_transaksi/<b>[kode_transaksi]</b>/kode_unit/<b>[kode_unit]</b>/nomor/[nomor]</b>/tanggal/<b>[tanggal]</b>/total/<b>[total]</b>/penanggung_jawab/<b>[penanggung_jawab]</b>/detil[0][coa_kode]/<b>[coa_kode_1]</b>/detil[0][nilai]/<b>[nilai_1]</b>/detil[0][status_dk]/<b>[status_dk_1]</b>/detil[0][kode_subacc]/<b>[kode_subacc_1]</b>
+         <br />
+         <br />
+          <table class="table-details" style="width:700px;">
+            <tr class="subhead">
+               <th colspan="2">Keterangan</th>
+            </tr>
+            <tr>
+               <th>
+                  token
+               </th>
+               <td>
+                  Kode Token Uniq yang akan di berikan oleh pihak gamatechno kepada pihak service client
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  kode_transaksi
+               </th>
+               <td>
+                  Kode Transaksi
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  kode_unit
+               </th>
+               <td>
+                  Kode Unit Kerja
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  nomor
+               </th>
+               <td>
+                  Nomor Transaksi (optional)
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  tanggal
+               </th>
+               <td>
+                  Tanggal Transaksi, contoh : 2012-12-29
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  uraian
+               </th>
+               <td>
+                  Deskripsi Singkat Transaksi
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  total
+               </th>
+               <td>
+                  Nilai Total Transaksi
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  penanggung_jawab
+               </th>
+               <td>
+                  Penanggung Jawab Transaksi
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  detil
+               </th>
+               <td>
+                  Merupakan detil transaksi yang berupa Array, terdiri dari:<br>
+                  - coa_kode_1 : kode COA yang digunakan<br>
+                  - nilai_1 : nilai detil transaksi<br>
+                  - status_dk_1 : Status Debit/Kredit<br>
+                  - subacc_1 : Sub Account yang digunakan
+               </td>
+            </tr>
+         </table>
+         <br />
+      </li>
+      <li>
+         RESTfull API Untuk Mengirim Transaksi - Dengan method POST:
+         <br />
+         http://acs.gamatechno.net:81/gtfin_akun/service/service/SendTransaksi/rest/rest/<b>[token]</b>
+         <br />
+         <br />
+          <table class="table-details" style="width:700px;">
+            <tr class="subhead">
+               <th colspan="2">Keterangan</th>
+            </tr>
+            <tr>
+               <th>
+                  token
+               </th>
+               <td>
+                  Kode Token Uniq yang akan di berikan oleh pihak gamatechno kepada pihak service client
+               </td>
+            </tr>
+         </table>
+         <br />
+         <table class="table-details" style="width:700px;">
+            <tr class="subhead">
+               <th colspan="2">Parameter yang dikirim</th>
+            </tr>
+            <tr>
+               <th>
+                  Nama Parameter
+               </th>
+               <th>
+                  Keterangan
+               </th>
+            </tr>
+            <tr>
+               <th>
+                  kode_transaksi
+               </th>
+               <td>
+                  Kode Transaksi
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  kode_unit
+               </th>
+               <td>
+                  Kode Unit Kerja
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  nomor
+               </th>
+               <td>
+                  Nomor Transaksi (optional)
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  tanggal
+               </th>
+               <td>
+                  Tanggal Transaksi, contoh : 2012-12-29
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  uraian
+               </th>
+               <td>
+                  Deskripsi Singkat Transaksi
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  total
+               </th>
+               <td>
+                  Nilai Total Transaksi
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  penanggung_jawab
+               </th>
+               <td>
+                  Penanggung Jawab Transaksi
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  detil
+               </th>
+               <td>
+                  Merupakan detil transaksi yang berupa Array, terdiri dari:<br>
+                  - coa_kode : kode COA yang digunakan<br>
+                  - nilai : nilai detil transaksi<br>
+                  - status_dk : Status Debit/Kredit<br>
+                  - subacc : Sub Account yang digunakan
+               </td>
+            </tr>
+         </table>
+         <br>
+         <button onclick="openDiv('code1');">PHP Sample Code</button><br>
+         <div id="code1" style="width:950px;background-color:#F9E69B;display:none;"><pre>$arrData = array(
+		'kode_transaksi'=>'SMP',
+		'kode_unit'=>'100',
+		'nomor'=>'SAMPLE',
+		'tanggal'=>'2013-01-02',
+		'uraian'=>'This is sample',
+		'total'=>'200000',
+		'penanggung_jawab'=>'SAMPLE',
+		'detil'=>array(array('coa_kode'=>'1-1112','nilai'=>'200000','keterangan'=>'Detil 1','status_dk'=>'D','kode_subacc'=>'00-00-00-00-00-00-00'),
+			       array('coa_kode'=>'1-1200','nilai'=>'200000','keterangan'=>'Detil 2','status_dk'=>'K','kode_subacc'=>'00-00-00-00-00-00-00')));
+         </pre></div><br>
+      </li>
+      <li>
+         JSON-RPC API Untuk Mengirim Transaksi - Dengan method POST:
+         <br />
+         http://acs.gamatechno.net:81/gtfin_akun/rpc/service/service/json/jsonrpc/<b>[token]</b>
+         <br />
+         <br />
+          <table class="table-details" style="width:700px;">
+            <tr class="subhead">
+               <th colspan="2">Keterangan</th>
+            </tr>
+            <tr>
+               <th>
+                  token
+               </th>
+               <td>
+                  Kode Token Uniq yang akan di berikan oleh pihak gamatechno kepada pihak service client
+               </td>
+            </tr>
+         </table>
+         <br />
+         <table class="table-details" style="width:700px;">
+         	<tr class="subhead">
+               <th colspan="2">Method yang digunakan</th>
+            </tr>
+            <tr>
+            	<th>sendTransaksi($arrData)</th>
+            	<td>$arrData merupakan parameter yang dikirim</td>
+            </tr>
+         </table>
+         <br />
+         <table class="table-details" style="width:700px;">
+            <tr class="subhead">
+               <th colspan="2">Parameter yang dikirim</th>
+            </tr>
+            <tr>
+               <th>
+                  Nama Parameter
+               </th>
+               <th>
+                  Keterangan
+               </th>
+            </tr>
+            <tr>
+               <th>
+                  kode_transaksi
+               </th>
+               <td>
+                  Kode Transaksi
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  kode_unit
+               </th>
+               <td>
+                  Kode Unit Kerja
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  nomor
+               </th>
+               <td>
+                  Nomor Transaksi (optional)
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  tanggal
+               </th>
+               <td>
+                  Tanggal Transaksi, contoh : 2012-12-29
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  uraian
+               </th>
+               <td>
+                  Deskripsi Singkat Transaksi
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  total
+               </th>
+               <td>
+                  Nilai Total Transaksi
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  penanggung_jawab
+               </th>
+               <td>
+                  Penanggung Jawab Transaksi
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  detil
+               </th>
+               <td>
+                  Merupakan detil transaksi yang berupa Array, terdiri dari:<br>
+                  - coa_kode : kode COA yang digunakan<br>
+                  - nilai : nilai detil transaksi<br>
+                  - status_dk : Status Debit/Kredit<br>
+                  - subacc: Sub Account yang digunakan
+               </td>
+            </tr>
+         </table><br>
+         <button onclick="openDiv('code2');">PHP Sample Code</button>
+         <div id="code2" style="width:950px;background-color:#F9E69B;display:none;"><pre>$arrData = array(
+		'kode_transaksi'=>'SMP',
+		'kode_unit'=>'100',
+		'nomor'=>'SAMPLE',
+		'tanggal'=>'2013-01-02',
+		'uraian'=>'This is sample',
+		'total'=>'200000',
+		'penanggung_jawab'=>'SAMPLE',
+		'detil'=>array(array('coa_kode'=>'1-1112','nilai'=>'200000','keterangan'=>'Detil 1','status_dk'=>'D','kode_subacc'=>'00-00-00-00-00-00-00'),
+			       array('coa_kode'=>'1-1200','nilai'=>'200000','keterangan'=>'Detil 2','status_dk'=>'K','kode_subacc'=>'00-00-00-00-00-00-00')));
+         </pre></div>
+      </li>
+   </ul>
+<!-- /patTemplate:tmpl -->

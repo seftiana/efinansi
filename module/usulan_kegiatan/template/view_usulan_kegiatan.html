@@ -1,0 +1,217 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function centangin_semua(varname, start_num, end_num) {
+		var obj = document.getElementById('cek_all');
+		var ceks;
+		if(obj.checked == false) {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+				if(ceks) ceks.checked = false;
+			}
+		} else {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+				if(ceks) ceks.checked = true;
+			}
+		}
+	}
+	function show_checkbox () {
+		if(document.getElementById('cek_all'))
+			document.getElementById('cek_all').style.display='';
+	}
+	document.onload = show_checkbox();
+	var xpopup;
+	function fokus(elemId) {
+		document.getElementById(elemId).focus();
+		document.getElementById(elemId).select;
+	}
+	function focusPopup() {
+		if(xpopup) xpopup.focus();
+		return true;
+	}
+	
+	function popupUnitKerja(){	
+		showPopup('{URL_POPUP_UNIT_KERJA}','Unit Kerja', 500,500);
+	}	
+	
+	function bukaPopupProgram(xurl) {
+		var tahun_anggaran;
+		var tahun_anggaran_label;
+		if(document.getElementById('tahun_anggaran_label')) {
+			tahun_anggaran=document.getElementById('tahun_anggaran').value;
+			tahun_anggaran_label=document.getElementById('tahun_anggaran_label').value;
+		} else {
+			tahun_anggaran=document.getElementById('tahun_anggaran').value;
+			tahun_anggaran_label=document.getElementById('tahun_anggaran').options[document.getElementById('tahun_anggaran').selectedIndex].text;
+		}
+		showPopup(xurl+'&tahun_anggaran='+tahun_anggaran+'&tahun_anggaran_label='+tahun_anggaran_label,'',550,550);
+		//xpopup.focus();
+	}
+	function bukaPopupCetak(xurl) {
+		xpopup=window.open(xurl,'xpopup','width=900,height=600,resizable=yes,scrollbars=yes,right=0;center');
+		xpopup.focus();
+	}
+	function resetFormIni() {
+		if(document.getElementById('kodenama')) document.getElementById('kodenama').value='';
+		
+		if(document.getElementById('satker')) document.getElementById('satker').value='';
+		if(document.getElementById('satker_label')) document.getElementById('satker_label').innerHTML='';
+		if(document.getElementById('unitkerja')) document.getElementById('unitkerja').value='';
+		if(document.getElementById('unitkerja_label')) document.getElementById('unitkerja_label').innerHTML='';
+		if(document.getElementById('program')) document.getElementById('program').value='';
+		if(document.getElementById('program_label')) document.getElementById('program_label').innerHTML='';
+	}
+	//document.onmousedown=focusPopup();
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="rencana_kegiatan" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox" name="filterbox" >
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+	  
+	  <tr>              
+			 <th width="30%">Kode / Nama Program </th>
+			 <td><input type="text" name="kodenama" id="kodenama" value="{KODENAMA}" size="30" /></td>
+      </tr>
+      
+         <tr>
+            <th width="30%"><!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / --></th>
+            <td>
+				<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tahun_anggaran"  / -->
+			</td>
+         </tr>
+         <tr>              
+				 <th width="30%">Unit / Sub Unit</th>
+					 <td>
+						<input id="unit_kode_sistem" type="hidden" value="{UNITKODESISTEM}"
+							 name="unit_kode_sistem"/>
+						<input id="id_unit" type="hidden" value="{UNITID}" name="id_unit"/>
+			    <!-- patTemplate:tmpl name="is_parent"
+					 type="condition" conditionvar="IS_PARENT" -->
+				 <!-- patTemplate:sub condition="YES" -->
+						<input type="button" style="" onclick="javascript:popupUnitKerja()"
+							 value=" ... " name="btnshift"/>
+					 	<input id="nama_unit" type="text" style="" value="{UNITNAMA}" size="25"
+						 	 name="nama_unit" readonly="readonly"/>
+				<!-- /patTemplate:sub -->
+				<!-- patTemplate:sub condition="NO" -->
+					<label><b>{UNITNAMA}</b></label>
+				<!-- /patTemplate:sub -->
+				<!-- /patTemplate:tmpl -->
+						</td>
+			  </tr>		  
+		 
+         <!-- 
+		 patTemplate:sub condition="OPERATORUNIT" 
+         <tr>
+            <th width="30%">patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" </th>
+            <td>{TAHUN_ANGGARAN_LABEL}<input type="hidden" name="tahun_anggaran" id="tahun_anggaran" value="{TAHUN_ANGGARAN}" /><input type="hidden" name="tahun_anggaran_label" id="tahun_anggaran_label" value="{TAHUN_ANGGARAN_LABEL}" /></td>
+         </tr>
+         <tr>
+             <tr>              
+				 <th width="30%">Unit / Sub Unit</th>
+					 <td>
+						<input id="unit_kode_sistem" type="hidden" value="{UNITKODESISTEM}" name="unit_kode_sistem"></input>
+						<input id="id_unit" type="hidden" value="{UNITID}" name="id_unit"></input>
+						
+						<input type="button" style="" onclick="javascript:popupUnitKerja()" value=" ... " name="btnshift"></input>		 
+					 	<input id="nama_unit" type="text" style="" value="{UNITNAMA}" size="25" name="nama_unit" readonly="readonly"></input>
+						</td>
+			  </tr>		  
+		 /patTemplate:sub
+         patTemplate:sub condition="OPERATORSUBUNIT"
+         <tr>
+            <th width="30%">patTemplate:gtfwgetconfig config="language" name="tahun_anggaran"</th>
+            <td>{TAHUN_ANGGARAN_LABEL}<input type="hidden" name="tahun_anggaran" id="tahun_anggaran" value="{TAHUN_ANGGARAN}" /><input type="hidden" name="tahun_anggaran_label" id="tahun_anggaran_label" value="{TAHUN_ANGGARAN_LABEL}" /></td>
+         </tr>
+         <tr>              
+				
+		<th width="30%">Unit / Sub Unit</th>
+			<td>
+				<input id="unit_kode_sistem" type="hidden" value="{UNITKODESISTEM}" name="unit_kode_sistem"></input>
+				<input id="id_unit" type="hidden" value="{UNITID}" name="id_unit"></input>
+				<input id="nama_unit" type="text" style="" value="{UNITNAMA}" size="25" name="txt_unit" readonly="readonly"></input>
+			</td>
+		</tr>	
+		 /patTemplate:sub
+	  /patTemplate:tmpl -->
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="program" / --></th>
+            <td><input type="hidden" name="program" id="program" value="{PROGRAM}" /><textarea name="program_label" id="program_label" readonly="readonly" cols="40" rows="1">{PROGRAM_LABEL}</textarea><input type="button"  name="but_program" onclick="javascript:bukaPopupProgram('{URL_POPUP_PROGRAM}')" value=" ... " /></td>
+         </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td><input type="submit" name="btnTampilkan" value=" Tampilkan " class="buttonSubmit"/><input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" onclick="resetFormIni();" />
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+   <form method="POST" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar">
+   		<a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Data Usulan Kegiatan" tabindex="2"><img src="images/button-add.gif" alt=""> Tambah</a>
+		<input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="inputButton" />
+      </div>
+   </div>
+   <table class="table-common" width="800px">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+		 <th><input type="checkbox" style="display:none" name="cek_all" id="cek_all" value="ALL" onclick="centangin_semua('usulan_kegiatan_id_','{FIRST_NUMBER}','{LAST_NUMBER}');" /></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_unit" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / --></th>
+         <!--th>patTemplate:gtfwgetconfig config="language" name="kode_sub_unit"</th -->
+         <!--th>patTemplate:gtfwgetconfig config="language" name="sub_unit"</th -->
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_program" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="program" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="latar_belakang" / --></th>
+         <th width="100"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_usulankegiatan" type="condition" conditionvar="USULANKEGIATAN_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="10" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_usulankegiatan_item" -->
+            <tr class="{USULANKEGIATAN_CLASS_NAME}">
+               <td align="center">{USULANKEGIATAN_NUMBER}</td>
+			   <td align="center">
+					<input type="checkbox" name="id[]" id="usulan_kegiatan_id_{USULANKEGIATAN_NUMBER}" value="{USULANKEGIATAN_ID}" /><input type="hidden" name="name[{USULANKEGIATAN_ID}]" value="{USULANKEGIATAN_PROGRAM}" /></td>
+               <!--td>{USULANKEGIATAN_KODESATKER}</td-->
+               <!--td>{USULANKEGIATAN_SATKER}</td -->
+		       <td>{USULANKEGIATAN_KODEUNIT}</td>
+               <td>{USULANKEGIATAN_UNIT}</td>
+               <td>{USULANKEGIATAN_KODEPROGRAM}</td>
+               <td>{USULANKEGIATAN_PROGRAM}</td>
+               <td>{USULANKEGIATAN_LATARBELAKANG}</td>
+               <td class="links" align="center">
+                  <a class="xhr dest_subcontent-element" href="{USULANKEGIATAN_URL_EDIT}" title="Ubah"><img src="images/button-edit.gif" alt="Ubah"/></a><a class="xhr dest_subcontent-element" href="{USULANKEGIATAN_URL_DETIL}" title="List"><img src="images/button-detail.gif" alt="List"/></a><a class="xhr_dest_subcontent-element" href="javascript:void(0)" onclick="bukaPopupCetak('{USULANKEGIATAN_URL_CETAK}')" title="Cetak"><img src="images/button-print.gif" alt="Cetak"/></a>
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   </form>
+   <br />
+   <!--
+   <div class="petunjuk-area">
+      <h4>Petunjuk:</h4>
+      <ul>
+         <li>Tidak perlu ada petunjuk.</li>
+      </ul>
+   </div>
+	-->
+<!-- /patTemplate:tmpl -->

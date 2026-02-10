@@ -1,0 +1,179 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css">
+.std_form,
+.std_form tr td{
+   vertical-align: top;
+}
+input[type="button"],
+button{
+   vertical-align: top;
+}
+
+#treeboxbox_tree table tr td{
+   vertical-align: middle !important;
+}
+
+#treeboxbox_tree,
+#treeboxbox_tree .containerTableStyle{
+   background: transparent !important;
+}
+
+label > input[type="checkbox"]{
+   display: inline;
+   margin-top: 6px;
+   float: left;
+}
+label:after{
+   content: " ";
+   display: table;
+   clear: both;
+}
+</style>
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form dest_subcontent-element" data-target="{URL_RETURN}" id="frmInput">
+   <input type="hidden" name="data_id" value="{DATA_ID}" />
+   <input type="hidden" name="komponen_id" value="{KOMPONEN_ID}" />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            Edit <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+         </th>
+         <td>
+            <input type="hidden" name="detail_belanja_id" id="detail_belanja_id" value="{DETAIL_BELANJA_ID}" />
+            <input type="hidden" name="detail_belanja" id="detail_belanja" size="35" value="{DETAIL_BELANJA}" readonly />
+            <label style="font-weight: bold;">
+               {DETAIL_BELANJA}
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+         </th>
+         <td>
+            <input type="text" name="nominal" id="txt_nominal" class="gvNum" size="35" value="{NOMINAL}" />
+         </td>
+      </tr>
+      <tr style="display: none;">
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / -->
+         </th>
+         <td>
+            <div id="treeboxbox_tree"></div>
+            <div id="unit_PlaceHolder"></div>
+         </td>
+      </tr>
+      <tr class="buttons">
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit" />
+            <input type="reset"  name="btnReset" value=" Batal " class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<script type="text/javascript">
+
+var messageBox       = document.getElementById('message-box');
+if(typeof(messageBox) != 'undefined' && messageBox != null){
+   messageBox.style.display = 'none';
+}
+
+checkBranch = function(id,state){
+   if (state){
+      tree.setSubChecked(id,true);
+   }else{
+      tree.setSubChecked(id,false);
+   }
+}
+var dataUnit   = [];
+tree           = new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
+tree.setSkin('dhx_skyblue');
+tree.setImagePath("js/dhtmlx/dhtmlxtree/imgs/dhxtree_skyblue/");
+tree.enableCheckBoxes(true);
+tree.enableTreeLines(true);
+tree.enableThreeStateCheckboxes(true);
+tree.setOnCheckHandler(checkBranch);
+
+tree.setCheck(1007, true);
+
+tree.attachEvent("onCheck", function(id, state){
+   var list          = JSON.parse('['+tree.getAllChecked()+']');
+   var placeHolder   = document.getElementById('unit_PlaceHolder');
+   placeHolder.emptyRecord();
+   for (var i = list.length - 1; i >= 0; i--) {
+      var label      = tree.getItemText(list[i]);
+      label          = label.split('—');
+      var kode       = label[0].trim();
+      var nama       = label[1].trim();
+      placeHolder.addItem(list[i], kode, nama);
+   };
+
+});
+
+/**
+ * Untuk load tree unit kerja
+ *
+tree.loadJSON('{URL_GET_UNIT_KERJA}',function(){
+   tree.openAllItems(0);
+   var dataUnit   = {UNIT_DATA};
+   if(dataUnit.length > 0){
+      var placeHolder   = document.getElementById('unit_PlaceHolder');
+      placeHolder.emptyRecord();
+      for(var i in dataUnit){
+         tree.setCheck(dataUnit[i].id, true);
+         placeHolder.addItem(dataUnit[i].id, dataUnit[i].kode, dataUnit[i].nama);
+      }
+   }
+});
+*
+*/
+
+document.getElementById('unit_PlaceHolder').emptyRecord  = function(){
+   var childNode     = this.getElementsByTagName('input');
+   for (var i = childNode.length - 1; i >= 0; i--) {
+      this.removeChild(childNode[i]);
+   };
+
+   return true;
+}
+
+document.getElementById('unit_PlaceHolder').addItem   = function(id, kode, nama){
+   var frag             = document.createDocumentFragment();
+   var txtUnit          = document.createElement('input');
+   txtUnit.type         = 'hidden';
+   txtUnit.name         = 'unit['+id+'][id]';
+   txtUnit.value        = id;
+
+   var txtKode          = document.createElement('input');
+   txtKode.type         = 'hidden';
+   txtKode.name         = 'unit['+id+'][kode]';
+   txtKode.value        = kode;
+
+   var txtNama          = document.createElement('input');
+   txtNama.type         = 'hidden';
+   txtNama.name         = 'unit['+id+'][nama]';
+   txtNama.value        = nama;
+
+   frag.appendChild(txtUnit);
+   frag.appendChild(txtKode);
+   frag.appendChild(txtNama);
+   this.appendChild(frag);
+
+   return true;
+}
+</script>
+<!-- /patTemplate:tmpl -->

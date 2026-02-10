@@ -1,0 +1,132 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+  Laporan Pertanggung Jawaban Penggunaan Anggaran (LPPA)
+</h1>
+<table width="80%">
+   <thead>
+       <tr>
+           <td colspan="4">
+               Divisi&nbsp;&nbsp;&nbsp;&nbsp;: <br />
+               No. Bukti CP/BP&nbsp;&nbsp;&nbsp;&nbsp;:
+           </td>
+           <td colspan="4">
+               Tanggal : <!-- patTemplate:var name="TGL_LPPA" modifier="gtfwindonesiandate" format="long" separator="-" / -->
+           </td>
+       </tr>
+      <tr>
+         <th colspan="4">
+            Penerimaan (Sesuai FPA)
+         </th>
+         <th colspan="4" align="center">
+            Pengeluaran
+         </th>
+      </tr>
+      <tr>
+          <th>Kode Rek</th>
+          <th>Nama Rekening</th>
+          <th>Rincian</th>
+          <th>Jumlah (Rp)</th>
+          
+          <th>Kode Rek</th>
+          <th>Nama Rekening</th>
+          <th>Rincian</th>
+          <th>Jumlah (Rp)</th>
+      </tr>
+      
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="8" align="center">
+                  <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+            <tr class="{CLASS_NAME}" style="{ROW_STYLE}">
+               <td align="center">
+                  {KODE_AKUN}
+               </td>
+               <td>
+                  {NAMA_AKUN}
+               </td>
+               <td>
+                  {RINCIAN} {DESKRIPSI}
+               </td>
+               <td align="right">
+                  {NOMINAL_APPROVE}
+               </td>
+              <td align="center">
+                  {KODE_AKUN}
+               </td>
+               <td>
+                  {NAMA_AKUN}
+               </td>
+               <td>
+                  {RINCIAN} {KOMPONEN_DESKRIPSI}
+               </td>
+               <td align="right">
+                   {NOMINAL_LPPA}
+               </td>
+              
+            </tr>
+            <!-- /patTemplate:tmpl -->
+             <tr class="{CLASS_NAME}"  style="font-weight: bold">
+               <td colspan="2">
+                  Total
+               </td>
+               <td>
+                  
+               </td>
+               <td align="right">
+                  {TOTAL_FPA}
+               </td>
+              <td colspan="2">
+                  Total
+               </td>
+               <td>
+                  
+               </td>
+               <td align="right">
+                   {TOTAL_FPA_REALISASI}
+               </td>
+              
+            </tr>
+            <tr  style="font-weight: bold">
+                <td colspan="8" align="left">Saldo {SISA}</td>
+            </tr>
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+      <tr>
+          <td colspan="8" align="left">
+              Saldo disetor ke rekening ABFII Perbanas Bank Bukopin A/C No. 1020447016, terlampir bukti setor asli<br />
+              Jakarta, <!-- patTemplate:var name="TGL_CETAK" modifier="gtfwindonesiandate" format="long" separator="-" / -->                            
+          </td>
+      </tr>
+      <tr>
+          <td colspan="4" align="left">
+              Penanggung Jawab Unit Kerja
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              {PENANGGUNG_JAWAB}
+          </td>
+          <td colspan="4" align="left">Mengetahui<br />Ka. Biro
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              {MENGETAHUI}
+         </td>
+      </tr>
+   </tbody>
+</table>
+<!-- /patTemplate:tmpl -->

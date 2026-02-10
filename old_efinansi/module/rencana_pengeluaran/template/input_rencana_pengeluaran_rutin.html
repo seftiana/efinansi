@@ -1,0 +1,618 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+   function showPopupKomponen(xurl){
+      showPopup(xurl,'Komponen',600,550);
+   }
+</script>
+<style type="text/css">
+table.table-details thead tr.subhead th{
+   padding: 6px 4px 6px 5px;
+   border-left: 1px solid #f2eece;
+   text-align: center;
+}
+table.table-details tbody tr.success td{
+   background-color: #43ac6a;
+   color: white;
+}
+table.table-details tbody tr.pending td{
+   background-color: #f08a24;
+   color: white;
+}
+table.table-details tbody tr.fail td{
+   background-color: #f04124;
+   color: white;
+}
+table.table-details tbody tr > td{
+   vertical-align: top;
+}
+
+table.table-details tbody tr.green {   
+   border-left-color: #4DDE40;
+   border-left-style: solid;
+   border-left-width: 4px;
+}
+
+table.table-details tbody tr.red {   
+   border-left-color: #F03232;
+   border-left-style: solid;
+   border-left-width: 4px;
+}
+
+table.table-details tbody tr.purple{   
+   border-left-color: #851CE8;
+   border-left-style: solid;
+   border-left-width: 4px;
+}
+
+
+</style>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="manajemen_rencana_pengeluaran" / -->
+</h1>
+<br />
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<form method="POST" name="frmInput" action="{URL_ACTION}" class="xhr_form std_form dest_subcontent-element" id="frmInput" data-target="{URL_RETURN}">
+   <!-- patTemplate:tmpl name="DATA_RKAT" -->
+      <input type="hidden" name="data[kegiatan][kegiatandetail_id]" value="{ID}" />
+      <input type="hidden" name="data[kegiatan][subkegiatan_nama]" value="{SUB_KEGIATAN_NAMA}" />
+      <input type="hidden" name="data[kegiatan][subkegiatan_id]" value="{SUB_KEGIATAN_ID}" />
+      <input type="hidden" name="data[kegiatan][tahun_anggaran]" value="{TA_NAMA}" />
+      <input type="hidden" name="data[kegiatan][ta_id]" value="{TA_ID}" />
+      <input type="hidden" name="data[kegiatan][unit_kerja]" value="{UNIT_ID}" />
+      <input type="hidden" name="data[kegiatan][action]" value="{ACTION}" />
+      <input type="hidden" name="data[kegiatan][jenis_kegiatan]" value="rutin" />
+      <table  class="table-details" width="100%">
+         <tr class="subhead">
+            <th colspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="manajemen_rencana_pengeluaran" / -->
+            </th>
+         </tr>
+         <tr>
+            <th width="150">
+               <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / -->
+            </th>
+            <td>
+               <strong>
+                  {UNIT_NAMA}
+               </strong>
+            </td>
+         </tr>
+         <tr>
+            <th width="150">
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama_program" / -->
+            </th>
+            <td>
+               <strong>
+                  {PROGRAM_NAMA}
+               </strong>
+            </td>
+         </tr>
+
+         <tr>
+            <th width="150">
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama_kegiatan" / -->
+            </th>
+            <td>
+               <strong>
+                  {KEGIATAN_NAMA}
+               </strong>
+            </td>
+         </tr>
+         <tr>
+            <th width="150">
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama_sub_kegiatan" / -->
+            </th>
+            <td>
+               <strong>
+                  {SUB_KEGIATAN_NAMA}
+               </strong>
+            </td>
+         </tr>
+         <tr>
+            <th width="150">
+               <!-- patTemplate:gtfwgetconfig config="language" name="lingkup_sub_kegiatan" / -->
+            </th>
+            <td>
+               <strong>
+                  {DESKRIPSI}
+               </strong>
+            </td>
+         </tr>
+         <tr>
+            <th width="150">
+               Prioritas
+            </th>
+            <td>
+               <strong>
+                  {PRIORITAS_NAMA}
+               </strong>
+            </td>
+         </tr>
+         <tr>
+            <th width="150">
+               Catatan
+            </th>
+            <td>
+               {CATATAN}
+            </td>
+         </tr>
+         <tr>
+      </table>
+   <!-- /patTemplate:tmpl -->
+   <div class="toolbar">
+      <a href="javascript:void(0);" class="button" onclick="showPopup('{POPUP_KOMPONEN}', '', 600, 550);">
+         <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / --> <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+      </a>
+      <!-- a href="" class="button" onclick="return false;">Tambah Komponen</a-->
+   </div>
+   <table class="table-details" width="100%">
+      <thead>
+         <tr class="subhead">
+            <th rowspan="2" style="width: 30px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+            </th>
+            <th width="28" id="cek_box" rowspan="2">
+               <input style="" name="cek_all" id="cek_all" value="ALL" class="CheckBoxFW_parent" type="checkbox" />
+            </th>
+            <th colspan="2" style="border-bottom: 1px solid #f2eece; text-align: center;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+            </th>
+            <th width="161" style="display:none" rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="nominal" / -->
+            </th>
+            <th width="197" rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / -->
+            </th>
+            <th style="width: 95px;" rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="satuan_komponen" / -->
+            </th>
+            <th style="width: 95px;" rowspan="2">
+               No.COA
+            </th>
+            <th style="width: 50px;" rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="volume" / -->
+            </th>
+            <th width="203"  style="display:none" rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="formula" / -->
+            </th>
+            <th width="219"  rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="nilai_satuan_rp" / -->
+            </th>
+         </tr>
+         <tr class="subhead">
+            <th style="width: 115px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+            </th>
+            <th style="width: 195px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+            </th>
+         </tr>
+      </thead>
+      <tbody id="komponen-PlaceHolder">
+         <tr id="empty_row">
+            <td colspan="9" style="font-style:italic; text-align: center;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+            </td>
+         </tr>
+      </tbody>
+      <tfoot>
+         <tr class="subhead">
+            <th colspan="11" style="padding: 6px 4px; text-align: right;">
+               <input type="reset"  name="btnbalik" value=" Batal " class="buttonSubmit" style="padding: 5px 6px; font-weight: bold;"/>
+               <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit" style="padding: 5px 6px; font-weight: bold;"/>
+            </th>
+         </tr>
+      </tfoot>
+   </table>
+</form>
+
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         Centang komponen  yang dipilih serta isi nominalnya
+      </li>
+   </ul>
+
+     <div style="margin:10px 0px 0px 10px;">
+      <div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#4DDE40; border:#4DDE40 1px solid; float: left;">    </div> = Detail Belanja Disetujui
+   </div>
+        <div style="margin:10px 0px 0px 10px;">
+      <div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#851CE8; border:#851CE8 1px solid; float: left;">    </div> = Detail Belanja Belum Diproses
+   </div>
+     <div style="margin:10px 0px 0px 10px;">
+      <div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#F03232; border:#F03232 1px solid; float: left;">    </div> = Detail Belanja Tidak disetujui
+   </div>
+</div>
+<script type="text/javascript">
+var komponenData        = {KOMPONEN_DATA};
+var tBodyKomponen       = document.getElementById('komponen-PlaceHolder');
+var formObj             = document.getElementById('frmInput');
+var forms               = document.forms['frmInput'];
+CheckBoxFW_initiate = function (Obj)
+{
+   if (!Obj || Obj.className.indexOf('CheckBoxFW_parent') < 0 || !Obj.form) return;
+
+   var CBList     = new Array;
+   var CheckedAll = true;
+   var FormObj    = Obj.form;
+
+   for (var i = 0; i < FormObj.length; i++) if (FormObj[i] == Obj) break;
+   if (i == FormObj.length) return;
+
+   for(i += 1; i < FormObj.length; i++)
+   {
+      var CBObj = FormObj[i];
+      if (CBObj.type.toUpperCase() != 'CHECKBOX') continue;
+      if (CBObj.className.indexOf('CheckBoxFW_child') >= 0)
+      {
+         CBObj.onchange = function () {
+            Obj.checkChild();
+         }
+         CBList[CBList.length] = CBObj;
+         if (!CBObj.checked) CheckedAll = false;
+      }
+      if (CBObj.className.indexOf('CheckBoxFW_parent') >= 0) break;
+   }
+
+   if (CBList.length > 0)
+   {
+      Obj.onchange = function ()
+      {
+         for (var i = 0; i < CBList.length; i++){
+            if(CBList[i].getAttribute('disabled') == null){
+               CBList[i].checked = this.checked;
+            }
+         }
+      }
+
+      Obj.checkChild = function ()
+      {
+         var CheckedAll = true;
+         for (var i = 0; i < CBList.length; i++) if (!CBList[i].checked)
+         {
+            CheckedAll = false;
+            break;
+         }
+         this.checked = CheckedAll;
+      }
+
+      Obj.checked = CheckedAll;
+   }
+}
+
+tBodyKomponen.addRows   = function(id, kode, nama, akunId, akunKode, akunNama, deskripsi, namaSatuan, satuan,makId, makKode, makNama, basId, basKode, basNama, basKomponen, formula, formulaHasil, komponenNominal, status, sumberDana, totalBiaya, nominal, nominalMax, sbu, rpId, satuanApprove,nominalApprove,totalApprove,data_id){
+   var object_id        = 'komponen_'+id;
+   var frag             = document.createDocumentFragment();
+   if (document.getElementById(object_id)) {
+      return true;
+   }
+
+   var childNodes       = this.getElementsByTagName('tr');
+   for (var i = childNodes.length - 1; i >= 0; i--) {
+      if(childNodes[i].id == 'empty_row'){
+         this.removeChild(childNodes[i]);
+      }
+   };
+
+   nomor          = childNodes.length;
+   var inId       = document.createElement('input');
+   inId.type      = 'hidden';
+   inId.value     = id;
+   inId.name      = 'data[komponen]['+id+'][id]';
+
+   var inAkunId            = document.createElement('input');
+   inAkunId.type           = 'hidden';
+   inAkunId.name           = 'data[komponen]['+id+'][akun_id]';
+   inAkunId.value          = akunId;
+
+   var inAkunKode          = document.createElement('input');
+   inAkunKode.type         = 'hidden';
+   inAkunKode.name         = 'data[komponen]['+id+'][akun_kode]';
+   inAkunKode.value        = akunKode;
+
+   var inAkunNama          = document.createElement('input');
+   inAkunNama.type         = 'hidden';
+   inAkunNama.name         = 'data[komponen]['+id+'][akun_nama]';
+   inAkunNama.value        = akunNama;
+
+   var inKode              = document.createElement('input');
+   inKode.name             = 'data[komponen]['+id+'][kode]';
+   inKode.type             = 'hidden';
+   inKode.value            = kode;
+
+   var inNama              = document.createElement('input');
+   inNama.name             = 'data[komponen]['+id+'][nama]';
+   inNama.value            = nama;
+   inNama.type             = 'hidden';
+
+   var inRpId              = document.createElement('input');
+   inRpId.type             = 'hidden';
+   inRpId.name             = 'data[komponen]['+id+'][rencanapengeluaran_id]';
+   inRpId.value            = rpId;
+
+   var inSatuan            = document.createElement('input');
+   inSatuan.value          = namaSatuan;
+   inSatuan.type           = 'hidden';
+   inSatuan.name           = 'data[komponen]['+id+'][satuan]';
+
+   var inBasKomponen       = document.createElement('input');
+   inBasKomponen.value     = basKomponen;
+   inBasKomponen.type      = 'hidden';
+   inBasKomponen.name      = 'data[komponen]['+id+'][bas_id_komponen]';
+
+   var inBasId             = document.createElement('input');
+   inBasId.type            = 'hidden';
+   inBasId.name            = 'data[komponen]['+id+'][bas_id]';
+   inBasId.value           = basId;
+
+   var inBasKode           = document.createElement('input');
+   inBasKode.type          = 'hidden';
+   inBasKode.name          = 'data[komponen]['+id+'][bas_kode]';
+   inBasKode.value         = basKode;
+
+   var inBasNama           = document.createElement('input');
+   inBasNama.type          = 'hidden';
+   inBasNama.name          = 'data[komponen]['+id+'][bas_nama]';
+   inBasNama.value         = basNama;
+
+   var inMakId             = document.createElement('input');
+   inMakId.value           = makId;
+   inMakId.type            = 'hidden';
+   inMakId.name            = 'data[komponen]['+id+'][mak_id]';
+
+   var inMakKode           = document.createElement('input');
+   inMakKode.type          = 'hidden';
+   inMakKode.name          = 'data[komponen]['+id+'][mak_kode]';
+   inMakKode.value         = makKode;
+
+   var inMakNama           = document.createElement('input');
+   inMakNama.type          = 'hidden';
+   inMakNama.name          = 'data[komponen]['+id+'][mak_nama]';
+   inMakNama.value         = makNama;
+
+   var inSumberDana        = document.createElement('input');
+   inSumberDana.value      = sumberDana;
+   inSumberDana.type       = 'hidden';
+   inSumberDana.name       = 'data[komponen]['+id+'][sumber_dana_id]';
+
+   var inFormula           = document.createElement('input');
+   inFormula.value         = formula;
+   inFormula.type          = 'hidden';
+   inFormula.name          = 'data[komponen]['+id+'][formula]';
+
+   var inFormulaHasil      = document.createElement('input');
+   inFormulaHasil.value    = formulaHasil;
+   inFormulaHasil.type     = 'hidden';
+   inFormulaHasil.name     = 'data[komponen]['+id+'][hasil_formula]';
+
+   var inBiayaMax          = document.createElement('input');
+   inBiayaMax.type         = 'hidden';
+   inBiayaMax.value        = nominalMax;
+   inBiayaMax.name         = 'data[komponen]['+id+'][biaya_max]';
+
+   var inSbuStatus         = document.createElement('input');
+   inSbuStatus.value       = sbu;
+   inSbuStatus.type        = 'hidden';
+   inSbuStatus.name        = 'data[komponen]['+id+'][is_sbu]';
+
+   var inTotalBiaya        = document.createElement('input');
+   inTotalBiaya.type       = 'hidden';
+   inTotalBiaya.name       = 'data[komponen]['+id+'][total_biaya]';
+   inTotalBiaya.value      = totalBiaya;
+
+   var inKomponenNominal      = document.createElement('input');
+   inKomponenNominal.type     = 'hidden';
+   inKomponenNominal.name     = 'data[komponen]['+id+'][komponen_nominal]';
+   inKomponenNominal.value    = komponenNominal;
+
+   var inStatus               = document.createElement('input');
+   inStatus.type              = 'hidden';
+   inStatus.name              = 'data[komponen]['+id+'][status]';
+   inStatus.value             = status;
+    
+   //untuk approval
+   var inSatuanApprove        = document.createElement('input');
+   inSatuanApprove.type       = 'hidden';
+   inSatuanApprove.name       = 'data[komponen]['+id+'][satuan_approve]';
+   inSatuanApprove.value      = satuanApprove;
+
+   var inNominalApprove       = document.createElement('input');
+   inNominalApprove.type      = 'hidden';
+   inNominalApprove.name      = 'data[komponen]['+id+'][nominal_approve]';
+   inNominalApprove.value     = nominalApprove;
+
+   var inTotalApprove         = document.createElement('input');
+   inTotalApprove.type        = 'hidden';
+   inTotalApprove.name        = 'data[komponen]['+id+'][total_approve]';
+   inTotalApprove.value       = totalApprove;
+
+   var tr         = document.createElement('tr');
+   tr.id          = object_id;
+   var tdNomor    = document.createElement('td');
+   tdNomor.align        = 'center';
+   tdNomor.innerHTML    = (nomor+1);
+   var tdCheckBox = document.createElement('td');
+   tdCheckBox.style.paddingLeft  = '9px';
+   var inCheckBox       = document.createElement('input');
+   inCheckBox.type      = 'checkbox';
+   inCheckBox.name      = 'data[komponen]['+id+'][data_id]';
+   inCheckBox.value     = id;
+  
+   inCheckBox.classList.add('CheckBoxFW_child');
+   if(data_id && typeof(data_id) != 'undefined' && data_id == id){
+      inCheckBox.checked   = true;
+   }
+   tdCheckBox.appendChild(inCheckBox);
+   
+   var inCheckId       = document.createElement('input');
+   inCheckId.type      = 'hidden';
+   inCheckId.value     = id;
+   inCheckId.name      = 'data[komponen]['+id+'][data_id]';
+
+   
+   var tdKode     = document.createElement('td');
+   tdKode.align   = 'center';
+   tdKode.innerHTML     = kode;
+   var tdNama     = document.createElement('td');
+   tdNama.innerHTML     = nama;
+   var tdDeskripsi      = document.createElement('td');
+   var inDeskripsi      = document.createElement('textarea');
+   inDeskripsi.name     = 'data[komponen]['+id+'][deskripsi]';
+   inDeskripsi.rows     = 3;
+   inDeskripsi.style.resize   = 'none';
+   inDeskripsi.style.width    = '90%';
+   inDeskripsi.value          = deskripsi;
+   tdDeskripsi.appendChild(inDeskripsi);
+   var tdSatuan         = document.createElement('td');
+   tdSatuan.align       = 'center';
+   tdSatuan.innerHTML   = namaSatuan;
+   var tdMakKode        = document.createElement('td');
+   tdMakKode.align      = 'center';
+   tdMakKode.innerHTML  = akunKode;
+   var tdVolume         = document.createElement('td');
+   var inVolume         = document.createElement('input');
+   inVolume.type        = 'text';
+   inVolume.name        = 'data[komponen]['+id+'][jumlah]';
+   inVolume.classList.add('gvNum');
+   inVolume.value       = satuan;
+   inVolume.style.width       = '35px';
+   inVolume.style.textAlign   = 'right';
+   tdVolume.appendChild(inVolume);
+
+   var tdNominalSatuan  = document.createElement('td');
+   tdNominalSatuan.align      = 'right';
+   var inNominalSatuan     = document.createElement('input');
+   inNominalSatuan.type    = 'text';
+   inNominalSatuan.name    = 'data[komponen]['+id+'][biaya]';
+   inNominalSatuan.classList.add('gvNum');
+   inNominalSatuan.value   = nominal;
+   inNominalSatuan.size    = '30';
+   tdNominalSatuan.appendChild(inNominalSatuan);
+
+   if(status == 'YA' || status == 'TIDAK'){
+        inCheckBox.setAttribute("disabled", "disabled");
+        inDeskripsi.setAttribute("readonly", "readonly");
+        inVolume.setAttribute("readonly", "readonly");
+        inNominalSatuan.setAttribute("readonly", "readonly");
+        tdCheckBox.appendChild(inCheckId);
+        
+   }
+   
+   if(status ==  'YA') {
+       tr.className = 'green';
+   }
+   
+   if(status ==  'TIDAK') {
+       tr.className = 'red';
+   }
+   
+   if(status ==  'BELUM') {
+       tr.className = 'purple';
+   }
+   
+   tr.appendChild(inId);
+   tr.appendChild(inAkunId);
+   tr.appendChild(inAkunKode);
+   tr.appendChild(inAkunNama);
+   tr.appendChild(inKode);
+   tr.appendChild(inRpId);
+   tr.appendChild(inNama);
+   tr.appendChild(inSatuan);
+   tr.appendChild(inBasKomponen);
+   tr.appendChild(inBasId);
+   tr.appendChild(inBasKode);
+   tr.appendChild(inBasNama);
+   tr.appendChild(inMakId);
+   tr.appendChild(inMakKode);
+   tr.appendChild(inMakNama);
+   tr.appendChild(inSumberDana);
+   tr.appendChild(inFormula);
+   tr.appendChild(inFormulaHasil);
+   tr.appendChild(inBiayaMax);
+   tr.appendChild(inSbuStatus);
+   tr.appendChild(inTotalBiaya);
+   tr.appendChild(inKomponenNominal);
+   tr.appendChild(inStatus);
+   tr.appendChild(inSatuanApprove);
+   tr.appendChild(inNominalApprove);
+   tr.appendChild(inTotalApprove);
+
+   tr.appendChild(tdNomor);
+   tr.appendChild(tdCheckBox);
+   tr.appendChild(tdKode);
+   tr.appendChild(tdNama);
+   tr.appendChild(tdDeskripsi);
+   tr.appendChild(tdSatuan);
+   tr.appendChild(tdMakKode);
+   tr.appendChild(tdVolume);
+   tr.appendChild(tdNominalSatuan);
+
+   frag.appendChild(tr);
+   this.appendChild(frag);
+
+   var volumeNode    = tdVolume.firstChild;
+   do {
+      if (volumeNode.tagName && volumeNode.tagName.toUpperCase() == 'INPUT'){
+         gValidationNumber['.gvNum'](volumeNode);
+      }
+   } while (volumeNode = volumeNode.nextSibling);
+
+   var nominalSatuanNode   = tdNominalSatuan.firstChild;
+   do {
+      if (nominalSatuanNode.tagName && nominalSatuanNode.tagName.toUpperCase() == 'INPUT'){
+         gValidationNumber['.gvNum'](nominalSatuanNode);
+      }
+   } while (nominalSatuanNode = nominalSatuanNode.nextSibling);
+
+   if(typeof(formObj) != 'undefined' && formObj != null){
+      for (var i = 0; i < formObj.length; i++){
+         CheckBoxFW_initiate(formObj[i]);
+      }
+   }
+}
+
+for(var i in komponenData){
+   tBodyKomponen.addRows(
+      komponenData[i].id,
+      komponenData[i].kode,
+      komponenData[i].nama,
+      komponenData[i].akun_id,
+      komponenData[i].akun_kode,
+      komponenData[i].akun_nama,
+      komponenData[i].deskripsi,
+      komponenData[i].satuan,
+      komponenData[i].jumlah,
+      komponenData[i].mak_id,
+      komponenData[i].mak_kode,
+      komponenData[i].mak_nama,
+      komponenData[i].bas_id,
+      komponenData[i].bas_kode,
+      komponenData[i].bas_nama,
+      komponenData[i].bas_id_komponen,
+      komponenData[i].formula,
+      komponenData[i].hasil_formula,
+      komponenData[i].komponen_nominal,
+      komponenData[i].status,
+      komponenData[i].sumber_dana_id,
+      komponenData[i].total_biaya,
+      komponenData[i].biaya,
+      komponenData[i].biaya_max,
+      komponenData[i].is_sbu,
+      komponenData[i].rencana_pengeluaran_id,      
+      komponenData[i].satuan_approve,
+      komponenData[i].nominal_approve,
+      komponenData[i].total_approve,
+      komponenData[i].data_id
+   );
+}
+</script>
+<!-- /patTemplate:tmpl -->

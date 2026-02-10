@@ -1,0 +1,24 @@
+<?php
+require_once GTFWConfiguration::GetValue( 'application', 'docroot') . 'module/kode_penerimaan/response/ProcessKodePenerimaan.proc.class.php';
+
+class DoAddKodePenerimaan extends HtmlResponse {
+
+   function TemplateModule() {
+   }
+   
+   function ProcessRequest() {
+
+      $Obj = new ProcessKodePenerimaan();
+      
+      $urlRedirect = $Obj->Add();     
+            
+      $this->RedirectTo($urlRedirect) ;      
+      
+      return NULL;
+    }
+
+   function ParseTemplate($data = NULL) {
+      
+   }
+}
+?>

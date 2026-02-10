@@ -1,0 +1,258 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="referensi_mak" / -->
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterbox" name="filterbox" class="dataquest xhr_simple_form dest_subcontent-element">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="rkakl_pagu_bas" / -->
+         </th>
+         <td>
+            <input type="text" name="bas" id="src_bas" size="35" value="{BAS_KODE}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" id="src_kode" size="35" value="{KODE}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <td>
+            <input type="text" name="nama" id="src_nama" size="35" value="{NAMA}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<form name="frmList" id="frmList" class="xhr_simple_form dest_subcontent-element" method="post" action="{URL_DELETE}">
+   <input type="hidden" name="control_action" value="{CONTROL_ACTION}" />
+   <input type="hidden" name="control_label" value="{CONTROL_LABEL}" />
+   <input type="hidden" name="control_return" value="{CONTROL_RETURN}" />
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar">
+         <a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Data" >
+            <img src="images/button-add.gif" alt="">
+            Tambah Data
+         </a>
+         <!-- patTemplate:tmpl name="btn_delete" visibility="hidden" -->
+            <input type="submit" name="btnDelete" value="Hapus" class="inputButton btnDelete" />
+         <!-- /patTemplate:tmpl -->
+      </div>
+   </div>
+   <!-- start: Table List -->
+   <table class="table-common" width="100%">
+      <thead>
+         <tr>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+            </th>
+            <th rowspan="2" style="width: 18px;">
+               <input type="checkbox" class="CheckBoxFW_parent" />
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+            </th>
+            <th colspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="rkakl_pagu_bas" / -->
+            </th>
+            <th colspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="coa" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="tipe" / -->
+            </th>
+            <th rowspan="2" style="width: 30px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="status" / -->
+            </th>
+            <th rowspan="2" style="width: 20px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+            </th>
+         </tr>
+         <tr>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+            </th>
+         </tr>
+      </thead>
+      <tbody>
+         <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+            <!-- patTemplate:sub condition="YES" -->
+               <tr>
+                  <td colspan="11">
+                     <center>
+                        <em>
+                           <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                        </em>
+                     </center>
+                  </td>
+               </tr>
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+               <!-- patTemplate:tmpl name="data_list" -->
+                  <tr class="{CLASS_NAME}">
+                     <td>
+                        {NOMOR}
+                     </td>
+                     <td>
+                        <!-- patTemplate:tmpl name="checkbox" type="condition" conditionvar="DISABLED" -->
+                           <!-- patTemplate:sub condition="YES" -->
+                              <input type="checkbox" name="id[]" value="" disabled />
+                           <!-- /patTemplate:sub -->
+                           <!-- patTemplate:sub condition="NO" -->
+                              <input type="checkbox" name="id[]" value="{ID}" class="CheckBoxFW_child" />
+                              <input type="hidden" name="name[{ID}]" value="{NAME}" />
+                           <!-- /patTemplate:sub -->
+                        <!-- /patTemplate:tmpl -->
+                     </td>
+                     <td align="center">
+                        {KODE}
+                     </td>
+                     <td>
+                        {NAMA}
+                     </td>
+                     <td align="center">
+                        {BAS_KODE}
+                     </td>
+                     <td>
+                        {BAS_NAMA}
+                     </td>
+                     <td align="center">
+                        {AKUN_KODE}
+                     </td>
+                     <td>
+                        {AKUN_NAMA}
+                     </td>
+                     <td>
+                        {TIPE_NAMA}
+                     </td>
+                     <td class="links">
+                        <!-- patTemplate:tmpl name="status" type="condition" conditionvar="AKTIF" -->
+                           <!-- patTemplate:sub condition="YES" -->
+                              <a href="javascript:void(0)">
+                                 <img src="images/icons/16/green.gif" alt="aktif" />
+                              </a>
+                           <!-- /patTemplate:sub -->
+                           <!-- patTemplate:sub condition="NO" -->
+                              <a href="javascript:void(0)">
+                                 <img src="images/icons/16/red.gif" alt="aktif" />
+                              </a>
+                           <!-- /patTemplate:sub -->
+                        <!-- /patTemplate:tmpl -->
+                     </td>
+                     <td class="links">
+                        <a class="xhr dest_subcontent-element" href="{URL_EDIT}" title="Ubah">
+                           <img src="images/button-edit.gif" alt="Ubah" />
+                        </a>
+                     </td>
+                  </tr>
+               <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </tbody>
+   </table>
+   <!-- end: Table List -->
+</form>
+<br />
+<script type="text/javascript">
+CheckBoxFW_initiate = function (Obj)
+{
+   if (!Obj || Obj.className.indexOf('CheckBoxFW_parent') < 0 || !Obj.form) return;
+
+   var CBList     = new Array;
+   var CheckedAll = true;
+   var FormObj    = Obj.form;
+
+   for (var i = 0; i < FormObj.length; i++) if (FormObj[i] == Obj) break;
+   if (i == FormObj.length) return;
+
+   for(i += 1; i < FormObj.length; i++)
+   {
+      var CBObj = FormObj[i];
+      if (CBObj.type.toUpperCase() != 'CHECKBOX') continue;
+      if (CBObj.className.indexOf('CheckBoxFW_child') >= 0)
+      {
+         CBObj.onchange = function () {
+            Obj.checkChild();
+         }
+         CBList[CBList.length] = CBObj;
+         if (!CBObj.checked) CheckedAll = false;
+      }
+      if (CBObj.className.indexOf('CheckBoxFW_parent') >= 0) break;
+   }
+
+   if (CBList.length > 0)
+   {
+      Obj.onchange = function ()
+      {
+         for (var i = 0; i < CBList.length; i++){
+            if(CBList[i].getAttribute('disabled') == null){
+               CBList[i].checked = this.checked;
+            }
+         }
+      }
+
+      Obj.checkChild = function ()
+      {
+         var CheckedAll = true;
+         for (var i = 0; i < CBList.length; i++) if (!CBList[i].checked)
+         {
+            CheckedAll = false;
+            break;
+         }
+         this.checked = CheckedAll;
+      }
+
+      Obj.checked = CheckedAll;
+   }
+}
+var formObj       = document.getElementById('frmList');
+if(typeof(formObj) != 'undefined' && formObj != null){
+   for (var i = 0; i < formObj.length; i++){
+      CheckBoxFW_initiate(formObj[i]);
+   }
+}
+</script>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,76 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+function showpopup(url,label){
+   showPopup(url,label,550, 550);
+}
+// ]]>
+</script>
+<h1>RKAKL Output</h1>
+<br/>
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="notebox-alert">
+      {ISI_PESAN}
+   </div>
+   <br/>
+   <!-- /patTemplate:tmpl -->
+   <form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" name="frmInput" >
+   <input type="hidden" name="dataId" value="{ID}"  />
+      <table class="table-edit" width="100%">
+         <tr class="subhead">
+            <th colspan="2">
+               {JUDUL} RKAKL Output
+            </th>
+         </tr>
+         <tr>
+            <th width="150">
+               <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+            </th>
+            <td>
+               <input type="text" name="kode" value="{KODE}" size="20"/>&nbsp;*
+            </td>
+         </tr>
+         <tr>
+            <th width="150">
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+            </th>
+            <td>
+               <input type="text" name="nama" value="{NAMA}" size="50"/>&nbsp;*
+            </td>
+         </tr>
+         <tr style="vertical-align: top;">
+            <th width="150">
+               Kode Kegiatan
+            </th>
+            <td>
+               <input type="text" name="kode_kegiatan" value="{KODE_KEGIATAN}" size="15" readonly />
+               <input type="button" id="popup_kegiatan" name="popup_kegiatan" value=" ... " title="Popup Kegiatan" class="inputButton" onclick="showpopup('{URL_KEGIATAN}','Popup Kegiatan')" />
+               <input type="hidden" name="kegiatanRkaklKegiatanId" value="{KEGIATANRKAKLKEGIATANID}" size="20" maxlength="20" readonly /> *
+            </td>
+         </tr>
+         <tr class="buttons">
+            <th>
+               &nbsp;
+            </th>
+            <td>
+               <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+               <input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+            </td>
+         </tr>
+      </table>
+      <div id="calc" style="margin:20px; margin-bottom:50px; position:absolute; z-index:999999">
+         &nbsp;
+      </div>
+   </form>
+   
+<div class="petunjuk-area" id="petunjuk">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / -->
+      </li>
+   </ul>
+</div>
+<!-- /patTemplate:tmpl -->

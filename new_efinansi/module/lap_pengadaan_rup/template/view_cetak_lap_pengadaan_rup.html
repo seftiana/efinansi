@@ -1,0 +1,55 @@
+<!-- patTemplate:tmpl name="content" -->
+<center>
+	<h1>
+	<!-- patTemplate:gtfwgetconfig config="language" name="lap_pengadaan_rup" / -->
+	</h1>
+</center>
+<br>
+<center><h1><!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / --> {TAHUN_PERIODE}</h1></center>
+<br>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / 
+<!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --> : {UNIT_KERJA_LABEL}</h1>   
+
+
+   <table class="table-common" width="100%">
+   <tr>
+        <th><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+        <th>
+			<!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --> / 
+			<!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / --> / 
+			<!-- patTemplate:gtfwgetconfig config="language" name="mak" / -->
+        
+        </th>
+        <th><!-- patTemplate:gtfwgetconfig config="language" name="volume" / --></th>
+        <th><!-- patTemplate:gtfwgetconfig config="language" name="total" / --></th>
+        <th><!-- patTemplate:gtfwgetconfig config="language" name="sumber_dana" / --></th>
+    </tr>
+   
+
+    <!-- patTemplate:tmpl name="list_data" type="condition" conditionvar="IS_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="12" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+				<!-- patTemplate:tmpl name="list_data_item" -->
+   
+				<tr class="{CLASS_NAME}" style="{FONT_STYLE}">
+			    <td align="right">{KODE}</td>
+				<td align="left">{NAMA}</td>
+				<td align="right">{VOLUME}</td>
+				<td align="right">{NOMINAL_TOTAL}</td>
+				<td >{SUMBER_DANA_NAMA}</td>
+				</tr>
+         
+			<!-- /patTemplate:tmpl -->
+			<tr class="{CLASS_NAME}">
+				
+				<td align="center" colspan="2"><strong>TOTAL</strong></td>
+				<td align="right"><strong></strong></td>
+				<td align="right"><strong>{TOTAL_NOMINAL}</strong></td>
+				<td align="right"><strong></strong></td>
+				</tr>
+		<!-- /patTemplate:sub -->
+     <!-- /patTemplate:tmpl -->
+    </table> 
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,128 @@
+<!-- patTemplate:tmpl name="content" -->
+<form method="POST" action="{URL_SEARCH}" id="filterboxpopup" name="filterboxpopup" class="dataquest xhr_simple_form dest_popup-subcontent">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" id="txt_kode" size="35" value="{KODE}" />
+         </td>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <td>
+            <input type="text" name="nama" id="txt_nama" size="35" value="{NAMA}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tipe" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="tipe"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th style="width: 30px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th style="width: 65px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <th style="width: 95px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tipe" / -->
+         </th>
+         <th style="width: 20px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="5">
+                  <center>
+                     <em>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                     </em>
+                  </center>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+               <tr class="{CLASS_NAME}">
+                  <td>
+                     {NO}
+                  </td>
+                  <td>
+                     {KODE}
+                  </td>
+                  <td>
+                     {NAMA}
+                  </td>
+                  <td>
+                     {TIPE_NAMA}
+                  </td>
+                  <td class="links">
+                     <a href="javascript:void(0);" title="Pilih" onclick="setData('{ID}');">
+                        <img src="images/icons/16/button-check.gif" alt="Pilih" />
+                     </a>
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<!-- end: Table List -->
+
+<script type="text/javascript">
+var dataUnit   = {UNIT_DATA};
+var formSearch = document.forms['filterbox'];
+var setData    = function(id){
+   var data       = dataUnit[id];
+   if(formSearch && typeof(formSearch) != 'undefined'){
+      var elements   = formSearch.elements;
+      elements.unit_id.value     = data.id;
+      elements.unit_nama.value   = data.nama;
+   }
+
+   popupClose();
+};
+</script>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,29 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_jurnal_penerimaan" / --></h1>
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />   
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th>Revisi Transaki</th>
+      </tr>
+      <tr>
+         <th>{PESAN_CONFIRM} {REFERENSI}?</th>
+      </tr>
+      <tr>
+         <th>
+            <div class="toolbar">
+               <a class="xhr dest_subcontent-element" href="{URL_YA}" title="Revisi Transaksi" ><img src="images/button-check.gif" alt="^" /><!-- patTemplate:gtfwgetconfig config="language" name="ya" / --></a>
+               <a class="xhr dest_subcontent-element" href="{URL_TIDAK}" title="Kembali Ke Daftar Jurnal Penerimaan" ><img src="images/button-cancel-tindaklanjut.gif" alt="^" /><!-- patTemplate:gtfwgetconfig config="language" name="tidak" / --></a> 	   				    	   				   
+            </div>
+         </th>
+      </tr>
+   </table>
+   <br />
+   
+<!-- /patTemplate:tmpl -->

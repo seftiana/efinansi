@@ -1,0 +1,146 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+   var xpopup;
+   function bukaPopupCoa(xurl) {
+	  showPopup(xurl,'Coa',700,550);
+   }
+	
+	function bukaPopupMAK(xurl) {
+		showPopup(xurl,'MAK',700,550);
+	}
+	function bukaPopupSumberDana(xurl) {
+		showPopup(xurl,'SumberDana',600,550);
+	}
+    function bukaPopupAset(xurl){
+        showPopup(xurl,'<!-- patTemplate:gtfwgetconfig config="language" name="kode_aset" / -->',600,550);
+    }
+</script>
+
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_komponen" / --></h1>
+<br/>
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CSS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+   
+	<form name="frmInput" method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
+	<input type="hidden" name="komponen_id" value="{KOMPONEN_ID}"  />
+	<input type="hidden" name="op" value="{OPERASI}" />
+		<table class="table-edit" width="100%">
+			<tr class="subhead">
+				<th colspan="2">{JUDUL} <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / --></th>
+			</tr>
+		 <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kode_coa" / --></th>
+            <td><input type="text" id="kode_coa" name="kode_coa" value="{KODE_COA}" size="20" readonly="readonly" />&nbsp;
+				<input type="hidden" id="id_coa" name="id_coa" value="{ID_COA}"/>
+				<a href="javascript:void(0)" onclick="bukaPopupCoa('{URL_POPUP_COA}')" title="look up" >
+				<img src="images/button-search.gif" alt="look up"/></a>
+			</td>
+		 </tr>
+		 <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="nama_coa" / --></th>
+            <td><input type="text" id="nama_coa" name="nama_coa" value="{NAMA_COA}" size="20"/ readonly="readonly"></td>
+         </tr>
+			<tr>
+				<th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="nama_komponen" / --></th>
+				<td><input type="text" name="nama_komponen" value="{NAMA_KOMPONEN}" size="50" /> * </td>
+			</tr>
+			<tr>
+				<th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="nama_satuan" / --></th>
+				<td>
+				<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="nama_satuan"  / -->
+			*	</td>
+			</tr>
+			<tr style="display:none;">
+            <th width="150">Kode MAK</th>
+					<td>
+						<input type="text" id="kode_mak" name="kode_mak" value="{KODE_MAK}" size="20" readonly="readonly" />&nbsp;
+						<input type="hidden" id="id_mak" name="id_mak" value="{ID_MAK}"/>
+						<a href="javascript:void(0)" onclick="bukaPopupMAK('{URL_POPUP_MAK}')" title="look up" >
+						<img src="images/button-search.gif" alt="look up"/></a>
+				</td>
+			</tr>
+			<tr>
+				<th width="150">SBU / SBK</th>
+				<td>
+					<input type="radio" name="coa_is_kas" value="1" {KAS_1_CHEKED}>SBU
+					<input type="radio" name="coa_is_kas" value="0" {KAS_0_CHEKED}>SBK
+				</td>
+			</tr>
+			<tr>
+				<th width="150">Biaya 1</th>
+				<td>
+					<input type="radio" name="biaya1" value="1" {B1_1_CHEKED}>Langsung
+					<input type="radio" name="biaya1" value="0" {B1_0_CHEKED}>Tidak Langsung
+				</td>
+			</tr>
+			<tr>
+				<th width="150">Biaya 2</th>
+				<td>
+					<input type="radio" name="biaya2" value="1" {B2_1_CHEKED}>Tetap
+					<input type="radio" name="biaya2" value="0" {B2_0_CHEKED}>Tidak Tetap
+				</td>
+			</tr>
+			<tr>
+				<th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / --></th>
+				<td><textarea name="deskripsi" cols="50" rows="5">{DESKRIPSI}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="formula" / --></th>
+				<td><textarea name="formula" cols="50">{FORMULA}</textarea>
+				</td>
+			</tr>
+			<tr>
+			   <th><!-- patTemplate:gtfwgetconfig config="language" name="harga_satuan" / --></th>
+			   <td><input type="text" name="harga_satuan" value="{HARGA_SATUAN}" size="20" maxlength="20" class="gvNum" /></td>
+			</tr>
+			<tr>
+            <th width="150">Sumber Dana</th>
+					<td>
+						<input type="text" id="nama_sumber_dana" name="nama_sumber_dana" value="{NAMA_SUMBER_DANA}" size="20" readonly="readonly" />&nbsp;
+						<input type="hidden" id="id_sumber_dana" name="id_sumber_dana" value="{ID_SUMBER_DANA}"/> *
+						<a href="javascript:void(0)" onclick="bukaPopupSumberDana('{URL_POPUP_SUMBER_DANA}')" title="look up" >
+						<img src="images/button-search.gif" alt="look up"/></a>
+				</td>
+			</tr>
+			<!-- tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kode_aset" / --></th>
+					<td>
+						<input type="text" id="kode_aset" name="kode_aset" value="{KODE_ASET}" size="20" readonly="readonly" />&nbsp;
+						
+						<a href="javascript:void(0)" onclick="bukaPopupAset('{URL_POPUP_KODE_ASET}')" title="look up" >
+						<img src="images/button-search.gif" alt="look up"/></a>
+				</td>
+			</tr --> 
+            <tr>
+				<th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="pengadaan" / --></th>
+				<td>
+					<input type="radio" name="pengadaan" value="Y" {P_Y_CHEKED}>Ya
+					<input type="radio" name="pengadaan" value="T" {P_T_CHEKED}>Tidak
+				</td>
+			</tr>           
+			<tr class="buttons">
+				<th>&nbsp;
+				</th>
+				<td>
+					<input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+					<input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+				</td>
+			</tr>
+		</table>
+	</form>
+   
+   <br/>
+   
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+      <ul>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --> </li>
+		 <li><!-- patTemplate:gtfwgetconfig config="language" name="klik" / --> <img src="images/button-search.gif" alt="look up"/> <!-- patTemplate:gtfwgetconfig config="language" name="untuk_mencari_data" / --> </li>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

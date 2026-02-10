@@ -1,0 +1,66 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>Transaksi Advance Realisasi</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table  width="800">
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+	  <tr>              
+		 <th width="30%"><!-- patTemplate:gtfwgetconfig config="language" name="periode" / --></th>
+		 <td><!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="mulai" / -->&nbsp;<!-- patTemplate:gtfwgetconfig config="language" name="s_d" / -->.&nbsp;<!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="selesai" / --><input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/></td>
+	  </tr>
+	  <!-- patTemplate:tmpl name="periode_item" visibility="hidden" --><tr>
+		<th><!-- patTemplate:gtfwgetconfig config="language" name="transaksi" / --> </th>
+		<td>
+		{LIST_PERIODE}<br />
+		</td>
+	</tr><!-- /patTemplate:tmpl -->
+   </table>
+</form>
+<br />
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+
+<div class="pageBar">
+   <div class="toolbar"> 
+      <a class="xhr dest_subcontent-element" href="{URL_KEMBALI}"><img src="images/prev.gif" alt="" style="width: 16px; height: 16px">
+	  <!-- patTemplate:gtfwgetconfig config="language" name="kembali" / --></a>
+   </div>
+</div>
+<table class="table-common" width="800">
+   <tr>
+      <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+      <!--<th width="5"><input type="checkbox" style="display:none" name="cek_all" id="cek_all" value="ALL" onclick="centangin_semua('detil_id_','{FIRST_NUMBER}','{LAST_NUMBER}');" /></th>-->
+      <th><!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / --></th>
+      <th><!-- patTemplate:gtfwgetconfig config="language" name="no_bukti" / --></th>
+      <th><!-- patTemplate:gtfwgetconfig config="language" name="jenis" / --></th>
+      <th><!-- patTemplate:gtfwgetconfig config="language" name="tipe" / --></th>
+      <th><!-- patTemplate:gtfwgetconfig config="language" name="uraian" / --></th>
+      <th><!-- patTemplate:gtfwgetconfig config="language" name="total_rp" / --></th>
+   </tr>
+   <!-- patTemplate:tmpl name="data" type="condition" conditionvar="DATA_EMPTY" -->
+      <!-- patTemplate:sub condition="YES" -->
+      <tr><td colspan="9" align="center"><em>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --</em></td></tr>
+      <!-- /patTemplate:sub -->
+      <!-- patTemplate:sub condition="NO" -->
+         <!-- patTemplate:tmpl name="data_item" -->
+         <tr class="{DATA_CLASS_NAME}">
+            <td align="center">{DATA_NUMBER}</td>
+            <td>{DATA_TANGGAL}</td>
+            <td>{DATA_KKB}</td>
+            <td>{DATA_JENIS}</td>
+            <td>{DATA_TIPE}</td>
+            <td>{DATA_URAIAN}</td>
+            <td align="right">{DATA_NOMINAL_LABEL}</td>
+         </tr>
+         <!-- /patTemplate:tmpl -->
+      <!-- /patTemplate:sub -->
+   <!-- /patTemplate:tmpl -->
+</table>
+<!-- /patTemplate:tmpl -->

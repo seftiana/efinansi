@@ -1,0 +1,116 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+   var xpopup;
+   function bukaPopupCetak(xurl) {
+      xpopup = window.open(xurl,'xpopup','width=900,height=600,resizable=yes,scrollbars=yes,right=0;center');
+      xpopup.focus();
+   }
+</script>
+<style type="text/css" media="screen">
+   /* <![CDATA[ */
+   ul.jTab{
+         padding: 0px;
+         margin: 0px 0px 0px 15px;
+      }
+      ul.jTab li{
+         float: left;
+         list-style: none;
+      }
+      ul.jTab li a{
+         display: block;
+         padding: 4px 20px;
+         border-right: none;
+         border-left: 1px solid #ECE9D6;
+         border-top: 1px solid #ECE9D6;
+         border-bottom: 1px solid #F9D54B;
+         margin-bottom: -1px;
+         text-transform:capitalize;
+         cursor:pointer;
+         text-decoration: none;
+         color: #603913;
+         background-color: #FEF8E0;
+         background-image: url(data:image/gif;base64,R0lGODlhAQAPALMAAP732P/88f766f765v/88P733P788f311P710P/88v30zv711f722P777f732wAA
+   ACH5BAAAAAAALAAAAAABAA8AAAQL0IREmhhMobOAKxEAOw==) !important;
+         background-repeat: repeat-x;
+   
+      }
+      ul.jTab li:first-child a{
+         -webkit-border-top-left-radius: 5px;
+         -moz-border-radius-topleft: 5px;
+         border-top-left-radius: 5px;
+      }
+      ul.jTab li:last-child a{
+         border-right: 1px solid #ECE9D6;
+         -webkit-border-top-right-radius: 5px;
+         -moz-border-radius-topright: 5px;
+         border-top-right-radius: 5px;
+      }
+      ul.jTab li.active a{
+         border-bottom: 1px solid #FFF;
+         color: #000;
+         background-color: #FFF;
+         font-weight: bold;
+      }
+      div.tabContents{
+         clear: both;
+         display: block;
+         margin-top: -2px;
+         padding: 20px 20px;
+         border-top: 1px solid #F9D54B;
+         min-width: 600px;
+      }
+      button.inputButton {
+         color: #A0410D;
+         background-color: #ffffff;
+         border: 1px #ece9d6  solid;
+         font-size: 8pt;
+         font-family: Tahoma, Arial, Helvetica, sans-serif;
+         height: 22px;
+         padding: 2px 7px 4px 7px;
+         margin: 1px 1px 0px 0px;
+         display: block;
+         float: left;
+         overflow: hidden;
+      }
+   /* ]]> */
+</style>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="laporan_konsolidasi" / --></h1>
+<br />
+<ul class="jTab" id="jTabular">
+   <li>
+      <a href="{URL_POSISI_KEUANGAN}">
+         Posisi Keuangan
+      </a>
+   </li>
+   <li>
+      <a href="{URL_AKTIVITAS}">
+         Komprehensif
+      </a>
+   </li>
+   <!-- patTemplate:comment -->
+   <li>
+      <a href="{URL_ARUS_KAS}">
+         Arus Kas
+      </a>
+   </li>
+   <!-- /patTemplate:comment -->
+</ul>
+<div class="tabContents" id="tab-container">
+    
+</div>
+<script type="text/javascript">
+   $(document).ready(function(){
+      $("ul#jTabular li:first-child").addClass('active');
+      var dataMak       = '{URL_POSISI_KEUANGAN}';
+      GtfwAjax.replaceContentWithUrl("tab-container", dataMak+'&ascomponent=1');
+      
+      $("ul#jTabular li a").click(function(){
+         var activeTab = $(this).attr("href");
+         $("ul#jTabular li").removeClass('active');
+         $(this).parent().addClass('active');
+         GtfwAjax.replaceContentWithUrl("tab-container", ""+activeTab+"&ascomponent=1")
+         return false;
+      });
+   });
+</script>
+<!-- /patTemplate:tmpl -->

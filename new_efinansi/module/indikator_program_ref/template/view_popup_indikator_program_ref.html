@@ -1,0 +1,106 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+
+    function closePopupIp(id,label)
+    {
+        
+        document.getElementById('ipId').value = id;
+        document.getElementById('ipNama').value = label;
+	   popupClose();
+    }
+
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="ip" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterboxpopup"
+        class="dataquest xhr_simple_form dest_popup-subcontent" >
+<table>
+<tr>
+	<th colspan="2">
+	<h2><strong>
+	<!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+	</strong>
+	</h2>
+	</th>
+</tr>
+<tr>              
+	<th width="30%">
+	<!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+	</th>
+	<td>
+	<input type="text" name="kode" value="{KODE}" size="10" />
+	</td>
+</tr>
+<tr>              
+	<th width="30%">
+	<!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+	</th>
+	<td>
+	<input type="text" name="nama" value="{NAMA}" size="40" />
+	</td>
+</tr>
+<tr>
+	<th>&nbsp;</th>
+	<td>
+	<input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+	</td>
+</tr>
+</table>
+</form>
+
+<br />
+   
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+{ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+
+<br />
+
+<div class="pageBar">
+    <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+
+<table class="table-common" width="100%">
+<tr>
+	<th width="5">
+	   <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+	</th>
+
+	<th width="100">
+	   <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+	</th>
+	<th>
+	   <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+	</th>
+	<th width="31">
+	   <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+	</th>
+</tr>
+
+<!-- patTemplate:tmpl name="data_ip" type="condition" conditionvar="IS_DATA_EMPTY" -->
+    <!-- patTemplate:sub condition="YES" -->
+    <tr>
+	   <td colspan="6" align="center">
+	       <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+	   </td>
+    </tr>
+    <!-- /patTemplate:sub -->
+    <!-- patTemplate:sub condition="NO" -->
+    <!-- patTemplate:tmpl name="data_ip_item" -->                                              
+    <tr class="{DATA_CLASS_NAME}">
+	   <td align="center">{DATA_NOMOR}</td>
+	   <td align="center">{DATA_KODE}</td>
+	   <td>{DATA_NAMA}</td>
+	   <td class="links" align="center">
+	             <a href="#" onclick="closePopupIp('{DATA_ID}','{DATA_NAMA}')" title="Pilih">
+		<img src="images/button-check.gif"/></a>
+       </td>
+</tr>
+<!-- /patTemplate:tmpl -->
+<!-- /patTemplate:sub -->
+<!-- /patTemplate:tmpl -->
+</table>
+<br /> 
+<!-- /patTemplate:tmpl -->

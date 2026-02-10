@@ -1,0 +1,47 @@
+<!-- patTemplate:tmpl name="document" -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+   <title>
+      <!-- patTemplate:gtfwgetconfig config="organization" name="application_name" / --> - <!-- patTemplate:gtfwgetconfig config="organization" name="application_code" / -->
+   </title>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+   <meta name="keywords" content="
+      <!-- patTemplate:gtfwgetconfig config="organization" name="application_name" / -->,
+      <!-- patTemplate:gtfwgetconfig config="organization" name="application_code" / -->,
+      <!-- patTemplate:gtfwgetconfig config="organization" name="application_name" / -->
+      <!-- patTemplate:gtfwgetconfig config="organization" name="application_code" / -->
+      ">
+   <script type="text/javascript" src="js/jquery.js"></script>
+   {RAW_HEAD}
+   <script type="text/javascript" src="js/loader.js"></script>
+   <link rel="stylesheet" type="text/css" href="css/sia-mocca{LOADER_NAME_ADDITONAL}-loader.css" title="Mocca"/>
+   <link href="images/favicon.ico" rel="SHORTCUT ICON" />
+
+   <script type="text/javascript" language="JavaScript">
+      $(document).ready(function(){
+         var GLOBAL_DRAWER_MIN_HEIGHT = 25;
+         var GLOBAL_DRAWER_MAX_HEIGHT = 90;
+         var GLOBAL_ACTIVE_MENU = 'mn_jadwal';
+         var GLOBAL_ACTIVE_MENU_ICON = 'activemenu-icon';
+         $("#warning-nonaktif-js").remove();
+         $("#body-application").css("display","block");
+      });
+      //function alert(textAlert){
+      //   showWarning(textAlert);
+      //}
+   </script>
+
+</head>
+
+<body {BODY_ATTRIBUTE}>
+	<div id="warning-nonaktif-js" style="width:100%; background:#ffffff; display:block; z-index:999999;top:0px;left:0px;position:absolute; text-align:center;">
+   Please Turn On JavaScript
+   </div>
+   <div id="body-application" style="display:none">
+   <!-- patTemplate:link src="body" / -->
+   </div>
+</body>
+</html>
+<!-- /patTemplate:tmpl -->

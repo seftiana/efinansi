@@ -1,0 +1,359 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+
+    function bukaPopupUnitKerja(xurl) 
+    {
+        
+        showPopup(xurl,'',550,550);
+    }
+    
+    function bukaPopupRealisasi(xurl)
+    {
+        var unitId = document.getElementById('unit_kerja_id').value;
+        if(unitId == ''){
+            alert('Silah pilih unit kerja');
+        }else{
+            var queryString   = '&unit_id='+unitId;
+            var xurl          = xurl + queryString;
+            showPopup(xurl, '', 800, 500);
+        }
+            
+    }
+        
+    //document.onmousedown=focusPopup();
+</script>
+<h1>
+  LPPA
+</h1>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="notebox-alert">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form dest_subcontent-element" id="frmInput" name="frmInput">
+   <input type="hidden" name="lppa_id" value="{LPPA_ID}"  />
+   <input type="hidden" name="unit_kerja_id_old" value="{UNIT_KERJA_ID_OLD}"  />
+   <input type="hidden" name="tahun_anggaran_id_old" value="{TAHUN_ANGGARAN_ID_OLD}"  />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            {JUDUL} Data
+         </th>
+      </tr>
+         <tr>
+            <th width="120"><!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / --></th>
+            <td>
+                <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tahun_anggaran"  / -->
+            </td>
+         </tr>
+          <tr>
+             <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+             <td>
+                <input type="hidden" name="unit_kerja_id" id="unit_kerja_id" value="{UNIT_KERJA_ID}" />
+                <!-- patTemplate:tmpl name="cek_unitkerja_parent" 
+                    type="condition" conditionvar="IS_PARENT" -->
+                    <!-- patTemplate:sub condition="YES" --> 
+                 <textarea name="unit_kerja_nama" id="unit_kerja_nama" readonly="readonly" style="float:left"
+                 cols="40" rows="1">{UNIT_KERJA_NAMA}</textarea> 
+                 <input type="button"  name="but_program" style="float:left;margin:1.5px 0 0 2px;" 
+                 onclick="javascript:bukaPopupUnitKerja('{URL_POPUP_UNIT_KERJA}')" value=" ... " />
+                    <!-- /patTemplate:sub -->
+                    
+                    <!-- patTemplate:sub condition="NO" --> 
+                    <label><b>{UNIT_KERJA_NAMA}</b></label>
+                    <input type="hidden" name="unit_kerja_nama" 
+                        id="unit_kerja_nama" value="{UNIT_KERJA_NAMA}" />
+                    <!-- /patTemplate:sub -->
+                 <!-- /patTemplate:tmpl -->
+             </td>
+          </tr>     
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="mak" / -->
+         </th>
+         <td>
+            <input type="hidden" name="realisasi_id" id="realisasi_id" value="{REALISASI_ID}" />
+            <input type="text" name="realisasi_no" id="realisasi_nama" value="{REALISASI_NO}" readonly size="35" />
+            <input type="button" value=" ... " onclick="bukaPopupRealisasi('{URL_POPUP_REALISASI}');" />
+         </td>
+      </tr>
+      <tr style="display: none">
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal"  / -->
+         </td>
+      </tr>
+      
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="uraian" / -->
+         </th>
+         <td>
+            <textarea name="uraian" id="txt_uraian" rows="3" style="resize: none; width: 60%">{URAIAN}</textarea>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="penanggung_jawab" / -->
+         </th>
+         <td>
+            <input type="text" name="penanggung_jawab" id="penanggung_jawab" value="{PENANGGUNG_JAWAB}" size="40" /> *
+         </td>
+      </tr>    
+      <tr>
+         <th>
+            Mengetahui
+         </th>
+         <td>
+            <input type="text" name="mengetahui" id="mengetahui" value="{MENGETAHUI}" size="40" /> *
+         </td>
+      </tr>     
+ <tr class="subhead">
+         <th colspan="2">
+            Komponen Anggaran
+         </th>
+      </tr>
+      <tr>
+         <td colspan="2" style="padding: 0px;">
+            <table class="table-common" width="100%">
+               <thead>
+                  <tr>
+                     <th colspan="2" style="text-align: center; width: 115px; vertical-align: middle; font-weight: bold;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+                     </th>
+                     <th style="text-align: center; vertical-align: middle; font-weight: bold; width: 115px;" rowspan="2">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="kode_coa" / -->
+                     </th>
+                     <th style="text-align: center; vertical-align: middle; font-weight: bold; width: 115px;" rowspan="2">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / -->
+                     </th>
+                     <th style="text-align: center; vertical-align: middle; font-weight: bold; width: 235px;" rowspan="2">
+                         <!-- patTemplate:gtfwgetconfig config="language" name="nominal" / -->
+                     </th>
+                  </tr>
+                  <tr>
+                     <th style="text-align: center; width: 115px; vertical-align: middle; font-weight: bold;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+                     </th>
+                     <th style="text-align: center; vertical-align: middle; font-weight: bold;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+                     </th>
+                    
+                    
+                   
+                  </tr>
+               </thead>
+               <tbody id="KOMP_Place_Holder">
+                  <tr id="empty_row">
+                     <td colspan="5" style="text-align: center; font-style: italic;">
+                        -- <!-- patTemplate:gtfwgetconfig config="language" name="belum_ada_yang_dipilih" / --> --
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </td>
+      </tr>
+      <tr class="buttons">
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+            <input type="submit" name="btnbalik" value=" Batal " class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<script>
+
+function formatCurrency(num) {
+   num      = num.toString().replace(/\$|\,/g,'');
+   if(isNaN(num))
+   num      = "0";
+   sign     = (num == (num = Math.abs(num)));
+   num      = Math.floor(num*100+0.50000000001);
+   cents    = num%100;
+   num      = Math.floor(num/100).toString();
+   if(cents<10)
+   cents    = "0" + cents;
+   for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+   num      = num.substring(0,num.length-(4*i+3))+'.'+
+   num.substring(num.length-(4*i+3));
+   return (((sign)?'':'-') + num + ',' + cents);
+}
+
+
+document.getElementById('KOMP_Place_Holder').addItem = function (pid,pdet_id,komponen_kode,komponen_nama,komponen_deskripsi,komponen_coa_id,komponen_coa_kode,nominal)
+{
+   var id = 'detailId_'+ pdet_id;
+   if (document.getElementById(id)) {
+      return true;
+   }
+   var childNodes    = this.getElementsByTagName('tr');
+   for (var i = childNodes.length - 1; i >= 0; i--) {
+      if(childNodes[i].id == 'empty_row'){
+         this.removeChild(childNodes[i]);
+      }
+   };
+
+   var childObj   = this.getElementsByTagName('tr');
+   nomor          = childObj.length;
+   var tr         = document.createElement('tr');
+   tr.setAttribute("id", id);
+   if (nomor % 2 == 0) {
+      tr.setAttribute('class', 'table-common-even');
+   }
+
+   var inputPid          = document.createElement('input');
+   inputPid.name         = 'KOMP['+pdet_id+'][pid]';
+   inputPid.type         = 'hidden';
+   inputPid.value        = pid;
+   
+   var inputPdetId          = document.createElement('input');
+   inputPdetId.name         = 'KOMP['+pdet_id+'][pdet_id]';
+   inputPdetId.type         = 'hidden';
+   inputPdetId.value        = pdet_id;
+
+   var inputKompKode          = document.createElement('input');
+   inputKompKode.type         = 'hidden';
+   inputKompKode.name         = 'KOMP['+pdet_id+'][komponen_kode]';
+   inputKompKode.value        = komponen_kode;
+
+   var inputKompNama          = document.createElement('input');
+   inputKompNama.type         = 'hidden';
+   inputKompNama.name         = 'KOMP['+pdet_id+'][komponen_nama]';
+   inputKompNama.value        = komponen_nama;
+
+   var inputKompCoaId         = document.createElement('input');
+   inputKompCoaId.type        = 'hidden';
+   inputKompCoaId.name        = 'KOMP['+pdet_id+'][komponen_coa_id]';
+   inputKompCoaId.value       = komponen_coa_id;
+   
+   var inputKompCoaKode       = document.createElement('input');
+   inputKompCoaKode.type      = 'hidden';
+   inputKompCoaKode.name      = 'KOMP['+pdet_id+'][komponen_coa_nama]';
+   inputKompCoaKode.value     = komponen_coa_kode;
+
+   var inputDeskripsi         = document.createElement('TEXTAREA');
+  // inputDeskripsi.type        = 'textarea';
+   inputDeskripsi.name        = 'KOMP[' + pdet_id+ '][komponen_deskripsi]';
+   inputDeskripsi.value       = komponen_deskripsi;   
+   
+   var inputNominal           = document.createElement('input');
+   inputNominal.type          = 'text';
+   inputNominal.value         = nominal;
+   inputNominal.id            = 'komp_nominal_'+pdet_id;
+   inputNominal.name          = 'KOMP[' + pdet_id + '][nominal]';
+   inputNominal.className     = 'gvFloat';
+   inputNominal.style.fontWeight = 'bold';
+
+   var inputNominalHidden     = document.createElement('input');
+   inputNominalHidden.type    = 'hidden';
+   inputNominalHidden.value   = nominal;
+   inputNominalHidden.id      = 'komp_nominal_hid_'+ pdet_id;
+   inputNominalHidden.name    = 'KOMP[' + pdet_id + '][nominal_available]';
+   inputNominalHidden.className  = 'gvFloat';
+
+   var tdKodeKomponen         = document.createElement('td');
+   tdKodeKomponen.setAttribute("style", 'padding: 2px; text-align: center');
+   tdKodeKomponen.innerHTML   = komponen_kode;
+
+   var tdNamaKomponen = document.createElement('td');
+   tdNamaKomponen.setAttribute("style", 'padding: 2px; text-align: left');
+   tdNamaKomponen.innerHTML = komponen_nama;
+
+   var tdCoaKode = document.createElement('td');
+   tdCoaKode.setAttribute("style", 'padding: 10px; text-align: center');
+   tdCoaKode.innerHTML = komponen_coa_kode;
+
+   var tdDeskripsi = document.createElement('td');
+   tdDeskripsi.setAttribute("style", 'padding: 10px; text-align: center');
+   tdDeskripsi.appendChild(inputDeskripsi);
+ 
+    var tdNominal = document.createElement('td');
+   tdNominal.setAttribute("style", 'padding: 2px; text-align: right;');
+   tdNominal.appendChild(inputNominal);
+
+   var tdDelete = document.createElement('td');
+   tdDelete.setAttribute("class", "links");
+   tdDelete.setAttribute("style", 'text-align: center; display:none');
+   tdDelete.innerHTML = "<a onClick=\"document.getElementById('"+this.id+"').deleteItem('" + id + "');\" title='Hapus'><img src=\"images/button-delete.gif\" alt=\"Hapus\"/></a>";
+
+   tr.appendChild(inputPid);
+   tr.appendChild(inputPdetId);
+   tr.appendChild(inputKompKode);
+   tr.appendChild(inputKompNama);
+   tr.appendChild(inputKompCoaId);
+   tr.appendChild(inputKompCoaKode);
+   //tr.appendChild(inputDeskripsi);
+   tr.appendChild(inputNominalHidden);
+
+   tr.appendChild(tdKodeKomponen);
+   tr.appendChild(tdNamaKomponen);
+   tr.appendChild(tdCoaKode);
+   tr.appendChild(tdDeskripsi);
+   tr.appendChild(tdNominal);
+   this.appendChild(tr);
+
+   var childNode  = tdNominal.firstChild;
+   do {
+      if (childNode.tagName && childNode.tagName.toUpperCase() == 'INPUT'){
+         gValidation20090108['.gvFloat'](childNode);
+      }
+   } while (childNode = childNode.nextSibling);
+     
+   return true;
+}
+
+document.getElementById('KOMP_Place_Holder').deleteItem = function (id)
+{
+   this.removeChild(document.getElementById(id));
+   var Obj = this.getElementsByTagName('tr');
+   if (Obj.length == 1)
+   {
+      Obj[0].style.display = '';
+   }
+   else for (var i = 1; i < Obj.length; i++)
+      Obj[i].setAttribute('class',(i % 2)?'':'table-common-even');
+}
+
+document.getElementById('KOMP_Place_Holder').deleteAllItem = function ()
+{
+   var Obj        = this.getElementsByTagName('tr');
+   var emptyRow   = document.createElement('tr');
+   emptyRow.id    = 'empty_row';
+   var tdEmpty    = document.createElement('td');
+   tdEmpty.setAttribute('colspan', '5');
+   tdEmpty.style.textAlign    = 'center';
+   tdEmpty.style.fontStyle    = 'italic';
+   tdEmpty.innerHTML          = '-- Belum ada data yang dipilih! -- ';
+   emptyRow.appendChild(tdEmpty);
+
+   for (var i = Obj.length - 1; i >= 0; i--) {
+      this.removeChild(Obj[i])
+   };
+   this.appendChild(emptyRow);
+}
+
+
+var dataToMount   = {KOMP_DATA};
+for (var i in dataToMount){    
+   document.getElementById('KOMP_Place_Holder').addItem(
+               dataToMount[i]['pid'],
+               dataToMount[i]['pdet_id'],
+               dataToMount[i]['komponen_kode'],
+               dataToMount[i]['komponen_nama'],
+               dataToMount[i]['komponen_deskripsi_lppa'],
+               dataToMount[i]['komponen_coa_id'],
+               dataToMount[i]['komponen_coa_kode'],
+               dataToMount[i]['nominal_lppa']
+   );
+}
+
+</script>
+<!-- /patTemplate:tmpl -->

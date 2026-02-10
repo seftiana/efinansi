@@ -1,0 +1,136 @@
+<!-- patTemplate:tmpl name="content" -->
+
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_program" / -->, <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --> dan <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / --></h1>
+<!-- h1>Pengelolaan Kegiatan, Output dan Komponen</h1 -->
+<br />
+<form method="POST" name="frmSubKegiatan" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+	<tr>
+		<th><!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+		</th>
+		<td>
+			<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="data[tahunAnggaran][tahunAnggaranId]"  / -->
+		<input id="btncari" type="submit" name="btncari" value=" Filter " class="buttonSubmit" />
+		<script language="javascript">
+			document.getElementById('btncari').style.display="none";
+		</script>
+		</td>
+	</tr>
+     <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="program" / --></th>
+            <td><!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="data[program][programId]"  / -->
+	</td>
+      </tr>
+         <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --></th>
+            <td><input type="text" name="data[subkegiatan][kegiatan_nama][readonly]" id="data_kegiatan_nama" value="{SEARCH_KEGIATAN_NAMA}" size="50" readonly="readonly" / >
+			<input type="button" name="btnshift" value="..."  onClick="showPopup('{POPUP_KEGIATAN}&idProgram='+this.form.elements[2].value,'', 600, 500)" / >
+				<input type="hidden" name="data[subkegiatan][kegiatan_nama]" id="data_kegiatan_nama_hidden" value="{SEARCH_KEGIATAN_NAMA}" size="25"  / >                <input type="hidden" name="data[subkegiatan][kegiatan_id]" id="data_kegiatan_id" value="{SEARCH_SUBKEGIATAN_PROGRAMID}" size="25" />
+
+            </td>
+         </tr>
+		 <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_sub_kegiatan" / --></th>
+            <td><input type="text" name="data[subkegiatan][kode]" value="{SEARCH_SUBKEGIATAN_KODE}" size="30" />
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_sub_kegiatan" / --></th>
+            <td><input type="text" name="data[subkegiatan][nama]" value="{SEARCH_SUBKEGIATAN_NAMA}" size="60" />
+         </tr>
+		<tr style="display:none;">
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="jenis_kegiatan" / --></th>
+            <td>
+			  <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="data[subkegiatan][jeniskegiatan_id]"  / -->
+            </td>
+         </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+   <form method="post" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar">
+			<a href="{URL_EXCEL}" title="View Excel Format" tabindex="10"><img src="images/icons/	export_excel.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="excel" / --></a>
+			<a class="xhr dest_subcontent-element" href="{URL_ADD_PROGRAM}" title="Program" tabindex="10"><img src="images/button-add.gif" alt=""><!-- patTemplate:gtfwgetconfig config="language" name="program" / --></a>
+			<a class="xhr dest_subcontent-element" href="{URL_ADD_KEGIATAN}	" title="Kegiatan" tabindex="11"><img src="images/button-add.gif" alt=""><!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --></a>
+   		<a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Sub Kegiatan" tabindex="12"><img src="images/button-add.gif" alt=""><!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / --></a>
+      </div>
+   </div>
+   <table class="table-common" width="100%">
+      <tr style="height:28px;">
+         <!-- th width="8"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th -->
+         <th ><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="nama" / --></th>
+			<th><!-- patTemplate:gtfwgetconfig config="language" name="komponen" / --></th>
+         <th width="93"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="6" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <!-- td align="center"></td images/{DATA_ICON} -->
+               <!-- td >{DATA_KODE}</td -->
+		       <td style="padding:5px 0 5px {DATA_PADDING}px;"><img src="css/sia-mocca/images/navigation_bullet.gif" align="left" hspace="3"/>&nbsp;{DATA_KODE}&nbsp;-&nbsp;{DATA_NAMA}</td>
+               <!-- td>{DATA_NAMA}</td -->
+				<td align="center">{DATA_JUMLAH_KOMPONEN}
+			   </td>
+               <td class="links" align="center">
+						<a class="xhr dest_subcontent-element" href="{DATA_URL_EDIT}" title="{DATA_URL_EDIT_VALUE}">
+							<img src="images/button-edit.gif" alt="{DATA_URL_EDIT_VALUE}">
+						</a>
+						<a class="xhr dest_subcontent-element" href="{DATA_URL_DELETE}" title="{DATA_URL_DELETE_VALUE}"><img src="images/button-delete.gif" alt="{DATA_URL_DELETE_VALUE}"> </a>
+						{DATA_URL_KOMPONEN_KEGIATAN}
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   <!-- patTemplate:tmpl name="tombol_kopi" visibility="hidden" -->
+   <div class="toolbar">
+      <a href="{POPUP_KOPI_PROGRAM_KEGIATAN}" title="Kopi Program Kegiatan" class="xhr dest_subcontent-element"><img src="images/Tombol - Tutup.ico" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="kopi_program_kegiatan" / --></a>
+   </div>
+   <!-- /patTemplate:tmpl -->
+   </form>
+   <br />
+
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+     <br />
+
+		<!-- div style="margin:10px 0px 0px 10px;"><div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFBDD; border:#D1C698 1px solid; float: left;">    </div> = <!-- patTemplate:gtfwgetconfig config="language" name="program" / --> </div>
+	<div style="margin:10px 0px 0px 10px;"><div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFDEF; border:#D1C698 1px solid; float: left;">    </div> = <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --> </div>
+	<div style="margin:10px 0px 0px 10px;"><div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFFFF; border:#D1C698 1px solid; float: left;">    </div> = <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / --> </div -->
+	
+	<ul>
+		<!-- li><img src="images/button-bukunutup.gif"/> = <!-- patTemplate:gtfwgetconfig config="language" name="program" / --></li>
+		<li><img src="images/button-clipboard.gif"/> = <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --></li>
+		<li><img src="images/transkrip_nilai.gif"/> = <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / --></li -->
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / --> <img src="images/button-edit.gif"/> <!-- patTemplate:gtfwgetconfig config="language" name="untuk_mendelete_data" / --></li>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / --> <img src="images/button-add.gif"/> <!-- patTemplate:gtfwgetconfig config="language" name="untuk_menambah_data" / --></li>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / --> <img src="images/button-delete.gif"/> <!-- patTemplate:gtfwgetconfig config="language" name="untuk_mendelete_data" / --></li>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / --> <img src="images/button-detail.gif"/> <!-- patTemplate:gtfwgetconfig config="language" name="untuk_menambah_komponen_data" / --></li>
+	</ul>
+   </div>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,85 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+   var xpopup;
+   function bukaPopupCetak(xurl) {
+      xpopup = window.open(xurl,'xpopup','width=900,height=600,resizable=yes,scrollbars=yes,right=0;center');
+      xpopup.focus();
+   }
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="laporan_aliran_kas" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox" style="width:600px">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_account" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="sub_account"  / -->          
+         </td>
+     </tr>
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="interval_waktu" / --></th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_awal"  / -->
+            <!-- patTemplate:gtfwgetconfig config="language" name="s_d"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th></th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_akhir"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan" / --> &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+
+<div class="pageBar"  style="width:600px">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   <div class="toolbar">
+      <a href="javascript:void(0)" onclick="bukaPopupCetak('{URL_CETAK}')" title="Cetak" ><img src="images/button-print.gif" alt="Cetak"> <!-- patTemplate:gtfwgetconfig config="language" name="cetak" / --></a>
+      <a href="{URL_EXCEL}" title="<!-- patTemplate:gtfwgetconfig config="language" name="export_excel" / -->" target="_blank"><img src="images/icons/16/export_excel.gif" alt="" ><!-- patTemplate:gtfwgetconfig config="language" name="excel" / --></a>
+	</div>
+</div>
+
+<table class="table-common" width="600px">
+   <tr>
+       <th align="left">Uraian</th>
+       <th width="130"><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_rp" / --></th>
+   </tr>
+   <!-- patTemplate:tmpl name="posisi_keuangan" -->
+   <tr class="table-padding">
+       <td style="padding-left: {KELLAP_PADDING}px;{KELLAP_STYLE}">{KELLAP_NAMA}</td>
+      
+   <!-- patTemplate:tmpl name="status" type="condition" conditionvar="KELLAP_STATUS" -->
+       <!-- patTemplate:sub condition="PARENT" -->        
+          <td align="right">
+          </td>
+        <!-- /patTemplate:sub --> 
+       <!-- patTemplate:sub condition="CHILD" -->        
+          <td align="right">
+              <a href="javascript:void(0)" onclick="showPopup('{KELLAP_URL_DETIL}', '', 600, 400)" title="Lihat Detail" >
+                  {KELLAP_NOMINAL_SALDO}
+              </a>
+          </td>
+        <!-- /patTemplate:sub --> 
+       <!-- patTemplate:sub condition="SUMMARY" -->        
+          <td align="right">
+              <b>{KELLAP_NOMINAL_SALDO}</b>
+          </td>
+        <!-- /patTemplate:sub --> 
+   <!-- /patTemplate:tmpl -->
+   </tr>
+   <!-- /patTemplate:tmpl -->
+</table>
+<!-- /patTemplate:tmpl -->

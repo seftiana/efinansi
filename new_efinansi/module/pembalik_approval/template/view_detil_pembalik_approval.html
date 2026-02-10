@@ -1,0 +1,257 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css">
+.table-details tr.error td:first-child{
+   /*background-color: #f04124 !important;*/
+   border-left-color: #de2d0f;
+   border-left-style: solid;
+   border-left-width: 4px;
+}
+
+.table-details tr.isrevisi td:first-child{
+   /*background-color: #f04124 !important;*/
+   border-left-color:   #008000;
+   border-left-style: solid;
+   border-left-width: 4px;
+}
+</style>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="view_detil_pembalik_ma" / -->
+</h1>
+<br />
+<table class="table-details">
+   <tr>
+      <th style="width: 135px;">
+         <!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / -->
+      </th>
+      <td>
+         {TAHUN_ANGGARAN_LABEL}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+      </th>
+      <td>
+         {UNITKERJA_LABEL}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+      </th>
+      <td>
+         {PROGRAM_LABEL}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->
+      </th>
+      <td>
+         {KEGIATAN_LABEL}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+      </th>
+      <td>
+         {SUBKEGIATAN_LABEL}
+      </td>
+   </tr>
+</table>
+<br />
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="form_list">
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar">
+         <a class="xhr dest_subcontent-element" href="{URL_KEMBALI}" title="View" >
+            <img src="images/button-detail.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="kembali" / -->
+         </a>
+      </div>
+   </div>
+   <table class="table-details" width="100%">
+      <thead>
+         <tr>
+            <th width="5">
+               <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+            </th>
+            <th style="width: 20px; margin: 0px; padding: 3px 0px 0px; text-align: center;">
+               <input type="checkbox" class="CheckBoxFW_parent" />
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="nominal_usulan_rp" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="nominal_setuju_rp" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="satuan_usulan" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="satuan_setuju" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="jumlah_usulan_rp" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="jumlah_setuju_rp" / -->
+            </th>
+         </tr>
+      </thead>
+      <tbody>
+         <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+            <!-- patTemplate:sub condition="YES" -->
+               <tr>
+                  <td colspan="9" align="center">
+                     <em>
+                        --<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--
+                     </em>
+                  </td>
+               </tr>
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+               <!-- patTemplate:tmpl name="data_items" -->
+                  <tr class="{DATA_CLASS_NAME} {DATA_CLASS_APPROVAL}" style="{DATA_STYLE}">
+                     <td align="center">
+                        {DATA_KODE}
+                     </td>
+                     <td align="center" style="margin: 0px; padding: 0px; text-align: center;">
+                        <!-- patTemplate:tmpl name="cekbok" visibility="hidden" -->
+                           <input type="checkbox" class="CheckBoxFW_child" name="checkbox_id[]" id="checkbox_id_{DATA_NUMBER}" value="{DATA_ID}" {DATA_IS_CHECKED} {DISABLED} />
+                           <input type="hidden" name="name[{DATA_ID}]" value="{DATA_KEGDET}" />
+                           <input type="hidden" name="name[{DATA_ID}]" value="{DATA_NAMA}" />
+                           <input type="hidden" name="id[]" value="{DATA_ID}" />
+                        <!-- /patTemplate:tmpl -->
+                     </td>
+                     <td>
+                        {DATA_NAMA}
+                        <div style="color:#333333;font-size:11px;margin-left:20px;font-style:italic;text-align:right;">
+                           {DATA_DESKRIPSI}
+                        </div>
+                     </td>
+                     <td align="right">
+                        {DATA_FORMAT_NOMINAL_USULAN}
+                     </td>
+                     <td align="right">
+                        {DATA_FORMAT_NOMINAL_SETUJU}
+                        <input type="hidden" id="nominal_{DATA_NUMBER}" name="nominal[]" value="{DATA_NOMINAL_SETUJU}" />
+                     </td>
+                     <td align="right">
+                        {DATA_SATUAN_USULAN}
+                     </td>
+                     <td align="right">
+                        {DATA_FORMAT_SATUAN_SETUJU}
+                     </td>
+                     <td align="right" id="jumlah_usulan_{DATA_NUMBER}">
+                        {DATA_FORMAT_JUMLAH_USULAN}
+                     </td>
+                     <td align="right" id="jumlah_{DATA_NUMBER}">
+                        {DATA_FORMAT_JUMLAH_SETUJU}
+                     </td>
+                  </tr>
+               <!-- /patTemplate:tmpl -->
+               <!-- patTemplate:tmpl name="button_action" visibility="hidden" -->
+                  <tr class="subhead">
+                     <th colspan="9">
+                        <input type="submit" id="btnSimpan" name="btnSimpan" value="   Proses   " class="inputButton" style="float:right; padding: 4px 6px; margin: 6px 0 3px;" />
+                     </th>
+                  </tr>
+               <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </tbody>
+   </table>
+</form>
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <div style="margin:10px 0px 0px 10px;font-weight:bold;color:#965F11">
+      <div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFBDD; border:#D1C698 1px solid; float: left;">    </div> = <!-- patTemplate:gtfwgetconfig config="language" name="blum_disetujui" / -->
+   </div>
+   <div style="margin:10px 0px 0px 10px;">
+      <div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFDEF; border:#D1C698 1px solid; float: left;">    </div> = <!-- patTemplate:gtfwgetconfig config="language" name="disetujui" / -->
+   </div>
+   <div style="margin:10px 0px 0px 10px;">
+      <div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFFFF; border:#D1C698 1px solid; float: left;">    </div> = <!-- patTemplate:gtfwgetconfig config="language" name="ditolak" / -->
+   </div>
+   <div style="margin:10px 0px 0px 10px;">
+      <div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#de2d0f; border:#de2d0f 1px solid; float: left;">    </div> = <!-- patTemplate:gtfwgetconfig config="language" name="rencana_realisasi_pencairan" / -->
+   </div>
+   <div style="margin:10px 0px 0px 10px;">
+      <div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color: #008000; border: #008000 1px solid; float: left;">    </div> = Anggaran sedang dalam proses Revisi Intern
+   </div>
+</div>
+
+<script type="text/javascript">
+CheckBoxFW_initiate = function (Obj)
+{
+   if (!Obj || Obj.className.indexOf('CheckBoxFW_parent') < 0 || !Obj.form) return;
+
+   var CBList     = new Array;
+   var CheckedAll = true;
+   var FormObj    = Obj.form;
+
+   for (var i = 0; i < FormObj.length; i++) if (FormObj[i] == Obj) break;
+   if (i == FormObj.length) return;
+
+   for(i += 1; i < FormObj.length; i++)
+   {
+      var CBObj = FormObj[i];
+      if (CBObj.type.toUpperCase() != 'CHECKBOX') continue;
+      if (CBObj.className.indexOf('CheckBoxFW_child') >= 0)
+      {
+         CBObj.onchange = function () {
+            Obj.checkChild();
+         }
+         CBList[CBList.length] = CBObj;
+         if (!CBObj.checked) CheckedAll = false;
+      }
+      if (CBObj.className.indexOf('CheckBoxFW_parent') >= 0) break;
+   }
+
+   if (CBList.length > 0)
+   {
+      Obj.onchange = function ()
+      {
+         for (var i = 0; i < CBList.length; i++){
+            if(CBList[i].getAttribute('disabled') == null){
+               CBList[i].checked = this.checked;
+            }
+         }
+      }
+
+      Obj.checkChild = function ()
+      {
+         var CheckedAll = true;
+         for (var i = 0; i < CBList.length; i++) if (!CBList[i].checked)
+         {
+            CheckedAll = false;
+            break;
+         }
+         this.checked = CheckedAll;
+      }
+
+      Obj.checked = CheckedAll;
+   }
+}
+var formObj       = document.getElementById('form_list');
+if(typeof(formObj) != 'undefined' && formObj != null){
+   for (var i = 0; i < formObj.length; i++){
+      CheckBoxFW_initiate(formObj[i]);
+   }
+}
+</script>
+<!-- /patTemplate:tmpl -->

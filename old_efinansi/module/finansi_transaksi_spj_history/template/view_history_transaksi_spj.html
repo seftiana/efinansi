@@ -1,0 +1,209 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="history_transaksi_spj" / -->
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterbox" name="filterbox" class="dataquest xhr_simple_form dest_subcontent-element">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode_tahun" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="periode_tahun"  / -->
+         </td>
+      </tr>
+      <!-- patTemplate:tmpl name="data_unit" type="condition" conditionvar="LEVEL" -->
+         <!-- patTemplate:sub condition="PARENT" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="unit_id" id="src_unit_id" value="{UNIT_ID}" />
+                  <input type="text" name="unit_nama" id="src_unit_nama" value="{UNIT_NAMA}" readonly="true" size="35" />
+                  <input type="button" value=" ... " onclick="showPopup('{URL_POPUP_UNIT}', '', 600, 500);" />
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="child" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> /
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="unti_id" id="src_unit_id" value="{UNIT_ID}" />
+                  <input type="hidden" name="unit_nama" id="src_unit_nama" value="{UNIT_NAMA}" />
+                  <label style="font-weight: bold;">
+                     UNIT_NAMA
+                  </label>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode" / -->
+         </th>
+         <td>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="start_date"  / -->
+            </div>
+            <div>
+               <!-- patTemplate:gtfwgetconfig config="language" name="s_d" / -->
+            </div>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="end_date"  / -->
+            </div>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="mak" / -->
+         </th>
+         <td>
+            <input type="hidden" name="mak_id" id="src_mak_id" value="{MAK_ID}" />
+            <input type="text" readonly="true" name="mak_nama" id="src_mak_nama" size="30" value="{MAK_NAMA}" />
+            <input type="button" value=" ... " onclick="showPopup('{URL_POPUP_REALISASI}', '', 600, 500);">
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="no_bukti" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" id="kode" size="35" value="{KODE}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   <div class="toolbar">
+      &nbsp;
+   </div>
+</div>
+
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th rowspan="2" style="width: 30px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <th rowspan="2" style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no_bukti" / -->
+         </th>
+         <th rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="mak" / -->
+         </th>
+         <th rowspan="2" style="width: 165px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+         </th>
+         <th rowspan="2" style="width: 125px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal_entri" / -->
+         </th>
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="due_date" / -->
+         </th>
+      </tr>
+   </thead>
+   <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+      <!-- patTemplate:sub condition="YES" -->
+         <tr>
+            <td colspan="7">
+               <center>
+                  <em>
+                     <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                  </em>
+               </center>
+            </td>
+         </tr>
+      <!-- /patTemplate:sub -->
+      <!-- patTemplate:sub condition="NO" -->
+         <!-- patTemplate:tmpl name="data_list" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">
+                  {NOMOR}
+               </td>
+               <td align="center">
+                  <!-- patTemplate:var name="TANGGAL" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+               </td>
+               <td align="center">
+                  <!-- patTemplate:var name="DUE_DATE" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+               </td>
+               <td align="center">
+                  {KKB}
+               </td>
+               <td>
+                  {MAK_NAMA}
+               </td>
+               <td align="right">
+                  {NOMINAL}
+               </td>
+               <td class="links">
+                  <!-- patTemplate:tmpl name="link_jurnal" type="condition" conditionvar="STATUS" -->
+                     <!-- patTemplate:sub condition="YES" -->
+                        <a href="javascript:void(0);" title="<!-- patTemplate:gtfwgetconfig config="language" name="ubah" / -->">
+                           <img src="images/icons/16/button-edit-disabled.gif" alt="<!-- patTemplate:gtfwgetconfig config="language" name="ubah" / -->" />
+                        </a>
+                        <a href="javascript:void(0);" title="<!-- patTemplate:gtfwgetconfig config="language" name="hapus" / -->">
+                           <img src="images/icons/16/button-batal.gif" alt="<!-- patTemplate:gtfwgetconfig config="language" name="hapus" / -->" />
+                        </a>
+                     <!-- /patTemplate:sub -->
+                     <!-- patTemplate:sub condition="NO" -->
+                        <a class="xhr dest_subcontent-element" href="{URL_EDIT}" title="<!-- patTemplate:gtfwgetconfig config="language" name="ubah" / -->">
+                           <img src="images/icons/16/button-edit.gif" alt="<!-- patTemplate:gtfwgetconfig config="language" name="ubah" / -->" />
+                        </a>
+                        <a class="xhr dest_subcontent-element" href="{URL_DELETE}" title="<!-- patTemplate:gtfwgetconfig config="language" name="hapus" / -->">
+                           <img src="images/icons/16/button-delete.gif" alt="<!-- patTemplate:gtfwgetconfig config="language" name="hapus" / -->" />
+                        </a>
+                     <!-- /patTemplate:sub -->
+                  <!-- /patTemplate:tmpl -->
+                  <a href="javascript:void(0);" title="Detail" onclick="showPopup('{URL_DETAIL}', '', 600, 500);">
+                     <img src="images/icons/16/detail.gif" alt="Detail" />
+                  </a>
+                  <a class="xhr dest_subcontent-element" href="{URL_CETAK_TRANSAKSI}" title="Export">
+                     <img src="images/icons/16/export_excel.gif" alt="Export" />
+                  </a>
+               </td>
+            </tr>
+         <!-- /patTemplate:tmpl -->
+      <!-- /patTemplate:sub -->
+   <!-- /patTemplate:tmpl -->
+</table>
+<!-- end: Table List -->
+<!-- /patTemplate:tmpl -->

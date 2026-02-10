@@ -1,0 +1,180 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   Hapus Bank Payment
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterbox" name="filterbox" class="dataquest xhr_simple_form dest_subcontent-element">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            Nomor SPPU
+         </th>
+         <td>
+            <input type="text" name="kode" id="kode" size="35" value="{KODE}" />
+         </td>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            Nomor BP
+         </th>
+         <td>
+            <input type="text" name="nomor_bp" id="nomor_bp" size="35" value="{NOMOR_BP}" />
+         </td>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no_pengajuan" / -->
+         </th>
+         <td>
+            <input type="text" name="nomorPengajuan" id="nomorPengajuan" size="35" value="{NOMORPENGAJUAN}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <td>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_awal"  / -->
+            </div>
+            <div>
+               <!-- patTemplate:gtfwgetconfig config="language" name="s_d" / -->
+            </div>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_akhir"  / -->
+            </div>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<form name="frmList" id="frmList" method="post" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element">
+   <input type="hidden" name="control_return" value="{CONTROL_RETURN}" />
+   <input type="hidden" name="control_action" value="{CONTROL_ACTION}" />
+   <input type="hidden" name="control_label" value="{CONTROL_LABEL}" />
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   </div>
+   <!-- start: Table List -->
+   <table class="table-common" width="100%">
+      <thead>
+         <tr>
+            <th style="width: 30px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="no" / --> Urut
+            </th>
+            <th style="width: 135px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+            </th>
+            <th>
+               Nomor SPPU
+            </th>
+            <th>
+               Nomor BP
+            </th>
+            <th>
+               Nomor CR
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+            </th>
+         </tr>
+      </thead>
+      <tbody>
+         <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+            <!-- patTemplate:sub condition="YES" -->
+               <tr>
+                  <td colspan="7">
+                     <center>
+                        <em>
+                           <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                        </em>
+                     </center>
+                  </td>
+               </tr>
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+               <!-- patTemplate:tmpl name="data_list" -->
+                  <tr class="{CLASS_NAME}">
+                     <td align="center">
+                        {NUMBER}
+                     </td>
+                     <td align="center">
+                        <!-- patTemplate:var name="tanggal" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+                     </td>
+                     <td>
+                        {NOMOR}
+                     </td>
+                     <td>
+                        {NOMOR_BP}
+                     </td>
+                     <td>
+                        {NOMOR_CR}
+                     </td>
+                     <td align="right">
+                        {NOMINAL}
+                     </td>
+                     <td class="links">
+                        <!-- patTemplate:tmpl name="is_hapus_bp" type="condition" conditionvar="IS_HAPUS_BP" -->
+                        <!-- patTemplate:sub condition="YES" -->
+                            <a class="xhr dest_subcontent-element" href="{URL_HAPUS_BP}" title="Hapus BP">
+                               <img src="images/icons/16/document_delete-16.png" alt="hapus bp" />
+                            </a>
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="NO" -->
+                            <a href="javascript:alert('Bank Payment Belum Ada!');" title="Hapus BP">
+                               <img src="images/icons/16/document_delete-16-gs.png" alt="hapus bp" />
+                            </a>
+                        
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="TRANSAKSI_YA" -->
+                            <a href="javascript:alert('Sudah Terjadi Transaksi, Bank Payment Tidak Bisa Dihapus!');" title="Hapus BP">
+                               <img src="images/icons/16/document_delete-16-gs.png" alt="hapus bp" />
+                            </a>
+                        <!-- /patTemplate:sub -->
+                        <!-- /patTemplate:tmpl -->   
+                     </td>
+                  </tr>
+               <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </tbody>
+   </table>
+   <!-- end: Table List -->
+</form>
+<br />
+<div class="petunjuk-area" id="petunjuk">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         <img src="images/icons/16/document_delete-16.png" alt="CR" style="margin-bottom: -3px;" /> Hapus Bank Payment
+      </li>
+   </ul>
+</div>
+<!-- /patTemplate:tmpl -->

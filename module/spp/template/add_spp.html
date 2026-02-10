@@ -1,0 +1,147 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>Surat Permintaan Pembayaran</h1>
+<br />
+	<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+	<div class="{CSS}">
+		{ISI_PESAN}
+	</div>
+	<br/>
+	<!-- /patTemplate:tmpl -->
+<form name="frmInput" action="{URL_ACTION}" id="frmInput" class="xhr_form std_form" method="POST">
+	<table class="table-edit" width="100%">
+	<input type="hidden" name="id_pengeluaran" value="{ID_PENGELUARAN}" id="id_pengeluaran" />
+	<input type="hidden" name="unit" value="{UNIT}" />
+	<input type="hidden" name="thn_anggaran" value="{THN_ANGGARAN}" />
+		<tr class="subhead">
+			<th colspan="2">Pembuatan SPP</th>
+		</tr>
+		<tr>
+			<th>
+				Sifat Pembayaran
+			</th>
+			<td>
+				<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" 
+				action="view" name="sifat_bayar"  / -->&nbsp;*
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Jenis Pembayaran
+			</th>
+			<td>
+				<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" 
+				action="view" name="jenis_bayar"  / -->&nbsp;*
+			</td>
+		</tr>
+		<tr>
+			<th width="30%">Jumlah Pembayaran</th>
+			<td>
+				<label>{DANA}</label>
+				<input type="hidden" name="dana" value="{DANA_TEXT}" id="dana" />
+			</td>
+		</tr>
+		<tr>
+			<th>Keperluan</th>
+			<td>
+				<textarea name="keperluan" id="keperluan" cols="55" rows="3">{TXT_KEPERLUAN}</textarea>
+				&nbsp;*
+			</td>
+		</tr>
+		<tr>
+			<th>Jenis Belanja</th>
+			<td>
+				<textarea name="jenis_belanja" id="jenis_belanja" cols="55" rows="3">{TXT_JENIS_BELANJA}</textarea>
+				&nbsp;*
+			</td>
+		</tr>
+		
+		<tr>
+			<th>Atas Nama</th>
+			<td>
+				<input type="text" name="nama" id="nama" size="35" value="{TXT_NAMA}" />&nbsp;*
+			</td>
+		</tr>
+		<tr>
+			<th>Alamat</th>
+			<td>
+				<textarea name="alamat" id="alamat" cols="35" rows="2">{TXT_ALAMAT}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<th>Rekening</th>
+			<td>
+				<input type="text" name="rekening" id="rekening" size="30" value="{TXT_REKENING}" />
+			</td>
+		</tr>
+		<tr>
+			<th>Nomor SPK</th>
+			<td>
+				<input type="text" name="no_spk" id="no_spk" size="30" value="{TXT_NO_SPK}" />
+			</td>
+		</tr>
+		<tr>
+			<th>Nilai SPK/Kontrak</th>
+			<td>
+				<input type="text" name="nilai_spk" id="nilai_spk" value="{TXT_NILAI_SPK}" size="30" />
+			</td>
+		</tr>
+		<tr>
+			<th>&nbsp;</th>
+			<td>
+				<input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+				<input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+			</td>
+		</tr>
+		
+	</table>
+</form>
+<br />
+<table class="table-common" width="800px">
+	<tr>
+		<th width="25">
+			No.
+		</th>
+		<th>
+			Pagu dalam DIPA
+		</th>
+		<th>
+			SPP/SPM Sampai Dengan Yang Lalu (Rp.)
+		</th>
+		<th>
+			SPP ini (Rp.)
+		</th>
+		<th>
+			Jumlah sampai dengan SPP ini (Rp.)
+		</th>
+		<th>
+			Sisa dana (Rp.)
+		</th>
+	</tr>
+	<tr>
+		<td>#</td>
+		<td align="right">
+			{PAGU_DIPA}
+		</td>
+		<td align="right">
+			
+		</td>
+		<td align="right">
+			{DANA}
+		</td>
+		<td align="right">
+			{DANA}
+		</td>
+		<td align="right">
+			{SISA_DANA}
+		</td>
+	</tr>
+	
+</table>
+
+<div class="petunjuk-area" id="petunjuk">
+    <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+    <ul>
+        <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --></li>
+    </ul>
+</div>
+<!-- /patTemplate:tmpl -->

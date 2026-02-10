@@ -1,0 +1,63 @@
+<!-- patTemplate:tmpl name="content" -->
+<div class="header" style="height: 36px;">
+    <h1>{HEADER_LAPORAN}</h1>
+</div>
+<br />
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="laporan_konsolidasi" / --> Komprehensif</h1>
+<table class="empty-table">
+    <tr>
+        <td align="left" width="130">  
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode" / -->
+        </td>
+        <td align="left">
+            : {TGL_AWAL} s/d {TGL_AKHIR}
+        </td>
+    </tr>
+</table>
+<br />
+<table class="table-common" width="100%">
+    <tr>
+        <th rowspan="2">Description</th>
+        <th colspan="2">UNIT</th>
+        <th rowspan="2">Konsolidasi</th>
+    </tr>
+    <tr>
+        <th>Institute Perbanas</th>
+        <th>Sekretariat</th>
+    </tr>
+    <!-- patTemplate:tmpl name="laporan_konsolidasi" -->
+    <tr class="table-padding">
+        <td style="padding-left: {KELLAP_PADDING}px;{KELLAP_STYLE}">{KELLAP_NAMA}</td>
+        <!-- patTemplate:tmpl name="status" type="condition" conditionvar="KELLAP_STATUS" -->
+            <!-- patTemplate:sub condition="PARENT" -->
+                <td align="right"></td>
+                <td align="right"></td>
+                <td align="right"></td>
+            <!-- /patTemplate:sub --> 
+            <!-- patTemplate:sub condition="CHILD" -->
+                <td align="right">
+                    {KELLAP_NOMINAL_SALDO}
+                </td>
+                <td align="right">
+                    {KELLAP_NOMINAL_SALDO_YAYASAN}
+                </td>
+                <td align="right">
+                    {KELLAP_NOMINAL_SALDO_GABUNG}
+                </td>
+            <!-- /patTemplate:sub --> 
+            <!-- patTemplate:sub condition="SUMMARY" -->
+                <td align="right">
+                    <b>{KELLAP_NOMINAL_SALDO}</b>
+                </td>
+                <td align="right">
+                    <b>{KELLAP_NOMINAL_SALDO_YAYASAN}</b>
+                </td>
+                <td align="right">
+                    <b>{KELLAP_NOMINAL_SALDO_GABUNG}</b>
+                </td>
+            <!-- /patTemplate:sub --> 
+        <!-- /patTemplate:tmpl -->
+    </tr>
+    <!-- /patTemplate:tmpl -->
+</table>
+<!-- /patTemplate:tmpl -->

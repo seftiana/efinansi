@@ -1,0 +1,117 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+   var xpopup;
+   function bukaPopupCetak(xurl) {
+      xpopup = window.open(xurl,'xpopup','width=900,height=600,resizable=yes,scrollbars=yes,right=0;center');
+      xpopup.focus();
+   }
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="laporan_transaksi_harian" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+ 	 <tr>
+         <th width="130"><!-- patTemplate:gtfwgetconfig config="language" name="interval_waktu" / --></th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_awal"  / -->
+            s/d
+         </td>
+      </tr>
+      <tr>
+         <th> </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_akhir"  / -->
+         </td>
+      </tr>
+	  <tr>
+         <th width="130"><!-- patTemplate:gtfwgetconfig config="language" name="jenis_transaksi" / --></th>
+         <td>
+           <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="jenis_transaksi"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+   <br />
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar">
+         <a href="javascript:void(0)" onclick="bukaPopupCetak('{URL_CETAK}')" title="Cetak" >
+            <img src="images/icons/16/button-print.gif" alt="Cetak"> <!-- patTemplate:gtfwgetconfig config="language" name="cetak" / -->
+         </a>
+         <a href="{URL_EXCEL}" title="Export Excel" target="_blank" >
+            <img src="images/icons/16/export_excel.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="excel" / -->
+         </a>
+         <!-- patTemplate:tmpl name="link_export_rtf" visibility="hidden" -->
+            <a href="{URL_RTF}" title="Export Rtf" >
+               <img src="images/button-tindaklanjuti.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="rtf" / -->
+            </a>
+            <!-- /patTemplate:tmpl -->
+      </div>
+   </div>
+   <table class="table-common" width="100%">
+      <tr>
+             <th width="40"><!-- patTemplate:gtfwgetconfig config="language" name="no" / -->.</th>
+             <th width="120"><!-- patTemplate:gtfwgetconfig config="language" name="no_rekening" / --> / Bpkb</th>
+             <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_akun" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / --></th>
+             <th width="120"><!-- patTemplate:gtfwgetconfig config="language" name="debet" / --></th>
+             <th width="120"><!-- patTemplate:gtfwgetconfig config="language" name="kredit" / --></th>
+             <th width="120"><!-- patTemplate:gtfwgetconfig config="language" name="saldo" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_transaksi" type="condition" conditionvar="TRANSAKSI_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="6" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_transaksi_item" type="condition" conditionvar="STATUS" -->
+            <!-- patTemplate:sub condition="default" -->
+            <tr class="{CLASS_ROW}">
+               <td align="center">{NO}</td>
+               <td>{NO_REKENING}</td>
+               <td>{CATATAN}</td>
+               <td align="right">{DEBET}</td>
+               <td align="right">{KREDIT}</td>
+               <td align="right">{SALDO}</td>
+            </tr>
+            <!-- /patTemplate:sub -->
+
+            <!-- patTemplate:sub condition="total" -->
+            <tr class="table-common-even">
+               <td colspan="3" align="center"> <b>{KETERANGAN}</b></td>
+               <td align="right"><b>{DEBET}</b></td>
+               <td align="right"><b>{KREDIT}</b></td>
+               <td align="right"><b>{SALDO}</b></td>
+            </tr>
+            <!-- /patTemplate:sub -->
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   <br />
+
+
+      <!--<div style="margin:10px 0px 0px 10px;font-weight:bold;color:#965F11">
+      <div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFBDD; border:#D1C698 1px solid; float: left;">
+      </div> = Sudah di jurnal </div>
+
+      <div style="margin:10px 0px 0px 10px;">
+      <div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFDEF; border:#D1C698 1px solid; float: left;">
+      </div> = Belum di jurnal </div>-->
+
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,698 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+   function volumetarif()
+   {
+      var Vol = document.getElementById("volume").value;
+      var Tot = 0;
+      var Tmp=0;
+      var Tar = document.getElementById("tarif").value;
+      //var Pagu = parseFloat(document.getElementById("pagu").value);
+      var Pagu = document.getElementById("pagu").value;
+      //ubah format ke dsimal
+      Pagu = Pagu.replace(',','_').split('.');
+      Pagu = Pagu.join('');
+      Pagu = Pagu.replace('_','.');
+      Pagu = parseFloat(Pagu);
+
+      //ubah format ke dsimal
+      Vol = Vol.replace(',','_').split('.');
+      Vol = Vol.join('');
+      Vol = Vol.replace('_','.');
+      Vol = parseFloat(Vol);
+
+      Tar=Tar.replace(',00','').split('.');
+      Tar=Tar.join('');
+      Tot = Vol*Tar;
+      Tmp = (Tot*Pagu)/100;
+      document.getElementById('totalterima').gvSetValue(Tot);
+      document.getElementById("totalpagu").gvSetValue(Tmp);
+      document.getElementById("totalpenerimaan").gvSetValue(Tmp);
+      /**tambahan**/
+      for(var i = 1; i<= 12 ;i++){
+         if(document.getElementById("persenpenerimaan_"+i).value !=0){
+            penerimaanPerBulan(i);
+         }
+      }
+   }
+
+   function updatepagu()
+   {
+      var Tmp=0;
+      //var Pagu = parseFloat(document.getElementById("pagu").value);
+      var Pagu = document.getElementById("pagu").value;
+      var Trm = document.getElementById("totalterima").value;
+
+      //ubah format ke dsimal
+      Pagu = Pagu.replace(',','_').split('.');
+      Pagu = Pagu.join('');
+      Pagu = Pagu.replace('_','.');
+      Pagu = parseFloat(Pagu);
+
+      if(Pagu > 100)
+      {
+         document.getElementById("pagu").value='100';
+         Pagu = 100;
+      }
+      Trm=Trm.replace(',00','').split('.');
+      Trm=Trm.join('');
+      Tmp = (Trm*Pagu)/100;
+      document.getElementById("totalpagu").gvSetValue(Tmp);
+      document.getElementById("totalpenerimaan").gvSetValue(Tmp);
+
+      /**tambahan**/
+      for(var i = 1; i<= 12 ;i++){
+         if(document.getElementById("persenpenerimaan_"+i).value !=0){
+            penerimaanPerBulan(i);
+         }
+      }
+
+      if(parseFloat(document.getElementById("total_nominal").value) > 0){
+         tm =document.getElementById("total_nominal").value;
+         document.getElementById("totalpenerimaan").value=tm
+      } else {
+         document.getElementById("totalpenerimaan").gvSetValue(Tmp);
+      }
+   }
+
+   function showhidemonth(valueName){
+      if(valueName == 'show'){
+         $('#PlaceHolder_rincianPenerimaan').slideDown('slow', function(){
+            document.getElementById('btn-show-hide').value = 'hide';
+            document.getElementById('btn_toogle_state').value = 'show';
+         });
+         //anime.slideOpen();
+      }else{
+         $('#PlaceHolder_rincianPenerimaan').slideUp('slow', function(){
+            document.getElementById('btn-show-hide').value = 'show';
+            document.getElementById('btn_toogle_state').value = 'hide';
+         });
+         //anime.slideClose();
+      }
+   }
+</script>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="manajemen_rencana_penerimaan" / -->
+</h1>
+<br/>
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br/>
+<!-- /patTemplate:tmpl -->
+
+<form method="POST" name="frmInput" action="{URL_ACTION}" class="xhr_form std_form dest_subcontent-element" data-target="{URL_RETURN}" id="frmInput" >
+   <input type="hidden" name="data_id" value="{ID}"  />
+   <input type="hidden" name="ta_id" value="{TA_ID}" />
+   <input type="hidden" name="ta_nama" value="{TA_NAMA}" />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            Tambah <!-- patTemplate:gtfwgetconfig config="language" name="manajemen_rencana_penerimaan" / -->
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="periode_tahun"  / -->
+         </td>
+      </tr>
+      <!-- patTemplate:tmpl name="data_unit" type="condition" conditionvar="LEVEL" -->
+         <!-- patTemplate:sub condition="PARENT" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="unit_id" id="txt_unit_id" value="{UNIT_ID}" />
+                  <input type="text" name="unit_nama" id="txt_unit_nama" value="{UNIT_NAMA}" readonly size="40" />
+                  <input type="button" value=" ... " onclick="showPopup('{URL_POPUP_UNIT}', 'GTPopup', 600, 550);" />
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="CHILD" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="unit_id" id="txt_unit_id" value="{UNIT_ID}" />
+                  <input type="hidden" name="unit_nama" id="txt_unit_nama" value="{UNIT_NAMA}" />
+                  <label style="font-weight: bold;">
+                     {UNIT_NAMA}
+                  </label>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode_penerimaan" / -->
+         </th>
+         <td>
+            <input type="hidden" name="alokasi_pusat_id" id="txt_alokasi_pusat_id" value="{ALOKASI_PUSAT_ID}" />
+            <input type="hidden" name="alokasi_pusat" id="txt_alokasi_pusat" value="{ALOKASI_PUSAT}" />
+            <input type="hidden" name="alokasi_unit_id" id="txt_alokasi_pusat_id" value="{ALOKASI_UNIT_ID}" />
+            <input type="hidden" name="alokasi_unit" id="txt_alokasi_unit" value="{ALOKASI_UNIT}" />
+            <input type="hidden" name="kodepenerimaan_id" id="txt_kodepenerimaan_id" value="{KODEPENERIMAAN_ID}" />
+            <input type="text" name="kodepenerimaan_kode" id="txt_kodepenerimaan_kode" value="{KODEPENERIMAAN_KODE}" size="40" readonly="readonly" />
+            <input type="button" onclick="javascript:loadKodePenerimaan();" value=" ... " />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama_penerimaan" / -->
+         </th>
+         <td>
+            <input type="hidden" name="kodepenerimaan_nama" id="txt_kodepenerimaan_nama" value="{KODEPENERIMAAN_NAMA}" />
+            <div id="namapenerimaan_labelx" style="font-weight: bold;">
+               {KODEPENERIMAAN_NAMA}
+            </div>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="volume" / -->
+         </th>
+         <td>
+            <input style="text-align:right" type="text" value="{VOLUME}" id="volume" name="volume" onkeyup="setVolumeTarif(this);" class="gvNum" size="10" />
+            <!-- <input type="button"  name="but_vol" onclick="showPopup('{URL_POPUP_VOLUME_TARIF}','','700','500')" value=" ... " /> --> *
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama_satuan" / -->
+         </th>
+         <td>
+            <input type="text" name="satuan" id="satuan" size="30" value="{SATUAN}"/> *
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tarif" / -->
+         </th>
+         <td>
+            <input type="text" style="text-align:right" id="tarif" name="tarif" value="{TARIF}" onkeyup="setVolumeTarif(this);" class="gvNum" /> *
+            <!-- input type="button"  name="but_vol" onclick="showPopup('{URL_POPUP_TARIF_POC}','','600','500')" value=" ... " / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="volume_x_tarif" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->.
+            <input class="gvNum" type="text" name="totalterima" id="totalterima" value="{NOMINAL}" size="40" style="text-align:right" readonly="readonly"/>
+         </td>
+      </tr>
+      <tr style="display: none;">
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="persen_pagu" / -->
+         </th>
+         <td>
+            <input style="text-align:right" onkeyup="updatepagu()" type="text" name="pagu" id="pagu" value="{PAGU}" class="gvNum" size="10" readonly />
+         </td>
+      </tr>
+      <tr style="display: none;">
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="total_rp" / -->
+         </th>
+         <td>
+            <input readonly="readonly" style="text-align:right" class="gvNum" type="text" value="{NOMINAL_PAGU}" name="totalpagu" id="totalpagu" size="30" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / -->
+         </th>
+         <td>
+            <textarea cols="50" rows="4" name="keterangan" id="keterangan" style="resize: none; width: 65%;">{KETERANGAN}</textarea>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="sumber_dana" / -->
+         </th>
+         <td>
+            <input type="hidden" name="sumber_dana" id="sumber_dana" value="{SUMBER_DANA_ID}" />
+            <input type="text" name="sumber_dana_label" id="sumber_dana_label" value="{SUMBER_DANA_NAMA}" size="40" readonly="readonly" />
+            <input type="button" onclick="showPopup('{URL_POPUP_SUMBER_DANA}', 'GTPopup', 600, 550)" value=" ... " /> *
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="total_penerimaan" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. <input class="gvNum" type="text" name="totalpenerimaan" id="totalpenerimaan" value="{NOMINAL_TOTAL}" size="40" style="text-align:right" readonly="readonly" />
+         </td>
+      </tr>
+      <tr class="subhead">
+         <th style="padding-left:25px;" colspan="2">
+            <b><!-- patTemplate:gtfwgetconfig config="language" name="rencana_penerimaan_perbulan" / --> </b> 
+            <input type="hidden" name="btn_toogle_state" id="btn_toogle_state" value="{BTN_TOOGLE_STATE}" value="{BTN_TOOGLE_STATE}" />
+            <input type="button" value="show" onclick="showhidemonth(this.value)" id="btn-show-hide" style="display:none;" />
+         </th>
+      </tr>
+      <tr>
+         <td colspan="2" style="padding: 0px;">
+            <table class="table-common" width="100%">
+               <thead>
+                  <tr>
+                     <th>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="bulan" / -->
+                     </th>
+                     <th style="width: 45px;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="persentase" / -->
+                     </th>
+                     <th style="width: 95px;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+                     </th>
+                  </tr>
+               </thead>
+               <tbody id="PlaceHolder_rincianPenerimaan" style="display: none;">
+                  <!-- data detail rincian penerimaan per bulan -->
+               </tbody>
+            </table>
+         </td>
+      </tr>
+      <tr class="buttons">
+         <td colspan="2">
+            <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+            <input type="reset"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / -->
+      </li>
+   </ul>
+</div>
+<script>
+document.getElementById('PlaceHolder_rincianPenerimaan').style.height = 0;
+document.getElementById('btn-show-hide').style.display = '';
+
+var formInput     = document.forms['frmInput'];
+var cmbTa         = formInput.elements['tahun_anggaran'];
+var txtUnit       = formInput.elements['unit_id'];
+
+cmbTa.onchange    = function(e){
+   var taId          = formInput.elements['ta_id'];
+   var taLabel       = formInput.elements['ta_nama'];
+   var elemId        = this.options[this.selectedIndex].value;
+   var elemLabel     = this.options[this.selectedIndex].text;
+
+   var txtAlokasiPusat  = formInput.elements['alokasi_pusat'];
+   var txtAlokasiUnit   = formInput.elements['alokasi_unit'];
+   var txtId            = formInput.elements['kodepenerimaan_id'];
+   var txtKode          = formInput.elements['kodepenerimaan_kode'];
+   var txtNama          = formInput.elements['kodepenerimaan_nama'];
+   var label            = document.getElementById('namapenerimaan_labelx');
+
+   if(taId.value != elemId){
+      taId.value     = elemId;
+      taLabel.value  = elemLabel;
+
+      txtAlokasiPusat.value   = '';
+      txtAlokasiUnit.value    = '';
+      txtId.value             = '';
+      txtKode.value           = '';
+      txtNama.value           = '';
+      label.innerHTML         = '';
+   }
+}
+
+function loadKodePenerimaan(){
+   var taId       = cmbTa.options[cmbTa.selectedIndex].value;
+   var unitId     = txtUnit.value;
+   var url        = '{URL_POPUP_KODEPENERIMAAN}';
+
+   if(taId == ''){
+      alert('Pilih Tahun Anggaran');
+   }else if(unitId == ''){
+      alert('Pilih Unit Kerja');
+   }else{
+      var xurl    = url+'&ta_id='+taId+'&unit_id='+unitId;
+      showPopup(xurl, 'GTPopup', 600, 550);
+   }
+}
+
+document.getElementById('PlaceHolder_rincianPenerimaan').addItem  = function(id, nama, persen, nominal){
+   var element_id       = 'rincian_'+id;
+   if (document.getElementById(element_id)) {
+      return true;
+   }
+   var frag             = document.createDocumentFragment();
+   var childObj         = this.getElementsByTagName('tr');
+   for (var i = childObj.length - 1; i >= 0; i--) {
+      if(childObj[i].id === 'empty-row' || childObj[i].id == 'row-total'){
+         this.removeChild(childObj[i]);
+      }
+   };
+
+   if(childObj.length % 2 == 0){
+      var class_name    = 'table-common-even';
+   }else{
+      var class_name    = '';
+   }
+   var inputRincianId      = document.createElement('input');
+   inputRincianId.type     = 'hidden';
+   inputRincianId.name     = 'rincian['+id+'][id]';
+   inputRincianId.value    = id;
+
+   var inputRincianNama    = document.createElement('input');
+   inputRincianNama.type   = 'hidden';
+   inputRincianNama.value  = nama.toUpperCase();
+   inputRincianNama.name   = 'rincian['+id+'][nama]';
+
+   var tr         = document.createElement('tr');
+   tr.id          = element_id;
+   tr.className   = class_name;
+
+   var tdNama     = document.createElement('td');
+   var labelNama  = document.createElement('label');
+   labelNama.style.fontWeight  = 'bold';
+   labelNama.innerHTML         = nama.toUpperCase();
+
+   var tdPersen      = document.createElement('td');
+   tdPersen.style.textAlign   = 'right';
+   var inputPersen   = document.createElement('input');
+   inputPersen.name  = 'rincian['+id+'][persen]';
+   inputPersen.size  = 5;
+   inputPersen.type  = 'text';
+   inputPersen.className   = 'gvFloat';
+   inputPersen.value       = persen;
+   inputPersen.style.float = 'right';
+   inputPersen.setAttribute('onkeyup', 'setNominalBulan(this, "'+id+'");');
+
+
+   var tdNominal     = document.createElement('td');
+   tdNominal.style.textAlign  = 'right';
+   var inputNominal  = document.createElement('input');
+   inputNominal.name       = 'rincian['+id+'][nominal]';
+   inputNominal.type       = 'text';
+   inputNominal.className  = 'gvNum';
+   inputNominal.value      = nominal;
+   inputNominal.readOnly   = false;
+   inputNominal.size       = 30;
+   inputNominal.style.float = 'right';
+   inputNominal.setAttribute('onkeyup', 'setNominalBulanNonPersen(this, "'+id+'");');
+
+   // append data rincian
+   tdNama.appendChild(labelNama);
+   tdPersen.appendChild(inputPersen);
+   tdNominal.appendChild(inputNominal);
+
+   tr.appendChild(inputRincianId);
+   tr.appendChild(inputRincianNama);
+   tr.appendChild(tdNama);
+   tr.appendChild(tdPersen);
+   tr.appendChild(tdNominal);
+   frag.appendChild(tr);
+
+   // elemen total rincian
+   var trTotal                = document.createElement('tr');
+   trTotal.style.fontWeight   = 'bold';
+   trTotal.className          = 'table-common-even1';
+   trTotal.id                 = 'row-total';
+
+   var tdNamaTotal            = document.createElement('td');
+   tdNamaTotal.style.textAlign   = 'center';
+   tdNamaTotal.innerHTML         = 'Total Rincian';
+
+   var tdPersenTotal          = document.createElement('td');
+   var inputPersenTotal       = document.createElement('input');
+   inputPersenTotal.type      = 'hidden';
+   inputPersenTotal.name      = 'rincian[persen_total]';
+   inputPersenTotal.value     = 0;
+   var labelPersenTotal       = document.createElement('label');
+   labelPersenTotal.style.fontWeight   = 'bold';
+   labelPersenTotal.style.display      = 'block';
+   labelPersenTotal.style.textAlign    = 'right';
+   labelPersenTotal.id        = 'rincian_persen_total';
+   labelPersenTotal.innerHTML = 0;
+   tdPersenTotal.appendChild(inputPersenTotal);
+   tdPersenTotal.appendChild(labelPersenTotal);
+
+   var tdNominalTotal         = document.createElement('td');
+   var inputNominalTotal      = document.createElement('input');
+   inputNominalTotal.type     = 'hidden';
+   inputNominalTotal.name     = 'rincian[nominal_total]';
+   inputNominalTotal.value    = 0;
+
+   var labelNominalTotal         = document.createElement('label');
+   labelNominalTotal.style.fontWeight   = 'bold';
+   labelNominalTotal.style.display      = 'block';
+   labelNominalTotal.style.textAlign    = 'right';
+   labelNominalTotal.id          = 'rincian_nominal_total';
+   labelNominalTotal.innerHTML   = 0;
+   tdNominalTotal.appendChild(inputNominalTotal);
+   tdNominalTotal.appendChild(labelNominalTotal);
+
+   trTotal.appendChild(tdNamaTotal);
+   trTotal.appendChild(tdPersenTotal);
+   trTotal.appendChild(tdNominalTotal);
+   frag.appendChild(trTotal);
+
+   this.appendChild(frag);
+
+   var persenNode    = tdPersen.firstChild;
+   do {
+      if (persenNode.tagName && persenNode.tagName.toUpperCase() == 'INPUT' && persenNode.getAttribute('class') != null && persenNode.getAttribute('class').toUpperCase() == 'GVFLOAT'){
+         gValidation20090108['.gvFloat'](persenNode);
+      }
+   } while (persenNode   = persenNode.nextSibling);
+
+   var nominalNode    = tdNominal.firstChild;
+   do {
+      if (nominalNode.tagName && nominalNode.tagName.toUpperCase() == 'INPUT' && nominalNode.getAttribute('class') != null && nominalNode.getAttribute('class').toUpperCase() == 'GVNUM'){
+         gValidationNumber['.gvNum'](nominalNode);
+      }
+   } while (nominalNode   = nominalNode.nextSibling);
+}
+
+var setNominalBulan  = function(el, id){
+   var rePersen         = /rincian\[(\d+)\]\[persen\]/;
+   var persenTotal      = 0;
+   var form             = el.form;
+   var formElements     = form.elements;
+   var val              = el.value;
+   var value            = clearCurrency(val);
+   var elName           = el.name;
+   var elNominal        = formElements['rincian['+id+'][nominal]'];
+
+   var txtTotalPenerimaan  = formElements['totalpenerimaan'];
+   var nominalPenerimaan   = clearCurrency(txtTotalPenerimaan.value);
+   for(var i = 0; i < formElements.length; i++){
+      var str     = formElements[i].name;
+      if(formElements[i].nodeName.toUpperCase() == 'INPUT' && str.match(rePersen)){
+         persenTotal    += clearCurrency(formElements[i].value);
+      }
+   }
+
+   if(value > 100){
+      el.style.borderColor    = '#FF000';
+      el.gvSetValue(0);
+      value       = 0;
+   }
+
+   if(persenTotal > 100){
+      alert('Jumlah Total Rincian Penerimaan /bulan melebihi total rencana penerimaan. Kelebihan '+ Math.abs((100-persenTotal)) + '%');
+      el.gvSetValue(0);
+      value       = 0;
+   }
+
+   var nominalBulan     = (value/100)*nominalPenerimaan;
+   elNominal.gvSetValue(nominalBulan);
+
+   setTotal(form);
+}
+
+var setNominalBulanNonPersen  = function(el, id){
+   var rePersen         = /rincian\[(\d+)\]\[persen\]/;
+   var reNominal         = /rincian\[(\d+)\]\[nominal\]/;
+   var persenTotal      = 0;
+   
+   var form             = el.form;
+   var formElements     = form.elements;
+   var val              = el.value;
+   var value            = clearCurrency(val);
+   var elName           = el.name;
+   var elNominal        = formElements['rincian['+id+'][nominal]'];
+   var elPersen         = formElements['rincian['+id+'][persen]'];
+    var totalNominal = 0;
+   var txtTotalPenerimaan  = formElements['totalpenerimaan'];
+   var nominalPenerimaan   = clearCurrency(txtTotalPenerimaan.value);
+   
+   var nominalBulanPersen     = (value / nominalPenerimaan) * 100;   
+   elPersen.gvSetValue(nominalBulanPersen);
+   
+   for(var i = 0; i < formElements.length; i++){
+      var str     = formElements[i].name;
+      if(formElements[i].nodeName.toUpperCase() == 'INPUT' && str.match(reNominal)){
+        totalNominal    += clearCurrency(formElements[i].value);
+      }
+   }
+   
+
+   if(totalNominal > nominalPenerimaan){
+      el.style.borderColor    = '#FF000';
+      el.gvSetValue(0);
+      value       = 0;
+      elPersen.gvSetValue(0);
+   }
+
+   if(totalNominal > nominalPenerimaan){       
+      var total_rincian = totalNominal - nominalPenerimaan;
+      alert('Jumlah Total Rincian Penerimaan /bulan melebihi total rencana penerimaan. Kelebihan '+ formatNumber(total_rincian));
+      el.gvSetValue(0);
+      value       = 0;
+      elPersen.gvSetValue(0);
+   }
+
+   setTotal(form);
+}
+
+var setTotal      = function(Obj){
+   var elements      = Obj.elements;
+   var persenTotal   = 0;
+   var nominalTotal  = 0;
+   var rePersen      = /rincian\[(\d+)\]\[persen\]/;
+   var reNominal     = /rincian\[(\d+)\]\[nominal\]/;
+   var txtTotalPenerimaan  = elements['totalpenerimaan'];
+   var nominalPenerimaan   = clearCurrency(txtTotalPenerimaan.value);
+
+   for(var i = 0; i < elements.length; i++){
+      var str     = elements[i].name;
+      if(elements[i].nodeName.toUpperCase() == 'INPUT' && str.match(rePersen)){
+         var persen     = clearCurrency(elements[i].value);
+         //var nominal    = (persen*nominalPenerimaan)/100;
+         // console.log((str+ '--'+(persen*nominalPenerimaan)/100));
+         //nominalTotal   += parseFloat(nominal);
+         persenTotal    += persen;
+
+      }
+      
+      if(elements[i].nodeName.toUpperCase() == 'INPUT' && str.match(reNominal)){
+          nominalTotal   += clearCurrency(elements[i].value);
+         //elements[i].gvSetValue(nominal);
+      }
+   }
+
+   elements['rincian[nominal_total]'].value = parseFloat(nominalTotal);
+   var nominalTotalLabel   = document.getElementById('rincian_nominal_total');
+   nominalTotalLabel.innerHTML      = formatNumber(elements['rincian[nominal_total]'].value);
+
+   elements['rincian[persen_total]'].value   = parseFloat(persenTotal);
+   var persenTotalLabel    = document.getElementById('rincian_persen_total');
+   persenTotalLabel.innerHTML       = formatNumber(elements['rincian[persen_total]'].value,2);
+}
+
+function clearCurrency(str){
+   num      = str.toString();
+   num      = num.replace(/\$|\./g, '');
+   num      = num.replace(/\$|\,/g,'.');
+   num      = parseFloat(num);
+   return num;
+}
+
+var formatNumber = function (num,decimal, mode){
+   decimal = typeof decimal !== 'undefined' ? decimal : 0;
+   var num, decimal_place = decimal;
+   var point = ',', pointRegex = /,/g; //<- membuang dua angka di belakang koma
+   var thousand = '.', thousandRegex = /\./g;
+   var minus = '-';
+   var multiplier = Math.pow(10, decimal_place);
+
+   if (mode > 0)
+   {
+      num = num.toString().replace(thousandRegex, '');
+      num = num.toString().replace(minus, '');
+      if (mode == 2) return num; // just delete thousand mark
+      if (mode == 1) return isNaN(parseFloat(num)) ? 0: parseFloat(num); // go back to english format
+   }
+
+   num = parseFloat(num);
+   if (isNaN(num)) num = 0;
+   if (num.toString().indexOf('e') != -1) return 'Out of range';
+   num = (Math.round(num * multiplier)) / multiplier;
+
+   var str = num.toString().split('.');
+   var reminder = str[1] ? str[1].substr(0, 2) : '';
+   while (reminder.length < decimal_place) reminder += '0';
+   var quotient = str[0];
+
+   var x = quotient.length % 3;
+   var newQuotient = quotient.substr(0, x);
+
+   for (var i = x; i < quotient.length; i += 3)
+      newQuotient += thousand + quotient.substr(i, 3);
+   if (newQuotient.charAt(0) == thousand) newQuotient = newQuotient.substr(1);
+
+    if(decimal > 0)  {
+        return newQuotient + point + reminder;
+    }  else {
+        return newQuotient;
+    }
+}
+
+var setVolumeTarif   = function(elemen){
+   var reNominal     = /rincian\[(\d+)\]\[nominal\]/;
+   var Obj           = elemen.form;
+   var objElements   = Obj.elements;
+   var txtVolume     = objElements['volume'];
+   var txtTarif      = objElements['tarif'];
+   var txtPagu       = objElements['pagu']; // % pagu
+
+   var txttotalterima   = objElements['totalterima'];
+   var txttotalpagu     = objElements['totalpagu'];
+   var txttotalpenerimaan  = objElements['totalpenerimaan'];
+
+   var volume        = clearCurrency(txtVolume.value);
+   var tarif         = clearCurrency(txtTarif.value);
+   var pagu          = clearCurrency(txtPagu.value);
+   var nominal          = volume*tarif;
+   var totalPenerimaan  = (pagu*volume*tarif)/100;
+   txttotalterima.gvSetValue(nominal);
+   txttotalpagu.gvSetValue(totalPenerimaan);
+   txttotalpenerimaan.gvSetValue(totalPenerimaan);
+
+   setTotal(Obj);
+
+   /*var emptyMon         = 0;
+   for(var i = 0; i < objElements.length; i++){
+      var str     = objElements[i].name;
+      if(objElements[i].nodeName.toUpperCase() == 'INPUT' && str.match(reNominal)){
+         if(clearCurrency(objElements[i].value) == 0){
+            emptyMon+=1;
+         }
+      }
+   }
+   var splitPenerimaan  = Math.ceil(totalPenerimaan/12);*/
+}
+
+var dataRincian   = {RINCIAN_PENERIMAAN_DATA};
+for(var i in dataRincian){
+   document.getElementById('PlaceHolder_rincianPenerimaan').addItem(
+      dataRincian[i].id,
+      dataRincian[i].name,
+      dataRincian[i].persen,
+      dataRincian[i].nominal
+   );
+}
+
+setTotal(formInput);
+
+showhidemonth(document.getElementById('btn_toogle_state').value);
+
+</script>
+<!-- /patTemplate:tmpl -->

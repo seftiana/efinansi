@@ -1,0 +1,45 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_skenario" / --></h1>
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+   
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar"> 
+   		<a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Data Sub Program" ><img src="images/button-add.gif" alt="+" /> <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / --></a> 	   				
+      </div>
+   </div>
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>		 
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_skenario" / --></th>
+         <th width="95"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="3" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">{DATA_NOMOR}</td>
+			   <td>{DATA_NAMA}</td>
+               <td class="links" align="center">
+			      <a class="xhr dest_subcontent-element" href="{DATA_URL_DETAIL}" title="<!-- patTemplate:gtfwgetconfig config="language" name="detil" / -->"><img src="images/button-detail.gif" alt="Detail"></a>                 
+                  <a class="xhr dest_subcontent-element" href="{DATA_URL_EDIT}" title="<!-- patTemplate:gtfwgetconfig config="language" name="ubah" / -->"><img src="images/button-edit.gif" alt="<!-- patTemplate:gtfwgetconfig config="language" name="ubah" / -->"></a>                 
+				  <a class="xhr dest_subcontent-element" href="{DATA_URL_DELETE}" title="<!-- patTemplate:gtfwgetconfig config="language" name="hapus" / -->"><img src="images/button-delete.gif" alt="<!-- patTemplate:gtfwgetconfig config="language" name="hapus" / -->"></a>                            				  
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+	  
+	 
+   </table>
+<!-- /patTemplate:tmpl -->

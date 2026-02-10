@@ -1,0 +1,107 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+   function pilih(id,nama,kegiatan_id,kegiatan_nama){
+      form = document.frmInput;
+      form.kegiatan_id.value    = kegiatan_id;
+      form.kegiatan.value       = kegiatan_nama;
+      document.getElementById('kegiatan_label').innerHTML   = kegiatan_nama;
+      form.output.value = nama;
+      form.output_id.value = id;
+      popupClose();
+   };
+// ]]>
+</script>
+<h1>Output</h1>
+<br />
+<form method="post" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2">
+            <h2>
+               Pencarian
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 30%;">
+            Kode/Nama Kegiatan
+         </th>
+         <td>
+            <input type="text" name="kegiatan" value="{KEGIATAN}" size="30" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            kode / nama Output
+         </th>
+         <td>
+            <input type="text" name="nama" value="{NAMA}" size="30" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="action" value="Cari &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value=" Tampilkan Semua " class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<div class="pageBar">
+<!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th width="30" align="left">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr>
+            <td colspan="4" align="center">
+               <em>-- Data tidak ditemukan --</em>
+            </td>
+         </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{CLASS_NAME}" style="{STYLE}">
+               <td align="center" style="width: 30px;">
+                  {NOMOR}
+               </td>
+               <td style="text-align: center; width: 60px;">
+                  {KODE}
+               </td>
+               <td>
+                  {NAMA}
+               </td>
+               <td class="links" align="center" style="width: 30px;">
+                  <a href="javascript: void(0);" onclick="pilih('{ID}','{NAMA}','{PARENT_ID}','{PARENT_NAMA}')" title="Pilih" style="{LINK}">
+                     <img src="images/icons/16/button-check.gif">
+                  </a>
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<!-- stop: Table List -->
+<!-- /patTemplate:tmpl -->

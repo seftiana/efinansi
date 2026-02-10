@@ -1,0 +1,74 @@
+<!-- patTemplate:tmpl name="content" -->
+<form name="frm_list" id="frm-list" method="POST" action="{URL_ACTION}" class="xhr_simple_form dest_subcontent-element">
+   <div class="pageBar">
+      <div class="toolbar">
+         <a class="xhr dest_subcontent-element" href="{URL_RETURN}" title="Redirect" >
+            Return
+            <img src="images/icons/16/redirect.gif" alt="" style="float: right; margin-left: 0.3635rem; padding-top: 0.09735rem;">
+         </a>
+         <!-- patTemplate:tmpl name="btn_execute" visibility="hidden" -->
+            <input type="submit" name="btnExecute" value="Clean Register" class="inputButton" />
+         <!-- /patTemplate:tmpl -->
+      </div>
+   </div>
+   <!-- start: Table List -->
+   <table class="table-common" width="100%">
+      <thead>
+         <tr>
+            <th style="width: 135px;">
+               Module
+            </th>
+            <th style="width: 215px;">
+               Sub Module
+            </th>
+            <th style="width: 35px;">
+               Action
+            </th>
+            <th style="width: 35px;">
+               Type
+            </th>
+            <th>
+               Deskripsi
+            </th>
+         </tr>
+      </thead>
+      <tbody>
+         <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+            <!-- patTemplate:sub condition="YES" -->
+               <tr>
+                  <td colspan="5">
+                     <center>
+                        <em>
+                           <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                        </em>
+                     </center>
+                  </td>
+               </tr>
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+               <!-- patTemplate:tmpl name="data_list" -->
+                  <tr class="{CLASS_NAME}">
+                     <td>
+                        {MODULE}
+                     </td>
+                     <td>
+                        {SUB_MODULE}
+                     </td>
+                     <td align="center">
+                        {TYPE}
+                     </td>
+                     <td align="center">
+                        {ACTION}
+                     </td>
+                     <td>
+                        {DESCRIPTION}
+                     </td>
+                  </tr>
+               <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </tbody>
+   </table>
+   <!-- end: Table List -->
+</form>
+<!-- /patTemplate:tmpl -->

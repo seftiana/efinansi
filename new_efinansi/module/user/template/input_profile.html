@@ -1,0 +1,37 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="profil_pengguna" / --></h1>
+<br/>
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="notebox-alert">
+      {ISI_PESAN}
+   </div>
+   <br/>
+   <!-- /patTemplate:tmpl -->
+
+   <form method="POST" class="xhr_form std_form" action="{URL_ACTION}"  id="frmInput" >
+      <table class="table-edit" width="100%">
+         <tr class="subhead">
+            <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="ubah_profile" / --></th>
+         </tr>
+         <tr>
+            <th>Nama Lengkap</th>
+            <td><input type="text" name="realname" value="{REALNAME}" size="40" /> 
+            <input type="hidden" name="usr" value="{USR}"  /></td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / --></th>
+            <td>
+               <textarea name="deskripsi" cols="43" rows="5"/>{DESKRIPSI}</textarea>
+            </td>
+         </tr>
+         <tr class="buttons">
+            <th></th>
+            <td>
+               <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+   			   <input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+            </td>
+         </tr>
+      </table>
+   </form>
+<!-- /patTemplate:tmpl -->

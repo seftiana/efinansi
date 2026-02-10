@@ -1,0 +1,151 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css">
+.table-common .links.text a{
+   display: inline-block;
+   float: none;
+   padding: 0.36735rem 0.46735rem;
+   font-weight: bold;
+   width: 2rem;
+}
+.table-common tbody tr td.links{
+   padding: 0.16735rem 0;
+}
+.table-common tbody tr td{
+   padding-top: 0.36745rem;
+}
+</style>
+<h1>
+   GTFW Module
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterbox" name="filterbox" class="dataquest xhr_simple_form dest_subcontent-element">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 135px;">
+            App Name
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="application"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Status
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="status"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div class="pageBar">
+   <div class="toolbar">
+      <a class="xhr dest_subcontent-element" href="{URL_GET_CONFLICT}" title="Tambah Data" >
+         <img src="images/button-cancel-tindaklanjut.gif" alt="">
+         List All Conflicted Module
+      </a>
+   </div>
+</div>
+
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th style="width: 30px;" rowspan="2">
+            No
+         </th>
+         <th rowspan="2">
+            MODULE
+         </th>
+         <th colspan="4">
+            SUB MODULE
+         </th>
+         <th rowspan="2" style="width: 30px;">
+            AKSI
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 30px;">
+            JUMLAH
+         </th>
+         <th style="width: 30px;">
+            REGISTERED
+         </th>
+         <th style="width: 30px;">
+            UN-REGISTER
+         </th>
+         <th style="width: 30px;">
+            CONFLICT
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="7">
+                  <center>
+                     <em>
+                        Tidak ada data module
+                     </em>
+                  </center>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+               <tr class="{CLASS_NAME}">
+                  <td align="center">
+                     {NUMBER}
+                  </td>
+                  <td>
+                     {NAME}
+                  </td>
+                  <td align="center">
+                     {SUB_MODULE}
+                  </td>
+                  <td align="center" class="links text">
+                     <a href="{URL_REGISTERED_SUBMODULE}" class="xhr dest_subcontent-element">
+                        {REGISTERED}
+                     </a>
+                  </td>
+                  <td align="center" class="links text">
+                     <a href="{URL_REGISTER}" class="xhr dest_subcontent-element">
+                        {UNREGISTER}
+                     </a>
+                  </td>
+                  <td align="center" class="links text">
+                     <a href="{URL_CONFLICT}" class="xhr dest_subcontent-element">
+                        {CONFLICT}
+                     </a>
+                  </td>
+                  <td class="links">
+                     <a class="xhr dest_subcontent-element" href="{URL_DETAIL}" title="Detail">
+                        <img src="images/button-detail.gif" alt="Ubah" />
+                     </a>
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<!-- end: Table List -->
+<!-- /patTemplate:tmpl -->

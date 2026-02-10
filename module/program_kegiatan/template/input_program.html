@@ -1,0 +1,96 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    function PopupSasaran(url){
+        showPopup(url,'',550,550);
+    }
+    function bukaPopupRKAKLKegiatan(xurl) {
+		showPopup(xurl,'',550,550);
+	}
+// ]]>
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_program" / --></h1>
+<br/>
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="notebox-alert">
+      {ISI_PESAN}
+   </div>
+   <br/>
+   <!-- /patTemplate:tmpl -->
+
+
+   <form name="frmInput" method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
+   <input type="hidden" name="data[program][id]" value="{DATA_PROGRAM_ID}"  />
+   <input type="hidden" name="data[program][ta_id]" value="{TAHUN_ID}" />
+      <table class="table-edit" width="100%">
+         <tr class="subhead">
+            <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="program" / --></th>
+         </tr>
+		 <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / --></th>
+            <td>{TAHUN_NAME}</td>
+         </tr>
+		 <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+            <td><input type="text" name="data[program][nomor]" value="{DATA_PROGRAM_NOMOR}" size="30" notab="1"/>*
+			<!-- <em>(kode selanjutnya : {DATA_KODE_SELANJUTNYA})</em> /-->
+         </tr>
+		 <tr style="display:none">
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kode_label_program" / --></th>
+            <td><input type="text" name="data[program][label]" value="{DATA_PROGRAM_LABEL}" size="20"  notab="2"/>
+         </tr>
+         <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="nama_program" / --></th>
+            <td><input type="text" name="data[program][nama]" value="{DATA_PROGRAM_NAMA}" size="50"  notab="3"/>*
+         </tr>
+		 <tr>
+			<th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kegiatan_rkakl" / --></th>
+			<td>
+            <input type="hidden" name="data[program][rkakl_kegiatan_id]" id="rkakl_kegiatan_id" value="{DATA_RKAKL_KEGIATAN_ID}" />
+            <textarea name="data[program][rkakl_kegiatan_nama]" id="rkakl_kegiatan_nama" cols="44" rows="3">{DATA_RKAKL_KEGIATAN_NAMA}</textarea>
+            <span style="vertical-align:top;">
+            <input type="button"  name="but_rkakl_kegiatan" onclick="javascript:bukaPopupRKAKLKegiatan('{URL_POPUP_RKAKL_KEGIATAN}')" value=" ... " />
+            </span>
+         </td>
+		 </tr>
+		 <tr>
+			<th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="sasaran_program" / --></th>
+			<td><textarea name="data[program][sasaran]" id="sasaran_nama" cols="44" rows="5">{DATA_PROGRAM_SASARAN}</textarea>
+			<span style="vertical-align:top;">
+				<input type="hidden" name="data[program][sasaran_id]" id="sasaran_id" value="{DATA_PROGRAM_SASARAN_ID}" />
+                <input type="button" name="btnVisi" value=" ... " onclick="PopupSasaran('{URL_POPUP_SASARAN}');"> </span>
+			</td>
+		 </tr>
+		 <tr>
+			<th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="indikator_program" / --></th>
+			<td><textarea name="data[program][indikator]" cols="50" rows="5">{DATA_PROGRAM_INDIKATOR}</textarea></td>
+		 </tr>
+		 <tr>
+			<th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="strategi_program" / --></th>
+			<td><textarea name="data[program][strategi]" cols="50" rows="5">{DATA_PROGRAM_STRATEGI}</textarea></td>
+		 </tr>
+		 <tr>
+			<th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kebijakan_program" / --></th>
+			<td><textarea name="data[program][kebijakan]" cols="50" rows="5">{DATA_PROGRAM_KEBIJAKAN}</textarea></td>
+		 </tr>
+         <tr class="buttons">
+            <th>&nbsp;
+            </th>
+            <td>
+               <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+               <input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+            </td>
+         </tr>
+      </table>
+   </form>
+
+   <br/>
+
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+      <ul>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --></li>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

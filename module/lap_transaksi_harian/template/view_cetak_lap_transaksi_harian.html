@@ -1,0 +1,72 @@
+<!-- patTemplate:tmpl name="content" -->
+   <br />
+	<h1><!-- patTemplate:gtfwgetconfig config="language" name="laporan_transaksi_harian" / --></h1>
+	<table class="empty-table">
+   <!--<tr>
+      <td style="width:90px;">
+	      Tahun Periode 
+      </td>
+      <td>
+         : {TAHUN_ANGGARAN}
+      </td>
+   </tr>-->
+   
+   <tr>
+       <td style="width:90px;">
+         <!-- patTemplate:gtfwgetconfig config="language" name="interval_waktu" / -->
+      </td>
+      <td>
+         : {TGL_AWAL} <!-- patTemplate:gtfwgetconfig config="language" name="s_d" / --> {TGL_AKHIR}
+      </td>
+   </tr>   
+   </table>
+   <table width="80%">
+   <thead>
+      <tr>
+            <th width="40"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+			<th width="120"><!-- patTemplate:gtfwgetconfig config="language" name="no_rekening" / --> / Bpkb</th>
+			<th><!-- patTemplate:gtfwgetconfig config="language" name="nama_akun" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / --></th>
+			 <th width="120"><!-- patTemplate:gtfwgetconfig config="language" name="debet" / --></th>
+			 <th width="120"><!-- patTemplate:gtfwgetconfig config="language" name="kredit" / --></th>
+			 <th width="120"><!-- patTemplate:gtfwgetconfig config="language" name="saldo" / --></th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="5" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_transaksi_item" type="condition" conditionvar="STATUS" -->
+  					<!-- patTemplate:sub condition="default" -->
+					<tr>
+						<td align="center">{NO}</td>
+						<td>{NO_REKENING}</td>
+						<td>{CATATAN}</td>
+						<td align="right">{DEBET}</td>
+						<td align="right">{KREDIT}</td>
+						<td align="right">{SALDO}</td>
+					</tr>
+  					<!-- /patTemplate:sub -->
+  					
+  					<!-- patTemplate:sub condition="total" -->
+					<tr bgcolor="#CCCCCC">
+						<td colspan="3" align="center"> <b>{KETERANGAN}</b></td>
+						<td align="right"><b>{DEBET}</b></td>
+						<td align="right"><b>{KREDIT}</b></td>
+						<td align="right"><b>{SALDO}</b></td>
+					</tr>
+  					<!-- /patTemplate:sub -->
+  				<!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+   </table>
+
+   <!--<div class="sign">
+      <p>Yogyakarta, {DATE}</p>
+      <p>Pimpinan Unit / Sub Unit</p>
+      <p class="date">{UNIT_KERJA}</p>
+      <p>({NAMA_PIMPINAN})</p>
+   </div>-->
+<!-- /patTemplate:tmpl -->

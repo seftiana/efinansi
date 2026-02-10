@@ -1,0 +1,475 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="pau" / --> Per MAK
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+      <!-- patTemplate:tmpl name="role" type="condition" conditionvar="WHOAMI" -->
+         <!-- patTemplate:sub condition="ADMINISTRATOR" -->
+            <tr>
+               <th style="width: 135px;">
+                  <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+               </th>
+               <td>
+                  <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tahun_anggaran"  / -->
+               </td>
+            </tr>
+            <tr>
+               <th style="width: 135px;">
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / --> /
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="satker" id="satker" value="{SATKER}" />
+                  <textarea name="satker_label" id="satker_label" readonly="readonly" cols="42" rows="1" style="resize:none;">{SATKER_LABEL}</textarea>
+                  <input type="button"  name="but_program" onclick="javascript:bukaPopupProgram('{URL_POPUP_UNIT_KERJA}')" value=" ... " />
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="OPERATORUNIT" -->
+            <tr>
+               <th width="30%">
+                  <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+               </th>
+               <td>
+                  {TAHUN_ANGGARAN_LABEL}
+                  <input type="hidden" name="tahun_anggaran" id="tahun_anggaran" value="{TAHUN_ANGGARAN}" />
+                  <input type="hidden" name="tahun_anggaran_label" id="tahun_anggaran_label" value="{TAHUN_ANGGARAN_LABEL}" />
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / --> /
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="satker" id="satker" value="{SATKER}" />
+                  <textarea name="satker_label" id="satker_label" readonly="readonly" cols="42" rows="1" style="resize:none;">{SATKER_LABEL}</textarea>
+                  <input type="button"  name="but_program" onclick="javascript:bukaPopupProgram('{URL_POPUP_UNIT_KERJA}')" value=" ... " />
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="OPERATORSUBUNIT" -->
+            <tr>
+               <th width="30%">
+                  <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+               </th>
+               <td>
+                  {TAHUN_ANGGARAN_LABEL}
+                  <input type="hidden" name="tahun_anggaran" id="tahun_anggaran" value="{TAHUN_ANGGARAN}" />
+                  <input type="hidden" name="tahun_anggaran_label" id="tahun_anggaran_label" value="{TAHUN_ANGGARAN_LABEL}" />
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / --> /
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / -->
+               </th>
+               <td>
+                  {SATKER_LABEL}
+                  <input type="hidden" name="satker" id="satker" value="{SATKER}" />
+                  <input type="hidden" name="satker_label" id="satker_label" value="{SATKER_LABEL}" />
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+         </th>
+         <td>
+            <input type="hidden" name="programId" id="programId" value="{PROGRAM_ID}" />
+            <input type="text" name="program" id="program" value="{PROGRAM}" readonly size="40" />
+            <input type="button" value=" ... " onclick="OpenPopup('{URL_POPUP_PROGRAM}');" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->
+         </th>
+         <td>
+            <input type="hidden" name="kegiatanId" id="kegiatanId" value="{KEGIATAN_ID}" />
+            <input type="hidden" name="kegiatan" id="kegiatan" value="{KEGIATAN}" />
+            <label style="font-weight: bold;" id="label-kegiatan">{KEGIATAN}</label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="output" / -->
+         </th>
+         <td>
+            <input type="hidden" name="outputId" id="outputId" value="{OUTPUT_ID}" />
+            <input type="text" name="output" id="output" value="{OUTPUT}" readonly size="40" />
+            <input type="button" value=" ... " onclick="var programId = document.getElementById('programId').value; OpenPopup('{URL_POPUP_RKAKL_OUTPUT}', programId)" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+         </th>
+         <td>
+            <input type="hidden" name="komponenId" id="komponenId" value="{KOMPONEN_ID}" />
+            <input type="text" name="komponen" id="komponen" value="{KOMPONEN}" readonly size="40" />
+            <input type="button" value=" ... " onclick="OpenPopup('{URL_POPUP_RKAKL_SUB_KEGIATAN}');" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="mak" / -->
+         </th>
+         <td>
+            <input type="hidden" name="makId" id="makId" value="{MAK_ID}" />
+            <input type="text" name="mak" id="mak" value="{MAK}" readonly size="40" />
+            <input type="button" value=" ... " onclick="OpenPopup('{URL_POPUP_REFERENSI_MAK}');" />
+         </td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btnTampilkan" value=" Tampilkan " class="buttonSubmit"/>
+            <input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+<br />
+<form method="POST" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <input type="hidden" name="control_label" value="{CONTROL_LABEL}" />
+   <input type="hidden" name="control_action" value="{CONTROL_ACTION}" />
+   <input type="hidden" name="control_return" value="{CONTROL_RETURN}" />
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar">
+         <a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Pagu Anggaran Unit">
+            <img src="images/icons/16/button-add.gif" alt=""> Tambah
+         </a>
+         <a class="xhr dest_subcontent-element" href="{URL_COPY}" title="Salin Pagu Anggaran Unit">
+            <img src="images/icons/16/button-tindaklanjuti.gif" alt=""> Salin Pagu Anggaran
+         </a>
+         <input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="inputButton" />
+      </div>
+   </div>
+
+
+   <table class="table-common" width="100%" style="min-width: 800px;">
+      <thead>
+         <tr>
+            <th width="5" rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+            </th>
+            <th rowspan="2">
+               <input type="checkbox" class="CheckBoxFW_parent" />
+            </th>
+            <th colspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / --> /
+               <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="program" / --> -
+               <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --> -
+               <!-- patTemplate:gtfwgetconfig config="language" name="output" / --> -
+               <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="mak_kode" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+               <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+            </th>
+            <th colspan="3">
+               <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="sumber_dana" / -->
+            </th>
+            <th rowspan="2">
+               Di setujui
+            </th>
+            <th width="25" rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+            </th>
+         </tr>
+         <tr>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+            </th>
+            <th style="width: 95px;">
+               Pagu Anggaran
+            </th>
+            <th style="width: 95px;">
+               GU/UP
+            </th>
+            <th style="width: 95px;">
+               Uang Persediaan
+            </th>
+         </tr>
+      </thead>
+      <tbody>
+         <!-- patTemplate:tmpl name="data_list" type="condition" conditionvar="DATA_EMPTY" -->
+            <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="13" align="center">
+                  <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+               </td>
+            </tr>
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+               <!-- patTemplate:tmpl name="data_grid_item" -->
+               <tr class="{CLASS_NAME}" style="{ROW_STYLE}">
+                  <td align="center">
+                     {NOMOR}
+                  </td>
+                  <td align="center">
+                  <!-- patTemplate:tmpl name="pagu" type="condition" conditionvar="LEVEL" -->
+                     <!-- patTemplate:sub condition="PARENT" -->
+                        &nbsp;
+                     <!-- /patTemplate:sub -->
+                     <!-- patTemplate:sub condition="CHILD" -->
+                        <!-- patTemplate:tmpl name="checkbox" type="condition" conditionvar="DISABLED" -->
+                           <!-- patTemplate:sub condition="TRUE" -->
+                              <input type="checkbox" name="id[]" id="pau_id_{NOMOR}" value="{ID}" disabled="disabled" />
+                           <!-- /patTemplate:sub -->
+                           <!-- patTemplate:sub condition="FALSE" -->
+                              <input type="checkbox" name="id[]" id="pau_id_{NOMOR}" value="{ID}" class="CheckBoxFW_child" />
+                              <input type="hidden" name="name[{ID}]" value="{PAGU_KODE} * {MAK_KODE} * {MAK_NAMA}" />
+                           <!-- /patTemplate:sub -->
+                        <!-- /patTemplate:tmpl -->
+                     <!-- /patTemplate:sub -->
+                  <!-- /patTemplate:tmpl -->
+                  </td>
+                  <td align="left">
+                     {UNIT_KODE}
+                  </td>
+                  <td>
+                     {UNIT_NAMA}
+                  </td>
+                  <td>
+                     {PAGU_KODE}
+                  </td>
+                  <td>
+                     {MAK_KODE}
+                  </td>
+                  <td>
+                     {NAMA_KOMPONEN}
+                  </td>
+                  <td align="right">
+                     {NOMINAL}
+                  </td>
+                  <td align="right">
+                     {NOMINAL_POK}
+                  </td>
+                  <td align="right">
+                     {NOMINAL_TERSEDIA}
+                  </td>
+                  <td>
+                     {SUMBERDANA_NAMA}
+                  </td>
+                  <td align="center">
+                     <!-- patTemplate:tmpl name="status" type="condition" conditionvar="LEVEL" -->
+                        <!-- patTemplate:sub condition="PARENT" -->
+                           &nbsp;
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="CHILD" -->
+                           <!-- patTemplate:tmpl name="bintang" type="condition" conditionvar="LEVEL" -->
+                              <!-- patTemplate:sub condition="TRUE" -->
+                                 <img src="images/icons/16/lamp-green.gif" style="padding-top: 4px;" />
+                              <!-- /patTemplate:sub -->
+                              <!-- patTemplate:sub condition="FALSE" -->
+                                 <img src="images/icons/16/lamp-red.gif" style="padding-top: 4px;" />
+                              <!-- /patTemplate:sub -->
+                           <!-- /patTemplate:tmpl -->
+                        <!-- /patTemplate:sub -->
+                     <!-- /patTemplate:tmpl -->
+                  </td>
+                  <td class="links" align="center">
+                     <!-- patTemplate:tmpl name="aksi" type="condition" conditionvar="LEVEL" -->
+                        <!-- patTemplate:sub condition="PARENT" -->
+                           &nbsp;
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="CHILD" -->
+                           <!-- patTemplate:tmpl name="links" type="condition" conditionvar="LEVEL" -->
+                              <!-- patTemplate:sub condition="ENABLE" -->
+                                 <a href="{URL_EDIT}" class="xhr dest_subcontent-element" title="Ubah">
+                                    <img src="images/icons/16/button-edit.gif" alt="ubah" />
+                                 </a>
+                              <!-- /patTemplate:sub -->
+                              <!-- patTemplate:sub condition="DISABLE" -->
+                                 &nbsp;
+                              <!-- /patTemplate:sub -->
+                           <!-- /patTemplate:tmpl -->
+                        <!-- /patTemplate:sub -->
+                     <!-- /patTemplate:tmpl -->
+                  </td>
+               </tr>
+               <!-- /patTemplate:tmpl -->
+               <tr style="font-weight: bold;" class="table-common-even1">
+                  <td colspan="7" align="center">
+                     Total
+                  </td>
+                  <td align="right">
+                     {TOTAL_PAGU}
+                  </td>
+                  <td align="right">
+                     {TOTAL_POK}
+                  </td>
+                  <td align="right">
+                     {TOTAL_PERSEDIAAN}
+                  </td>
+                  <td>
+                     &nbsp;
+                  </td>
+                  <td>
+                     &nbsp;
+                  </td>
+                  <td>
+                     &nbsp;
+                  </td>
+               </tr>
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </tbody>
+   </table>
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_bottom"  / -->
+   </div>
+</form>
+<br />
+
+<div class="petunjuk-area">
+   <h4>Petunjuk:</h4>
+   <ul>
+      <li>
+         <span style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFBDD; border:#D1C698 1px solid; float: left;"></span> Data Induk Pagu Anggaran Unit
+         <p style="clear:both"></p>
+      </li>
+      <li>
+         <img src="images/icons/16/lamp-green.gif" /> Pagu Anggaran sudah bisa digunakan untuk melakukan transaksi
+      </li>
+      <li>
+         <img src="images/icons/16/lamp-red.gif" /> Pagu Anggaran belum bisa di gunakan untuk melakukan transaksi
+      </li>
+      <li>
+         <img src="images/icons/16/button-add.gif" /> Tambah data pagu anggaran unit per MAK
+      </li>
+      <li>
+         <img src="images/icons/16/button-tindaklanjuti.gif" /> Copy pagu anggaran unit per MAK
+      </li>
+      <li>
+         <img src="images/icons/16/button-edit.gif" /> Untuk mengedit data pagu anggaran unit per MAK
+      </li>
+      <li>
+         Untuk menghapus data pagu centang pada baris data pagu yang akan di hapus, Atau centang checkbox pada baris induk untuk mencentang semua sub data nya.
+      </li>
+   </ul>
+</div>
+
+<script>
+CheckBoxFW_initiate = function (Obj)
+{
+   if (!Obj || Obj.className.indexOf('CheckBoxFW_parent') < 0 || !Obj.form) return;
+
+   var CBList     = new Array;
+   var CheckedAll = true;
+   var FormObj    = Obj.form;
+
+   for (var i = 0; i < FormObj.length; i++) if (FormObj[i] == Obj) break;
+   if (i == FormObj.length) return;
+
+   for(i += 1; i < FormObj.length; i++)
+   {
+      var CBObj = FormObj[i];
+      if (CBObj.type.toUpperCase() != 'CHECKBOX') continue;
+      if (CBObj.className.indexOf('CheckBoxFW_child') >= 0)
+      {
+         CBObj.onchange = function () {
+            Obj.checkChild();
+         }
+         CBList[CBList.length] = CBObj;
+         if (!CBObj.checked) CheckedAll = false;
+      }
+      if (CBObj.className.indexOf('CheckBoxFW_parent') >= 0) break;
+   }
+
+   if (CBList.length > 0)
+   {
+      Obj.onchange = function ()
+      {
+         for (var i = 0; i < CBList.length; i++){
+            if(CBList[i].getAttribute('disabled') == null){
+               CBList[i].checked = this.checked;
+            }
+         }
+      }
+
+      Obj.checkChild = function ()
+      {
+         var CheckedAll = true;
+         for (var i = 0; i < CBList.length; i++) if (!CBList[i].checked)
+         {
+            CheckedAll = false;
+            break;
+         }
+         this.checked = CheckedAll;
+      }
+
+      Obj.checked = CheckedAll;
+   }
+}
+
+for (var i = 0; i < document.getElementById('form_list').length; i++){
+   CheckBoxFW_initiate(document.getElementById('form_list')[i]);
+}
+
+function OpenPopup(url, id, width, height){
+   var param      = '';
+   var xWidth     = 600;
+   var xHeight    = 550;
+   if(typeof(id) != 'undefined'){
+      var param   = '&id='+id;
+   }
+
+   if(typeof(width) != 'undefined'){
+      xWidth   = width;
+   }
+
+   if(typeof(height) != 'undefined'){
+      xHeight  = height;
+   }
+   var xurl    = url+param;
+   showPopup(xurl, 'gtPopup', xWidth, xHeight);
+}
+
+function bukaPopupProgram(xurl) {
+   var tahun_anggaran;
+   var tahun_anggaran_label;
+   if(document.getElementById('tahun_anggaran_label')) {
+      tahun_anggaran=document.getElementById('tahun_anggaran').value;
+      tahun_anggaran_label=document.getElementById('tahun_anggaran_label').value;
+   } else {
+      tahun_anggaran=document.getElementById('tahun_anggaran').value;
+      tahun_anggaran_label=document.getElementById('tahun_anggaran').options[document.getElementById('tahun_anggaran').selectedIndex].text;
+   }
+   showPopup(xurl+'&tahun_anggaran='+tahun_anggaran+'&tahun_anggaran_label='+tahun_anggaran_label,'',550,550);
+}
+</script>
+<!-- /patTemplate:tmpl -->

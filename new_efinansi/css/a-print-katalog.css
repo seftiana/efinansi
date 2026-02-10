@@ -1,0 +1,108 @@
+/* CSS Document */
+
+#common {
+	page: A4;
+	size: portrait !important;
+	padding:0;
+}
+
+.page {
+	border: 1px dashed #FF0000;
+	font-family: "Times New Roman", Times, serif;
+	font-size: 12pt;
+	width: 19cm;
+	height: 14.5cm;
+	overflow: hidden;
+	margin: 0px auto 0px auto;
+	padding: 0cm 0cm 1cm 0cm;
+}
+
+.header {
+	width: 19cm;
+	height: 3.5cm;
+	border: dashed 1px #009900;
+	padding: 0;
+	margin: 0;
+}
+
+.left {
+	width: 3cm;
+}
+
+.left2 {
+	width: 13.5cm;
+}
+
+.left3 {
+	width: 10.4cm;
+	padding-left: 3.7cm;
+}
+
+.left4 {
+	width: 12.5cm;
+}
+
+.padding {
+	width: 19 cm;
+	height: 1.3cm;
+	margin:0;
+	padding:0;
+}
+
+.padding2 {
+	width: 19 cm;
+	height: 0.5cm;
+	margin:0;
+}
+
+.padding3 {
+	width: 19 cm;
+	height: 0.8cm;
+	margin:0;
+}
+
+.padding4 {
+	width: 19 cm;
+	height: 1cm;
+	margin:0;
+}
+
+.table-print {
+	width: 19cm;
+	height: 6.5cm;
+	border: 1px dashed #0066FF;
+	border-collapse:collapse;
+	margin: 0;
+	padding: 0;
+}
+
+.table-print1 {
+	width: 19cm;
+	height: 5cm;
+	border: 1px dashed #0066FF;
+	border-collapse:collapse;
+	margin: 0;
+	padding: 0;
+}
+
+.table-print1 td {
+	vertical-align: top;
+	padding-left: 3.5cm;
+}
+
+.table-print td {
+	vertical-align: top;
+	padding-left: 3.5cm;
+}
+
+.table-print2 {
+	width: 19cm;
+	border: 1px dashed #0066FF;
+	border-collapse:collapse;
+	margin: 0;
+	padding: 0;
+}
+
+.table-print2 td {
+	vertical-align: bottom;
+}

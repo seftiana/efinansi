@@ -1,0 +1,21 @@
+/*
+Copyright 2006 PT. Gamatechno Indonesia.
+gamatechno.com Global CSS
+$Revision: 3.0 $
+*/
+@import url(sia-mocca/css/a_common.css);
+@import url(sia-mocca/css/a_sia_common.css);
+@import url(sia-mocca/css/a_sia_content.css);
+@import url(sia-mocca/css/a_sia_sidebar.css);
+@import url(sia-mocca/css/a_sia_elements.css);
+@import url(sia-mocca/css/a_sia_table.css);
+@import url(sia-mocca/css/submitbox.css);
+@import url(css-custome/nav.css);
+@import url(css-custome/program.css);
+@import url(css-custome/datechooser.css);
+@import url(css-custome/table_add.css);
+@import url(css-custome/jqueryFileTree.css);
+@import url(css-custome/jquery.treeTable.css);
+@import url(css-custome/fix_css.css);
+@import url(css-custome/confirm.css);
+@import url(../js/dhtmlx/dhtmlxtree/dhtmlxtree.css);

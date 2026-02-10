@@ -1,0 +1,127 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="periode_tahun" / -->
+</h1>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br/>
+<!-- /patTemplate:tmpl -->
+<form method="POST" name="frmPeriodeTahun" action="{URL_ACTION}" class="xhr_form std_form dest_subcontent-element" data-target="{URL_RETURN}" id="frmInput" >
+   <input type="hidden" name="data_id" value="{ID}"  />
+   <table class="table-edit" width="100%">
+   <tr class="subhead">
+      <th colspan="2">
+         Tambah <!-- patTemplate:gtfwgetconfig config="language" name="periode_tahun" / -->
+      </th>
+   </tr>
+   <tr>
+      <th style="width: 115px;">
+         <!-- patTemplate:gtfwgetconfig config="language" name="renstra" / -->
+      </th>
+      <td>
+         <input type="hidden" name="renstra_id" value="{RENSTRA_ID}" />
+         <label style="font-weight: bold;">
+            {RENSTRA_NAMA}
+         </label>
+      </td>
+   </tr>
+   <tr>
+      <th>
+         Tanggal Awal Renstra
+      </th>
+      <td>
+         <span id="renstra_awal" style="font-weight: bold;">
+            <!-- patTemplate:var name="RENSTRA_AWAL" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+         </span>
+      </td>
+   </tr>
+   <tr>
+      <th>
+         Tanggal Akhir Renstra
+      </th>
+      <td>
+         <span id="renstra_akhir" style="font-weight: bold;">
+            <!-- patTemplate:var name="RENSTRA_AKHIR" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+         </span>
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="periode_tahun" / -->
+      </th>
+      <td>
+         <input type="text" name="nama" value="{NAMA}" size="35" /> *
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="tanggal_awal" / -->
+      </th>
+      <td>
+         <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal"
+         action="view" name="tanggal_awal"  / -->
+      </td>
+   </tr>
+   <tr>
+      <th width="150">
+         <!-- patTemplate:gtfwgetconfig config="language" name="tanggal_akhir" / -->
+      </th>
+      <td>
+         <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal"
+         action="view" name="tanggal_akhir"  / -->
+      </td>
+   </tr>
+   <tr>
+      <th width="150">
+         <!-- patTemplate:gtfwgetconfig config="language" name="status" / -->
+      </th>
+      <td>
+         <input type="hidden" name="status_aktif" value="T" />
+         <input type="checkbox" name="status_aktif" {CHECKED_AKTIF}
+         value='Y' />
+         <b>
+            <!-- patTemplate:gtfwgetconfig config="language" name="set_aktif" / -->
+         </b>
+      </td>
+   </tr>
+   <tr>
+      <th>
+         &nbsp;
+      </th>
+      <td>
+         <input type="hidden" name="status_open" value="T" />
+         <input type="checkbox" name="status_open" {CHECKED_OPEN}
+         value='Y' />
+         <strong>
+            Set Open
+         </strong>
+      </td>
+   </tr>
+   <tr class="buttons">
+      <th>
+         &nbsp;
+      </th>
+      <td>
+         <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+         <input type="reset"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+      </td>
+   </tr>
+   </table>
+</form>
+
+<br/>
+
+<div class="petunjuk-area">
+<h4>
+   <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+</h4>
+<ul>
+   <li>
+      <!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / -->
+   </li>
+</ul>
+</div>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,170 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	var skenario_nomor=1;
+	function cekJenis() {
+		var obj = document.getElementById("jenis");
+		var val = obj.options[obj.selectedIndex].value;
+		if(val=="auto") {
+			document.getElementById('nama').disabled=false;
+			document.getElementById('is_auto').style.display='';
+		} else {
+			document.getElementById('nama').disabled=true;
+			document.getElementById('is_auto').style.display='none';
+		}
+	}
+
+	function setParent(varname, start_num, end_num) {
+		var obj = document.getElementById("jenis");
+		var val = obj.options[obj.selectedIndex].value;
+		var xlabel = obj.options[obj.selectedIndex].text;
+		var ada_yang_dicek=false;
+		var ceks;
+		var nama;
+		if(val == "auto") {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+				nama = document.getElementById('skenario_name_' + i);
+				if(ceks && ceks.checked == true) {
+					createBaris(ceks.value, nama.value);
+					ada_yang_dicek=true;
+				}
+			}
+			if(ada_yang_dicek == false) {
+				alert("Silahkan pilih skenario");
+			} else {
+				document.getElementById('skenario').value=val;
+				document.getElementById('skenario_label').value=xlabel;
+				document.getElementById('skenario_bohong_table').style.display='';
+				popupClose();
+			}
+		} else if(val == "manual") {
+			document.getElementById('skenario').value=val;
+			document.getElementById('skenario_label').value=xlabel;
+			document.getElementById('skenario_bohong_tbody').innerHTML="";
+			document.getElementById('skenario_bohong_table').style.display='none';
+			popupClose();
+		} else {
+			alert("Silakan Pilih Jenis");
+		}
+	}
+
+	function createBaris(xid, xnama) {
+		var tr = document.createElement('tr');
+		var td_nomor = document.createElement('td');
+		var td_isi = document.createElement('td');
+		var td_aksi = document.createElement('td');
+
+		//membuat isi elemen2
+		var nomor = document.createTextNode(skenario_nomor);
+		var isi = document.createTextNode(xnama);
+		
+		//input hidden
+		var skenario_id = document.createElement('input');
+		skenario_id.setAttribute("type", "hidden");
+		skenario_id.setAttribute("value", xid);
+		skenario_id.setAttribute("name", "skenario_list[]");
+		skenario_id.setAttribute("id", "skenario_list_" + skenario_nomor);
+
+		//mengisikan elemen2 dengan isinya
+		tr.setAttribute("id", "tr_skenario_bohong_" + skenario_nomor);
+		td_nomor.setAttribute("align", "center");
+		td_nomor.appendChild(nomor);
+		td_isi.setAttribute("title", xnama);
+		td_isi.appendChild(isi);
+		td_isi.appendChild(skenario_id);
+
+		//untuk tombol deletenya
+		var button_hapus = getButton("hapus", "javascript:void(0)", "hapusSkenarioBohong('tr_skenario_bohong_" + skenario_nomor + "')");
+		td_aksi.appendChild(button_hapus);
+
+		//tr.appendChild(td_nomor);
+		tr.appendChild(td_isi);
+		tr.appendChild(td_aksi);
+		document.getElementById('skenario_bohong_tbody').appendChild(tr);
+		skenario_nomor++;
+	}
+
+	function centangin_semua(varname, start_num, end_num) {
+		var obj = document.getElementById('cek_all');
+		var ceks;
+		if(obj.checked == false) {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+				if(ceks) ceks.checked = false;
+			}
+		} else {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+				if(ceks) ceks.checked = true;
+			}
+		}
+	}
+	//document.onload = cekJenis();
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="list_skenario" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+         <tr>
+            <th width="30%"><!-- patTemplate:gtfwgetconfig config="language" name="jenis" / --></label></th>
+            <td><!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="jenis"  / --></td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="skenario" / --></label></th>
+            <td><input type="text" name="nama" id="nama" value="{NAMA}" size="20" {NAMA_IS_DISABLED} /></td>
+         </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan" / --> &raquo;" class="buttonSubmit"/>
+			<input type="button" name="button_set" value=" <!-- patTemplate:gtfwgetconfig config="language" name="pilih" / --> " class="buttonSubmit" onclick="setParent('skenario_id_','{FIRST_NUMBER}','{LAST_NUMBER}')" />
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+<div id="is_auto" style="display:{IS_AUTO_DISPLAY}">
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   </div>
+   <br />
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+		   <th width="5"><input type="checkbox" name="cek_all" id="cek_all" value="ALL" onclick="centangin_semua('skenario_id_','{FIRST_NUMBER}','{LAST_NUMBER}');" /></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama" / --></th>
+         <!-- <th width="31">Pilih</th> -->
+      </tr>
+      <!-- patTemplate:tmpl name="data_skenario" type="condition" conditionvar="SKENARIO_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="3" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">{DATA_NUMBER}</td>
+			   <td align="center">
+					<input type="checkbox" name="id[]" id="skenario_id_{DATA_NUMBER}" value="{DATA_ID}" /><input type="hidden" name="name[{DATA_ID}]" id="skenario_name_{DATA_NUMBER}" value="{DATA_NAMA}" /></td>
+               <td>{DATA_NAMA}</td>
+			   <!-- <td class="links" align="center">
+					<a href="javascript:createBaris('{DATA_ID}','{DATA_NAMA}')" onclick=""><img alt="Pilih" src="images/button-check.gif"/></a>
+               </td> -->
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   <br /> 
+   </div>
+<div>
+<!-- /patTemplate:tmpl -->

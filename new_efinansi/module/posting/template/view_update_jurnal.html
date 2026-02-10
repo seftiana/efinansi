@@ -1,0 +1,29 @@
+<!-- patTemplate:tmpl name="content" -->
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" name="frmUpdateJurnal">
+   <input type="hidden" name="data_id" value="{ID}" />
+   <input type="hidden" name="pembukuan_id" value="{PEMBUKUAN_ID}" />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            {REFERENSI}
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 65px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal"  / -->
+         </td>
+      </tr>
+      <tr class="buttons">
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+<!-- /patTemplate:tmpl -->

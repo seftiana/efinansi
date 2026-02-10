@@ -1,0 +1,132 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   Laporan Keuangan Akademik
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterbox" name="filterbox" class="dataquest xhr_simple_form dest_subcontent-element">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode_tahun" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="tahun_anggaran"  / -->
+         </td>
+      </tr>      
+      <tr>
+        <tr>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="bulan" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   <div class="toolbar">
+      <!-- patTemplate:tmpl name="content_link" visibility="hidden" -->
+         <a target="_blank" href="{EXPORT_EXCEL}" title="Export Data" >
+            <img src="images/icons/16/export_excel.gif" alt="Export">
+            <!-- patTemplate:gtfwgetconfig config="language" name="export_excel" / -->
+         </a>
+      <!-- /patTemplate:tmpl -->
+   </div>
+</div>
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th rowspan="2">
+           Perkiraan
+         </th>
+        
+         <th rowspan="2">
+           {NAMA_BULAN_AWAL} {TAHUN_AWAL} s/d 
+           {NAMA_BULAN} {TAHUN}
+         </th>
+          <th>
+           {NAMA_BULAN} {TAHUN}
+         </th>
+         <!-- patTemplate:tmpl name="data_unit_header" type="condition" conditionvar="DATA_EMPTY" -->
+            <!-- patTemplate:sub condition="NO" -->
+                <!-- patTemplate:tmpl name="data_unit_header_item" -->
+                    <th>{UNIT_KERJA_NAMA}</th>
+                <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </tr>
+      <tr>        
+        
+         <th>Jml Kelas</th>
+         <!-- patTemplate:tmpl name="data_jml_kelas_header" type="condition" conditionvar="DATA_EMPTY" -->
+            <!-- patTemplate:sub condition="NO" -->
+                <!-- patTemplate:tmpl name="data_jml_kelas_header_item" -->
+                    <th>{UNIT_KERJA_KELAS}</th>
+                <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </tr>
+      
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="16">
+                  <center>
+                     <em>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                     </em>
+                  </center>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+               <tr class="{CLASS}" style="{ROW_STYLE}">
+                  <td align="left">
+                     {NOMOR}
+                  </td>
+                 
+                  <td>
+                     {PERKIRAAN}
+                  </td>
+                 
+                  <td align="right">
+                     {NOMINAL_F}
+                  </td>
+                   <td align="right">
+                     {NOMINAL_BULAN_F}
+                  </td>
+                   {NOMINAL_UNIT_TXT}
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->         
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<!-- end: Table List -->
+<!-- /patTemplate:tmpl -->

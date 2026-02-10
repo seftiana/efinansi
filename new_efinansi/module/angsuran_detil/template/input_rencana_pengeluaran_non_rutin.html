@@ -1,0 +1,122 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_rencana_pengeluaran" / --></h1>
+<br/>
+   <div class="toolbar">
+   <a class="xhr dest_subcontent-element" href="{URL_KEMBALI}" title="View" ><img src="images/prev.gif" height='16px' width="16px" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="kembali" / --></a>
+   </div>
+   <table class="table-edit" width="100%">
+         <tr class="subhead">
+            <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="rencana_kegiatan" / --></th>
+         </tr>
+         <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="nama_sub_kegiatan" / --></th>
+            <td><b>{DATA_SUBKEGIATAN_NAMA}</b> </td>
+         </tr>
+         <tr>
+   </table>
+   <br /><br />
+
+    <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <br/>
+   <!-- /patTemplate:tmpl -->
+
+   <form method="POST" name="frmInput" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
+
+   <input type="hidden" name="data[kegiatan][kegiatandetail_id]" value="{DATA_KEGIATANDETAIL_ID}"  />
+   <input type="hidden" name="data[kegiatan][subkegiatan_nama]" value="{DATA_SUBKEGIATAN_NAMA}"  />
+   <input type="hidden" name="data[kegiatan][subkegiatan_id]" value="{DATA_SUBKEGIATAN_ID}"  />
+   <input type="hidden" name="data[action]" value="{DATA_ACTION}"  />
+   <input type="hidden" name="data[tambah][id]" value="{TAMBAH_ID}"  />
+   <input type="hidden" name="data[jenis_kegiatan]" value="nonrutin"  />
+
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+            <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="tambah" / --></th>
+      </tr>
+      <tr>
+	     <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_komponen" / --></th>
+         <td><input type="text" name="data[tambah][nama]" value="{TAMBAH_NAMA}"  />*</td>
+      </tr>
+	  <tr>
+	     <th><!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / --></th>
+		 <td><textarea name="data[tambah][deskripsi]" cols="50">{TAMBAH_DESKRIPSI}</textarea>*</td>
+	  </tr>
+	  <tr>
+	     <th><!-- patTemplate:gtfwgetconfig config="language" name="satuan" / --></th>
+		 <td><!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="data[tambah][satuan]"  / --></td>
+	  </tr>
+	  <tr>
+	    <th><!-- patTemplate:gtfwgetconfig config="language" name="jumlah" / --></th>
+		<td><input type="text" name="data[tambah][jumlah]" value="{TAMBAH_JUMLAH}" />*</td>
+	  </tr>
+	  <tr>
+	     <th ><!-- patTemplate:gtfwgetconfig config="language" name="nominal" / --></th>
+		 <td><input type="text" name="data[tambah][biaya]" value="{TAMBAH_BIAYA}" onkeyup="terbilang(this,'terbilang') "/>*
+		     <div id="terbilang" style="font-style:italic">{TAMBAH_TERBILANG}</div>
+		 </td>
+	  </tr>
+
+	<tr class="buttons">
+            <th>&nbsp;</th>
+            <td>
+     			<input name="btnsimpan" value=" {LABEL_ACTION} " class="buttonSubmit" type="submit">
+            </td>
+    </tr>
+   </table>
+
+   </form>
+
+   <br /><br />
+
+
+
+     <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_komponen" / --></th>
+		 <th><!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / --></th>
+		 <th><!-- patTemplate:gtfwgetconfig config="language" name="satuan" / --></th>
+		 <th><!-- patTemplate:gtfwgetconfig config="language" name="jumlah" / --></th>
+         <th ><!-- patTemplate:gtfwgetconfig config="language" name="nominal" / --></th>
+		 <th width="68"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="8" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">{DATA_NOMOR}</td>
+				   <input type="hidden" name="data[komponen][{DATA_INDEX}][id]" value="{DATA_ID}"  />
+				   <input type="hidden" name="data[komponen][{DATA_INDEX}][rencanapengeluaran_id]" value="{DATA_RENCANAPENGELUARAN_ID}"  />
+
+               <td>{DATA_NAMA}</td>
+               <td>{DATA_DESKRIPSI}</td>
+               <td>{DATA_SATUAN}</td>
+			   <td>{DATA_JUMLAH}</td>
+			   <td align="right">{DATA_BIAYA}</td>
+               <td class="links" align="center">
+			      <a class="xhr dest_subcontent-element" href="{DATA_URL_EDIT}" title="Edit Komponen">
+							<img src="images/button-edit.gif" alt="Edit">
+				  </a>
+				  <a class="xhr dest_subcontent-element" href="{DATA_URL_DELETE}" title="Delete Komponen">
+				     <img src="images/button-delete.gif" alt="Delete">
+			      </a>
+			   </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+      <ul>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --> </li>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

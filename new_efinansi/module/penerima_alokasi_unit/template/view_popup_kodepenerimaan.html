@@ -1,0 +1,166 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+
+function setUnitKerja(obj,tipe,kode,nama,unit_id,parent_id,nilai_alokasi) 
+{ 
+   var ind ='';
+   var indm ='';
+   var actionHapus='';
+
+   var tr = document.createElement('tr');
+   var td_no = document.createElement('td');
+   var td_kode = document.createElement('td');
+   var td_nama= document.createElement('td');
+   var td_nilai = document.createElement('td');
+   var td_aksi = document.createElement('td');
+   
+   if(tipe == 'p'){
+	   ind = 'p-';
+	   indm = 'p_';
+	   actionHapus = "pHapusUnitKerja(this)";
+	   actionHitungTotal ="pHitungTotalAlokasiPenerima()";
+   } else{
+	   actionHapus = "hapusUnitKerja(this)";
+	   actionHitungTotal ="hitungTotalAlokasiPenerima()";
+   } 
+   
+   var nomor =  document.getElementById(indm+"nomor");
+   var maks =  document.getElementById(indm+'maks');
+   var maks_nomor = document.getElementById(indm+"maks_nomor");   
+   
+   var tbodi = document.getElementById(ind+"table-unit");
+   var tr_kosong = document.getElementById(ind+"table-kosong");
+   var tr_isi = document.getElementById(ind+"table-isi");
+   
+    
+   i = parseInt(maks.value);
+   nm = parseInt(maks_nomor.value);
+   id = i +1;
+   
+   maks.value = id;
+   maks_nomor.value = 1;//nm + 1;
+   no = 1;//nm + 1;
+   td_no.innerHTML = '<input type="hidden" name="nomor" id="'+indm+'h_no_urut_'+id+'" value="'+no+'" />'+
+					 '<label id="'+indm+'no_urut_'+id+'">'+no+'</label>';   
+   td_no.style.textAlign='center';
+   td_kode.innerHTML ='<input type="hidden" id="'+indm+'unit_kerja_'+id+'" value="'+unit_id+'" />'+
+                    '<input type="hidden" name="'+indm+'unit['+id+'][unit_parent_id]" value="'+parent_id+'" />'+
+                    '<input type="hidden" name="'+indm+'unit['+id+'][unit_kerja_id]" value="'+unit_id+'" />'+
+                    '<input type="hidden" name="'+indm+'unit['+id+'][unit_kerja_kode]" value="'+kode+'"/>'+kode;
+   td_nama.innerHTML = '<input type="hidden" name="'+indm+'unit['+id+'][unit_kerja_nama]" value="'+nama+'"/>'+nama;
+   td_nilai.innerHTML = '<input type="text" name="'+indm+'unit['+id+'][nilai]" size="5" class="gvFloat4" value="'+nilai_alokasi+'" id="'+indm+'unit_nilai_alokasi_'+id+'" onkeyup="'+actionHitungTotal+'" />';
+   td_nilai.style.textAlign='right';
+   
+   
+   td_aksi.innerHTML =  '<a href="javascript:void(null)" title="Hapus" onclick="'+actionHapus+'">'+
+                      '<img src="images/button-delete.gif" alt="Hapus" /></a>';
+   td_aksi.style.textAlign='right';
+    
+   tr.setAttribute("id",ind+"table-isi");
+   tr.appendChild(td_no);
+   tr.appendChild(td_kode);
+   tr.appendChild(td_nama);
+   tr.appendChild(td_nilai);
+   tr.appendChild(td_aksi);
+   
+   if(tr_kosong){
+	   tbodi.replaceChild(tr,tr_kosong);
+   } else if(tr_isi){
+	   tbodi.replaceChild(tr,tr_isi);
+   }else{
+	   tbodi.appendChild(tr);
+	}	
+   obj.style.display='none';
+   Behaviour.apply();  
+  
+}	
+	
+	function setParent(xid,xuid,xpid, xkp_kode,xkp_nama,xnilai_unit,xnilai_pusat,xnama_unit,xkode_unit,xpnama_unit,xpkode_unit) {
+		document.getElementById('alokasi_id').value=xid;
+		document.getElementById('alokasi_pusat_id').value=xpid;
+		document.getElementById('alokasi_unit_id').value=xuid;
+		document.getElementById('alokasi_pusat_nilai').value=xnilai_pusat;
+		document.getElementById('alokasi_unit_nilai').value=xnilai_unit;
+		document.getElementById('alokasi_pusat_nilai_label').innerHTML=xnilai_pusat;
+		document.getElementById('alokasi_unit_nilai_label').innerHTML=xnilai_unit;
+		document.getElementById('kode_penerimaan_nama').value=xkp_kode+ ' - '+ xkp_nama;
+		document.getElementById('unit_kerja_nama').value=xnama_unit;
+		document.getElementById('unit_kerja_nama_label').innerHTML=xnama_unit;
+		setUnitKerja(this,'u',xkode_unit,xnama_unit,xuid,xuid,xnilai_unit) ;
+		setUnitKerja(this,'p',xpkode_unit,xpnama_unit,xpid,xpid,xnilai_pusat) ;
+		popupClose();
+		 pHitungTotalAlokasiPenerima();
+         hitungTotalAlokasiPenerima();
+	}
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="list_jenis_penerimaan" / --></h1>
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>            
+         <th width="30%">Kode / Nama Penerimaan</th>
+         <td><input type="text" name="kode_penerimaan" value="{KODE_PENERIMAAN}" size="30" /></td>
+      </tr>
+      </tr>            
+         <th width="30%">Kode / Nama Unit Kerja</th>
+         <td><input type="text" name="unit_kerja" value="{UNIT_KERJA}" size="30" /></td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   </div>
+   <table class="table-common" width="100%">
+      <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>	 
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_unit" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / 
+         <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --> </th>
+		 <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_penerimaan" / --></th>         
+		 <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_penerimaan" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="alokasi_unit" / --> (%)</th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="alokasi_pusat" / --> (%)</th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="alokasi_operan" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="alokasi_batas" / --></th>
+         <th width="31"><!-- patTemplate:gtfwgetconfig config="language" name="pilih" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_kodepenerimaan" type="condition" conditionvar="KODEPENERIMAAN_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="8" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_kodepenerimaan_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">{DATA_NUMBER}</td>
+               <td>{DATA_UNIT_KERJA_KODE}</td>
+               <td>{DATA_UNIT_KERJA_NAMA}</td>
+               <td>{DATA_KODE_PENERIMAAN_KODE}</td>
+               <td>{DATA_KODE_PENERIMAAN_NAMA}</td>
+               <td align="center">{DATA_ALOKASI_UNIT}</td>
+               <td align="center">{DATA_ALOKASI_PUSAT}</td>
+               <td align="center"></td>
+               <td align="center"></td>
+			   <td class="links" align="center">
+				<a href="javascript:void(0)" onclick="javascript:setParent('{DATA_ALOKASI_ID}','{DATA_ALOKASI_UNIT_ID}','{DATA_ALOKASI_PUSAT_ID}','{DATA_KODE_PENERIMAAN_KODE}','{DATA_KODE_PENERIMAAN_NAMA}','{DATA_ALOKASI_UNIT}','{DATA_ALOKASI_PUSAT}','{DATA_UNIT_KERJA_NAMA}','{DATA_UNIT_KERJA_KODE}','{DATA_P_UNIT_KERJA_NAMA}','{DATA_P_UNIT_KERJA_KODE}')"><img alt="Pilih" src="images/button-check.gif"/></a>
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   <br /> 
+<div>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,249 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+function cetak(url, label)
+{
+   var width  = 940;
+   var height = 600;
+   var left   = (screen.width  - width)/2;
+   var top    = (screen.height - height)/2;
+   var params = 'width='+width+', height='+height;
+   params += ', top='+top+', left='+left;
+   params += ', directories=no';
+   params += ', location=no';
+   params += ', menubar=no';
+   params += ', resizable=no';
+   params += ', scrollbars=yes';
+   params += ', status=no';
+   params += ', toolbar=no';
+   newwin=window.open(url,label, params);
+   if (window.focus) {
+      newwin.focus();
+   }
+
+   return false;
+}
+
+function bukaPopupProgram(xurl) {
+   var tahun_anggaran;
+   var tahun_anggaran_label;
+   var cmbTa            = document.getElementById('cmb_tahun_anggaran');
+   var tahun_anggaran   = cmbTa.options[cmbTa.selectedIndex].value;
+   var tahun_anggaran_label   = cmbTa.options[cmbTa.selectedIndex].text;
+   showPopup(xurl+'&tahun_anggaran='+tahun_anggaran+'&tahun_anggaran_label='+tahun_anggaran_label,'',550, 550);
+   xpopup               = 'xpopup';
+}
+</script>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="laporan_rekapitulasi_unitkerja" / -->
+</h1>
+{QUERY_STRING}
+<br />
+<form method="POST" name="frmInput" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table >
+      <tr>
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th width="150">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tahun_anggaran"  / -->
+         </td>
+      </tr>
+      <tr>
+         <!-- patTemplate:tmpl name="data_unit" type="condition" conditionvar="LEVEL" -->
+            <!-- patTemplate:sub condition="PARENT" -->
+               <th >
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+               </th>
+               <td>
+                  <input type="text" name="data[unit_nama]" id="unit_nama_ro" value="{UNIT_NAMA}" style="width: 315px;" readonly="readonly" />
+                  <input type="hidden" name="data[unit_id]" id="unit_id" value="{UNIT_ID}" />
+                  <input type="button" value="..."  onclick="showPopup('{POPUP_UNIT}','',550, 550)" />
+               </td>
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="CHILD" -->
+               <th >
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="data[unit_nama]" id="unit_nama_ro" value="{UNIT_NAMA}" />
+                  <input type="hidden" name="data[unit_id]" id="unit_id" value="{UNIT_ID}" />
+                  <label style="fnt-weight: bold;">
+                     {UNIT_NAMA}
+                  </label>
+               </td>
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+         </th>
+         <td>
+            <input type="hidden" name="data[program_id]" id="program_id" value="{PROGRAM_ID}" />
+            <textarea name="data[program_nama]" id="program_nama" readonly="readonly" cols="40" rows="3" style="resize: none; width: 315px;">{PROGRAM_NAMA}</textarea>
+            <input type="button" onclick="bukaPopupProgram('{URL_POPUP_PROGRAM}')" value=" ... " />
+         </td>
+      </tr>
+      <!-- patTemplate:tmpl name="cmb_jenis_kegiatan" visibility="hidden" -->
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="jenis_kegiatan" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="jenis_kegiatan"  / -->
+         </td>
+      </tr>
+      <!-- /patTemplate:tmpl -->
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input name="btnTampilkan" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan" / --> " class="buttonSubmit" type="submit">
+            <input type="reset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   <div class="toolbar">
+      <a href="javascript:void(0)" onclick="cetak('{URL_CETAK}', 'CETAK');" title="Cetak" >
+         <img src="images/button-print.gif" alt="Cetak"> <!-- patTemplate:gtfwgetconfig config="language" name="cetak" / -->
+      </a>
+      <a href="{URL_EXCEL}" title="<!-- patTemplate:gtfwgetconfig config="language" name="export_excel" / -->" target="_blank">
+         <img src="images/icons/export_excel.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="excel" / -->
+      </a>
+   </div>
+</div>
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th >
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama_unit" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+            (<!-- patTemplate:gtfwgetconfig config="language" name="program" / -->, <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->, <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->)
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_usulan_rp" / -->
+         </th>
+         <th >
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_disetujui_rp" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="6" align="center">
+                  <em>
+                     <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                  </em>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+               <tr class="{CLASS_NAME}" style="{ROW_STYLE}">
+                  <td>
+                     {UNIT_NAMA}
+                  </td>
+                  <td align="center">
+                     {KODE}
+                  </td>
+                  <td>
+                     {NAMA}
+                  </td>
+                  <td style="text-align:right;" width="150">
+                     {NOMINAL_USULAN}
+                  </td>
+                  <td style="text-align:right;" width="150">
+                     {NOMINAL_SETUJU}
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+
+<br />
+<h3>
+   <!-- patTemplate:gtfwgetconfig config="language" name="resume" / -->
+</h3>
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th >
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama_unit" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_usulan_rp" / -->
+         </th>
+         <th >
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_disetujui_rp" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="resume" type="condition" conditionvar="RESUME_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="3" align="center">
+                  <em>
+                     -- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --
+                  </em>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="resume_item" -->
+               <tr class="{CLASS_NAME}">
+                  <td>
+                     {UNIT_NAMA}
+                  </td>
+                  <td style="text-align:right;" width="150">
+                     {NOMINAL_USULAN}
+                  </td>
+                  <td style="text-align:right;" width="150">
+                     {NOMINAL_SETUJU}
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<br />
+
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:
+   </h4>
+   <br />
+   <div style="margin:10px 0px 0px 10px;"><div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFBDD; border:#D1C698 1px solid; float: left;">    </div> = <!-- patTemplate:gtfwgetconfig config="language" name="program" / --> </div>
+   <div style="margin:10px 0px 0px 10px;"><div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFDEF; border:#D1C698 1px solid; float: left;">    </div> = <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --> </div>
+   <div style="margin:10px 0px 0px 10px;"><div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFFFF; border:#D1C698 1px solid; float: left;">    </div> = <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / --> </div>
+</div>
+<!-- /patTemplate:tmpl -->

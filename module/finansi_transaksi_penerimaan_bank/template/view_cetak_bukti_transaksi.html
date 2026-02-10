@@ -1,0 +1,146 @@
+<!-- patTemplate:tmpl name="content" -->
+<font style="margin-left: 75%">
+  BPKB &nbsp;&nbsp;&nbsp;&nbsp;: {BPKB}
+</font>
+<br>
+<font style="margin-left: 75%">
+  TGL  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {TGL_TRANSAKSI}
+</font>
+<br><br>
+<h1 align="center" style="text-decoration:underline;">
+  BUKTI PENERIMAAN BANK
+</h1>
+<br><br>
+<font>
+  Diterima Dari&nbsp;&nbsp;&nbsp;&nbsp;: {NAMA_PENYETOR}<br>
+  Kepada&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {BANK_PENERIMA}<br>
+  Banyaknya&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: # {TERBILANG} RUPIAH #<br>
+</font>
+<br>
+<table>
+  <thead>
+    <tr>
+      <td align="center" style="font-weight: bold;" width="255px">
+        KETERANGAN
+      </td>
+      <td style="display:none" align="center" style="font-weight: bold;" width="130px">
+        DESKRIPSI
+      </td>
+      <td align="center" style="font-weight: bold;" width="145px">
+        JUMLAH (RP)
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="4" align="center">
+                  <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="transaksi_detail" -->
+            <tr>
+               <td>
+                  {KETERANGAN}
+                  <br>{NAMA}
+               </td>
+               <td style="display:none">
+                  <br>{KETERANGAN_DETAIL}
+               </td>
+               <td align="right">
+                  <br>{NOMINAL}
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+            <!-- patTemplate:tmpl name="nominal_total" -->
+            <tr>
+              <td align="center" style="font-weight: bold;">
+                TOTAL
+              </td>
+              <td align="right" style="font-weight: bold;">
+                {NOMINAL_TOTAL}
+              </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+    
+  </tbody>
+</table>
+<br>
+<table>
+  <thead>
+    <tr>
+      <td align="center" style="font-weight: bold;" width="130px">
+        PERKIRAAN
+      </td>
+      <td align="center" style="font-weight: bold;" width="130px">
+        NO. REK
+      </td>
+      <td align="center" style="font-weight: bold;" width="70px">
+        DEBET
+      </td>
+      <td align="center" style="font-weight: bold;" width="70px">
+        KREDIT
+      </td>
+    </tr>
+    <tr>
+      <td height="80px">
+        
+      </td>
+      <td height="80px">
+        
+      </td>
+      <td height="80px">
+        
+      </td>
+      <td height="80px">
+        
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center">
+        TOTAL
+      </td>
+      <td align="right">
+        
+      </td>
+      <td align="right">
+        
+      </td>
+    </tr>
+    <tr>
+      <td height="80px">
+        <!-- patTemplate:gtfwgetconfig config="language" name="disiapkan_oleh" / -->,
+      </td>
+      <td height="80px">
+        <!-- patTemplate:gtfwgetconfig config="language" name="disetujui_oleh" / -->,
+      </td>
+      <td height="80px">
+        <!-- patTemplate:gtfwgetconfig config="language" name="diterima_oleh" / -->,
+      </td>
+      <td height="80px">
+        Dibukukan Oleh,
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+
+  </tbody>
+</table>
+<br>
+<font style="margin-left: 75%">
+  {KOTA}, {TGL_CETAK} 
+</font>
+<br>
+<font style="margin-left: 75%">
+  KASIR,
+</font>
+<br><br><br><br>
+<font style="margin-left: 75%">
+( ........................................ )
+</font>
+<!-- /patTemplate:tmpl -->

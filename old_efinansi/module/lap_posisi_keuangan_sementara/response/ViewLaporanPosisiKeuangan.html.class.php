@@ -1,0 +1,246 @@
+<?php
+/**
+* ================= doc ====================
+* FILENAME     : ViewLaporanPosisiKeuangan.html.class.php
+* @package     : ViewLaporanPosisiKeuangan
+* scope        : PUBLIC
+* @Author      : Eko Susilo
+* @Created     : 2015-02-26
+* @Modified    : 2015-02-26
+* @Analysts    : Dyah Fajar N
+* @copyright   : Copyright (c) 2012 Gamatechno
+* ================= doc ====================
+*/
+require_once GTFWConfiguration::GetValue('application','docroot').
+'module/lap_posisi_keuangan_sementara/business/LaporanPosisiKeuangan.class.php';
+
+class ViewLaporanPosisiKeuangan extends HtmlResponse
+{
+   function TemplateModule(){
+      $this->SetTemplateBasedir(GTFWConfiguration::GetValue('application','docroot').
+      'module/lap_posisi_keuangan_sementara/template/');
+      $this->SetTemplateFile('view_laporan_posisi_keuangan.html');
+   }
+
+   function ProcessRequest(){
+      $mObj          = new LaporanPosisiKeuangan();
+      $getSetYear    = $mObj->getRangeYear();
+      $tahun_awal    = $getSetYear['min_year'];
+      $tahun_akhir   = $getSetYear['max_year'];
+      $requestData   = array();
+      $getdate       = getdate();
+      $currmon       = $getdate['mon'];
+      $currday       = $getdate['mday'];
+      $curryear      = $getdate['year'];
+
+      if(isset($mObj->_POST['btnSearch'])){
+         $tanggalAwal_day     = $mObj->_POST['tanggal_awal_day'];
+         $tanggalAwal_mon     = $mObj->_POST['tanggal_awal_mon'];
+         $tanggalAwal_year    = $mObj->_POST['tanggal_awal_year'];
+         
+         $tanggalAkhir_day    = $mObj->_POST['tanggal_akhir_day'];
+         $tanggalAkhir_mon    = $mObj->_POST['tanggal_akhir_mon'];
+         $tanggalAkhir_year   = $mObj->_POST['tanggal_akhir_year'];
+
+         $requestData['start_date']    = date('Y-m-d', strtotime($tanggalAwal_year.'-'.$tanggalAwal_mon.'-'.$tanggalAwal_day));
+         $requestData['end_date']      = date('Y-m-d', strtotime($tanggalAkhir_year.'-'.$tanggalAkhir_mon.'-'.$tanggalAkhir_day));
+      }elseif(isset($mObj->_GET['search'])){
+         $requestData['start_date']    = date('Y-m-d', strtotime(Dispatcher::Instance()->Decrypt($mObj->_GET['start_date'])));
+         $requestData['end_date']      = date('Y-m-d', strtotime(Dispatcher::Instance()->Decrypt($mObj->_GET['end_date'])));
+      }else{
+         $requestData['start_date']    = date('Y-m-d', strtotime($getSetYear['tanggal_awal']));
+         $requestData['end_date']      = date('Y-m-d', strtotime($getSetYear['tanggal_akhir']));
+      }
+
+      if(method_exists(Dispatcher::Instance(), 'getQuerystring')){
+         # @param array
+         $queryString      = Dispatcher::instance()->getQueryString($requestData);
+      }else{
+         $query            = array();
+         foreach ($requestData as $key => $value) {
+            $query[$key]   = Dispatcher::Instance()->Encrypt($value);
+         }
+         $queryString      = urldecode(http_build_query($query));
+      }
+      $dataList         = $mObj->getDataLaporan($requestData);
+      # GTFW Tanggal
+      Messenger::Instance()->SendToComponent(
+         'tanggal',
+         'Tanggal',
+         'view',
+         'html',
+         'tanggal_awal',
+         array(
+            $requestData['start_date'],
+            $tahun_awal,
+            $tahun_akhir,
+            false,
+            false,
+            false
+         ),
+         Messenger::CurrentRequest
+      );
+
+      Messenger::Instance()->SendToComponent(
+         'tanggal',
+         'Tanggal',
+         'view',
+         'html',
+         'tanggal_akhir',
+         array(
+            $requestData['end_date'],
+            $tahun_awal,
+            $tahun_akhir,
+            false,
+            false,
+            false
+         ),
+         Messenger::CurrentRequest
+      );
+
+      $return['request_data']    = $requestData;
+      $return['data_list']       = $dataList;
+      $return['query_string']    = $queryString;
+      return $return;
+   }
+
+   function ParseTemplate($data = null){
+      $requestData      = $data['request_data'];
+      $gridList         = $data['data_list'];
+      $queryString      = $data['query_string'];
+      $urlSearch        = Dispatcher::Instance()->GetUrl(
+         'lap_posisi_keuangan_sementara',
+         'LaporanPosisiKeuangan',
+         'view',
+         'html'
+      );
+
+      $urlDetail        = Dispatcher::Instance()->GetUrl(
+         'lap_posisi_keuangan_sementara',
+         'DetailLaporanPosisiKeuangan',
+         'view',
+         'html'
+      ).'&'.$queryString;
+
+      $urlCetak         = Dispatcher::Instance()->GetUrl(
+         'lap_posisi_keuangan_sementara',
+         'PrintLaporanPosisiKeuangan',
+         'view',
+         'html'
+      ).'&'.$queryString;
+
+      $urlExportExcel   = Dispatcher::Instance()->GetUrl(
+         'lap_posisi_keuangan_sementara',
+         'ExcelLaporanPosisiKeuangan',
+         'view',
+         'xlsx'
+      ).'&'.$queryString;
+
+      $this->mrTemplate->AddVar('content', 'URL_SEARCH', $urlSearch);
+      $this->mrTemplate->AddVar('content', 'URL_CETAK', $urlCetak);
+      $this->mrTemplate->AddVar('content', 'URL_EXPORT_EXCEL', $urlExportExcel);
+      $bsId       = '';
+      $dataList   = array();
+      $index      = '';
+      $index      = 0;
+      $templates  = array(
+         15 => 'aktiva_lancar',
+         16 => 'aktiva_tidak_lancar',
+         17 => 'kewajiban_jangka_pendek',
+         18 => 'kewajiban_jangka_panjang',
+         19 => 'aktiva_bersih',
+         23 => 'aktiva_lain'
+      );
+
+      // untuk menyimpan nominal balance sheet
+      $balance_sheet     = array();
+      $i = 0;
+      $index = 0;
+      $bsId = null;
+      for ($i=0; $i < count($gridList);) {
+            if($gridList[$i]['kellap_jns_id'] == $bsId){
+               $balance_sheet[$bsId]['current']    += $gridList[$i]['nominal'];
+               //$balance_sheet[$bsId]['debet']      += $gridList[$i]['nominal_debet'];
+               //$balance_sheet[$bsId]['kredit']     += $gridList[$i]['nominal_kredit'];
+
+               $dataList[$bsId]['data'][$index]['id']          = $gridList[$i]['kellap_id'];
+               $dataList[$bsId]['data'][$index]['nama']        = $gridList[$i]['kellap_nama'];
+               $dataList[$bsId]['data'][$index]['nominal']     = $gridList[$i]['nominal'];
+               //$dataList[$bsId]['data'][$index]['debet']       = $gridList[$i]['nominal_debet'];
+               //$dataList[$bsId]['data'][$index]['kredit']      = $gridList[$i]['nominal_kredit'];
+               $i++;
+               $index+=1;
+            }else{
+               unset($index);
+               $index      = 0;
+               $bsId       = $gridList[$i]['kellap_jns_id'];
+               unset($balance_sheet[$bsId]['current']);
+               unset($balance_sheet[$bsId]['debet']);
+               unset($balance_sheet[$bsId]['kredit']);
+               $balance_sheet[$bsId]['current']    = 0;
+               $balance_sheet[$bsId]['debet']      = 0;
+               $balance_sheet[$bsId]['kredit']     = 0;
+
+               $dataList[$bsId]['template']     = $templates[$bsId];
+               $dataList[$bsId]['label']        = $gridList[$i]['kellap_jns_nama'];
+               $dataList[$bsId]['id']           = $bsId;
+            }
+      }
+
+      foreach ($templates as $temp) {
+         $this->mrTemplate->clearTemplate($temp, TRUE);
+      }
+      foreach ($dataList as $list) {
+         if(!empty($list['data'])){
+            $this->mrTemplate->AddVar($list['template'], 'DATA_EMPTY', 'NO');
+            $this->mrTemplate->AddVar($list['template'], 'LABEL', $list['label']);
+            if($balance_sheet[$list['id']]['current'] < 0){
+               $currentBalance      = '('. number_format(abs($balance_sheet[$list['id']]['current']), 2, ',','.').')';
+            }else{
+               $currentBalance      = number_format($balance_sheet[$list['id']]['current'], 2, ',','.');
+            }
+
+            foreach ($list['data'] as $data) {
+               if($list['template'] === NULL){
+                  continue;
+               }
+               if($data['nominal'] < 0){
+                  $data['nominal']     = '('. number_format(abs($data['nominal']), 2, ',','.') .')';
+               }else{
+                  $data['nominal']     = number_format($data['nominal'], 2, ',','.');
+               }
+
+               $data['url_detail_current']   = $urlDetail.'&dataId='.Dispatcher::Instance()->Encrypt($data['id']).'&show=current';
+               $data['url_detail_prev']      = $urlDetail.'&dataId='.Dispatcher::Instance()->Encrypt($data['id']).'&show=previous';
+               $this->mrTemplate->AddVars('data_item_'.$list['template'], $data);
+               $this->mrTemplate->parseTemplate('data_item_'.$list['template'], 'a');
+            }
+
+            // penulisan total nominal dari setiap kelompok laporan
+            $this->mrTemplate->AddVar($list['template'], 'SUM_CURRENT_BALANCE', $currentBalance);
+         }else{
+            $this->mrTemplate->AddVar($list['template'], 'DATA_EMPTY', 'YES');
+         }
+      }
+
+      $currentAktifa       = $balance_sheet[15]['current']+$balance_sheet[16]['current']+$balance_sheet[23]['current'];
+      $currentLiabilities  = $balance_sheet[17]['current']+$balance_sheet[18]['current']+$balance_sheet[19]['current'];
+
+      if($currentAktifa < 0){
+         $currentAktifaLabel  = '('.number_format(abs($currentAktifa), 2, ',','.').')';
+      }else{
+         $currentAktifaLabel  = number_format($currentAktifa, 2, ',','.');
+      }
+
+      if($currentLiabilities < 0){
+         $currentLiabilitiesLabel   = '('.number_format(abs($currentLiabilities), 2, ',','.').')';
+      }else{
+         $currentLiabilitiesLabel   = number_format($currentLiabilities, 2, ',','.');
+      }
+
+      $this->mrTemplate->AddVar('content', 'TOTAL_CURRENT_AKTIVA', $currentAktifaLabel);
+
+      $this->mrTemplate->AddVar('content', 'TOTAL_CURRENT_LIABILITIES', $currentLiabilitiesLabel);
+   }
+}
+?>

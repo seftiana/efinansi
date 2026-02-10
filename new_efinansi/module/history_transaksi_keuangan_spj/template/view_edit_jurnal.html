@@ -1,0 +1,242 @@
+<!-- patTemplate:tmpl name="content" -->
+<script languange="javascript">
+
+function bukaPopupSkenario(url){  
+      showPopup(url,'',800, 500);
+}
+
+function hitungTotalDebet()
+{
+	
+	ObjForm = document.forms['frmInput'];
+	var total_debet = 0;
+
+	for (var i = 0; i < ObjForm.length; i++) {
+		if (ObjForm[i].name.indexOf('COA[') !== 0 || !ObjForm[i].getAttribute('typeRekening')) continue;
+		var TypeRekening = ObjForm[i].getAttribute('typeRekening');
+		if (TypeRekening == 'debet') total_debet += ObjForm[i].gvGetValue();		
+	}	
+	document.getElementById('coa_total_nominal_d').gvSetValue(total_debet);
+	
+}	
+
+function hitungTotalKredit()
+{
+	
+	ObjForm = document.forms['frmInput'];
+	var total_kredit = 0;
+
+	for (var i = 0; i < ObjForm.length; i++) {
+		if (ObjForm[i].name.indexOf('COA[') !== 0 || !ObjForm[i].getAttribute('typeRekening')) continue;
+		var TypeRekening = ObjForm[i].getAttribute('typeRekening');
+		if (TypeRekening == 'kredit') total_kredit += ObjForm[i].gvGetValue();		
+	}	
+	document.getElementById('coa_total_nominal_k').gvSetValue(total_kredit);
+	
+}	
+	
+</script>
+
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="proses_pencatatan_jurnal_spj" / --></h1>
+    <div class="pageBar">   
+      <div class="toolbar"> 
+   		<a class="xhr dest_subcontent-element" href="{URL_LIST_TRANSAKSI}" title="Daftar Transaksi" ><img src="images/button-detail.gif" alt="^" />
+   		<!-- patTemplate:gtfwgetconfig config="language" name="daftar_transaksi" / -->
+   		</a>
+      </div>
+   </div>
+   <br />
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->   
+   
+   <form method="POST" name="frmInput" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >   
+   <input type="hidden" name="transaksi_id" value="{TRANSAKSI_ID}" /> 
+   <table class="table-edit" width="100%">
+      <tr class="subhead"><th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="data_transaksi" / --></th></tr>
+      <tr>
+         <th width="145"><!-- patTemplate:gtfwgetconfig config="language" name="nomor_bukti" / --></th>
+         <td>
+			 {TRANSAKSI_NO_BUKTI}
+			 <input type="hidden" name="transaksi_no_bukti" id="transaksi_no_bukti" value="{TRANSAKSI_NO_BUKTI}" / >
+         </td>
+      </tr>	
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="tanggal_transaksi" / --></th>
+         <td><!-- patTemplate:var name="TRANSAKSI_TANGGAL_F" modifier="gtfwindonesiandate" format="long" separator=" " / -->			 
+			<input type="hidden" name="transaksi_tanggal" id="tansaksi_tanggal" value="{TRANSAKSI_TANGGAL}"/ >
+         </td>         
+      </tr>	
+      <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="uraian" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / --></th>
+         <td>
+			 {TRANSAKSI_URAIAN}
+			<input type="hidden" name="transaksi_uraian" id="transaksi_uraian" value="{TRANSAKSI_URAIAN}"/ >
+         </td>         
+      </tr>	
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="penanggung_jawab" / --></th>
+         <td>
+			 {TRANSAKSI_PENANGGUNG_JAWAB}
+			<input type="hidden" name="transaksi_penanggung_jawab" id="trasaksi_penanggung_jawab" value="{TRANSAKSI_PENANGGUNG_JAWAB}"/ >
+         </td>         
+      </tr>	
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nominal" / --></th>
+         <td>
+			 {TRANSAKSI_NOMINAL_F}
+			<input type="hidden" name="transaksi_nominal" id="trasaksi_nominal" value="{TRANSAKSI_NOMINAL}"/ >
+         </td>         
+      </tr>	      
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="skenario_auto_jurnal" / --></th>
+         <td>
+			 <!-- input type="hidden" id="transaksi_sekenario_jurnal_id" name="transaksi_sekenario_jurnal_id" value="{TRANSAKSI_SKENARIO_JURNAL_ID}" readonly="readonly" />
+			 <input type="text" id="transaksi_sekenario_jurnal" name="transaksi_sekenario_jurnal" value="{TRANSAKSI_SKENARIO_JURNAL}" readonly="readonly" size="45"/ -->			 
+			 <input type="button" onclick="bukaPopupSkenario('{URL_POPUP_SKENARIO_JURNAL}')" value=" Pilih Kode Akun " name="btnPopup" />
+         </td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+			<table class="table-common" width="100%">
+               <thead>
+                  <tr>
+                     <th width="80"><!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / --></th>
+                     <th width="100"><!-- patTemplate:gtfwgetconfig config="language" name="debet" / --> </th> 
+                     <th width="100"><!-- patTemplate:gtfwgetconfig config="language" name="kredit" / --></th>
+                  </tr>
+               </thead>
+               <tbody id="COA_Place_Holder">
+				<!-- patTemplate:tmpl name="data" type="condition" conditionvar="DATA_EMPTY" -->
+					<!-- patTemplate:sub condition="YES" -->
+					<tr id="kosong">
+                     <td colspan="4" style='text-align: center; font-style: italic'>--<!-- patTemplate:gtfwgetconfig config="language" name="belum_ada_yang_dipilih" / -->! --</td>
+					</tr>
+					<!-- /patTemplate:sub -->
+					<!-- patTemplate:sub condition="NO" -->
+						<!-- patTemplate:tmpl name="data_item" -->
+							<tr id="detailId_{DATA_AKUN_NO}">
+								<td style="padding: 2px; text-align: center;">
+									<input type="hidden" name="COA[{DATA_AKUN_NO}][akun_no]" value="{DATA_AKUN_NO}">
+									{DATA_AKUN_KODE}
+									<input type="hidden" name="COA[{DATA_AKUN_NO}][akun_kode]" value="{DATA_AKUN_KODE}">
+									<input type="hidden" name="COA[{DATA_AKUN_NO}][akun_id]" value="{DATA_AKUN_ID}">
+								</td>
+								<td style="padding: 2px; text-align: left;">
+									{DATA_AKUN_NAMA}
+									<input type="hidden" name="COA[{DATA_AKUN_NO}][akun_nama]" value="{DATA_AKUN_NAMA}">
+								</td>
+								<td style="padding: 2px; text-align: center;">			
+									<input type="hidden" name="COA[{DATA_AKUN_NO}][akun_dk]" value="{DATA_AKUN_DK}">
+									<!-- patTemplate:tmpl name="nominal_d" visibility="hidden" -->
+									<input type="text" name="COA[{DATA_AKUN_NO}][akun_nominal]" typeRekening="debet" value="{DATA_AKUN_NOMINAL}" class="gvFloat"  onkeyup="hitungTotalDebet()" />
+									 <!-- /patTemplate:tmpl -->   
+								</td>
+								<td style="padding: 2px; text-align: center;">									
+									<!-- patTemplate:tmpl name="nominal_k" visibility="hidden" -->
+									<input type="text" name="COA[{DATA_AKUN_NO}][akun_nominal]" typeRekening="kredit" value="{DATA_AKUN_NOMINAL}" class="gvFloat"  onkeyup="hitungTotalKredit()" />
+									<!-- /patTemplate:tmpl -->   
+								</td>
+							</tr>
+                        <!-- /patTemplate:tmpl -->                                   
+					<!-- /patTemplate:sub -->
+				<!-- /patTemplate:tmpl -->
+               </tbody>
+               <tfoot id="total_nominal_jurnal" style="{DATA_IS_TOTAL_DISPLAY}" >
+				   <tr>
+						<th colspan="2">Total
+						<input type="hidden" name="coa_total_nominal_show" id="coa_total_nominal_show" value="{DATA_TOTAL_NOMINAL_SHOW}">
+						</th>
+						<th style="padding: 2px; text-align: center;"><input type="text" name="coa_total_nominal_d" id="coa_total_nominal_d" value="{DATA_TOTAL_NOMINAL_D}" class="gvFloat" readonly="readonly" /></th>
+						<th style="padding: 2px; text-align: center;"><input type="text" name="coa_total_nominal_k" id="coa_total_nominal_k" value="{DATA_TOTAL_NOMINAL_K}" class="gvFloat" readonly="readonly" /></th>
+				  </tr>
+               </tfoot>               
+            </table>
+            </td>
+      </tr>
+      
+	<tr class="buttons">
+         <th>&nbsp;</th>
+         <td>
+			<input type="submit" name="btnsimpan" id="simpan" 
+			value=" <!-- patTemplate:gtfwgetconfig config="language" name="simpan" / -->" />			
+			<a class="xhr dest_subcontent-element button" href="{URL_BATAL}" 
+				title="<!-- patTemplate:gtfwgetconfig config="language" name="batal" / -->" >
+				<!-- patTemplate:gtfwgetconfig config="language" name="batal" / -->
+			</a>
+         </td>
+      </tr>   
+   </table>
+   </form>
+ <script>
+ 
+document.getElementById('COA_Place_Holder').addItem = function (akunNo,akunId, akunKode, akunNama, akunDK)
+{
+   var id = 'detailId_' + akunNo;
+   if (document.getElementById(id)) return true;
+   var childObj = this.getElementsByTagName('tr');
+   nomor = childObj.length;
+
+   var tr = document.createElement('tr');
+   tr.setAttribute("id", id);
+   if (nomor % 2 == 0) tr.setAttribute('class', 'table-common-even');
+
+   var tdAkunKode = document.createElement('td');
+   tdAkunKode.setAttribute("style", 'padding: 2px; text-align: center');
+   tdAkunKode.innerHTML = akunKode +
+   "<input type='hidden' name='COA[" + akunNo + "][akun_kode]' value='" + akunKode + "'>" +
+   "<input type='hidden' name='COA[" + akunNo + "][akun_id]' value='" + akunId + "'>";
+
+   var tdAkunNama = document.createElement('td');
+   tdAkunNama.setAttribute("style", 'padding: 2px; text-align: left');
+   tdAkunNama.innerHTML = akunNama + 
+   " <input type='hidden' name='COA[" + akunNo + "][akun_nama]' value='" + akunNama + "'>";
+
+   var tdAkunD = document.createElement('td');
+   tdAkunD.setAttribute("style", 'padding: 2px; text-align: center');
+   tdAkunD.innerHTML = '<input type="text" name="COA['+ akunNo + '][akun_nominal]" typeRekening="debet" value="" class="gvFloat" onkeyup="hitungTotalDebet()" />';
+   
+   var tdAkunK = document.createElement('td');
+   tdAkunK.setAttribute("style", 'padding: 2px; text-align: center');
+   tdAkunK.innerHTML = '<input type="text" name="COA['+ akunNo + '][akun_nominal]" typeRekening="kredit" value="" class="gvFloat" onkeyup="hitungTotalKredit()" />';
+   
+   var tdAkunDKStatus = document.createElement('td');
+   tdAkunDKStatus.setAttribute("style", 'padding: 2px; text-align: center');
+   tdAkunDKStatus.innerHTML = '<input type="hidden" name="COA['+ akunNo + '][akun_dk]" value="'+akunDK+'" />';
+   
+   tr.appendChild(tdAkunKode);
+   tr.appendChild(tdAkunNama);
+   if(akunDK == 'D') {
+		tr.appendChild(tdAkunD);
+		tr.appendChild(tdAkunDKStatus);
+   } else {
+	   tr.appendChild(tdAkunDKStatus);
+	   tr.appendChild(tdAkunK);
+   }
+   
+   this.appendChild(tr);
+   
+   //childObj[0].style.display = 'none';
+   
+   return true;
+}
+
+document.getElementById('COA_Place_Holder').deleteAllItem = function ()
+{
+	if(document.getElementById('kosong')){
+		var k = document.getElementById('kosong');
+		if(k[0])  this.removeChild(k[0]);		
+	}	
+	
+	var Obj = this.getElementsByTagName('tr');
+	for (i = Obj.length - 1; i >= 0; i--)
+		if (Obj[i].id) this.removeChild(Obj[i]);
+
+}
+
+ </script>  
+<!-- /patTemplate:tmpl -->

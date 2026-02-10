@@ -1,0 +1,89 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="dipa" / -->
+</h1>
+<br />
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form dest_subcontent-element" data-target="{URL_RETURN}" id="frmInput">
+   <input type="hidden" name="data_id" value="{ID}" />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            Update Data
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 95px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" id="txt_kode" size="35" value="{KODE}" /> *
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+         </th>
+         <td>
+            <input type="text" name="nominal" value="{NOMINAL}" class="gvFloat" size="40" /> *
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="status" / -->
+         </th>
+         <td>
+            <input type="hidden" name="status" value="{STATUS}" />
+            <label>
+               <!-- patTemplate:tmpl name="status_aktif" type="condition" conditionvar="STATUS" -->
+                  <!-- patTemplate:sub condition="ACTIVE" -->
+                     <img src="images/icons/16/icon-done-16x16.png" style="margin-bottom: -4px; margin-right: 6px;" /> <strong>AKTIF</strong>
+                  <!-- /patTemplate:sub -->
+                  <!-- patTemplate:sub condition="NOT_ACTIVE" -->
+                     <img src="images/icons/16/icon-warning-16x16.gif" style="margin-bottom: -4px; margin-right: 6px;" /> <strong>TIDAK AKTIF</strong>
+                  <!-- /patTemplate:sub -->
+               <!-- /patTemplate:tmpl -->
+            </label>
+         </td>
+      </tr>
+      <tr class="buttons">
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+            <input  type="reset"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div class="petunjuk-area" id="petunjuk">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / -->
+      </li>
+      <li>
+         <strong>STATUS</strong> Tidak dapat di ubah melalui form update
+      </li>
+   </ul>
+</div>
+<!-- /patTemplate:tmpl -->

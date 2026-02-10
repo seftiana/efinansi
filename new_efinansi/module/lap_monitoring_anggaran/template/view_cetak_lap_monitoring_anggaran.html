@@ -1,0 +1,139 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="lap_monitoring_anggaran" / -->
+</h1>
+<table class="empty-table">
+   <tr>
+      <td style="width:90px;">
+         <!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / -->
+      </td>
+      <td>
+         : {TA_NAMA}
+      </td>
+   </tr>
+   <tr>
+      <td>
+         <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+      </td>
+      <td>
+         : {PROGRAM_NAMA}
+      </td>
+   </tr>
+   <tr>
+      <td>
+         <!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+      </td>
+      <td>
+        : {UNIT_NAMA}
+      </td>
+   </tr>
+   <tr>
+      <td>
+         <!-- patTemplate:gtfwgetconfig config="language" name="bulan" / -->
+      </td>
+      <td>
+        : {NAMA_BULAN}
+      </td>
+   </tr>
+</table>
+<table>
+   <thead>
+      <tr>
+         <th colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->, <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->, <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+         </th>
+         <th rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+         </th>
+         <th rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / -->
+         </th>
+         <th rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_usulan_rp" / -->
+         </th>
+         <th rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_setuju_rp" / -->
+         </th>
+         <th rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_revisi_rp" / -->
+         </th>
+         <th rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_setelah_revisi_rp" / -->
+         </th>
+         <th rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_fpa_rp" / -->
+         </th>
+         <th rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_realisasi_rp" / -->
+         </th>
+         <th rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_sisa_rp" / -->
+         </th>
+      </tr>
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama" / --></th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="11" align="center">
+                  <em>
+                     --<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--
+                  </em>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+            <tr style="{ROW_STYLE}">
+               <td align="center">
+                  {KODE}
+               </td>
+               <td>
+                  {NAMA}
+               </td>
+               <td>
+                  {UNIT_NAMA}
+               </td>
+               <td>
+                  {DESKRIPSI}
+               </td>
+               <td style="text-align:right;">
+                  {NOMINAL_USULAN}
+               </td>
+               <td style="text-align:right;">
+                  {NOMINAL_SETUJU}
+               </td>
+               <td style="text-align:right;">
+                  {NOMINAL_REVISI}
+               </td>
+               <td style="text-align:right;">
+                  {NOMINAL_SETELAH_REVISI}
+               </td>
+               <td style="text-align:right;">
+                  {NOMINAL_PENCAIRAN}
+               </td>
+               <td style="text-align:right;">
+                  {NOMINAL_REALISASI}
+               </td>
+               <td style="text-align:right;">
+                  {SISA_DANA}
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<div style="margin-left: 75%" class="sign">
+   <p><!-- patTemplate:gtfwgetconfig config="organization" name="city" / -->, {DATE}</p>
+   <p><!-- patTemplate:gtfwgetconfig config="language" name="pimpinan_unit_kerja" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></p>
+   <p class="date">{UNIT_KERJA}</p>
+   <br /><br /><br /><br />
+   <p>({NAMA_PIMPINAN})</p>
+</div>
+<!-- /patTemplate:tmpl -->

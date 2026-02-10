@@ -1,0 +1,217 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="list_sub_kegiatan" / -->
+</h1>
+<br />
+
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+   <input type="hidden" name="unit_id" value="{UNIT_ID}" />
+   <input type="hidden" name="ta_id" value="{TA_ID}" />
+   <input type="hidden" name="data_id" value="{DATA_ID}" />
+   <table>
+      <tr>
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 95px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" value="{KODE}" size="30" />
+         </td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+            <input type="submit" name="btnReset" value=" Reset " class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<br />
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th width="5">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+         </th>
+          <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="bulan" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="total_anggaran" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="total_realisasi" / -->
+         </th>
+         <th width="31">
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_kegiatanref" type="condition" conditionvar="KEGIATANREF_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="7" align="center">
+                  <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_kegiatanref_item" -->
+            <tr class="{CLASS_NAME}" style="{ROW_STYLE}">
+               <td align="center">
+                  {NOMOR}
+               </td>
+               <td>
+                  {KODE}
+               </td>
+               <td>
+                  {NAMA}
+               </td>
+                 <td>
+                  {BULAN}
+               </td>
+               <td style="text-align:right;">
+                  {NOMINAL_ANGGARAN_LABEL}
+               </td>
+               <td style="text-align:right;">
+                  {NOMINAL_PENCAIRAN_LABEL}
+               </td>
+               <td class="links" align="center">
+                  <!-- patTemplate:tmpl name="select_button" type="condition" conditionvar="VISIBLE" -->
+                     <!-- patTemplate:sub condition="YES" -->
+                        <a href="javascript:void(0);" onclick="javascript:setParent('{ID}','{NAMA}','{KEGDET_ID}','{NOMINAL_ANGGARAN}','{NOMINAL_PENCAIRAN}','{SISA_DANA}','{PROGRAM_ID}','{PROGRAM_NAMA}','{UNIT_ID}','{KEGIATAN_ID}','{KEGIATAN_NAMA}');update_KOMP_list({KEGDET_ID});" title="">
+                           <img alt="Pilih" src="images/button-check.gif"/>
+                        </a>
+                     <!-- /patTemplate:sub -->
+                  <!-- /patTemplate:tmpl -->
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+
+<script language="javascript" type="text/javascript">
+   function setParent(xid, xlabel,kegiatandetail_id, total_anggaran , realisasi_nominal , realisasi_pencairan, programId, programLabel, kegiatanunit_id, subProgramId, subProgramLabel) {
+      document.getElementById('kegiatanref').value          = xid;
+      document.getElementById('kegiatanref_label').value    = xlabel;
+      document.getElementById('kegiatandetail_id').value    = kegiatandetail_id;
+      document.getElementById('kegiatandetail_id').value    = kegiatandetail_id;
+
+      document.getElementById('total_anggaran_div').innerHTML  = formatNumber(total_anggaran, 0);
+      document.getElementById('total_anggaran_txt').value      = total_anggaran;
+
+      document.getElementById('realisasi_nominal_div').innerHTML  = formatNumber(realisasi_nominal, 0);
+      document.getElementById('realisasi_nominal_txt').value      = realisasi_nominal;
+
+      document.getElementById('realisasi_pencairan_div').innerHTML   = formatNumber(realisasi_pencairan, 0);
+      document.getElementById('realisasi_pencairan_txt').value       = realisasi_pencairan;
+
+      document.getElementById('program').value           = programId;
+      document.getElementById('program_label').value     = programLabel;
+      document.getElementById('kegiatanunit_id').value   = kegiatanunit_id;
+      document.getElementById('program_hidden').value    = programLabel;
+
+      document.getElementById('subprogram').value        = subProgramId;
+      document.getElementById('subprogram_label').value  = subProgramLabel;
+      document.getElementById('subprogram_label_hidden').value    = subProgramLabel;
+
+      // document.getElementById('data_nominal').value      = formatNumber(realisasi_nominal, 0);
+      document.getElementById('data_nominal').gvSetValue(0);
+      document.getElementById('persentase').value        = (parseInt(realisasi_nominal)/parseInt(total_anggaran))*100;
+   }
+
+   document.update_KOMP_list = function (id)
+   {
+      document.getElementById('KOMP_Place_Holder').deleteAllItem();
+      var data          = {KOMP_DATA};
+      var dataToMount   = data[id];
+      if(dataToMount.length > 0){
+         for (var i in dataToMount){
+            document.getElementById('KOMP_Place_Holder').addItem(
+               dataToMount[i]['id'],
+               dataToMount[i]['komponen_kode'],
+               dataToMount[i]['komponen_nama'],
+               dataToMount[i]['mak_kode'],
+               dataToMount[i]['deskripsi'],
+               dataToMount[i]['nominal']
+            );
+         }
+      }
+      popupClose();
+   }
+
+   function formatCurrency(num) {
+      num      = num.toString().replace(/\$|\,/g,'');
+      if(isNaN(num))
+      num      = "0";
+      sign     = (num == (num = Math.abs(num)));
+      num      = Math.floor(num*100+0.50000000001);
+      cents    = num%100;
+      num      = Math.floor(num/100).toString();
+      if(cents<10)
+      cents    = "0" + cents;
+      for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+      num      = num.substring(0,num.length-(4*i+3))+'.'+
+      num.substring(num.length-(4*i+3));
+      return (((sign)?'':'-') + num + ',' + cents);
+   }
+
+   var formatNumber = function (num, mode)
+   {
+      var num, decimal_place = 2;
+      var point = ',', pointRegex = /,/g;
+      var thousand = '.', thousandRegex = /\./g;
+      var multiplier = Math.pow(10, decimal_place);
+
+      if (mode > 0)
+      {
+         num = num.toString().replace(thousandRegex, '');
+         if (mode == 2) return num; // just delete thousand mark
+         num = num.toString().replace(pointRegex, '.');
+         if (mode == 1) return isNaN(parseFloat(num)) ? 0: parseFloat(num); // go back to english format
+      }
+
+      num = parseFloat(num);
+      if (isNaN(num)) num = 0;
+      if (num.toString().indexOf('e') != -1) return 'Out of range';
+      num = (Math.round(num * multiplier)) / multiplier;
+
+      var str = num.toString().split('.');
+      var reminder = str[1] ? str[1].substr(0, 2) : '';
+      while (reminder.length < decimal_place) reminder += '0';
+      var quotient = str[0];
+
+      var x = quotient.length % 3;
+      var newQuotient = quotient.substr(0, x);
+
+      for (var i = x; i < quotient.length; i += 3)
+         newQuotient += thousand + quotient.substr(i, 3);
+      if (newQuotient.charAt(0) == thousand) newQuotient = newQuotient.substr(1);
+
+      return newQuotient + point + reminder;
+   }
+</script>
+<!-- /patTemplate:tmpl -->

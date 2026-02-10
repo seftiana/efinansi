@@ -1,0 +1,95 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function ChekAll(varname, start_num, end_num) {
+		var obj = document.getElementById('cek_all');
+		if(obj.checked == false) {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+				ceks.checked = false;
+			}
+		} else {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+				ceks.checked = true;
+			}
+		}		
+	}
+</script>
+
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_satuan_komponen" / --></h1>
+<br />
+<form method="POST" name="frmSearch" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>	  
+	  <tr>              
+         <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="satuan_komponen"/ --></th>
+         <td><input type="text" name="nama_satuan_komponen" value="{CARI}" size="35" /></td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan" / --> &raquo;" class="buttonSubmit"/>
+			
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="notebox-alert">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+   <form method="POST" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar">
+   		<a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Satuan Komponen" ><img src="images/button-add.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / --></a>
+		<input type="submit" id="btnHapus" name="btnHapus" value="<!-- patTemplate:gtfwgetconfig config="language" name="hapus" / -->" class="inputButton" />
+      </div>
+   </div>
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+		 <th width="5"><input type="checkbox" name="cek_all" id="cek_all" value="ALL" onclick="ChekAll('satuan_komponen_id_','{FIRST_NUMBER}','{LAST_NUMBER}');" /></th>
+		 <th><!-- patTemplate:gtfwgetconfig config="language" name="satuan_komponen" / --></th>
+         <th width="32"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="satuan_komponen" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="4" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="list_satuan_komponen" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="right">{NUMBER}</td>
+			   <td><input type="checkbox" name="id[]" id="satuan_komponen_id_{NUMBER}" value="{ID}"/></td>
+			   <input type="hidden" name="name[{ID}]" value="{NAMA_SATUAN_KOMPONEN}" /></td>
+			   <td>{NAMA_SATUAN_KOMPONEN}</td>
+               <td class="links" align="center">
+                  <a class="xhr dest_subcontent-element" href="{URL_EDIT}" title="Ubah satuan komponen {NAMA_SATUAN_KOMPONEN}"><img src="images/button-edit.gif" alt="Ubah"/><!-- </a>
+                  <a class="xhr dest_subcontent-element" href="{URL_SUB_KOMPONEN}" title="List sub komponen pada {NAMA_KOMPONEN}" ><img src="images/button-detail.gif" alt="" /></a>    -->                         
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   </form>
+   <br /> 
+   <!-- 
+   <div class="petunjuk-area">
+      <h4>Petunjuk:</h4>
+       <ul>
+         <li></li>
+      </ul> 
+   </div>     -->
+   
+<!-- /patTemplate:tmpl -->
+
+

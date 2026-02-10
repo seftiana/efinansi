@@ -1,0 +1,80 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="list_kode_jurnal" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+      <tr>              
+         <th width="30%"><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --> / 
+         <!-- patTemplate:gtfwgetconfig config="language" name="nama_jurnal" / --></th>
+         <td><input type="text" name="nama" value="{NAMA}" size="30" /></td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan" / --> &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   </div>
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></th>
+         <th width="33px"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan=4" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">{DATA_NUMBER}</td>
+               <td>{DATA_KODE}</td>
+               <td>{DATA_NAMA}</td>
+               <td class="links" align="center">
+                  <a onclick="update_COA_list({DATA_ID})" title="<!-- patTemplate:gtfwgetconfig config="language" name="pilih" / -->"><img src="images/button-check.gif" alt=""/></a>  
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   <br />
+   <script>
+      window.update_COA_list = function (id)
+      {
+         var data = {JSON_DETAIL_KODE_JURNAL};
+         document.getElementById('COA_Place_Holder').deleteAllItem();
+         var dataToMount = data[id];
+         
+         for (var i in dataToMount)
+            document.getElementById('COA_Place_Holder').addItem
+            (
+               dataToMount[i]['id'],
+               dataToMount[i]['kode'],
+               dataToMount[i]['nama'],
+               dataToMount[i]['debetORkredit'],
+               0
+            )
+         popupClose();
+      }
+   </script>
+<!-- /patTemplate:tmpl -->

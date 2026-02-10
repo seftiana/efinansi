@@ -1,0 +1,251 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+   function centangin_semua(varname, start_num, end_num) {
+      var obj = document.getElementById('cek_all');
+      var ceks;
+      var disable;
+      if(obj.checked == false) {
+         for(i=start_num;i<=end_num;i++) {
+            ceks     = document.getElementById(varname + i);
+            disable  = cek.getAttribute('disabled');
+            if(ceks && disable != null) {
+               ceks.checked = false;
+            }
+         }
+      } else {
+         for(i=start_num;i<=end_num;i++) {
+            ceks     = document.getElementById(varname + i);
+            disable  = cek.getAttribute('disabled');
+            if(ceks) ceks.checked = true;
+         }
+      }
+   }
+   function show_checkbox () {
+      if(document.getElementById('cek_all'))
+         document.getElementById('cek_all').style.display='';
+   }
+   document.onload = show_checkbox();
+</script>
+<h1>RKAKL Program</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>              
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" value="{KODE}" size="30" />
+         </td>
+      </tr>
+      <tr>              
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <td>
+            <input type="text" name="nama" value="{NAMA}" size="30" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+   
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+
+<br />
+<form method="POST" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <input type="hidden" name="control_action" value="{CONTROL_ACTION}" />
+   <input type="hidden" name="control_return" value="{CONTROL_RETURN}" />
+   <input type="hidden" name="control_label" value="{CONTROL_LABEL}" />
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar"> 
+         <a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Data" >
+            <img src="images/button-add.gif" alt="">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / -->
+         </a>
+      <input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="inputButton" />
+      </div>
+   </div>
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th width="5">
+            <input type="checkbox" name="cek_all" id="cek_all" value="ALL" class="CheckBoxFW_parent" />
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_komponen" type="condition" conditionvar="RKAKL_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr>
+            <td colspan="5" align="center">
+               <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+            </td>
+         </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_komponen_item" -->                                              
+      <tr class="{DATA_CLASS_NAME}">
+         <td align="center" style="width: 35px;">
+            {DATA_NUMBER}
+         </td>
+         <td align="center">
+            <input type="checkbox" name="id[]" id="kinerja_id_{DATA_NUMBER}" class="CheckBoxFW_child" value="{DATA_ID}" {DATA_CHECKBOX} />
+            <input type="hidden" name="name[{DATA_ID}]" value="{DATA_KODE}" />
+         </td>
+         <td style="width: 95px; text-align: center;">
+            {DATA_KODE}
+         </td>
+         <td>
+            {DATA_NAMA}
+         </td>
+         <td class="links" align="center" style="width:25px;">
+            <a class="xhr dest_subcontent-element" href="{DATA_URL_EDIT}" title="Ubah">
+               <img src="images/button-edit.gif" alt="Ubah"/>
+            </a>
+         </td>
+         <td class="links" align="center" style="width:25px; display:none;" >
+            <a class="xhr dest_subcontent-element" href="{DATA_RENCANA_KEGIATAN_URL}" title="List">
+               <img src="images/button-detail.gif" alt="List"/>
+             </a>
+         </td>
+      </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_bottom"  / -->
+   </div>
+</form>
+<script type="text/javascript">
+CheckBoxFW_initiate = function (Obj)
+{
+   if (!Obj || Obj.className.indexOf('CheckBoxFW_parent') < 0 || !Obj.form) return;
+
+   var CBList     = new Array;
+   var CheckedAll = true;
+   var FormObj    = Obj.form;
+
+   for (var i = 0; i < FormObj.length; i++) if (FormObj[i] == Obj) break;
+   if (i == FormObj.length) return;
+
+   for(i += 1; i < FormObj.length; i++)
+   {
+      var CBObj = FormObj[i];
+      if (CBObj.type.toUpperCase() != 'CHECKBOX') continue;
+      if (CBObj.className.indexOf('CheckBoxFW_child') >= 0)
+      {
+         CBObj.onchange = function () {
+            Obj.checkChild();
+         }
+         CBList[CBList.length] = CBObj;
+         if (!CBObj.checked) CheckedAll = false;
+      }
+      if (CBObj.className.indexOf('CheckBoxFW_parent') >= 0) break;
+   }
+
+   if (CBList.length > 0)
+   {
+      Obj.onchange = function ()
+      {
+         for (var i = 0; i < CBList.length; i++){
+            if(CBList[i].getAttribute('disabled') == null){
+               CBList[i].checked = this.checked;
+            }
+         }
+      }
+
+      Obj.checkChild = function ()
+      {
+         var CheckedAll = true;
+         for (var i = 0; i < CBList.length; i++) if (!CBList[i].checked)
+         {
+            CheckedAll = false;
+            break;
+         }
+         this.checked = CheckedAll;
+      }
+
+      Obj.checked = CheckedAll;
+   }
+}
+var formObj       = document.getElementById('form_list');
+if(typeof(formObj) != 'undefined' && formObj != null){
+   for (var i = 0; i < formObj.length; i++){
+      CheckBoxFW_initiate(formObj[i]);
+   }
+}
+
+var xhr_reset_form = {
+   '.xhr_simple_form': function(element) {
+      element.onreset   = function(){
+         var dest    = /\sdest_(.*?)\s/.exec(' '+this.className+' ');
+         var url     = this.getAttribute('action');
+         var target  = this.getAttribute('data-target');
+         if(typeof(target) != 'undefined' && target != null){
+            urlActions     = target;
+         }else{
+            urlActions     = url;
+         }
+         if(dest){
+            GtfwAjax.replaceContentWithUrl(dest[1], urlActions + '&ascomponent=1');
+         }
+
+         return false;
+      }
+   }, 
+   '.xhr_form': function(element) {
+      element.onreset   = function(){
+         var dest    = /\sdest_(.*?)\s/.exec(' '+this.className+' ');
+         var url     = '?mod=home&sub=Home&act=view&typ=html';
+         var target  = this.getAttribute('data-target');
+         if(typeof(target) != 'undefined' && target != null){
+            urlActions     = target;
+         }else{
+            urlActions     = url;
+         }
+         if(dest){
+            GtfwAjax.replaceContentWithUrl(dest[1], urlActions + '&ascomponent=1');
+         }
+
+         return false;
+      }
+   }
+}
+
+Behaviour.register(xhr_reset_form);
+</script>
+<!-- /patTemplate:tmpl -->

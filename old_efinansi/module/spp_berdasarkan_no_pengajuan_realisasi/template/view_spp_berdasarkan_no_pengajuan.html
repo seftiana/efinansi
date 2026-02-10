@@ -1,0 +1,363 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	
+	function centangin_semua(varname, start_num, end_num) {
+		var obj = document.getElementById('cek_all');
+		if(obj.checked == false) {
+			for(i=start_num;i<=end_num;i++) {
+				if (document.getElementById(varname + i)) {
+					document.getElementById(varname + i).checked = false;
+				}
+				
+			}
+		} else {
+			for(i=start_num;i<=end_num;i++) {
+				if (document.getElementById(varname + i)) {
+					document.getElementById(varname + i).checked = true;
+				}
+			}
+		}
+	}
+		
+   function replaceProgram(dataArray,opt){
+	   var txt='';
+      $('#program_id').empty();
+      if(opt == 'pilih'){
+		  txt = '-- PILIH --';
+	  } else {
+		  txt = '-- SEMUA --';
+	  }
+	  
+      $('#program_id').append($('<option></option>').val('all').text(txt));
+      for (var i = 0; i < dataArray.length; i++) {
+         $('#program_id').append($('<option></option>').val(dataArray[i].id).text(dataArray[i].name));
+      }
+   }
+
+   function getProgram(idTa){
+       GtfwAjax.loadUrl('{URL_PROGRAM}&id_ta='+idTa+'&opt=all', false, 'json');
+   }
+
+   var xpopup = false;
+
+   function focusPopup() {
+      if(xpopup) xpopup.focus();
+      return true;
+   }
+
+   function popupDetail(url) {
+      showPopup(url,'',780, 500);
+   }
+
+   function popupUnitKerja(url) {       
+      showPopup(url,'',550,550);
+      //xpopup.focus();
+      //xpopup='xpopup';
+   }
+   function resetFormIni() {
+      
+      GtfwAjax.replaceContentWithUrl("subcontent-element","{URL_RESET}&ascomponent=1");
+      /**
+      if(document.getElementById('subunit_id')) document.getElementById('subunit_id').value='';
+      if(document.getElementById('subunit_nama_ro')) document.getElementById('subunit_nama_ro').innerHTML='';
+      if(document.getElementById('subunit_nama_hidden')) document.getElementById('subunit_nama_hidden').value='';
+      */
+   }
+   function popupSubUnitKerja() {
+       var url = '{POPUP_SUBUNIT_KERJA}';
+      var unit_id   = document.getElementById('unit_id').value;
+      var unit_nama = document.getElementById('unit_nama_ro').value;
+
+
+      if(unit_id=='') {
+          alert('Anda Harus Memilih Unit Kerja Dulu');
+          return false;
+       } else {
+           url = url + '&satker=' + unit_id + '&satker_label=' + unit_nama;
+          showPopup(url,'',550,550);
+           //xpopup.focus();
+           //xpopup='xpopup';
+      }
+
+
+   }
+
+   function bukaPopupCetak(url) {
+      window.open(url,'xpopup','width=1000,height=600,resizable=yes,scrollbars=yes,right=0;center');
+      xpopup='xpopup';
+   }
+
+   function cetak_spp(url, xurl){
+      var width  = 900;
+      var height = 600;
+      var left   = (screen.width  - width)/2;
+      var top    = (screen.height - height)/2;
+      var params = 'width='+width+', height='+height;
+      params += ', top='+top+', left='+left;
+      params += ', directories=no';
+      params += ', location=no';
+      params += ', menubar=no';
+      params += ', resizable=no';
+      params += ', scrollbars=yes';
+      params += ', status=no';
+      params += ', toolbar=no';
+      newwin=window.open('{URL_CETAK_SPP}&id='+ url +'&id_spp='+ xurl,'cetak spp', params);
+      if (window.focus) { 
+         newwin.focus();
+      }
+      
+      return false;
+   }
+
+   function cetak (url) {
+      var width  = 900;
+      var height = 600;
+      var left   = (screen.width  - width)/2;
+      var top    = (screen.height - height)/2;
+      var params = 'width='+width+', height='+height;
+      params += ', top='+top+', left='+left;
+      params += ', directories=no';
+      params += ', location=no';
+      params += ', menubar=no';
+      params += ', resizable=no';
+      params += ', scrollbars=yes';
+      params += ', status=no';
+      params += ', toolbar=no';
+      newwin=window.open(url ,'Cetak Perintah Pelaksanaan Program', params);
+      if (window.focus) { 
+         newwin.focus();
+      }
+      
+      return false;
+   }
+
+   function cetakRealisasi(url){
+      var cmbTahunAnggaran       = document.getElementById('cb_tahun_anggaran');
+      var tahunAnggaran          = cmbTahunAnggaran.options[cmbTahunAnggaran.selectedIndex].value;
+      var unitId                 = document.getElementById('unit_id').value;
+      var xurl    = url+'&unitId='+unitId+'&ta='+tahunAnggaran;
+
+      cetak(xurl);
+      return false;
+   }
+   document.onmousedown=focusPopup();
+
+</script>
+<h1>Surat Permintaan Pembayaran Tagihan</h1>
+<br />
+<form method="POST" name="frmInput" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table >
+      <tr>
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="periode_tahun" / -->
+               </th>
+               <td>
+                  <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="data[ta_id]"  / -->
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+               </th>   
+			 <td>
+			 	<input type="hidden" name="data[unit_id]" value="{UNIT_ID}" id="unit_id" />
+			 	<!-- patTemplate:tmpl name="cek_unitkerja_parent" 
+				 	type="condition" conditionvar="IS_PARENT" -->
+   					<!-- patTemplate:sub condition="YES" --> 
+					<input type="text" name="data[unit_nama]" value="{UNIT_NAMA}" id="unit_nama_ro" readonly size="40" />					
+					<input type="button" value=" ... " onclick="javascript:popupUnitKerja('{POPUP_UNIT_KERJA}')" />
+				 	<!-- /patTemplate:sub -->
+				 	
+				 	<!-- patTemplate:sub condition="NO" --> 
+				 	<label><b>{UNIT_NAMA}</b></label>
+				 	<input type="hidden" name="data[unit_nama]" id="unit_nama_hidden" value="{UNIT_NAMA}" />				 	
+				 	<!-- /patTemplate:sub -->
+				 <!-- /patTemplate:tmpl -->
+			 </td>	               
+            </tr>       
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="data[program_id]"  / -->
+         </td>
+      </tr>            
+      <tr>
+         <th>
+            Nomor SPPT
+         </th>
+         <td>
+            <input type="text" name="data[nomor]" size="40" value="{NOMOR}" />
+         </td>
+      </tr>
+     
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input name="btnTampilkan" value=" Tampilkan " class="buttonSubmit" type="submit" />
+            <input name="btnReset" value=" Reset " class="buttonSubmit"  type="reset" onclick="resetFormIni()" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+<br />
+ <form method="POST" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list_pengajuan">
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   <div class="toolbar">
+              <a class="xhr dest_subcontent-element" href="{URL_KEMBALI}" title="Kembali" tabindex="2">
+               <img src="images/button-back.gif" alt=""/> Daftar P3 / SPP
+            </a>              
+            <a class="xhr dest_subcontent-element" href="{URL_CREATE}" title="Membuat Cetak SPPT Baru" tabindex="3">
+               <img src="images/button-add.gif" alt=""/> Membuat Cetak SPPT Baru
+            </a>                
+            <input type="submit" id="btnHapus" name="btnHapus"
+             value="<!-- patTemplate:gtfwgetconfig config="language" name="hapus" / -->"   class="inputButton" />
+  
+   </div>
+</div>
+
+<!-- start: Table List -->
+<table class="table-common" width="800px">
+   <thead>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>		 
+		 <th width="20">			 
+				<input type="checkbox" name="cek_all" id="cek_all" value="ALL" 
+				onclick="centangin_semua('nopeng_id_','{FIRST_NUMBER}','{LAST_NUMBER}');" />
+		 </th >
+         <th width="80">		
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <th>
+            Nomor SPPT
+         </th>
+         <th>
+            Kode
+         </th>         
+         <th>
+            Program / Unit Kerja
+         </th>         
+         <th>
+            Nominal
+         </th>
+         <th>
+            Ketarangan
+         </th>
+       
+         <th width="125">
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="9" align="center">
+                  <em>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --</em>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+               <tr class="{DATA_CLASS_NAME}" style="{DATA_ROW_STYLE}">
+                  <td align="center">
+                     {DATA_NO}
+                  </td>
+				  <td align="center">
+					  <div style="display:{DATA_DISPLAY}">
+						<input type="checkbox" name="id[]" id="nopeng_id_{DATA_CH}" value="{DATA_ID}" style="display:{DATA_DISPLAY_ITEM}" />
+						<input type="hidden" name="name[{DATA_ID}]" value="{DATA_NOMOR_SPPT_CH}" />
+					</div>	
+				  </td>
+                  <td>
+                     {DATA_TANGGAL}
+                  </td>
+                  <td>
+                     {DATA_NOMOR_SPPT}
+                  </td>
+                  <td>
+                     {DATA_KODE}
+                  </td>                  
+                  <td>
+                     {DATA_NAMA}
+                  </td>                  
+                  <td align="right">
+                     {DATA_NOMINAL_F}
+                  </td>
+                  <td>
+                     {DATA_KETERANGAN}
+                  </td>
+                  <td class="links" align="center">
+					  <div style="display:{DATA_DISPLAY}">
+                    <a href="{DATA_URL_EDIT}" class="xhr dest_subcontent-element" title="Edit" style="display:{DATA_DISPLAY_ITEM}">
+                       <img src="images/button-edit.gif" alt="Edit" />
+                    </a>
+                     <a onclick="popupDetail('{DATA_URL_DETAIL}')" 
+      				title="Detail"><img src="images/button-detail.gif" alt="Detail"/></a>
+                    </a>
+                    <a onclick="bukaPopupCetak('{DATA_URL_CETAK}')" title="Cetak">
+                       <img src="images/button-print.gif" alt="Cetak" />
+                    </a>
+                    <a href="{DATA_URL_HAPUS}" class="xhr dest_subcontent-element" title="Hapus" style="display:{DATA_DISPLAY_ITEM}">
+                       <img src="images/button-delete.gif" alt="Hapus" />
+                    </a>
+                    </div>
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+</form>
+   <br /> 
+<!-- end: Table List -->
+
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <br />
+   
+   <ul>
+      <li>
+         <img src="images/button-edit.gif" alt="Edit" /> = Edit data Perintah Pelaksanaan Program
+      </li>
+      <li>
+         <img src="images/button-delete.gif" alt="Delete" /> = Delete Perintah Pelaksanaan Program
+      </li>
+      <li>
+         <img src="images/button-bukubuka.gif" alt="Detil" /> = Detail data Perintah Pelaksanaan Program
+      </li>
+      <li style="display:none;">
+         <img src="images/button-print.gif" alt="Cetak" /> = Cetak data Perintah Pelaksanaan Program
+      </li>
+
+      <li>
+         <img src="images/button-print.gif" alt="Cetak SPP" /> = Cetak Surat Permintaan Pembayaran
+      </li>
+      
+   </ul>
+</div>
+<!-- /patTemplate:tmpl -->

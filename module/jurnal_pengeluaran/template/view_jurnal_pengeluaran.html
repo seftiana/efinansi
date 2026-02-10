@@ -1,0 +1,148 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="manajemen_jurnal_pengeluaran" / -->
+</h1>
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+<br />
+<form method="POST" name="frmInput" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+<table  width="100%">
+   <tr>
+      <th  colspan="2">
+         <h2>
+            <strong>
+               <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+            </strong>
+         </h2>
+      </th>
+   </tr>
+   <tr>
+      <th style="width: 135px;">
+         <!-- patTemplate:gtfwgetconfig config="language" name="interval_pencatatan" / -->
+      </th>
+      <td>
+         <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_awal"  / -->
+         <b><!-- patTemplate:gtfwgetconfig config="language" name="s_d" / --></b>
+         <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_akhir"  / -->
+      </td>
+   </tr>
+   <tr>
+      <th>
+         Referensi
+      </th>
+      <td>
+         <input type="text" name="referensi" id="referensi" value="{REFERENSI}" size="30"/>
+      </td>
+   </tr>
+   <tr>
+      <th>
+         Status Posting
+      </th>
+      <td>
+         <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="posting"  / -->
+      </td>
+   </tr>
+   <tr>
+      <td>&nbsp;</td>
+      <td>
+         <input name="btnFilter" value=" Filter " class="buttonSubmit" type="submit">
+         <input name="btnTampilkan" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan_semua" / --> " class="buttonSubmit"  type="submit" />
+      </td>
+   </tr>
+</table>
+</form>
+<br />
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   <div class="toolbar">
+      <a class="xhr dest_subcontent-element" href="{URL_ADD}" title="<!-- patTemplate:gtfwgetconfig config="language" name="tambah_jurnal_pengeluaran" / -->" >
+         <img src="images/button-add.gif" alt="^" /> <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / -->
+      </a>
+   </div>
+</div>
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th width="5">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="referensi" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal_transaksi" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_account" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="debet" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kredit" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="petugas" / -->
+         </th>
+         <th width="95">
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr>
+            <td colspan="10" align="center">
+               <em>
+                  --<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--
+               </em>
+            </td>
+         </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+               <tr class="{DATA_CLASS_NAME}">
+                  {DATA_NOMOR}
+                  {DATA_REFERENSI_VIEW}
+                  {DATA_TANGGAL_VIEW}
+                  {DATA_KETERANGAN_VIEW}
+               <td>
+                  {DATA_REKENING_KODE}<br />
+                  <hr />
+                  00-00-00-00-00-00-00
+               </td>
+               <td>
+                  {DATA_REKENING_NAMA}
+               </td>
+               <td align="right">
+                  {DATA_DEBET}
+               </td>
+               <td align="right">
+                  {DATA_KREDIT}
+               </td>
+                  {DATA_PETUGAS_ENTRI_VIEW}
+                  {DATA_AKSI_VIEW}
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<div class="petunjuk-area">
+   <h4>Petunjuk</h4>
+   <br>
+   <div style="margin: 10px 0px 0px 10px;">
+      <img src="images/button-cancel-tindaklanjut.gif" alt="Jurnal Balik"> = Jurnal Balik
+   </div>
+</div>
+<!-- /patTemplate:tmpl -->

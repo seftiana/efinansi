@@ -1,0 +1,77 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function setParent(xid, xlabel, nominal, nominal_hidden, sisa) {
+		document.getElementById('mak').value=xid;
+		document.getElementById('mak_label').value=xlabel;
+		document.getElementById('nominal_disetujui').value=nominal;
+		document.getElementById('nominal_disetujui_hidden').value =nominal_hidden;
+		// document.getElementById('sisa').value=sisa;
+      popupClose();
+	}
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="map" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+      <tr>              
+         <th width="30%"><!-- patTemplate:gtfwgetconfig config="language" name="nama_kegiatan" / --></th>
+         <td><input type="text" name="kegiatan_detil" value="{KEGIATAN_DETIL}" size="30" /></td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan" / --> &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   </div>
+   <br />
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_kegiatan" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nominal_disetujui" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nominal_realisasi_rp" / --></th>
+        <!-- <th><!-- patTemplate:gtfwgetconfig config="language" name="sisa_rp" / --></th> -->
+         <th width="31"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_kegiatan_detil" type="condition" conditionvar="KEGIATAN_DETIL_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="6" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_kegiatan_detil_item" -->
+            <tr class="{KEGIATAN_DETIL_CLASS_NAME}">
+               <td align="center">{KEGIATAN_DETIL_NUMBER}</td>
+               <td>{KEGIATAN_DETIL_KODE}</td>
+               <td>{KEGIATAN_DETIL_NAMA}</td>
+               <td align="right">{KEGIATAN_DETIL_NOMINAL_APROVE}</td>
+               <td align="right">{KEGIATAN_DETIL_NOMINAL_YG_SUDAH_DICAIRKAN}</td>
+               <!-- <td align="right">{KEGIATAN_DETIL_NOMINAL_YG_BISA_DICAIRKAN}</td>-->
+			   <td class="links" align="center">
+
+            <!-- patTemplate:tmpl name="pilih" visibility="visible" -->
+            <a href="javascript:void(0)" onclick="javascript:setParent('{KEGIATAN_DETIL_ID}', '{KEGIATAN_DETIL_NAMA}', '{KEGIATAN_DETIL_NOMINAL_APROVE}', '{KEGIATAN_DETIL_NOMINAL_APROVE_HIDDEN}', '{KEGIATAN_DETIL_SISA}')"><img alt="Pilih" src="images/button-check.gif"/></a>
+            <!-- /patTemplate:tmpl -->					
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+<div>
+<!-- /patTemplate:tmpl -->

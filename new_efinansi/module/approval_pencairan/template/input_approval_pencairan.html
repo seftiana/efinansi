@@ -1,0 +1,429 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css">
+table.table-edit table.table-common thead > tr > th{
+   vertical-align: middle;
+   text-align: center;
+   font-weight: bold;
+}
+</style>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="manajemen_approval_pencairan" / -->
+</h1>
+<br />
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+
+
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form dest_subcontent-element" data-target="{URL_RETURN}" id="frmInput" name ="frmInput">
+   <input type="hidden" name="dataId" value="{ID}"  />
+   <input type="hidden" name="page" value="{PAGE}"  />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="approval_pencairan" / -->
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode_tahun" / -->
+         </th>
+         <td>
+            {TA_NAMA}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / -->
+         </th>
+         <td>
+            {UNIT_KODE} &mdash; {UNIT_NAMA}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+         </th>
+         <td>
+            {PROGRAM_KODE} &mdash; {PROGRAM_NAMA}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->
+         </th>
+         <td>
+            {KEGIATAN_KODE} &mdash; {KEGIATAN_NAMA}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+         </th>
+         <td>
+            {SUB_KEGIATAN_KODE} &mdash; {SUB_KEGIATAN_NAMA}
+         </td>
+      </tr>
+    
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <td>
+            <!-- patTemplate:var name="TANGGAL" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nomor_pengajuan" / -->
+         </th>
+         <td>
+            {NOMOR_PENGAJUAN}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_diajukan" / -->
+         </th>
+         <td>
+            <strong>
+               <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {NOMINAL_LABEL}
+            </strong>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / -->
+         </th>
+         <td>
+            {KETERANGAN}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="status" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="status"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_disetujui" / -->
+         </th>
+         <td>
+            <input type="text" name="nominal_approve" id="txt_nominal_approve" value="{NOMINAL_APPROVE}" class="gvFloat" readonly />
+         </td>
+      </tr>   	
+      <tr>
+         <th > <!-- patTemplate:gtfwgetconfig config="language" name="attachment" / --></th>
+         <td> 
+            <a href="{DATA_FILE_DOWNLOAD}" target="_blank" title="FPA File">
+               {DATA_FILE}
+            </a>
+         </td>         
+      </tr> 
+      <tr class="subhead">
+         <th colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+         </th>
+      </tr>
+      <tr>
+         <td colspan="2" style="padding: 0px;">
+            <table class="table-common" style="width: 100%;">
+               <thead>
+                  <tr>
+                     <th colspan="2">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+                     </th>
+                     <th rowspan="2" style="width: 115px;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="kode_coa" / -->
+                     </th>
+                     <th rowspan="2" style="width: 115px;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / -->
+                     </th>
+                     <th colspan="2">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="nominal" / -->
+                     </th>
+                  </tr>
+                  <tr>
+                     <th style="width: 95px;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+                     </th>
+                     <th>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+                     </th>
+                     <th style="width: 115px;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="nominal_usulan_rp" / -->
+                     </th>
+                     <th style="width: 115px;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="nominal_setuju_rp" / -->
+                     </th>
+                  </tr>
+               </thead>
+               <tbody id="komponen_PlaceHolder">
+                  <tr id="empty_row">
+                     <td colspan="5" style="font-style: italic; text-align: center;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </td>
+      </tr>
+      <tr class="buttons">
+         <td colspan="2">
+            <input type="submit" name="btnsimpan" value=" <!-- patTemplate:gtfwgetconfig config="language" name="simpan" / --> " class="buttonSubmit"/>
+            <input  type="reset"  name="btnbalik" value=" <!-- patTemplate:gtfwgetconfig config="language" name="batal" / --> " class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / -->
+      </li>
+   </ul>
+</div>
+
+<script type="text/javascript">
+function formatCurrency(num) {
+   num      = num.toString().replace(/\$|\,/g,'');
+   if(isNaN(num))
+   num      = "0";
+   sign     = (num == (num = Math.abs(num)));
+   num      = Math.floor(num*100+0.50000000001);
+   cents    = num%100;
+   num      = Math.floor(num/100).toString();
+   if(cents<10)
+   cents    = "0" + cents;
+   for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+   num      = num.substring(0,num.length-(4*i+3))+'.'+
+   num.substring(num.length-(4*i+3));
+   return (((sign)?'':'-') + num + ',' + cents);
+}
+
+var form             = document.forms['frmInput'];
+var formElements     = form.elements;
+var cmbStatus        = formElements.status;
+var status           = cmbStatus.options[cmbStatus.selectedIndex].value;
+var statusText       = cmbStatus.options[cmbStatus.selectedIndex].text;
+cmbStatus.onchange   = function(){
+   var value         = this.options[this.selectedIndex].value;
+   enableApproval(value);
+}
+
+var tBody            = document.getElementById('komponen_PlaceHolder');
+tBody.addItem        = function(id, realisasiId, kode, nama, makKode,deskripsi, nominal, nominalApprove){
+   var el_id      = 'detailId_'+id;
+   if (document.getElementById(el_id)) {
+      return true;
+   }
+   var childNodes    = this.getElementsByTagName('tr');
+   for (var i = childNodes.length - 1; i >= 0; i--) {
+      if(childNodes[i].id == 'empty_row'){
+         this.removeChild(childNodes[i]);
+      }
+   };
+
+   var tr      = document.createElement('tr');
+   tr.id       = el_id;
+
+   var inputPengrealDetId     = document.createElement('input');
+   inputPengrealDetId.type    = 'hidden';
+   inputPengrealDetId.name    = 'KOMP['+id+'][id]';
+   inputPengrealDetId.value   = id;
+
+   var inputPengrealId        = document.createElement('input');
+   inputPengrealId.type       = 'hidden';
+   inputPengrealId.name       = 'KOMP['+id+'][pr_id]';
+   inputPengrealId.value      = realisasiId;
+
+   var tdKomponenKode         = document.createElement('td');
+   var labelKomponenKode      = document.createElement('label');
+   labelKomponenKode.style.fontWeight  = 'bold';
+   labelKomponenKode.style.textAlign   = 'center';
+   labelKomponenKode.style.display     = 'block';
+   labelKomponenKode.style.width       = '100%';
+   labelKomponenKode.style.verticalAlign  = 'middle';
+   labelKomponenKode.innerHTML   = kode;
+   tdKomponenKode.appendChild(labelKomponenKode);
+
+   var tdKomponenNama         = document.createElement('td');
+   var labelKomponenNama      = document.createElement('label');
+   labelKomponenNama.innerHTML   = nama;
+   labelKomponenNama.style.fontWeight  = 'bold';
+   labelKomponenNama.style.textAlign   = 'center';
+   labelKomponenNama.style.display     = 'block';
+   labelKomponenNama.style.width       = '100%';
+   labelKomponenNama.style.verticalAlign  = 'middle';
+   tdKomponenNama.appendChild(labelKomponenNama);
+
+   var tdMakKode        = document.createElement('td');
+   var labelMak         = document.createElement('label');
+   labelMak.innerHTML   = makKode;
+   labelMak.style.fontWeight  = 'bold';
+   labelMak.style.textAlign   = 'center';
+   labelMak.style.display     = 'block';
+   labelMak.style.width       = '100%';
+   labelMak.style.verticalAlign  = 'middle';
+   tdMakKode.appendChild(labelMak);
+
+   var tdDeskripsi            = document.createElement('td');
+   var labelDeskripsi         = document.createElement('label');
+   labelDeskripsi.innerHTML   = deskripsi;
+   labelDeskripsi.style.fontWeight  = 'bold';
+   labelDeskripsi.textAlign   = 'center';
+   labelDeskripsi.display     = 'block';
+   labelDeskripsi.width       = '100%';
+   labelDeskripsi.style.verticalAlign  = 'middle';
+   tdDeskripsi.appendChild(labelDeskripsi);
+
+   var tdNominalUsulan        = document.createElement('td');
+   var inputNominalUsulan     = document.createElement('input');
+   inputNominalUsulan.value   = nominal;
+   inputNominalUsulan.readOnly   = true;
+   inputNominalUsulan.className  = 'gvFloat';
+   inputNominalUsulan.name       = 'KOMP['+id+'][nominal_usulan]';
+   inputNominalUsulan.type       = 'text';
+   inputNominalUsulan.size       = '20';
+
+   tdNominalUsulan.appendChild(inputNominalUsulan);
+
+   var tdNominalApproval      = document.createElement('td');
+   var inputNominalApproval   = document.createElement('input');
+   inputNominalApproval.type  = 'text';
+   inputNominalApproval.name  = 'KOMP['+id+'][nominal_approve]';
+   inputNominalApproval.className      = 'gvFloat';
+   inputNominalApproval.size           = '20';
+   if(status.toUpperCase() == 'YA'){
+      inputNominalApproval.readOnly    = false;
+      inputNominalApproval.value       = nominalApprove;
+   }else{
+      inputNominalApproval.readOnly    = true;
+      inputNominalApproval.value       = 0;
+   }
+   inputNominalApproval.setAttribute('onkeyup', 'setBudgetNominal(this);');
+   tdNominalApproval.appendChild(inputNominalApproval);
+
+   tr.appendChild(inputPengrealDetId);
+   tr.appendChild(inputPengrealId);
+   tr.appendChild(tdKomponenKode);
+   tr.appendChild(tdKomponenNama);
+   tr.appendChild(tdMakKode);
+   tr.appendChild(tdDeskripsi);
+   tr.appendChild(tdNominalUsulan);
+   tr.appendChild(tdNominalApproval);
+
+   this.appendChild(tr);
+
+   var childNode  = tdNominalUsulan.firstChild;
+   do {
+      if (childNode.tagName && childNode.tagName.toUpperCase() == 'INPUT'){
+         // gValidationNumber['.gvNum'](childNode);
+         gValidation20090108['.gvFloat'](childNode);
+      }
+   } while (childNode = childNode.nextSibling);
+
+   var childNode2  = tdNominalApproval.firstChild;
+   do {
+      if (childNode2.tagName && childNode2.tagName.toUpperCase() == 'INPUT'){
+         gValidation20090108['.gvFloat'](childNode2);
+      }
+   } while (childNode2 = childNode2.nextSibling);
+
+   return true;
+};
+
+var paternInputUsulan      = /KOMP\[(\d+)\]\[nominal_usulan\]/;
+var paternInputApproval    = /KOMP\[(\d+)\]\[nominal_approve\]/;
+var patern                 = /(\w+)\[(\d+)\]\[(\w+)\]/;
+var enableApproval   = function(status){
+   var childNodes    = tBody.getElementsByTagName('input');
+   if(typeof(status) == 'undefined' && !status){
+      status         = cmbStatus.options[cmbStatus.selectedIndex].value;
+   }
+
+   if(childNodes && typeof(childNodes) != 'undefined'){
+      for (var i = childNodes.length - 1; i >= 0; i--) {
+         var name       = childNodes[i].name.match(paternInputApproval);
+         var nominal    = 0;
+
+         if(childNodes[i].name && name){
+            var nameIndex  = name[1];
+            var nominal    = document.getElementsByName('KOMP['+name[1]+'][nominal_usulan]')[0].gvGetValue();
+            if (status.toUpperCase() == 'YA'){
+               childNodes[i].readOnly     = false;
+               childNodes[i].gvSetValue(parseFloat(nominal));
+            }else{
+               childNodes[i].readOnly     = true;
+               childNodes[i].gvSetValue(parseFloat(0));
+            }
+         }
+      };
+   }
+   setApproval();
+}
+
+var setApproval      = function(){
+   var childObj         = tBody.getElementsByTagName('input');
+   var nominalApproval  = 0;
+   var inputNominal     = document.getElementsByName('nominal_approve')[0];
+   if(childObj && typeof(childObj) != 'undefined'){
+      for (var i = childObj.length - 1; i >= 0; i--) {
+         var name       = childObj[i].name.match(paternInputApproval);
+         var nominal    = 0;
+
+         if(childObj[i].name && name){
+            var nameIndex  = name[1];
+            nominalApproval   += parseFloat(childObj[i].gvGetValue());
+         }
+      };
+   }
+
+   inputNominal.gvSetValue(parseFloat(nominalApproval));
+   return true;
+}
+
+var setBudgetNominal    = function (el) {
+   var elName     = el.name.match(patern);
+   var elIndex    = elName[2];
+   var usulan     = document.getElementsByName('KOMP['+elIndex+'][nominal_usulan]')[0].gvGetValue();
+   var nominal    = el.gvGetValue();
+
+   if(parseFloat(nominal) > parseFloat(usulan)){
+      alert('Nominal melebihi nominal usulan. Maksimal Rp. '+formatCurrency(usulan));
+      el.gvSetValue(parseFloat(usulan));
+      el.focus();
+   }
+
+   setApproval();
+}
+
+enableApproval();
+var KOMPONEN   = {KOMPONEN_DATA};
+for (var i in KOMPONEN){
+   tBody.addItem(
+      KOMPONEN[i].realisasi_det_id,
+      KOMPONEN[i].realisasi_id,
+      KOMPONEN[i].komponen_kode,
+      KOMPONEN[i].komponen_nama,
+      KOMPONEN[i].mak_kode,
+      KOMPONEN[i].deskripsi,
+      KOMPONEN[i].nominal_budget,
+      KOMPONEN[i].nominal_approve
+   );
+}
+setApproval();
+</script>
+<!-- /patTemplate:tmpl -->

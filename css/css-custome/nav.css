@@ -1,0 +1,45 @@
+/* CSS Document */
+#menu1{z-index:999999; margin:0px;padding:0px;}
+#menu1 ul{margin:1px 0px 0px 0px;padding:0px;width:172px;}
+#menu1 ul li{position:relative}
+#menu1 li ul{position:absolute;left:172px;/*Set 1px less than menu width */ 
+	top:0;display:block;z-index:999999;width:200px; margin:0px;padding:0px; background:#DFDFDF;}
+#menu1 li:hover ul{display:block;}
+#menu1 li:hover>ul{visibility:visible}
+#menu1 ul ul{visibility:hidden}
+/* Fix IE. Hide from IE Mac \*/ 
+* html #menu1 ul li{float:left;height:1%}
+* html #menu1 ul li a{height:1%}
+/* End */ 
+/* Make-up syles */ 
+#menu1 ul, li{margin:0px; padding:0px;}
+/* Styles for Menu Items */ 
+#menu1 ul a{display:block;text-decoration:none;/* IE6 Bug */ 
+	padding:2px;border-bottom:0;border-left:0; width:130px; padding-left:20px;}
+/* Sub Menu Styles */ 
+#menu1 li ul a{text-decoration:none;/* IE6 Bug */ 
+	padding:2px;border-bottom:0; width:140px; font-weight:normal; padding-left:5px;}
+#menu1 li:hover{background:#CCCCCC;} /*baground color menu di sidebar*/
+.section-active h5{
+	display:none;
+	margin:0px;
+	padding:0px;
+	text-align:center;
+	border-bottom:#FFFFFF 1px solid;
+	background:#333333;
+	color:#CCCCCC;
+	width:172px;
+}
+#menuList{
+	padding:0px;
+	margin:0px;
+	z-index:999999;
+}
+#menuList li{
+	margin:0px; padding:0px;
+}
+#sidebar{
+	margin-top:90px;
+	z-index:999999;
+	left:0px;
+}

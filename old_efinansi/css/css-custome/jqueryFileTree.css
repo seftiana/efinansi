@@ -1,0 +1,130 @@
+UL.jqueryFileTree {
+	font-family: Verdana, sans-serif;
+	font-size: 12px;
+	line-height: 20px;
+	padding: 0px;
+	margin: 0px;
+}
+
+UL.jqueryFileTree LI {
+	list-style: none;
+	padding: 0px;
+	padding-left: 20px;
+	margin: 0px;
+	white-space: nowrap;
+}
+
+UL.jqueryFileTree A {
+	color: #333;
+	text-decoration: none;
+	padding: 2px 2px 0px 2px;
+	border: 1px solid #ECE9D6;
+	height: 14px;
+   margin: 1px 1px 0 0;
+}
+
+UL.jqueryFileTree A:hover {
+	text-decoration: none;
+	background-color: #FFFFCC; /*#FFF9D6;*/
+	padding: 2px 2px 0px 2px;
+	border: #FCE171 1px solid;
+}
+
+UL.jqueryFileTree LABEL{
+	color: #333;
+	text-decoration: none;
+	padding: 0px 2px;
+}
+
+UL.jqueryFileTree li.directory LABEL:hover {
+	background: #BDF;
+	cursor: pointer;
+}
+UL.jqueryFileTree li.file LABEL:hover{
+   background: transparent;
+   cursor: default;
+}
+ul.jqueryFileTree li.directory label.icon-link{
+   position: absolute;
+   width: 16px;
+   height: 16px;
+   border: none;
+   font-size: 0px;
+   line-height: 0px;
+   margin-left: -20px;
+}
+ul.jqueryFileTree li.directory label.icon-link:hover{
+   background: transparent;
+}
+/* Core Styles   
+.jqueryFileTree LI.directory { background: url(../../images/jftree/directory.png) left top no-repeat; }
+.jqueryFileTree LI.expanded { background: url(../../images/jftree/folder_open.png) left top no-repeat; }
+
+.jqueryFileTree LI.file { background: url(../../images/jftree/file.png) left top no-repeat; }
+*/
+/* custome style */
+.jqueryFileTree LI.directory { background: url(../../images/button-bukunutup.gif) left top no-repeat; }
+.jqueryFileTree LI.expanded { background: url(../../images/button-bukubuka.gif) left top no-repeat; }
+
+.jqueryFileTree LI.file { background: url(../../images/button-clipboard.gif) left top no-repeat; }
+.jqueryFileTree LI.wait { background: url(../../images/jftree/spinner.gif) left top no-repeat; }
+
+/* File Extensions*/
+.jqueryFileTree LI.ext_3gp { background: url(../../images/jftree/film.png) left top no-repeat; }
+.jqueryFileTree LI.ext_afp { background: url(../../images/jftree/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_afpa { background: url(../../images/jftree/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_asp { background: url(../../images/jftree/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_aspx { background: url(../../images/jftree/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_avi { background: url(../../images/jftree/film.png) left top no-repeat; }
+.jqueryFileTree LI.ext_bat { background: url(../../images/jftree/application.png) left top no-repeat; }
+.jqueryFileTree LI.ext_bmp { background: url(../../images/jftree/picture.png) left top no-repeat; }
+.jqueryFileTree LI.ext_c { background: url(../../images/jftree/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_cfm { background: url(../../images/jftree/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_cgi { background: url(../../images/jftree/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_com { background: url(../../images/jftree/application.png) left top no-repeat; }
+.jqueryFileTree LI.ext_cpp { background: url(../../images/jftree/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_css { background: url(../../images/jftree/css.png) left top no-repeat; }
+.jqueryFileTree LI.ext_doc { background: url(../../images/jftree/doc.png) left top no-repeat; }
+.jqueryFileTree LI.ext_exe { background: url(../../images/jftree/application.png) left top no-repeat; }
+.jqueryFileTree LI.ext_gif { background: url(../../images/jftree/picture.png) left top no-repeat; }
+.jqueryFileTree LI.ext_fla { background: url(../../images/jftree/flash.png) left top no-repeat; }
+.jqueryFileTree LI.ext_h { background: url(../../images/jftree/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_htm { background: url(../../images/jftree/html.png) left top no-repeat; }
+.jqueryFileTree LI.ext_html { background: url(../../images/jftree/html.png) left top no-repeat; }
+.jqueryFileTree LI.ext_jar { background: url(../../images/jftree/java.png) left top no-repeat; }
+.jqueryFileTree LI.ext_jpg { background: url(../../images/jftree/picture.png) left top no-repeat; }
+.jqueryFileTree LI.ext_jpeg { background: url(../../images/jftree/picture.png) left top no-repeat; }
+.jqueryFileTree LI.ext_js { background: url(../../images/jftree/script.png) left top no-repeat; }
+.jqueryFileTree LI.ext_lasso { background: url(../../images/jftree/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_log { background: url(../../images/jftree/txt.png) left top no-repeat; }
+.jqueryFileTree LI.ext_m4p { background: url(../../images/jftree/music.png) left top no-repeat; }
+.jqueryFileTree LI.ext_mov { background: url(../../images/jftree/film.png) left top no-repeat; }
+.jqueryFileTree LI.ext_mp3 { background: url(../../images/jftree/music.png) left top no-repeat; }
+.jqueryFileTree LI.ext_mp4 { background: url(../../images/jftree/film.png) left top no-repeat; }
+.jqueryFileTree LI.ext_mpg { background: url(../../images/jftree/film.png) left top no-repeat; }
+.jqueryFileTree LI.ext_mpeg { background: url(../../images/jftree/film.png) left top no-repeat; }
+.jqueryFileTree LI.ext_ogg { background: url(../../images/jftree/music.png) left top no-repeat; }
+.jqueryFileTree LI.ext_pcx { background: url(../../images/jftree/picture.png) left top no-repeat; }
+.jqueryFileTree LI.ext_pdf { background: url(../../images/jftree/pdf.png) left top no-repeat; }
+.jqueryFileTree LI.ext_php { background: url(../../images/jftree/php.png) left top no-repeat; }
+.jqueryFileTree LI.ext_png { background: url(../../images/jftree/picture.png) left top no-repeat; }
+.jqueryFileTree LI.ext_ppt { background: url(../../images/jftree/ppt.png) left top no-repeat; }
+.jqueryFileTree LI.ext_psd { background: url(../../images/jftree/psd.png) left top no-repeat; }
+.jqueryFileTree LI.ext_pl { background: url(../../images/jftree/script.png) left top no-repeat; }
+.jqueryFileTree LI.ext_py { background: url(../../images/jftree/script.png) left top no-repeat; }
+.jqueryFileTree LI.ext_rb { background: url(../../images/jftree/ruby.png) left top no-repeat; }
+.jqueryFileTree LI.ext_rbx { background: url(../../images/jftree/ruby.png) left top no-repeat; }
+.jqueryFileTree LI.ext_rhtml { background: url(../../images/jftree/ruby.png) left top no-repeat; }
+.jqueryFileTree LI.ext_rpm { background: url(../../images/jftree/linux.png) left top no-repeat; }
+.jqueryFileTree LI.ext_ruby { background: url(../../images/jftree/ruby.png) left top no-repeat; }
+.jqueryFileTree LI.ext_sql { background: url(../../images/jftree/db.png) left top no-repeat; }
+.jqueryFileTree LI.ext_swf { background: url(../../images/jftree/flash.png) left top no-repeat; }
+.jqueryFileTree LI.ext_tif { background: url(../../images/jftree/picture.png) left top no-repeat; }
+.jqueryFileTree LI.ext_tiff { background: url(../../images/jftree/picture.png) left top no-repeat; }
+.jqueryFileTree LI.ext_txt { background: url(../../images/jftree/txt.png) left top no-repeat; }
+.jqueryFileTree LI.ext_vb { background: url(../../images/jftree/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_wav { background: url(../../images/jftree/music.png) left top no-repeat; }
+.jqueryFileTree LI.ext_wmv { background: url(../../images/jftree/film.png) left top no-repeat; }
+.jqueryFileTree LI.ext_xls { background: url(../../images/jftree/xls.png) left top no-repeat; }
+.jqueryFileTree LI.ext_xml { background: url(../../images/jftree/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_zip { background: url(../../images/jftree/zip.png) left top no-repeat; }

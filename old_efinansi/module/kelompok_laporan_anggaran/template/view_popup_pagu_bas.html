@@ -1,0 +1,150 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+
+function cekMakId(maks,mak_id)
+{ 
+    var mak_arrary = new Array();
+    var cek;
+    if(maks > 0){
+		for(j = 0; j < maks; j++){
+			 if(!(document.getElementById('pbm_'+ j))){
+				 continue;
+			 } else {
+				mak_arrary[j] = document.getElementById('pbm_'+ j).value;
+			 }
+		}
+		cek = mak_arrary.indexOf(mak_id);	
+	} else {
+		cek = -1;
+	}
+   
+   
+   if( cek != -1){
+        return true;
+   } else {
+        return false;
+   }
+}
+	
+//function setParent(obj,kode,nama,nominal,deskripsi,satuan,mak_kode,formula,nilai,mak_id,komp_id) 
+function setParent(obj,mak_id,mak_kode,mak_nama) 
+{ 
+   //var random=Math.floor(Math.random()*666);
+   var nomor =  document.getElementById("nomor");
+   var maks =  document.getElementById('maks');
+   
+   var tr = document.createElement('tr');
+   var td_no = document.createElement('td');
+   var td_mak_kode = document.createElement('td');
+   var td_mak_nama = document.createElement('td');
+   
+   var td_delete = document.createElement('td');
+   var tbodi = document.getElementById("data_pagu_bas_mak");
+   
+  
+   i = parseInt(maks.value);
+   id = i;
+   
+   
+    if(cekMakId(i,mak_id) == true){
+        alert('MAK Sudah Ada');
+        
+    } else {
+		
+   nomor = id +1 ;	
+   maks.value = nomor;
+   
+   td_no.innerHTML = nomor;
+   td_no.style.textAlign = 'center';
+   
+                        
+   td_mak_kode.innerHTML ='<input type="hidden" id="pbm_'+id+'" value="'+mak_id+'" />'+
+					'<input type="hidden" name="pagu_bas_mak['+id+'][mak_id]" value="'+mak_id+'" />'+
+					'<input type="hidden" name="pagu_bas_mak['+id+'][mak_nama]" value="'+mak_nama+'" />'+
+                    '<input type="hidden" name="pagu_bas_mak['+id+'][mak_kode]" value="'+mak_kode+'" />'+mak_kode;
+   td_mak_nama.innerHTML =mak_nama;
+ 
+   td_delete.innerHTML = '<a href="javascript:void(null)" title="Hapus" onclick="hapus_pagu_bas_mak(this)">'+
+                      '<img src="images/button-delete.gif" alt="Hapus" /></a>';
+   td_delete.style.textAlign ='center';                      
+ 
+	
+   tr.appendChild(td_no);
+   tr.appendChild(td_mak_kode);
+   tr.appendChild(td_mak_nama);
+   tr.appendChild(td_delete);
+   
+   if ((nomor % 2) != 0) {
+	   tr.className ='table-common-even';
+   } else {
+	   tr.className ='';
+	}
+   
+   tbodi.appendChild(tr);
+  
+   obj.style.display='none';
+   Behaviour.apply();  
+   
+   }
+}	
+</script>
+
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="daftar_mak" / --></h1>
+
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" name="popup-filterbox">
+
+   <table >
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="mak_nama" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="mak_kode" / --></th>
+            <td><input type="text" name="nama" value="{NAMA}" size="30" />
+         </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   </div>
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama" / --></th>
+         <th width="25"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="6" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center"><input type="hidden" id="komp_{DATA_NUMBER}" value="{DATA_MAK_ID}" />{DATA_NUMBER}</td>
+		       <td>{DATA_MAK_KODE}</td>
+               <td>{DATA_MAK_NAMA}</td>
+               <td class="links" align="center">
+               <a href="javascript:void(0)" onclick="javascript:setParent(this,'{DATA_MAK_ID}','{DATA_MAK_KODE}','{DATA_MAK_NAMA}')"><img alt="Pilih" src="images/button-check.gif"/></a>
+			   </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   </form>
+   <br />
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,42 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_gpp" / --></h1>
+<br/>
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="notebox-alert">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+   
+   
+   <form name="frmInput" method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
+   <input type="hidden" name="pph_gpp_id" value="{PPH_GPP_ID}"  />
+   <input type="hidden" name="op" value="{OPERASI}" />
+      <table class="table-edit" width="100%">
+         <tr class="subhead">
+            <th colspan="2">{JUDUL} <!-- patTemplate:gtfwgetconfig config="language" name="gpp" / --></th>
+         </tr>
+		 <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="nama_gpp" / --></th>
+            <td><input type="text" name="nama_pph_gpp" value="{NAMA_PPH_GPP}" size="35"/> *
+         </tr>         
+         <tr class="buttons">
+            <th>&nbsp;
+            </th>
+            <td>
+               <input type="submit" name="btnsimpan" value=" <!-- patTemplate:gtfwgetconfig config="language" name="simpan" / --> " class="buttonSubmit"/>
+               <input  type="submit"  name="btnbalik" value=" <!-- patTemplate:gtfwgetconfig config="language" name="batal" / --> " class="buttonSubmit"/>
+            </td>
+         </tr>
+      </table>
+   </form>
+   
+   <br/>
+   
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+      <ul>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --></li>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

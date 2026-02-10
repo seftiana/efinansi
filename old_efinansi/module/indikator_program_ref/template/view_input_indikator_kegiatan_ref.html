@@ -1,0 +1,95 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+	function popupIP(url){
+      showPopup(url,'Popup <!-- patTemplate:gtfwgetconfig config="language" name="ip" / -->',550, 550);
+   }
+// ]]>
+</script>
+
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="ik" / --></h1>
+<br/>
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="notebox-alert">
+    {ISI_PESAN}
+</div>
+<br/>
+<!-- /patTemplate:tmpl -->
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" name="frmInput">
+	<input type="hidden" name="dataId" value="{IK_ID}"  />
+	
+<table class="table-edit" width="100%">
+    <tr class="subhead">
+	   <th colspan="2">{JUDUL} <!-- patTemplate:gtfwgetconfig config="language" name="ik" / --></th>
+    </tr>
+    <tr>
+	   <th width="150">
+	   <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+	   </th>
+	   <td>
+       <input type="hidden" name="kodeLama" value="{KODE_LAMA}"/>
+	   <input type="text" name="kode" value="{KODE}" size="10"/>&nbsp;*
+	</td>
+    </tr>
+    <tr>
+	   <th width="150">
+	       <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+	   </th>
+	   <td>
+	       <input type="text" name="nama" value="{NAMA}" size="40"/>&nbsp;*
+	   </td>
+    </tr>
+    <tr>
+	   <th width="150">
+	       <!-- patTemplate:gtfwgetconfig config="language" name="ip" / -->
+	   </th>
+	   <td>
+	       
+           <!-- patTemplate:tmpl name="data_ip" type="condition" conditionvar="IS_DATA_IP" -->
+           <!-- patTemplate:sub condition="YES" -->
+                <input type="hidden" name="ipId" id="ipId" value="{IP_ID}"/>
+                <input type="hidden" name="ipNama" id="ipNama" value="{IP_NAMA}" />
+                <label><strong>{IP_NAMA}</strong>
+           <!-- /patTemplate:sub -->
+           <!-- patTemplate:sub condition="NO" -->                                              
+                 <input type="hidden" name="ipId" id="ipId" value="{IP_ID}"/>   
+           <input type="text" name="ipNama" id="ipNama" value="{IP_NAMA}" size="40" readonly="readonly" />
+           <input type="button" id="popup_program" name="popup_program" value=" ... "  
+                title="Popup Indikator Program" class="inputButton" 
+                onclick="popupIP('{URL_POPUP}')" />&nbsp;*
+           
+           <!-- /patTemplate:sub -->
+           <!-- /patTemplate:tmpl -->
+	   </td>
+    </tr>
+    <tr>
+	   <th width="150">
+	       <!-- patTemplate:gtfwgetconfig config="language" name="nilai" / -->
+	   </th>
+	   <td>
+	       
+           <input type="text" name="value" value="{VALUE}" size="10" class="gvNum"/>&nbsp;*
+	   </td>
+    </tr>
+
+    <tr class="buttons">
+	   <th>&nbsp;</th>
+	   <td>
+	       	<input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+            <input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+	   </td>
+    </tr>
+</table>
+
+<div id="calc" style="margin:20px; margin-bottom:50px; position:absolute; z-index:999999">
+&nbsp;
+</div>
+</form>
+   
+<div class="petunjuk-area" id="petunjuk">
+<h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+<ul>
+<li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --></li>
+</ul>
+</div>
+<!-- /patTemplate:tmpl -->

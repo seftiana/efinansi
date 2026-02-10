@@ -1,0 +1,257 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css">
+@media screen,print
+{
+    div.label{
+        float:left;
+        width: 225px;
+        padding-right: 10px;
+    }
+    table tr td ul{
+        margin: 0px;
+        padding: 0px;
+    }
+    table tr td ul li{
+        list-style: none;
+        float: left;
+        padding-right: 10px;
+        min-width: 95px;
+    }
+    table tr td ul li:first-child{
+        width: 225px;
+    }
+    span.code-box{
+        border: 1px solid #000;
+        padding: 0px 10px 0px 10px;
+        margin: 0px 5px 0px 15px;
+    }
+    div.clear{
+        clear:both;
+    }
+    div.side{
+        margin-left: 235px;
+        margin-top: 5px;
+        margin-right: 10px;
+        margin-bottom: 15px;
+        line-height: 18px;
+    }
+    div.left{
+        width: 70%;
+        float:left;
+    }
+    div.right{
+        float: left;
+        line-height: 18px;
+    }
+}
+</style>
+<div class="a4-potrait">
+<table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <td colspan="5" align="center">
+            <h3><!-- patTemplate:gtfwgetconfig config="organization" name="kementerian_lembaga_nama" / --></h3>
+            <h1>SURAT PERINTAH MEMBAYAR INTERN</h1>
+            <h3>Tanggal : {SPM_TANGGAL} &nbsp;&nbsp;&nbsp;&nbsp; Nomor : {SPM_NOMOR}</h3>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <div class="label">
+                Kuasa Bendara Umum Negara, KPPN 
+            </div>
+            
+            <!-- patTemplate:gtfwgetconfig config="organization" name="city" / -->
+            (<!-- patTemplate:gtfwgetconfig config="organization" name="city_number" / -->)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <div class="label">
+                Agar melakukan pembayaran sejumlah
+            </div>
+            {SPM_NOMINAL}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            *** {TERBILANG} ***
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            Cara Bayar : <span class="code-box">{CARA_BAYAR_KODE}</span> {CARA_BAYAR_NAMA}
+        </td>
+        <td colspan="2">
+            Tahun Anggaran : {TAHUN_ANGGARAN_LABEL}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <ul>
+                <li>Dasar Pembayaran</li>
+                <li>Satker</li>
+                <li>Kwn</li>
+                <li>Nama Satker</li>
+            </ul>
+            
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <ul>
+                <li>
+                    {DIPA_NAMA}<br />
+                    TANGGAL <!-- patTemplate:var name="dipa_tanggal" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+                </li>
+                <li>
+                    <!-- patTemplate:gtfwgetconfig config="organization" name="satker_no" / -->
+                </li>
+                <li>
+                    KD
+                </li>
+                <li>
+                    <!-- patTemplate:gtfwgetconfig config="organization" name="company_name" / -->
+                </li>
+            </ul>
+            <div class="clear"></div>
+            <br />
+            <div class="side">
+                Fungsi, Sub Fungsi, Unit Es.I, Program<br />
+                <!-- patTemplate:gtfwgetconfig config="organization" name="fungsi_no" / -->.
+                <!-- patTemplate:gtfwgetconfig config="organization" name="subfungsi_no" / -->.
+                <!-- patTemplate:gtfwgetconfig config="organization" name="unit_org_eselon_no" / -->.
+                <!-- patTemplate:gtfwgetconfig config="organization" name="program_no" / -->
+                <br />
+                Kegiatan, Output, Sub Kelompok Akun<br />
+                {KEGIATAN_NOMOR}.{OUTPUT_KODE}.{SUB_AKUN}<br />
+                <div class="label">
+                    Jenis Pembayaran
+                </div>
+                : <span class="code-box">{JENIS_BAYAR_KODE}</span> {JENIS_BAYAR_NAMA}<br />
+                <div class="label">
+                    Sifat Pembayaran
+                </div>
+                : <span class="code-box">{SIFAT_BAYAR_KODE}</span> {SIFAT_BAYAR_NAMA}<br />
+                
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" align="center">
+            PENGELUARAN
+        </td>
+        <td colspan="2" align="center">
+            POTONGAN
+        </td>
+    </tr>
+    <tr>
+        <td width="175" align="center">
+            Akun
+        </td>
+        <td width="95" align="center">
+            COA
+        </td>
+        <td align="center">
+            Jumlah Uang
+        </td>
+        <td align="center">
+            Lemb/Unit/Lok/MAP
+        </td>
+        <td align="center">
+            Jumlah Uang
+        </td>
+    </tr>
+    <!-- patTemplate:tmpl name="data_item" -->    
+    <tr>
+        <td>
+            {MAK_KODE}
+        </td>
+        <td align="center">
+            {COA_NAMA}
+        </td>
+        <td align="right">
+            {NOMINAL_TEXT}
+        </td>
+        <td>
+            {KODE_PAJAK}
+        </td>
+        <td align="right">
+            {NOMINAL_PAJAK}
+        </td>
+    </tr>
+    <!-- /patTemplate:tmpl -->
+    <tr>
+        <td align="center" colspan="2">
+            Jumlah Pengeluaran
+        </td>
+        <td align="right">
+            {JUMLAH_UANG}
+        </td>
+        <td align="center">
+            Jumlah Potongan
+        </td>
+        <td align="right">
+            {JUMLAH_PAJAK}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <p>
+                <div class="label">
+                    Kepada
+                </div>
+                : {SPM_NAMA}
+            </p>
+            <p>
+                <div class="label">
+                    NPWP
+                </div>
+                : {SPM_NPWP}
+            </p>
+            <p>
+                <div class="label">
+                    Nomor/Nama Rek
+                </div>
+                : {SPM_REKENING}
+            </p>
+            <p>
+                <div class="label">
+                    Bank/Pos
+                </div>
+                : {SPM_BANK}
+            </p>
+            <p>
+                <div class="label">
+                    Uraian
+                </div>
+                : {SPM_KETERANGAN}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <div class="left">
+                &nbsp;
+            </div>
+            <div class="right">
+                <!-- patTemplate:gtfwgetconfig config="organization" name="city" / -->, 
+                <!-- patTemplate:var name="tanggal_spm" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+                <br />A.n. Kuasa Pengguna Anggaran 
+                <br />PEJABAT PENERBIT SPM
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <!-- patTemplate:gtfwgetconfig config="organization" name="pejabat_penerbit_spm" / -->
+                <br />
+                NIP. <!-- patTemplate:gtfwgetconfig config="organization" name="pejabat_penerbit_spm_nip" / -->
+            </div>
+        </td>
+    </tr>
+</table>
+</div>
+<div class="foot-note">
+Dicetak Oleh : {USERNAME} - {TIMESTAMP}
+</div>
+<!-- /patTemplate:tmpl -->

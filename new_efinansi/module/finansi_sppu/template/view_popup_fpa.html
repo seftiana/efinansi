@@ -1,0 +1,236 @@
+<!-- patTemplate:tmpl name="content" -->
+<form method="POST" action="{URL_SEARCH}" id="filterboxpopup" name="filterboxpopup"
+class="dataquest xhr_simple_form dest_popup-subcontent">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width:170px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="tahun_anggaran"  / -->
+         </td>
+      </tr>      
+      <tr>
+         <th >
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+                          <!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> /
+               <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+         </th>
+         <td>
+            <input type="text" name="unit" id="src_unit" size="35" value="{UNIT}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->/
+               <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->/
+               <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+         </th>
+         <td>
+            <input type="text" name="uraian" id="src_nama" size="35" value="{URAIAN}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="bulan" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="bulan"  / -->
+         </td>
+      </tr>  
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+
+   </div>
+<form id="form-list">
+   <table class="table-common" width="100%" >
+      <thead>
+         <tr>
+            <th width="5" rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+            </th>
+            
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+            </th>
+            <th colspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->,
+               <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->,
+               <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> /
+               <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="nominal_usulan_rp" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="nominal_setuju_rp" / -->
+            </th>
+            <th rowspan="2" style="width: 20px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+            </th>
+            
+         </tr>
+         <tr>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+            </th>
+         </tr>
+      </thead>
+      <tbody>
+         <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+            <!-- patTemplate:sub condition="YES" -->
+               <tr>
+                  <td colspan="8" align="center">
+                     <em>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --</em>
+                  </td>
+               </tr>
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+               <!-- patTemplate:tmpl name="data_list" -->
+                  <tr class="{CLASS_NAME}" style="{ROW_STYLE}">
+                     <td align="center">
+                        {NOMOR} 
+                     </td>
+                   
+                     <td align="right" width="110">
+                      {TANGGAL}
+                     </td>
+                     <td>
+                        {KODE}
+                     </td>
+                     <td>
+                        {NAMA} 
+                        <!-- patTemplate:tmpl name="content_deskripsi" visibility="hidden" -->
+                     <label style="font-style: italic; padding-top: 8px; padding-bottom: 6px;">
+                        ({LK})
+                     </label>
+                     <!-- /patTemplate:tmpl -->
+                     </td>
+                      <td>
+                        {UNIT_NAMA}
+                     </td>
+                     <td style="text-align:right;">
+                        {NOMINAL_USULAN}
+                     </td>
+                     <td style="text-align:right;">
+                        {NOMINAL_SETUJU}
+                     </td>
+                       <td>
+                        <!-- patTemplate:tmpl name="data_checkbox" visibility="hidden" -->
+                    
+                         <a href="javascript:void(0);" onclick="setData({ID});" title="fpa" id="links-{ID}">
+                              <img src="images/icons/16/button-check.gif" alt="fpa" />
+                           </a>
+                           <!-- /patTemplate:tmpl -->
+                     </td>
+                  </tr>
+               <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </tbody>
+   </table>
+    </form>
+<!-- end: Table List -->
+<br />
+<div class="petunjuk-area" id="petunjuk">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         <img src="images/icons/16/button-check.gif" style="margin: -3px;" /> &nbsp; Untuk memilih FPA
+      </li>
+      <li>
+         <img src="images/icons/16/button-cancel-tindaklanjut.gif" style="margin: -3px;" /> &nbsp; Data FPA sudah di definisikan untuk SPPU
+      </li>
+   </ul>
+</div>
+<script type="text/javascript">
+
+
+var dataFPA =  {DATA_FPA};
+var setData       = function(idFpa) {
+    //var data_json = document.getElementById('data-json-'+{id}).value;
+    document.getElementById('realisasi_PlaceHolder').addItem(
+         0,
+         dataFPA[idFpa].id,
+         dataFPA[idFpa].nomor_pengajuan, // no fpa
+         dataFPA[idFpa].nominal_setuju,
+         dataFPA[idFpa].program_nama,
+         dataFPA[idFpa].kegiatan_nama,
+         dataFPA[idFpa].sub_kegiatan_nama,
+         dataFPA[idFpa].lingkup_komponen,
+         dataFPA[idFpa].unit_nama,
+         dataFPA[idFpa].tanggal
+      );
+      loadFPA();
+}
+
+
+function loadFPA () {
+   var realisasiPlaceHolder    = document.getElementById('realisasi_PlaceHolder');
+   
+   var realisasiId             = new Array();
+   var patern              = /(\w+)_(\d+)/;
+   if(realisasiPlaceHolder && typeof(realisasiPlaceHolder) != 'undefined'){
+      var realisasiNodes       = realisasiPlaceHolder.getElementsByTagName('tr');
+      if(realisasiNodes.length > 0){
+         for (var i = realisasiNodes.length - 1; i >= 0; i--) {
+            var str  = realisasiNodes[i].id;
+            if(str.match(patern)){
+               var realisasiSplit    = str.split('_');
+               var idRealisasi       = realisasiSplit[1];
+               realisasiId.push(idRealisasi);
+            };
+         };
+      }
+   }
+ 
+
+   if(realisasiId.length > 0){
+      for (var i = realisasiId.length - 1; i >= 0; i--) {
+         var node       = document.getElementById('realisasi_'+realisasiId[i]);
+         var links      = document.getElementById('links-'+realisasiId[i]);
+         var img        = document.createElement('img');
+         img.src        = 'images/icons/16/button-cancel-tindaklanjut.gif';
+         if(typeof(links) != 'undefined' && links != null){
+
+            links.href        = 'javascript:void(0);';
+            links.innerHTML   = '';
+            links.appendChild(img);
+            links.removeAttribute('onclick');
+         }
+      };
+   }
+}
+// check link yang sudah di definisikan pada form input
+loadFPA();
+</script>
+<!-- /patTemplate:tmpl -->

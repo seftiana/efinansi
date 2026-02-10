@@ -1,0 +1,86 @@
+<!-- patTemplate:tmpl name="content" -->
+   <h1 id="">Setting Penyesuaian</h1>
+   <br />
+   <form method="post" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+      <table>
+         <tr>
+            <th colspan="2"><h2>Pencarian Jurnal Penyesuaian</h2></th>
+         </tr>
+         <tr>
+            <th width="150">Kode / Nama Jurnal</th>
+            <th><input type="text" name="kode" value="{KODE}" size="40" maxlength="20" tabindex="0" /></th>
+         </tr>
+         <tr>
+            <th></th>
+            <th>
+               <input type="submit" name="action" value="Cari &raquo;" class="buttonSubmit" />
+            </th>
+         </tr>
+      </table>
+   </form>
+   <br />
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <br/>
+   <div class="{CLASS_PESAN}">
+     {ISI_PESAN}
+   </div>
+   <br/>
+   <!-- /patTemplate:tmpl -->
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar">
+         <a class="xhr dest_subcontent-element" href="{URL_TAMBAH}" title="Tambah" tabindex="0">
+         <img src="images/button-add.gif" alt="">Tambah</a>
+      </div>
+   </div>
+   <!-- start: Table List -->
+         <table class="table-common" width="100%">
+            <tr>
+               <th width="50" align="left">No</th>
+               <th>
+                  Kode
+               </th>
+               <th>
+                  Nama
+               </th>
+               <th>
+                  Penyesuaian
+               </th>
+               <th>
+                  Nilai Penyesuaian
+               </th>
+               <th>
+                  Aksi
+               </th>
+            </tr>
+            <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+               <!-- patTemplate:sub condition="YES" -->
+               <tr><td colspan="6" align="center"><em>-- Data tidak ditemukan --</em></td></tr>
+               <!-- /patTemplate:sub -->
+               <!-- patTemplate:sub condition="NO" -->
+                  <!-- patTemplate:tmpl name="data_item" -->
+                  <tr class="{CLASS_NAME}">
+                     <td align="center">{NO}</td>
+                     <td>
+                        {SETPENYESUAIANKODE}
+                     </td>
+                     <td>
+                        {SETPENYESUAIANNAMA}
+                     </td>
+                     <td>
+                        {SETPENYESUAIANSISAPENYESUAIAN}
+                     </td>
+                     <td style="text-align:right">
+                        {SETPENYESUAIANNILAIPENYESUAIAN}
+                     </td>
+                     <td class="links" align="center">
+                        <a class="xhr dest_subcontent-element" href="{URL_EDIT}" title="Ubah"><img src="images/button-edit.gif" alt="Ubah"/></a>
+                        <a class="xhr dest_subcontent-element" href="{URL_DELETE}"><img src="images/button-delete.gif" alt="Hapus" /></a>
+                     </td>
+                  </tr>
+                  <!-- /patTemplate:tmpl -->
+               <!-- /patTemplate:sub -->
+            <!-- /patTemplate:tmpl -->
+         </table>
+      <!-- stop: Table List -->
+<!-- /patTemplate:tmpl -->

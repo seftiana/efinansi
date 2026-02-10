@@ -1,0 +1,79 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="manajemen_sub_account_kedua" / -->
+</h1>
+<br/>
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+  {ISI_PESAN}
+</div>
+<br/>
+<!-- /patTemplate:tmpl -->
+
+
+<form method="POST" action="{URL_ACTION}" id="frmInput" class="xhr_form std_form dest_subcontent-element" name="frmInput" data-target="{URL_RETURN}">
+<input type="hidden" name="dataId" value="{DATAID}"  />
+  <table class="table-edit" width="100%">
+    <tr class="subhead">
+      <th colspan="2">
+         <!-- patTemplate:gtfwgetconfig config="language" name="tambah_sub_account" / -->
+    </tr>
+    <tr>
+      <th width="150">
+         <!-- patTemplate:gtfwgetconfig config="language" name="kode_sub_account" / -->
+      </th>
+      <td>
+         <input type="text" name="kode" value="{KODE}" class="input_mask" data-mask="{PATERN}" size="10" maxlength="5" />&nbsp;*
+      </td>
+    </tr>
+    <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="nama_sub_account" / -->
+      </th>
+      <td>
+         <!-- patTemplate:tmpl name="content_type" type="condition" conditionvar="DATA_TYPE" -->
+            <!-- patTemplate:sub condition="ADD" -->
+               <input type="text" name="nama" value="{NAMA}" size="40" onkeyup="checkNama(this);" />&nbsp;*
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="DEFAULT" -->
+               <input type="hidden" name="nama" value="{NAMA}" />
+               <label style="font-weight: bold;">
+                  {NAMA}
+               </label>
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </td>
+    </tr>
+
+    <tr class="buttons">
+    <td>&nbsp;</td>
+      <td>
+         <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit" />
+         <input type="reset"  name="btnbalik" value=" Batal " class="buttonSubmit" />
+      </td>
+    </tr>
+  </table>
+</form>
+<br/>
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:
+   </h4>
+   <ul>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / -->
+      </li>
+   </ul>
+</div>
+<script type="text/javascript">
+var checkNama  = function(elm){
+   var index   = 'default';
+   var nama    = elm.value.toLowerCase();
+   if(nama.indexOf(index) == 0){
+      alert('Silahkan pilih nama lain. Nama default atau mengandung nama default tidak bisa di input kan');
+      elm.value  = '';
+   }
+}
+</script>
+<!-- /patTemplate:tmpl -->

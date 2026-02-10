@@ -1,0 +1,381 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+   function bukaPopupProgram(url){
+      var tahun_anggaran      = document.getElementById('cmb_tahun_anggaran');
+      var xurl                = url;
+      var ta                  = tahun_anggaran.options[tahun_anggaran.selectedIndex].value;
+      var ta_text             = tahun_anggaran.options[tahun_anggaran.selectedIndex].text;
+      if(typeof(tahun_anggaran) == 'undefined' || tahun_anggaran == null){
+         alert('Pilih tahun anggaran');
+      }else{
+         showPopup(xurl+'&tahun_anggaran='+ta+'&tahun_anggaran_label='+ta_text,'',550,550);
+      }
+   }
+// ]]>
+</script>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="manajemen_rencana_kinerja_tahunan_angsuran" / -->
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox" name="filterbox" >
+   <table>
+      <tr>
+         <th colspan="2">
+            <strong>
+               <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+            </strong>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tahun_anggaran"  / -->
+         </td>
+      </tr>
+      <!-- patTemplate:tmpl name="data_unit" type="condition" conditionvar="LEVEL" -->
+         <!-- patTemplate:sub condition="PARENT" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="unit_id" value="{UNIT_ID}" id="txt_unit_id" />
+                  <input type="text" name="unit_nama" value="{UNIT_NAMA}" id="txt_unit_nama" readonly size="40" />
+                  <input type="button" value=" ... " onclick="showPopup('{URL_POPUP_UNIT}','gtPopup',600,550);" />
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="CHILD" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="unit_id" value="{UNIT_ID}" id="txt_unit_id" />
+                  <input type="hidden" name="unit_nama" value="{UNIT_NAMA}" id="txt_unit_nama" />
+                  <label style="font-weight: bold;">
+                     {UNIT_NAMA}
+                  </label>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+         </th>
+         <td>
+            <input type="hidden" name="program" id="program" value="{PROGRAM}" />
+            <textarea name="program_label" id="program_label" readonly="readonly" cols="40" rows="2" onclick="javascript:bukaPopupProgram('{URL_POPUP_PROGRAM}')" onfocus="javascript:bukaPopupProgram('{URL_POPUP_PROGRAM}')" style="resize: none;">{PROGRAM_LABEL}</textarea>
+            <input type="button" value=" ... " onclick="javascript:bukaPopupProgram('{URL_POPUP_PROGRAM}')" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode_sub_kegiatan" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" id="kode" value="{KODE}" size="25" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama_sub_kegiatan" / -->
+         </th>
+         <td>
+            <input type="text" name="nama" id="nama" value="{NAMA}" size="40" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Jenis Kegiatan
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="jenis_kegiatan"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Prioritas
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="prioritas"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Bulan
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="bulan"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnTampilkan" value=" Tampilkan " class="buttonSubmit"/>
+            <input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+
+<form method="POST" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <input type="hidden" name="control_label" value="{CONTROL_LABEL}" />
+   <input type="hidden" name="control_action" value="{CONTROL_ACTION}" />
+   <input type="hidden" name="control_return" value="{CONTROL_RETURN}" />
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging"
+      action="view" name="paging_top"  / -->
+      <div class="toolbar">
+         <a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Data Kegiatan">
+            <img src="images/button-add.gif" alt="">
+            Tambah
+         </a>
+         <input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="inputButton" />
+      </div>
+   </div>
+   <table class="table-common" width="100%">
+      <thead>
+         <tr>
+            <th width="5" rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+            </th>
+            <th rowspan="2">
+               <input type="checkbox" class="CheckBoxFW_parent" />
+            </th>
+            <th colspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="program" / --> /
+               <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --> /
+               <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+            </th>
+            <th rowspan="2" style="width: 65px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="bulan" / -->
+            </th>
+            <th rowspan="2" style="width: 65px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="periode_tahun" / -->
+            </th>
+           
+            <th colspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / -->
+            </th>
+            <th style="display:none" rowspan="2">
+               Jenis
+            </th>
+            <th rowspan="2" style="width: 30px;">
+               Cek
+			   Keuangan 
+            </th>
+            <!-- <th rowspan="2"> -->
+               <!-- Prioritas -->
+            <!-- </th> -->
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="nilai_rp" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+            </th>
+         </tr>
+         <tr>
+            <th style="width: 95px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+            </th>
+            <th style="width: 95px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+            </th>
+         </tr>
+      </thead>
+      <!-- patTemplate:tmpl name="data_list" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="11" align="center">
+                  <em>--
+                     <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                  --</em>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_grid" -->
+               <tr class="{CLASS_NAME}" style="{ROW_STYLE}">
+                  <td align="center">
+                     {NOMOR}
+                  </td>
+                  <td align="center">
+                     <!-- patTemplate:tmpl name="content_checkbox" type="condition" conditionvar="LEVEL" -->
+                        <!-- patTemplate:sub condition="PROGRAM" -->
+
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="KEGIATAN" -->
+
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="DATA" -->
+                           <input type="checkbox" name="id[]" id="id_{ID}" value="{ID}|{PARENT_ID}" class="CheckBoxFW_child" />
+                           <input type="hidden" name="name[{ID}|{PARENT_ID}]" value="{KODE} - {NAMA}" />
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="DISABLED" -->
+                           <input type="checkbox" disabled id="id_{ID}" />
+                        <!-- /patTemplate:sub -->
+                     <!-- /patTemplate:tmpl -->
+                  </td>
+                  <td align="right">
+                     {KODE}
+                  </td>
+                  <td>
+                     {NAMA}
+                     <!-- patTemplate:tmpl name="content_deskripsi" visibility="hidden" -->
+                     <label style="font-style: italic; padding-top: 8px; padding-bottom: 6px;">
+                        ({DESKRIPSI})
+                     </label>
+                     <!-- /patTemplate:tmpl -->
+                  </td>
+                   <td align="center">
+                     {BULAN}
+                  </td>
+                  <td align="center">
+                     {TA_NAMA}
+                  </td>
+                  <td align="right">
+                     {UNIT_KODE}
+                  </td>
+                  <td>
+                     {UNIT_NAMA}
+                  </td>
+                  <th style="display:none">
+                     {JENIS}
+                  </td>
+                  <td class="links" style="text-align: center;">
+                     <!-- patTemplate:tmpl name="content_approval" type="condition" conditionvar="STATUS" -->
+                        <!-- patTemplate:sub condition="YA" -->
+                           <a href="javascript:void(0);" style="display: inline-block; float: none;">
+                              <img src="images/icons/16/tick_circle.png" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="BELUM" -->
+                           <a href="javascript:void(0);" style="display: inline-block; float: none;">
+                              <img src="images/icons/16/yellow.gif" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="TIDAK" -->
+                           <a href="javascript:void(0);" style="display: inline-block; float: none;">
+                              <img src="images/icons/16/red.gif" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                     <!-- /patTemplate:tmpl -->
+                  </td>
+                  <!-- <td> -->
+                     <!-- {PRIORITAS} -->
+                  <!-- </td> -->
+                  <td align="right">
+                     {NOMINAL}
+                  </td>
+                  <td align="center" class="links">
+                     <!-- patTemplate:tmpl name="content_links" type="condition" conditionvar="LEVEL" -->
+                        <!-- patTemplate:sub condition="PROGRAM" -->
+
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="KEGIATAN" -->
+
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="DATA_EDIT" -->
+                           <a href="{URL_EDIT}" class="xhr dest_subcontent-element">
+                              <img src="images/button-edit.gif" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="LINK_DISABLED" -->
+                           <a href="javascript:void(0);">
+                              <img src="images/icons/16/button-edit-disabled.gif" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                     <!-- /patTemplate:tmpl -->
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   </div>
+</form>
+
+<script type="text/javascript">
+CheckBoxFW_initiate = function (Obj)
+{
+   if (!Obj || Obj.className.indexOf('CheckBoxFW_parent') < 0 || !Obj.form) return;
+
+   var CBList     = new Array;
+   var CheckedAll = true;
+   var FormObj    = Obj.form;
+
+   for (var i = 0; i < FormObj.length; i++) if (FormObj[i] == Obj) break;
+   if (i == FormObj.length) return;
+
+   for(i += 1; i < FormObj.length; i++)
+   {
+      var CBObj = FormObj[i];
+      if (CBObj.type.toUpperCase() != 'CHECKBOX') continue;
+      if (CBObj.className.indexOf('CheckBoxFW_child') >= 0)
+      {
+         CBObj.onchange = function () {
+            Obj.checkChild();
+         }
+         CBList[CBList.length] = CBObj;
+         if (!CBObj.checked) CheckedAll = false;
+      }
+      if (CBObj.className.indexOf('CheckBoxFW_parent') >= 0) break;
+   }
+
+   if (CBList.length > 0)
+   {
+      Obj.onchange = function ()
+      {
+         for (var i = 0; i < CBList.length; i++){
+            if(CBList[i].getAttribute('disabled') == null){
+               CBList[i].checked = this.checked;
+            }
+         }
+      }
+
+      Obj.checkChild = function ()
+      {
+         var CheckedAll = true;
+         for (var i = 0; i < CBList.length; i++) if (!CBList[i].checked)
+         {
+            CheckedAll = false;
+            break;
+         }
+         this.checked = CheckedAll;
+      }
+
+      Obj.checked = CheckedAll;
+   }
+}
+var formObj       = document.getElementById('form_list');
+if(typeof(formObj) != 'undefined' && formObj != null){
+   for (var i = 0; i < formObj.length; i++){
+      CheckBoxFW_initiate(formObj[i]);
+   }
+}
+</script>
+<!-- /patTemplate:tmpl -->

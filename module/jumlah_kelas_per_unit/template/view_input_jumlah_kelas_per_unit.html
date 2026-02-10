@@ -1,0 +1,153 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+
+    function bukaPopupPaguBas(xurl)
+    {
+        showPopup(xurl, '', 550, 550);
+    }
+
+    function bukaPopupUnitkerja(xurl)
+    {
+
+        showPopup(xurl, '', 550, 550);
+    }
+
+    function bukaPopupSumberDana(xurl)
+    {
+        showPopup(xurl, '', 550, 550);
+    }
+
+    function getProdiKelasGenap(idData) {
+        GtfwAjax.replaceContentWithUrl('prodi_kelas_genap', '<!-- patTemplate:gtfwgeturl module="jumlah_kelas_per_unit" sub="comboProdiKelasGenap" action="view" type="html" htmlentities="no" / -->&ascomponent=1&dataId=' + idData);
+    }
+
+    function getProdiKelasGasal(idData) {
+        GtfwAjax.replaceContentWithUrl('prodi_kelas_gasal', '<!-- patTemplate:gtfwgeturl module="jumlah_kelas_per_unit" sub="comboProdiKelasGasal" action="view" type="html" htmlentities="no" / -->&ascomponent=1&dataId=' + idData);
+    }
+    //document.onmousedown=focusPopup();
+</script>
+
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="pengaturan_jumlah_kelas" / --></h1>
+<br/>
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="notebox-alert">
+    {ISI_PESAN}
+</div>
+<br/>
+<!-- /patTemplate:tmpl -->
+
+
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
+    <input type="hidden" name="jumlah_kelas_id" value="{JUMLAH_KELAS_ID}"  />
+    <input type="hidden" name="unitkerja_old" value="{UNITKERJA_OLD}"  />
+    <input type="hidden" name="tahun_anggaran_old" value="{TAHUN_ANGGARAN_OLD}"  />
+    <table class="table-edit" width="100%">
+        <tr class="subhead">
+            <th colspan="2">{JUDUL} <!-- patTemplate:gtfwgetconfig config="language" name="jumlah_kelas_unit" / --></th>
+        </tr>
+        <tr>
+            <th width="200"><!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / --></th>
+            <td>
+                <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tahun_anggaran"  / -->
+            </td>
+        </tr>
+        <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+            <td>
+                <input type="hidden" name="unitkerja" id="unitkerja" value="{UNITKERJA}" />
+                <!-- patTemplate:tmpl name="cek_unitkerja_parent" 
+                    type="condition" conditionvar="IS_PARENT" -->
+                <!-- patTemplate:sub condition="YES" --> 
+                <textarea name="unitkerja_label" id="unitkerja_label" readonly="readonly" style="float:left"
+                          cols="40" rows="1">{UNITKERJA_LABEL}</textarea> 
+                <input type="button"  name="but_program" style="float:left;margin:1.5px 0 0 2px;" 
+                       onclick="javascript:bukaPopupUnitKerja('{URL_POPUP_UNITKERJA}')" value=" ... " />
+                <!-- /patTemplate:sub -->
+
+                <!-- patTemplate:sub condition="NO" --> 
+                <label><b>{UNITKERJA_LABEL}</b></label>
+                <input type="hidden" name="unitkerja_label" 
+                       id="unitkerja_label" value="{UNITKERJA_LABEL}" />
+                <!-- /patTemplate:sub -->
+                <!-- /patTemplate:tmpl -->
+            </td>
+        </tr>   
+        <tr>
+            <td colspan="2"><strong><i>Sesuaikan Nama Prodi dengan Unit/Sub Unit</i></strong>
+                &nbsp;(status integrasi :<strong>
+                <!-- patTemplate:tmpl name="status_service" 
+                    type="condition" conditionvar="IS_AVAILABLE" -->
+                <!-- patTemplate:sub condition="YES" --> 
+                    <img src="images/lamp-green.gif" /> On
+                <!-- /patTemplate:sub -->                    
+                <!-- patTemplate:sub condition="NO" --> 
+                    <img src="images/lamp-red.gif" /> Off
+                <!-- /patTemplate:sub -->
+                <!-- /patTemplate:tmpl --> </strong>)
+            </td>
+        </tr>
+        <tr style="background-color: #C5BDC9;">
+            <th >Semester Gasal</th>
+            <td>
+                <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="sgasal"  / -->
+            </td>
+        </tr>          
+        <tr style="background-color: #C5BDC9;">
+            <th >Prodi dan Jumlah Kelas</th>
+            <td id="prodi_kelas_gasal">
+                <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="prodi_kelas_gasal"  / -->
+            </td>
+        </tr>    
+        <tr style="background-color: #F5A4E6; ">
+            <th>Semester Genap</th>
+            <td>
+                <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="sgenap"  / -->
+            </td>
+        </tr> 
+        <tr style="background-color: #F5A4E6;">
+            <th >Prodi dan Jumlah Kelas</th>
+            <td id="prodi_kelas_genap">
+                <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="prodi_kelas_genap"  / -->
+            </td>
+        </tr>                   
+
+        <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_kelas" / --></th>
+            <td >
+                <input type="text" name="jumlah_kelas" id="jumlah_kelas" size="30" value="{JUMLAH_KELAS}" class="gvNum"/><br />
+                <strong><i>Biarkan kosong (0), jika menggunakan konfigurasi prodi diatas.</i></strong>
+            </td>
+        </tr>
+
+        <tr class="buttons">
+            <th>&nbsp;
+            </th>
+            <td>
+                <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+                <input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<br/>
+
+<div class="petunjuk-area">
+    <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+    <ul>
+        <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --> </li>
+        <li><!-- patTemplate:gtfwgetconfig config="language" name="info_input_pau" / --></li>
+        <li>
+            <img src="images/lamp-green.gif" style="margin-bottom: -4px;"/> Menandakan status integrasi dengan Akademik <strong>On</strong>
+        </li>
+        <li>
+            <img src="images/lamp-red.gif" style="margin-bottom: -4px;"/> Menandakan status integrasi dengan Akademik <strong>Off</strong><br />
+            
+        </li>
+        <li>
+            Jika status integrasi <strong>Off</strong>, cek konfigurasi alamat url integrasi dengan Akademik
+        </li>        
+    </ul>
+</div>
+<!-- /patTemplate:tmpl -->

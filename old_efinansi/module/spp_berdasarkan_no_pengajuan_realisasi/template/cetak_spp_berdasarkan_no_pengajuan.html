@@ -1,0 +1,290 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css" media="all">
+   table.table-wrapper{
+      padding: 0px;
+      margin: 0px;
+   }
+   table.table-wrapper tr th, 
+   table.table-wrapper tr td{
+      padding: 0px;
+      margin: 0px;
+   }
+   table.table-wrapper tr td table{
+      margin: 0px;
+      padding: 0px;
+      border: none !important;
+   }
+   table.table-wrapper tr td p{
+      padding: 3px 10px 10px 12px;
+   }
+   table.table-wrapper tr td table tr:first-child td, 
+   table.table-wrapper tr td table tr:first-child th{
+      border-top: none;
+   }
+   table.table-wrapper tr td table tr:last-child td{
+      border-bottom: none;
+   }
+   table.table-wrapper tr td table tr td:first-child, 
+   table.table-wrapper tr td table tr th:first-child{
+      border-left: none;
+   }
+   table.table-wrapper tr td table tr td:last-child, 
+   table.table-wrapper tr td table tr th:last-child{
+      border-right: none;
+   }
+   table.table-wrapper tr td table tr td{
+      padding: 3px 10px 3px 5px;
+   }
+   .sign{
+      width: 45%;
+      float: right;
+   }
+   .head{
+      text-align: center;
+   }
+   .sub-head{
+      display: block;
+   }
+   .sub-head .subhead-right{
+      width: 50%;
+      float: right;
+      display: inline-block;
+   }
+   .subhead-right p{
+      display: block;
+   }
+   .subhead-right p label{
+      display: block;
+      width: 115px;
+      float: left;
+   }
+   .foot-note{
+      font-style: italic;
+   }
+   .program{
+      font-weight: bold;
+   }
+   .sub_program{
+      font-weight: bold;
+      font-style: italic;
+   }
+   .kegiatan{
+      font-weight: bold;
+      font-style: italic;
+      text-decoration: underline;
+   }
+   .mak{
+      text-decoration: underline;
+   }
+</style>
+<div class="a4-potrait">
+   <div class="head">
+      <h1>
+         SURAT PERMINTAAN  PEMBAYARAN TAGIHAN
+      </h1>
+      <h4>
+         Nomor : {NOMOR_SPP_NO_PENGAJUAN}
+      </h4>
+   </div>
+  
+   <table class="table-wrapper">
+
+      <tr>
+         <td colspan="2">
+            <table >
+               <tr>
+                  <td width="235">
+                     <u>DIPERINTAHKAN :</u>
+                  </td>
+                  <td>
+                     &nbsp;
+                  </td>
+               </tr>
+               <tr>
+
+                  <td width="235">
+                     KEPADA
+                  </td>
+                  <td>
+                     {KEPADA}
+                  </td>
+               </tr>
+               <tr>
+
+                  <td colspan="2" align="center">
+                   <u>UNTUK MEMBAYAR TAGIHAN</u>
+                  </td>
+               </tr>
+               <tr>
+
+                  <td width="235">
+                     SEBESAR
+                  </td>
+                  <td>
+					Rp. {JUMLAH_TOTAL_LABEL}
+                  </td>
+               </tr>
+               <tr>
+                  <td width="235">
+                     TERBILANG
+                  </td>
+                  <td>
+                     {TERBILANG}
+                  </td>
+               </tr>
+               <tr>
+
+                  <td width="235">
+                     KEPADA
+                  </td>
+                  <td>
+                     {NAMA_BENDAHARA}
+                  </td>
+               </tr>
+               <tr>
+                  <td width="235">
+                     KEPERLUAN
+                  </td>
+                  <td>
+                     PROGRAM *):{PROGRAM_KODE}<br />
+                     {INDEX}
+                  </td>
+               </tr>
+               <tr>
+
+                  <td width="235">
+                     BERDASARKAN
+                  </td>
+                  <td>
+                     {BERDASARKAN}
+                  </td>
+               </tr>
+            </table>
+         </td>
+      </tr>
+      <tr>
+         <td colspan="2">
+            <table>
+                  <tr>
+                     <td colspan="2">
+                        <br />
+                        <br />                        
+                        <br />
+                        <br />
+                        <br />
+                        PARAF&nbsp;&nbsp;:<br />
+                        Kabag&nbsp;&nbsp;&nbsp;:&nbsp;..........<br />
+                        PPKS&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;..........<br />
+                     </td>
+                     <td colspan="5">
+                        <div class="sign">
+                           <!-- patTemplate:gtfwgetconfig config="organization" name="city" / -->, 
+                           {TANGGAL_PENGAJUAN_LABEL}<br />
+                           {NAMA_JABATAN_PIMPINAN}<br />
+                           <br />
+                           <br />
+                           <br />
+                           <br />
+                           <br />
+                           <br />
+                           <u>{NAMA_PIMPINAN}</u>
+                        </div>
+                     </td>
+                  </tr>
+				</table>
+			</td>
+		</tr>	
+		 <tr>
+         <td colspan="2">
+			<b>PROGRAM **): {PROGRAM_NAMA}</b> 
+		</td>	 
+		 <tr>
+         <td colspan="2">
+				<table>
+					<tr>
+                     <th  width="25">
+                        MA
+                     </th>
+                     <th>
+                        PAGU ANGGARAN
+                     </th>
+                     <th>
+                        SPPT SEBELUM INI
+                     </th>
+                     <th>
+                        SPPT INI
+                     </th>
+                     <th>
+                        S/D SPPT INI
+                     </th>
+                     <th>
+						 SISA
+                     </th>
+                  </tr>   
+                         
+                  </tr>
+                  <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+                     <!-- patTemplate:sub condition="YES" -->
+                        <tr>
+                           <td colspan="7">
+                              <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                           </td>
+                        </tr>
+                     <!-- /patTemplate:sub -->
+                     <!-- patTemplate:sub condition="NO" -->
+                        <!-- patTemplate:tmpl name="data_index_detail" -->
+                           <tr class="{LEVEL}">                             
+                              <td>
+                                 {MA_KODE}
+                              </td>
+                              <td align="right">
+                                 {PAGU_ANGGARAN}
+                              </td>
+                              <td align="right">
+                                 {SPPT_LALU}
+                              </td>
+                              <td align="right">
+                                 {SPPT_INI}
+                              </td>
+                              <td align="right">
+                                 {SPPT_SAMPAI_INI}
+                              </td>                             
+                              <td align="right">
+                                 {SISA}
+                              </td>
+                           </tr>
+                        <!-- /patTemplate:tmpl -->
+                        <tr style="font-weight: bold;">
+                           <td >
+                              Jumlah
+                           </td>
+                              <td align="right">
+                                 {TOTAL_PAGU_ANGGARAN}
+                              </td>
+                              <td align="right">
+                                 {TOTAL_SPPT_LALU}
+                              </td>
+                              <td align="right">
+                                 {TOTAL_SPPT_INI}
+                              </td>
+                              <td align="right">
+                                 {TOTAL_SPPT_SAMPAI_INI}
+                              </td>                             
+                              <td align="right">
+                                 {TOTAL_SISA}
+                              </td>
+                        </tr>
+                     <!-- /patTemplate:sub -->
+                  <!-- /patTemplate:tmpl -->
+            </table>
+         </td>
+      </tr>
+   </table>
+</div>
+<div class="foot-note">
+Dicetak Oleh : {USERNAME} - {TIMESTAMP} <br />
+Penjelasan : <br />
+*) Diisi dengan nomor kode program<br />
+**) Diisi dengan Nama Program
+</div>
+<!-- /patTemplate:tmpl -->

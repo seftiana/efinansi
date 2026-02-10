@@ -1,0 +1,64 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	
+	
+	
+	
+</script>
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+            <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="detil_usulan_pencairan_anggaran_kegiatan" / --></th>
+         </tr>
+      <tr>          
+         <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / --></th>		 
+		 <td>
+		     {DATA_TA_NAMA}			 
+		 </td>
+	  </tr>
+      <tr>
+            <th width="30%"><!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / --></th>
+            <td>{DATA_UNIT_NAMA}				
+            </td>
+         </tr>	
+		 <tr>
+			 <th><!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / --></th>
+			 <td>{DATA_SUBUNIT_NAMA}</td>
+		  </tr>
+	  <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="program" / --></th>
+            <td>{DATA_PROGRAM_NAMA}</td>
+         </tr>
+	  <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --></th>
+            <td>{DATA_KEGIATAN_NAMA}</td>
+
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / --></th>
+            <td>{DATA_SUBKEGIATAN_NAMA}</td>
+         </tr>
+	  <tr>
+	     <th><!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / --></th>  
+		 <td>{DATA_KETERANGAN}</td>
+	  </tr>
+	  <tr>
+	     <th><!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / --></th>
+		 <td>{DATA_TANGGAL}</td>
+	  </tr>
+	  <tr>
+	    <th><!-- patTemplate:gtfwgetconfig config="language" name="no_pengajuan" / --></th>
+		<td>{DATA_NOMOR_PENGAJUAN}</td>
+	  </tr>
+	  <tr>
+	     <th ><!-- patTemplate:gtfwgetconfig config="language" name="nominal" / --></th>
+		 <td>{DATA_NOMINAL}</td>		 
+	  </tr>	   
+			  
+	<tr class="buttons">
+            <th>&nbsp;</th>
+            <td>
+     			<input name="btntutup" value=" TUTUP " class="buttonSubmit" type="button" onclick="popupClose()">               
+            </td>
+    </tr> 	
+   </table>  
+<!-- /patTemplate:tmpl -->

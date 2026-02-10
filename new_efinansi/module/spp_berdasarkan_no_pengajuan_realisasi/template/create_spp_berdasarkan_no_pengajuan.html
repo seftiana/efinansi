@@ -1,0 +1,304 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript"> 
+   function popupUnitKerja(url) {       
+      showPopup(url,'',550,550);
+   }
+   
+   function replaceProgram(dataArray,opt){
+	   var txt='';
+      $('#program_id').empty();
+      if(opt == 'pilih'){
+		  txt = '-- PILIH --';
+	  } else {
+		  txt = '-- SEMUA --';
+	  }
+	  
+      $('#program_id').append($('<option></option>').val('all').text(txt));
+      for (var i = 0; i < dataArray.length; i++) {
+         $('#program_id').append($('<option></option>').val(dataArray[i].id).text(dataArray[i].name));
+      }
+   }
+
+function getProgram(idTa){
+      GtfwAjax.loadUrl('{URL_PROGRAM}&id_ta='+idTa+'&opt=pilih', false, 'json');
+}
+   
+function popupPengajuan(action) {
+   var url     = '{POPUP_NO_PENGAJUAN}';    
+   var unit_kerja_id = document.getElementById("unit_id").value;
+   var program_id = document.getElementById("program_id").value;
+   showPopup(url + '&unit_kerja_id='+unit_kerja_id+ '&program_id='+program_id,'',780, 500);
+   
+}
+
+function clearPengajuan(){
+	if(document.getElementById("table-pengajuan")){
+		var tbodi = document.getElementById("table-pengajuan");		
+			
+		tbodi.innerHTML='<tr id="table-kosong"><td colspan="7" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --</em></td></tr>';
+		
+		document.getElementById("maks_nomor").value  = 0;       
+		totalKomponenAnggaran();
+	}
+}
+
+function hapusPengajuan(obj) {
+		//hasil = confirm('Apakah anda ingin menghapus unit ini ?');
+		//if(hasil == true){
+			var maks_nomor = document.getElementById("maks_nomor").value;
+			var maks = document.getElementById("maks").value;
+			
+			var tbodi = document.getElementById("table-pengajuan");
+			var tr = document.createElement('tr');
+			var tr_kosong = document.createElement('td');
+			
+			document.getElementById("table-pengajuan").removeChild(obj.parentNode.parentNode);
+			if(maks_nomor > 0){
+				maks_nomor -= 1;
+			}
+			document.getElementById("maks_nomor").value  = maks_nomor;
+			if(maks_nomor == 0){
+					tbodi.innerHTML='<tr id="table-kosong">'+
+									'<td colspan="7" align="center"><em>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --</em></td></tr>';
+			}
+			//renumber
+			var no=1;
+			for(var i = 0; i<= maks ;i++){
+			   if(document.getElementById("h_no_urut_"+i)){
+					document.getElementById("no_urut_"+i).innerHTML = no;
+					no++;
+				}
+			}
+			
+		//}	
+		totalKomponenAnggaran();
+	}
+	
+function totalKomponenAnggaran(){
+		var  jml_pengajuan =  document.getElementById('maks').value;
+		
+		total = 0 ;
+      	for(var i = 0; i <= jml_pengajuan ;i++){
+			if(document.getElementById("pengajuan_"+i)){
+				t = document.getElementById("pengajuan_"+i).value;
+				t = t.replace(',','_').split('.');
+				t = t.join('');
+				t = t.replace('_','.');
+				total += parseFloat(t);
+			}	
+		}
+      	//document.getElementById("jumlah_total").value = total;
+      	document.getElementById("jumlah_total").gvSetValue(total);
+      	document.getElementById("jumlah_total_label").innerHTML= document.getElementById("jumlah_total").value ;
+      	//document.getElementById("jumlah_total_label").gvSetValue(total);
+      	//terbilang(document.getElementById("jumlah_total"));      	
+      	//document.getElementById("jumlah_total_terbilang_label").innerHTML= document.getElementById("jumlah_total_terbilang").value;
+      	
+	}	
+</script>
+<h1>
+   Membuat SPPT
+</h1>
+<br/> 
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}" id="notebox-warning">
+      {ISI_PESAN}
+   </div>
+   <br/>
+<!-- /patTemplate:tmpl -->
+<div class="pageBar">
+		<div class="toolbar">
+		<a href="{URL_DAFTAR_SPP_BERDASARKAN_NO_PENGAJUAN}" title="Daftar SPPT" class="xhr dest_subcontent-element">
+			<img src="images/button-detail.gif" alt="^"> Daftar SPPT
+		</a>
+		</div>
+	</div>
+<form method="POST" name="frmInput" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >   
+   <input type="hidden" name="spp_no_pengajuan_id" value="{SPP_NO_PENGAJUAN_ID}"  />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            {LABEL_ACTION} 
+            SPPT
+         </th>
+      </tr>
+      <tr>          
+         <th width="150">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+         </th>     
+         <td>
+			<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tahun_anggaran_id"  / -->
+         </td>
+      </tr> 
+      
+         
+		 <tr>
+			 <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+			 <td>
+			 	<input type="hidden" name="unit_kerja_id" id="unit_id" value="{UNIT_KERJA_ID}" />
+			 	<!-- patTemplate:tmpl name="cek_unitkerja_parent" 
+				 	type="condition" conditionvar="IS_PARENT" -->
+   					<!-- patTemplate:sub condition="YES" --> 
+				
+					<input type="text" name="unit_kerja_nama" id="unit_nama_ro" value="{UNIT_KERJA_NAMA}" readonly size="40" />
+					<input type="button" value=" ... " onclick="javascript:popupUnitKerja('{POPUP_UNIT_KERJA}');" />            
+				 	<!-- /patTemplate:sub -->
+				 	
+				 	<!-- patTemplate:sub condition="NO" --> 
+				 	<label><b>{UNIT_KERJA_NAMA}</b></label>
+				 	<input type="hidden" name="unit_kerja_nama" id="unit_kerja_nama" value="{UNIT_KERJA_NAMA}" />
+				 	<!-- /patTemplate:sub -->
+				 <!-- /patTemplate:tmpl -->
+			 </td>			 
+		  </tr>	
+		        
+      
+      <tr>
+         <th>
+           Program
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="program_id"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+           Nomor
+         </th>
+         <td>
+            <input size="40" name="nomor_spp_no_pengajuan" id="nomor_spp_no_pengajuan" value="{NOMOR_SPP_NO_PENGAJUAN}" type="text" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal"  / -->
+         </td>
+      </tr>
+
+      <tr class="subhead">
+         <th>
+            Nomor Pengajuan
+         </th>
+         <td>
+             <input type="button" value=" Cari Nomor Pengajuan " class="button" onclick="javascript:popupPengajuan();"/>
+         </td>
+      </tr>
+      <tr>
+         <td colspan="2" style="padding: 0px;">
+            <table class="table-common" width="680">
+               
+               <thead>
+                  <tr>
+                     <th style="text-align: center;" width="10">No</th>
+                     <th style="text-align: center;">Nomor Pengajuan
+                        <input type="hidden" name="maks" id="maks" value="{MAKS}" />
+                        <input type="hidden" name="maks_nomor" id="maks_nomor" value="{MAKS_NOMOR}" />
+                     </th>
+                     <th style="text-align: center">Tanggal</th>
+                     <th>Kode MA</th>
+                     <th>Nama Index</th>                     
+                     <th style="text-align: center"><!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / --></th>
+                     <th style="text-align: center">Catatan</th>
+                     <th style="text-align: center" width="10">Aksi</th>
+                  </tr>
+               </thead>
+               
+               <tbody id="table-pengajuan">
+				<!-- patTemplate:tmpl name="data_pengajuan" type="condition" conditionvar="IS_DATA_EMPTY" -->
+					<!-- patTemplate:sub condition="YES" -->
+					<tr id="table-kosong">
+						<td colspan="9" align="center">
+							<em>
+                            --<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--
+							</em>
+						</td>
+					</tr>
+					<!-- /patTemplate:sub -->
+					<!-- patTemplate:sub condition="NO" -->					
+						<!-- patTemplate:tmpl name="data_item" -->
+						<tr class="{DATA_CLASS_NAME}">		
+							<td align="center">
+								<input type="hidden" name="nomor" id="h_no_urut_{INDEX}" value="{NO}" />
+								<label id="no_urut_{INDEX}">{NO}</label>
+							</td>		 			   
+							<td>
+								<input type="hidden" id="nopeng_{INDEX}" value="{PENGAJUAN_DETAIL_ID}" />
+								<input type="hidden" name="pengajuan[{INDEX}][pengajuan_id]" value="{PENGAJUAN_ID}" />
+								<input type="hidden" name="pengajuan[{INDEX}][pengajuan_detail_id]" value="{PENGAJUAN_DETAIL_ID}" />
+								<input type="hidden" name="pengajuan[{INDEX}][pengajuan_no]" value="{PENGAJUAN_NO}"/>{PENGAJUAN_NO}  	
+							</td>
+							<td>                                              
+								<input type="hidden" name="pengajuan[{INDEX}][tanggal_pengajuan]" value="{TANGGAL_PENGAJUAN}" />
+								<label>{PENGAJUAN_TANGGAL}</label>	
+							</td>
+							<td>                                              
+								<input type="hidden" name="pengajuan[{INDEX}][kode_ma]" value="{KODE_MA}" />
+								<label>{KODE_MA}</label>	
+							</td>
+							<td>                                              
+								<input type="hidden" name="pengajuan[{INDEX}][nama_index]" value="{NAMA_INDEX}" />
+								<label>{NAMA_INDEX}</label>	
+							</td>
+							<td align="right">
+									<input type="text" name="pengajuan[{INDEX}][nominal]" size="20" value="{NOMINAL}"  id="pengajuan_{INDEX}" class="gvNum" onkeyup="totalKomponenAnggaran()"/>
+							</td> 
+							<td>
+									<textarea cols="15" rows="3" name="pengajuan[{INDEX}][catatan]" >{CATATAN}</textarea>
+							</td> 
+							<td align="center">
+									<a href="javascript:void(null)" title="Hapus" onclick="hapusPengajuan(this)">
+									<img src="images/button-delete.gif" alt="Hapus" /></a>	
+							</td>   
+						</tr>						
+						<!-- /patTemplate:tmpl -->
+					<!-- /patTemplate:sub -->
+				<!-- /patTemplate:tmpl -->
+				</tbody>               
+            </table>
+         </td>
+      </tr>
+     
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+         </th>
+         <td>
+            <label id="jumlah_total_label" class="gvNum">
+               {JUMLAH_TOTAL_LABEL}
+            </label>
+            <input type="hidden" name="jumlah_total" id="jumlah_total" value="{JUMLAH_TOTAL}" class="gvNum"/>
+         </td>
+      </tr>
+
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / -->
+         </th>  
+         <td>
+            <textarea cols="40" rows="4" name="keterangan" style="resize: none;">{KETERANGAN}</textarea>
+         </td>
+      </tr>      
+      <tr class="buttons">
+         <td colspan="2">
+            <input name="btnsimpan" value=" {BTN_LABEL} " class="buttonSubmit" type="submit">          
+            <input name="btnBatal" value=" Batal " class="buttonSubmit" type="submit">          
+         </td>
+      </tr>
+   </table>
+</form>  
+
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / -->
+      </li>
+   </ul>
+</div>
+
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,323 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css" media="screen">
+/* <![CDATA[ */
+   .table-common tbody tr.level_approved td:first-child,
+   .table-common tbody tr.hoverTd.level_approved_none:hover td:first-child{
+      border-left-color: #43ac6a !important;
+      border-left-width: 5px;
+      border-left-style: inset;
+   }
+
+   .table-common tbody tr.level_request td:first-child,
+   .table-common tbody tr.hoverTd.level_request_none:hover td:first-child{
+      border-left-color: #f08a24 !important;
+      border-left-width: 5px;
+      border-left-style: inset;
+   }
+
+   .table-common tbody tr.level_reject td:first-child,
+   .table-common tbody tr.hoverTd.level_reject_none:hover td:first-child{
+      border-left-color: #f04124 !important;
+      border-left-width: 5px;
+      border-left-style: inset;
+   }
+
+   .table-common tbody tr.hoverTd.level_request_none:hover td{
+      background-color: rgba(230,230,0, 0.4) !important;
+   }
+/* ]]> */
+</style>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="manajemen_rencana_penerimaan" / -->
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode_tahun" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="periode_tahun"  / -->
+         </td>
+      </tr>
+      <!-- patTemplate:tmpl name="data_unit" type="condition" conditionvar="LEVEL" -->
+         <!-- patTemplate:sub condition="PARENT" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="unit_id" id="src_unit_id" value="{UNIT_ID}" />
+                  <input type="text" name="unit_nama" id="src_unit_nama" readonly value="{UNIT_NAMA}" size="35" />
+                  <input type="button" value=" ... " onclick="showPopup('{URL_POPUP_UNIT}', 'GTPopup', 600, 550);" />
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="CHILD" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="unit_id" id="src_unit_id" value="{UNIT_ID}" />
+                  <input type="hidden" name="unit_nama" id="src_unit_nama" value="{UNIT_NAMA}" />
+                  <label style="font-weight: bold;">
+                     {UNIT_NAMA}
+                  </label>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / --> /
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <td>
+            <input type="text" name="kodenama" value="{KODE}" size="35" />
+         </td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+            <input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+
+<form method="POST" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" name="form_list" id="form_list">
+   <input type="hidden" name="control_label" value="{CONTROL_LABEL}" />
+   <input type="hidden" name="control_action" value="{CONTROL_ACTION}" />
+   <input type="hidden" name="control_return" value="{CONTROL_RETURN}" />
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar">
+         <a href="{URL_ADD}" class="xhr dest_subcontent-element">
+            <img src="images/icons/16/button-add.gif" /> Tambah <!-- patTemplate:gtfwgetconfig config="language" name="manajemen_rencana_penerimaan" / -->
+         </a>
+         <input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="inputButton" />
+      </div>
+   </div>
+   <table class="table-common" width="100%">
+      <thead>
+         <tr>
+            <th width="5" rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+            </th>
+            <th width="5" rowspan="2">
+               <input type="checkbox" class="{CheckBoxFW_parent}" />
+            </th>
+            <th colspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / --><br />
+               <!-- patTemplate:gtfwgetconfig config="language" name="kode_penerimaan" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="total_penerimaan_rp" / -->
+            </th>
+            <th width="65" rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+            </th>
+         </tr>
+         <tr>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+            </th>
+         </tr>
+      </thead>
+      <tbody>
+         <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+            <!-- patTemplate:sub condition="YES" -->
+               <tr>
+                  <td colspan="6" align="center">
+                     <em>
+                        --<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--
+                     </em>
+                  </td>
+               </tr>
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+               <!-- patTemplate:tmpl name="data_list" -->
+               <tr class="{CLASS_NAME} {CLASS_STATUS}" style="{ROW_STYLE}">
+                  <td align="center">
+                     {NOMOR}
+                  </td>
+                  <td align="center">
+                     <!-- patTemplate:tmpl name="content_checkbox" type="condition" conditionvar="CONDITION" -->
+                        <!-- patTemplate:sub condition="PARENT" -->
+                           &nbsp;
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="CHILD" -->
+                           <!-- patTemplate:tmpl name="checkbox_status" type="condition" conditionvar="LEVEL" -->
+                              <!-- patTemplate:sub condition="APPROVED" -->
+                                 <input type="checkbox" disabled />
+                              <!-- /patTemplate:sub -->
+                              <!-- patTemplate:sub condition="REQUEST" -->
+                                 <input type="checkbox" name="id[]" class="CheckBoxFW_child" value="{ID}" />
+                                 <input type="hidden" name="name[{ID}]" value="{NAME}" />
+                              <!-- /patTemplate:sub -->
+                              <!-- patTemplate:sub condition="REJECT" -->
+                                 <input type="checkbox" name="id[]" class="CheckBoxFW_child" value="{ID}" />
+                                 <input type="hidden" name="name[{ID}]" value="{NAME}" />
+                              <!-- /patTemplate:sub -->
+                           <!-- /patTemplate:tmpl -->
+                        <!-- /patTemplate:sub -->
+                     <!-- /patTemplate:tmpl -->
+                  </td>
+                  <td align="right">
+                     {KODE}
+                  </td>
+                  <td>
+                     {NAMA}
+                     <!-- patTemplate:tmpl name="content_description" visibility="hidden" -->
+                     <label style="font-weight: bold; display: block; width: 100%; padding-top: 8px; font-style: italic;">
+                        ({DESKRIPSI})
+                     </label>
+                     <!-- /patTemplate:tmpl -->
+                  </td>
+                  <td style="text-align:right;">
+                     {NOMINAL}
+                  </td>
+                  <td class="links" align="center">
+                     <!-- patTemplate:tmpl name="content_links" type="condition" conditionvar="CONDITION" -->
+                        <!-- patTemplate:sub condition="PARENT" -->
+                           &nbsp;
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="CHILD" -->
+                           <!-- patTemplate:tmpl name="link_status" type="condition" conditionvar="LEVEL" -->
+                              <!-- patTemplate:sub condition="APPROVED" -->
+                                 <a href="javascript:void(0);">
+                                    <img src="images/icons/16/button-edit-disabled.gif" />
+                                 </a>
+                              <!-- /patTemplate:sub -->
+                              <!-- patTemplate:sub condition="REQUEST" -->
+                                 <a href="{URL_EDIT}" class="xhr dest_subcontent-element">
+                                    <img src="images/icons/16/button-edit.gif" />
+                                 </a>
+                              <!-- /patTemplate:sub -->
+                              <!-- patTemplate:sub condition="REJECT" -->
+                                 <a href="{URL_EDIT}" class="xhr dest_subcontent-element">
+                                    <img src="images/icons/16/button-edit.gif" />
+                                 </a>
+                              <!-- /patTemplate:sub -->
+                           <!-- /patTemplate:tmpl -->
+
+                           <a href="javascript:void(0);" onclick="showPopup('{URL_POPUP_DETAIL}', 'GTPopup', 940, 500);">
+                              <img src="images/icons/16/button-detail.gif" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                     <!-- /patTemplate:tmpl -->
+                  </td>
+               </tr>
+               <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </tbody>
+   </table>
+   <div class="pageBar" style="display:none">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   </div>
+</form>
+<br />
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <br />
+   <ul>
+      <li>
+         Klik <img src="images/button-edit.gif"> Untuk mengubah data
+      </li>
+      <li>
+         Klik <img src="images/button-add.gif"> Untuk menambah data
+      </li>
+      <li>
+         Klik <img src="images/button-detail.gif"> Untuk melihat detail data
+      </li>
+   </ul>
+</div>
+<script type="text/javascript">
+CheckBoxFW_initiate = function (Obj)
+{
+   if (!Obj || Obj.className.indexOf('CheckBoxFW_parent') < 0 || !Obj.form) return;
+
+   var CBList     = new Array;
+   var CheckedAll = true;
+   var FormObj    = Obj.form;
+
+   for (var i = 0; i < FormObj.length; i++) if (FormObj[i] == Obj) break;
+   if (i == FormObj.length) return;
+
+   for(i += 1; i < FormObj.length; i++)
+   {
+      var CBObj = FormObj[i];
+      if (CBObj.type.toUpperCase() != 'CHECKBOX') continue;
+      if (CBObj.className.indexOf('CheckBoxFW_child') >= 0)
+      {
+         CBObj.onchange = function () {
+            Obj.checkChild();
+         }
+         CBList[CBList.length] = CBObj;
+         if (!CBObj.checked) CheckedAll = false;
+      }
+      if (CBObj.className.indexOf('CheckBoxFW_parent') >= 0) break;
+   }
+
+   if (CBList.length > 0)
+   {
+      Obj.onchange = function ()
+      {
+         for (var i = 0; i < CBList.length; i++){
+            if(CBList[i].getAttribute('disabled') == null){
+               CBList[i].checked = this.checked;
+            }
+         }
+      }
+
+      Obj.checkChild = function ()
+      {
+         var CheckedAll = true;
+         for (var i = 0; i < CBList.length; i++) if (!CBList[i].checked)
+         {
+            CheckedAll = false;
+            break;
+         }
+         this.checked = CheckedAll;
+      }
+
+      Obj.checked = CheckedAll;
+   }
+}
+var formObj       = document.getElementById('form_list');
+if(typeof(formObj) != 'undefined' && formObj != null){
+   for (var i = 0; i < formObj.length; i++){
+      CheckBoxFW_initiate(formObj[i]);
+   }
+}
+</script>
+<!-- /patTemplate:tmpl -->

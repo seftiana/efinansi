@@ -1,0 +1,87 @@
+<!-- patTemplate:tmpl name="content" -->
+   <br />
+   <h1><!-- patTemplate:gtfwgetconfig config="language" name="laporan_konsolidasi" / --></h1>
+   <table class="empty-table">
+   <tr>
+      <td align="left" width="130">  
+         <!-- patTemplate:gtfwgetconfig config="language" name="interval_waktu" / -->
+      </td>
+      <td align="left">
+         : {TGL_AWAL} s/d {TGL_AKHIR}
+      </td>
+   </tr>
+   </table>
+   <br />
+<table class="table-common" width="100%">
+   <tr>
+      <th rowspan="2">Description</th>
+      <th rowspan="2">WP Reff</th>
+      <th colspan="2">UNIT</th>
+      <th rowspan="2">Combined</th>
+      <th colspan="2">Elimitation Entry</th>
+      <th rowspan="2">Bal Per Audit</th>
+      <th rowspan="2">Bal Per Audit</th>
+   </tr>
+   <tr>
+      <th>Institut Perbanas</th>
+      <th>Sekretariat</th>
+      <th>Debit</th>
+      <th>Credit</th>
+   </tr>
+   <!-- patTemplate:tmpl name="laporan_konsolidasi" -->
+   <tr class="table-padding">
+      <td style="padding-left: {KELLAP_PADDING}px;{KELLAP_STYLE}">{KELLAP_NAMA}</td>
+      <!-- patTemplate:tmpl name="status" type="condition" conditionvar="KELLAP_STATUS" -->
+         <!-- patTemplate:sub condition="PARENT" -->
+            <td align="right"></td>
+            <td align="right"></td>
+            <td align="right"></td>
+         <!-- /patTemplate:sub --> 
+         <!-- patTemplate:sub condition="CHILD" -->
+            <td align="right">
+              {KELLAP_NOMINAL_SALDO}
+            </td>
+            <td align="right">
+               {KELLAP_NOMINAL_SALDO_YAYASAN}
+            </td>
+            <td align="right">
+               {KELLAP_NOMINAL_SALDO_GABUNG}
+            </td>
+         <!-- /patTemplate:sub --> 
+         <!-- patTemplate:sub condition="SUMMARY" -->
+            <td align="right">
+               <b>{KELLAP_NOMINAL_SALDO}</b>
+            </td>
+            <td align="right">
+               <b>{KELLAP_NOMINAL_SALDO_YAYASAN}</b>
+            </td>
+            <td align="right">
+               <b>{KELLAP_NOMINAL_SALDO_GABUNG}</b>
+            </td>
+         <!-- /patTemplate:sub --> 
+      <!-- /patTemplate:tmpl -->
+      <td></td>
+      <td></td>
+   </tr>
+   <!-- patTemplate:tmpl name="is_show_detail" type="condition" conditionvar="SHOW_DETAIL" -->
+      <!-- patTemplate:sub condition="YA" -->       
+            <!-- patTemplate:tmpl name="posisi_keuangan_coa"  visibility="hidden" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td style="padding-left: {DET_PADDING}px;">
+                  <label class="kode-akun">{DET_KELLAP_COA_KODE} <i>[{DET_KELLAP_SUB_ACC}]</i></label> - {DET_KELLAP_COA_NAMA} 
+               </td>
+               <td></td>
+               <td align="right">{DET_KELLAP_NOMINAL_SALDO}</td>
+               <td align="right">{DET_KELLAP_NOMINAL_SALDO_YAYASAN}</td>
+               <td align="right">{DET_KELLAP_NOMINAL_SALDO_GABUNG}</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+         <!-- /patTemplate:tmpl -->
+      <!-- /patTemplate:sub --> 
+   <!-- /patTemplate:tmpl -->
+   <!-- /patTemplate:tmpl -->
+</table>
+<!-- /patTemplate:tmpl -->

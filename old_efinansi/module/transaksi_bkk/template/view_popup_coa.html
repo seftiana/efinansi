@@ -1,0 +1,55 @@
+<!-- patTemplate:tmpl name="content" -->
+<!-- patTemplate:tmpl name="BudgetRefTitle" visibility="hidden" -->
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="budget_referensi" / --></h1>
+<h2><!-- patTemplate:gtfwgetconfig config="language" name="budget_referensi_detil" / --></h2>
+<br />
+<!-- /patTemplate:tmpl -->
+
+<form method="POST" name="frm_coa" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2"><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></th>
+      </tr>
+      <tr>
+         <th width="25%"><!-- patTemplate:gtfwgetconfig config="language" name="kata_kunci" / --></th>
+         <td><input type="text" name="keyword" value="{KEYWORD}" size='40'></td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Show Data &raquo; " class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_coa" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_coa" / --></th>
+         <th width="40"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_item" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="5" align="center"><em>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="item" -->
+            <tr class="{CLASS_NAME}">
+               <td align="center">{NUMBER}</td>
+               <td style='font-family: monospace'>{COAKODEAKUN}</td>
+               <td>{COANAMAAKUN}</td>
+               <td class='links'>
+                  <a onclick="document.getElementById('COA_Place_Holder').addItem('{COAID}','{COAKODEAKUN}','{COANAMAAKUN}','D',0)"><!-- patTemplate:gtfwgetconfig config="language" name="d" / --></a>
+                  <a onclick="document.getElementById('COA_Place_Holder').addItem('{COAID}','{COAKODEAKUN}','{COANAMAAKUN}','K',0)"><!-- patTemplate:gtfwgetconfig config="language" name="k" / --></a>
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+<!-- /patTemplate:tmpl -->

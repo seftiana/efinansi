@@ -1,0 +1,98 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+    var xpopup;
+    function bukaPopupCetak(xurl) {
+        xpopup = window.open(xurl, 'xpopup', 'width=900,height=600,resizable=yes,scrollbars=yes,right=0;center');
+        xpopup.focus();
+    }
+    function bukaPopupUnitKerja(xurl) {
+        showPopup(xurl, 'UNIT KERJA', 550, 550);
+    }
+
+    function resetFormIni() {
+        GtfwAjax.replaceContentWithUrl("subcontent-element", "{URL_RESET}&ascomponent=1");
+
+
+    }
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="laporan_neraca_saldo" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+    <table>
+        <tr>
+            <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+        </tr>
+        <tr>
+            <th width="130"><!-- patTemplate:gtfwgetconfig config="language" name="interval_waktu" / --></th>
+            <td>
+                <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_awal"  / -->
+                s/d
+            </td>
+        </tr>
+        <tr>
+            <th></th>
+            <td>
+                <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_akhir"  / -->
+            </td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+                <input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" onclick="resetFormIni();" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+    {ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+<br />
+<div class="pageBar">
+    <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+    <div class="toolbar">
+        <a href="javascript:void(0)" onclick="bukaPopupCetak('{URL_CETAK}')" title="Cetak" ><img src="images/button-print.gif" alt="Cetak"> <!-- patTemplate:gtfwgetconfig config="language" name="cetak" / --></a>
+        <a href="{URL_EXCEL}" title="Export Excel" target="_blank">
+            <img src="images/icons/16/export_excel.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="excel" / -->
+        </a>
+        <!-- a href="{URL_RTF}" title="Export Rtf" ><img src="images/button-simpan.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="rtf" / --></a -->
+    </div>
+</div>
+
+<table class="table-common" width="100%">
+    <tr>
+        <th width="70"><!-- patTemplate:gtfwgetconfig config="language" name="kode_akun" / --></th>
+        <th><!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / --></th>
+        <th width="140"><!-- patTemplate:gtfwgetconfig config="language" name="debet" / --></th>
+        <th width="140"><!-- patTemplate:gtfwgetconfig config="language" name="kredit" / --></th>
+    </tr>
+
+    <!-- patTemplate:tmpl name="list_data" type="condition" conditionvar="IS_EMPTY" -->
+    <!-- patTemplate:sub condition="YES" -->
+    <tr>
+        <td colspan="4" align="center">
+            <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+        </td>
+    </tr>
+    <!-- /patTemplate:sub -->
+    <!-- patTemplate:sub condition="NO" -->
+    <!-- patTemplate:tmpl name="list_data_item" -->
+    <tr>
+        <td align="center" >{KODE_AKUN}</td>
+        <td align="left" >{NAMA_AKUN}</td>
+        <td align="right" >{FNERACA_DEBET}</td>
+        <td align="right" >{FNERACA_KREDIT}</td>
+    </tr>
+    <!-- /patTemplate:tmpl -->
+    <tr>
+        <td align="center" colspan="2" ><strong><!-- patTemplate:gtfwgetconfig config="language" name="total" / --></strong></td>
+        <td align="right" ><strong>{TOTAL_NERACA_DEBET}</strong></td>
+        <td align="right" ><strong>{TOTAL_NERACA_KREDIT}</strong></td>
+    </tr>
+    <!-- /patTemplate:sub -->
+    <!-- /patTemplate:tmpl -->
+</table>
+<!-- /patTemplate:tmpl -->

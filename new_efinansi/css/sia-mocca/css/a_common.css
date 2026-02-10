@@ -1,0 +1,87 @@
+.wrapper {
+}
+
+
+.hidden {
+	visibility: hidden;
+}
+
+.none {
+	display: none;
+}
+
+.ffhack {
+    clear:both;
+}
+
+abbr, acronym, dfn {
+	border-bottom: 1px dotted #CCCCCC;
+	/*cursor: help;*/
+}
+
+.font_tahoma {
+	font-family: Tahoma, Arial, sans serif;
+}
+
+.font_8pt {
+	font-size: 8pt;
+}
+
+.font_bold {
+	font-weight: bold;
+}
+
+.align-left {
+	text-align: left !important;
+}
+
+.align-center {
+	text-align: center !important;
+}
+
+.float-left {
+	float: left;
+	margin: 0px 0.5em 0.5em 0px;
+}
+
+.float-right {
+	float: right;
+	margin: 0px 0px 0.5em 0.5em;
+}
+
+.margin_0 {
+	margin: 0px 0px 0px 20px;
+}
+
+.color_darkbrown {
+	color: #534741;
+}
+
+.color_darkblue {
+	color: #003366;
+}
+
+.color_darkgrey {
+	color: #555555;
+}
+
+.color_white {
+	color: #FFFFFF;
+}
+
+a {
+	color: #A0410D;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.indent {
+	margin: 0em 0em 0em 1em;
+}
+
+.indent-2 {
+	margin: 0em 0em 0em 2em;
+}

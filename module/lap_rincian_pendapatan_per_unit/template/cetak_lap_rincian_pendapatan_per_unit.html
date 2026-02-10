@@ -1,0 +1,116 @@
+<!-- patTemplate:tmpl name="content" -->
+<center><h1><!-- patTemplate:gtfwgetconfig config="language" name="lap_rincian_pendapatan_per_unit_kerja" / --></h1></center>
+<br>
+<center><h1><!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / --> {TAHUN_PERIODE}</h1></center>
+<br>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / 
+<!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --> : {UNIT_KERJA_LABEL}</h1>   
+   <table class="table-common" width="100%">
+      <tr>
+         <th rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <th rowspan="2" width="200" colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="uraian" / -->
+            <!-- patTemplate:gtfwgetconfig config="language" name="pendapatan" / --> /
+            <!-- patTemplate:gtfwgetconfig config="language" name="penerimaan" / -->
+         </th>
+         <th colspan ="3">
+            <!-- patTemplate:gtfwgetconfig config="language" name="ta" / --> {TAHUN_SEKARANG_TH_ANGGAR}
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="ta" / --> {TAHUN_DEPAN_TH_ANGGAR}
+         </th>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="target" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="realisasi" / -->
+         </th>
+         <th>
+            %
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="target" / -->
+         </th>
+      </tr>
+      
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr>
+            <td colspan="17" align="center">
+               <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+            </td>
+         </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <tr style="font-weight: bold">
+               <td align="right">
+                  023.04.08
+               </td>
+               <td colspan="2" align="left" >
+                  Program Pendidikan Tinggi
+               </td>
+               <td align="right">
+                  &nbsp;
+               </td>
+               <td align="right">
+                  &nbsp;
+               </td>
+               <td align="right">
+                  &nbsp;
+               </td>
+               <td align="right">
+                  &nbsp;
+               </td>
+            </tr>
+            <tr style="font-style: italic;font-weight: bold">
+               <td align="right">
+                  4078
+               </td>
+               <td colspan="2" align="left" >
+                  Layanan Tridharma di Perguruan Tinggi
+               </td>
+               <td align="right">
+                  &nbsp;
+               </td>
+               <td align="right">
+                  &nbsp;
+               </td>
+               <td align="right">
+                  &nbsp;
+               </td>
+               <td align="right">
+                  &nbsp;
+               </td>
+            </tr>            
+         <!-- patTemplate:tmpl name="list_data_item" -->
+            <tr  style="{FONT_STYLE}">
+               <td align="right">
+                  {KODE}
+               </td>
+               <td colspan="2">
+                  {NAMA}
+               </td>
+               <td style="text-align:right;">
+                  {TARGET_SEKARANG}
+               </td>
+               <td style="text-align:right;">
+                  {REAL_SEKARANG}
+               </td>
+               <td style="text-align:right;">
+                  {PERSEN}
+               </td>
+               <td style="text-align:right;">
+                  {TARGET_DEPAN}
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+            
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+  
+<!-- /patTemplate:tmpl -->

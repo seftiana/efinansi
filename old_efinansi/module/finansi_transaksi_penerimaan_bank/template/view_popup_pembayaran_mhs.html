@@ -1,0 +1,272 @@
+<!-- patTemplate:tmpl name="content" -->
+<style>    
+    .table-highlight td {
+        background-color: #F9F0CD;
+        font-weight: bold;
+    }
+</style>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="pembayaran_mhs" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+    <table>
+        <tr>
+            <th colspan="2">
+                <h2>
+                    <strong>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+                    </strong>
+                </h2>
+            </th>
+        </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <td>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="start_date"  / -->
+            </div>
+            <div>
+               <!-- patTemplate:gtfwgetconfig config="language" name="s_d" / -->
+            </div>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="end_date"  / -->
+            </div>
+         </td>
+         <td>
+             <input type="hidden" name="jenis_biaya_id" id="jenis_biaya_id" value="{JENIS_BIAYA_ID}" />
+             <input type="hidden" name="jenis_biaya_nama" id="jenis_biaya_nama" value="{JENIS_BIAYA_NAMA}" />
+             <input type="hidden" name="tipe_bayar_skenario" id="tipe_bayar_skenario" value="{TIPE_BAYAR_SKENARIO}" />
+         </td>
+      </tr>
+      <tr style="display:none;">
+            <th>
+                <!-- patTemplate:gtfwgetconfig config="language" name="periode_pembayaran" / -->
+            </th>
+            <td>
+                <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="periode_pembayaran"  / -->
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <!-- patTemplate:gtfwgetconfig config="language" name="tipe" / -->
+            </th>
+            <td>
+                <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tipe_pembayaran"  / -->
+            </td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+                <input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+<br />
+
+<div class="pageBar">
+    <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<table class="table-common" width="100%">
+    <thead>
+        <tr>
+            <th width="5">
+                <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+            </th>
+             <th>
+                <!-- patTemplate:gtfwgetconfig config="language" name="prodi" / --> / 
+                <!-- patTemplate:gtfwgetconfig config="language" name="jenis_biaya" / -->
+            </th>
+            <th>
+                <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+            </th>
+            <th {IS_DISPLAY}>
+                <!-- patTemplate:gtfwgetconfig config="language" name="potongan_rp" / -->
+            </th>
+            <th {IS_DISPLAY}>
+                <!-- patTemplate:gtfwgetconfig config="language" name="deposit_rp" / -->
+            </th>
+            <th style="display: none">
+                <!-- patTemplate:gtfwgetconfig config="language" name="deposit_masuk_rp" / -->
+            </th>
+            <th width="31">
+                <!-- patTemplate:gtfwgetconfig config="language" name="pilih" / -->
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+        <!-- patTemplate:sub condition="YES" -->
+        <tr>
+            <td colspan="5" align="center">
+                <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+            </td>
+        </tr>
+        <!-- /patTemplate:sub -->
+        <!-- patTemplate:sub condition="NO" -->
+        <!-- patTemplate:tmpl name="data_list" -->
+        <tr class="{CLASS_NAME}">
+            <td align="center">
+                {NOMOR}
+            </td>
+            <td>
+                {F_NAMA}
+            </td>
+
+            <td align="right">
+                {F_NOMINAL}
+            </td>
+            <td align="right"{IS_DISPLAY} >
+                {F_POTONGAN}
+            </td>
+            <td  align="right" {IS_DISPLAY}>
+                {F_DEPOSIT}
+            </td>
+             <td  align="right" style="display: none">
+                {F_DEPOSIT_MASUK}
+            </td>
+            <td class="links" align="center">       
+                <!-- patTemplate:tmpl name="link_pilih" visibility="hidden" -->
+                <a href="javascript:void(0)" onclick="update_COA_list('{F_PRODI}','{F_JENIS_BIAYA}');"><img alt="Pilih" src="images/button-check.gif"/></a>                                  
+                <!-- /patTemplate:tmpl --> 
+            </td>
+        </tr>
+        <!-- /patTemplate:tmpl -->
+        <!-- /patTemplate:sub -->
+        <!-- /patTemplate:tmpl -->
+    </tbody>
+</table>
+<script type="text/javascript">
+   document.update_COA_list = function (prodiId,id)  {
+      //document.getElementById('button-coa-debet').style.display = 'block';
+      
+        var data = {DATA_COA};
+        var dataJB = {DATA_JENIS_BIAYA};
+        var dataProdi = {DATA_PRODI};
+        
+        
+        if(document.getElementById('tbl_pemb')){
+            document.getElementById('tbl_pemb').style.display= 'none';
+        }
+        
+        if(document.getElementById('tbl_jb')) {
+            document.getElementById('tbl_jb').style.display= 'none';
+        }
+        
+        if(data[prodiId][id]) {
+            var dataToMount   = data[prodiId][id];
+            if(dataToMount.length > 0){
+                var counterCoaId = 0;
+                for (var i in dataToMount){
+                    
+                    if(dataToMount[i]['coa_id'] === null || dataToMount[i]['coa_id'] === "") {
+                       counterCoaId++;
+                    }
+                }
+            } 
+        }
+        
+        if(counterCoaId > 0 ) {
+                    alert('Jenis Biaya Masih Ada yang Belum Dimapingkan dengan Coa !.');
+                    return false;
+        } else {        
+                document.getElementById('CoaPlaceHolder_debet').deleteAllItem();
+                document.getElementById('CoaPlaceHolder_kredit').deleteAllItem();
+
+                document.getElementById('CoaPlaceHolder_jb').deleteAllItem();
+                document.getElementById('CoaPlaceHolder_pemb').deleteAllItem();            
+                if(data[prodiId][id]) {
+                    var dataToMount   = data[prodiId][id];
+                    if(dataToMount.length > 0){
+                        var counterCoaId = 0;
+                        for (var i in dataToMount){
+
+                            if(dataToMount[i]['coa_id'] === null || dataToMount[i]['coa_id'] === "") {
+                               counterCoaId++;
+                            }
+
+                           if(dataToMount[i]['coa_dk'] === 'D') {
+                                document.getElementById('CoaPlaceHolder_debet').addItem(
+                                   dataToMount[i]['coa_id'],            
+                                   dataToMount[i]['coa_kode'],
+                                   dataToMount[i]['coa_nama'],
+                                   '',
+                                   '',
+                                   dataToMount[i]['ket'],
+                                   dataToMount[i]['nominal']
+                                );
+                            } else {
+                                document.getElementById('CoaPlaceHolder_kredit').addItem(
+                                    dataToMount[i]['coa_id'],            
+                                    dataToMount[i]['coa_kode'],
+                                    dataToMount[i]['coa_nama'],
+                                    '',
+                                    '',
+                                    dataToMount[i]['ket'],
+                                    dataToMount[i]['nominal']
+                                );
+                            }
+                        }
+                        if(counterCoaId > 0 ) {
+                            alert('Jenis Biaya Masih Ada yang Belum Dimapingkan dengan Coa !.');
+                            exit();
+                        }
+                    } 
+                }
+
+                if(dataJB && dataJB[prodiId][id]) {         
+                    document.getElementById('tbl_jb').removeAttribute('style');
+        
+                    var dataToMountJB   = dataJB[prodiId][id];
+                    if(dataToMountJB.length > 0){
+                       for (var i in dataToMountJB){
+                            document.getElementById('CoaPlaceHolder_jb').addItem(
+                                dataToMountJB[i]['prodi_id'],            
+                                dataToMountJB[i]['prodi_nama'],
+                                dataToMountJB[i]['jenis_biaya_id'],
+                                dataToMountJB[i]['jenis_biaya_nama'],
+                                dataToMountJB[i]['nominal'],
+                                dataToMountJB[i]['potongan'],
+                                dataToMountJB[i]['deposit'],
+                                dataToMountJB[i]['keterangan'],
+                                dataToMountJB[i]['id_detail'],
+                                dataToMountJB[i]['tipe']
+                            );
+                       }
+                    } 
+                    if(document.getElementById('tbl_jb')) {
+                        document.getElementById('tbl_jb').removeAttribute('style');//.style.display = 'block';
+                    }
+
+                } 
+
+                if(dataProdi[prodiId][id]) { 
+                    document.getElementById('tbl_pemb').removeAttribute('style');
+                    var dataToMountProdi   = dataProdi[prodiId][id];
+                    document.getElementById('CoaPlaceHolder_pemb').addItem(
+                        dataToMountProdi['prodi_tipe_pembayaran'], 
+                        dataToMountProdi['prodi_id'],            
+                        dataToMountProdi['prodi_nama'],
+                        dataToMountProdi['prodi_nominal'],
+                        dataToMountProdi['prodi_potongan'],
+                        dataToMountProdi['prodi_deposit'],
+                        dataToMountProdi['prodi_deposit_masuk'],
+                        dataToMountProdi['prodi_keterangan'],
+                        dataToMountProdi['prodi_penanggung_jawab'],                        
+                        dataToMountProdi['prodi_id_detail']
+                    );
+                    if(document.getElementById('tbl_pemb')) {
+                        document.getElementById('tbl_pemb').removeAttribute('style');// .style.display = 'block';
+                    }
+                }         
+                   //document.getElementById('button-coa-debet').style.display = 'none';
+              //}
+              popupClose();
+        }
+   }
+
+</script>
+<!-- /patTemplate:tmpl -->

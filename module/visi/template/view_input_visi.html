@@ -1,0 +1,70 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    
+// ]]>
+
+</script>
+<h1>
+    Input Visi
+</h1>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+    {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput">
+    <input type="hidden" name="data_id" value="{VISI_ID}" />
+    <table class="table-edit" width="100%">
+        <tr class="subhead">
+            <th colspan="2">
+                {TITLE} Visi
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Renstra
+            </th>
+            <td>
+                <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" 
+                action="view" name="renstra"  / --> *
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Kode
+            </th>
+            <td>
+                <input type="text" name="kode" id="kode" value="{VISI_KODE}" size="25" MAXLENGTH="20" /> *
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Nama
+            </th>
+            <td>
+                <textarea name="nama" id="nama" style="resize:none;" rows="3" cols="45">{VISI_NAMA}</textarea> 
+                <span style="vertical-align:top;">*)</span>
+            </td>
+        </tr>
+        <tr class="buttons">
+            <th>
+                &nbsp;
+            </th>
+            <td>
+               <input type="submit" name="btnsimpan" value=" {BUTTON} " class="buttonSubmit"/>
+               <input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit"/> 
+            </td>
+        </tr>
+    </table>
+</form>
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+      <ul>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --></li>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,39 @@
+<!-- patTemplate:tmpl name="content" -->
+<script>
+
+	function HideAllMenu(){
+		//no script
+	}
+
+	function ShowMenu(id){
+      //no script
+	}
+</script>
+   <div class="section-active">
+      <h5>Menu</h5>
+   </div>
+   <!-- patTemplate:tmpl name="nav_left" -->
+   <div id="menu1">
+      <ul id="menuList">
+
+      <li>
+	  <a href="{LEFT_NAV}" name="submenu" class="submenu xhr dest_subcontent-element">
+	  {LEFT_NAV_VALUE}
+	  </a>
+
+		<!-- patTemplate:tmpl name="sub_nav" visibility="hidden" -->
+			<ul>
+			<!-- patTemplate:tmpl name="sub_nav_item" -->
+				<li>
+				<a href="{LEFT_SUB_NAV}" class="xhr dest_subcontent-element">
+				{LEFT_SUB_NAV_VALUE}</a>
+				</li>
+			<!-- /patTemplate:tmpl -->
+			</ul>
+		<!-- /patTemplate:tmpl -->
+		</li>
+  		</ul>
+   </div>
+	<!-- /patTemplate:tmpl -->
+
+<!-- /patTemplate:tmpl -->

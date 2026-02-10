@@ -1,0 +1,111 @@
+<!-- patTemplate:tmpl name="content" -->
+<center><h1>Laporan Pendapatan dan Belanja Agregat</h1></center>
+<br>
+<center><h1><!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / --> {TAHUN_PERIODE}</h1></center>
+<br>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / 
+<!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --> : {UNIT_KERJA_LABEL}</h1>   
+  <br />
+
+   <table class="table-common" width="100%">
+   <tr>
+	   
+        <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="uraian" / --></th>
+        <th >Realisasi / Prognosa TA {TAHUN_SEBELUM_TH_ANGGAR}</th>
+        <th >TA {TAHUN_SEKARANG_TH_ANGGAR}</th>
+    </tr>
+    <!-- patTemplate:tmpl name="list_data" type="condition" conditionvar="IS_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="4" align="center">
+				<em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+			</td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+    <tr class="{CLASS_NAME}" style="font-weight:bold">
+		  <td align="left" width="30">I</td>
+         <td align="left">PENDAPATAN</td>
+         <td align="right" width="150">{TOTAL_REALISASI}</td>
+            <td align="right" width="150">{TOTAL_PROYEKSI}</td>
+      </tr>
+	<!-- patTemplate:tmpl name="list_data_item" -->
+   
+       <tr class="{CLASS_NAME}" style="{FONT_STYLE}">
+		  <td align="left">{NOMOR}</td>
+         <td align="left" >{URAIAN}</td>
+         <td align="right">{REALISASI}</td>
+            <td align="right">{PROYEKSI}</td>
+      </tr>
+         
+    <!-- /patTemplate:tmpl -->
+    
+    
+      <tr>
+		  <td align="left" width="30">&nbsp;</td>
+         <td align="left"></td>
+         <td align="right" width="150"></td>
+            <td align="right" width="150"></td>
+      </tr>  
+    <tr class="{CLASS_NAME}" style="font-weight:bold">
+		  <td align="left" width="30">II</td>
+         <td align="left">BELANJA</td>
+         <td align="right" width="150">{TOTAL_REALISASI_B}</td>
+            <td align="right" width="150">{TOTAL_PROYEKSI_B}</td>
+      </tr>
+	<!-- patTemplate:tmpl name="list_data_item_b" -->
+   
+      <tr class="{CLASS_NAME}" style="{FONT_STYLE}">
+		  <td align="left">{NOMOR}</td>
+         <td align="left" >{URAIAN}</td>
+         <td align="right">{REALISASI}</td>
+            <td align="right">{PROYEKSI}</td>
+      </tr>
+         
+    <!-- /patTemplate:tmpl -->    
+   
+         <!-- tr class="table-common-even1">
+			 <td align="center"><strong>{NO1}</strong></td>
+            <td><strong>Surplus(Defisit)</strong></td>
+            <td align="right"><strong>0</td>
+            <td align="right"><strong>0</td>
+         </tr>
+         <tr class="table-common-even1">
+			 <td align="center"><strong>{NO2}</strong></td>
+            <td><strong>Penggunaan Saldo Kas BLU</strong></td>
+            <td align="right"><strong>0</td>
+            <td align="right"><strong>0</td>
+         </tr>         
+         <tr class="table-common-even1">
+			 <td align="center"><strong>{NO3}</strong></td>
+            <td><strong>Surplus(Defisit) Sebelum Penerimaan RM/PHLN/PHDN</strong> </td>
+            <td align="right"><strong>0</td>
+            <td align="right"><strong>0</td>
+         </tr>         
+         <tr class="table-common-even1">
+			 <td align="center"><strong>{NO4}</strong></td>
+            <td><strong>Penerimaan RM/PHLN/PHDN</strong></td>
+            <td align="right"><strong>0</td>
+            <td align="right"><strong>0</td>
+         </tr>         
+         <tr class="table-common-even1">
+			 <td align="center"><strong>{NO5}</strong></td>
+            <td><strong>Surplus(Defisit) Setelah Penerimaan dari RM/PHLN/PHDN</strong> </td>
+            <td align="right"><strong>0</td>
+            <td align="right"><strong>0</td>
+         </tr>         
+         <tr class="table-common-even1">
+			 <td align="center"><strong>{NO6}</strong></td>
+            <td><strong>TOTAL ANGGARAN PENDAPATAN</strong></td>
+            <td align="right"><strong>0</td>
+            <td align="right"><strong>0</td>
+         </tr>         
+         <tr class="table-common-even1">
+			 <td align="center"><strong>{NO7}</strong></td>
+            <td><strong>TOTAL ANGGARAN BELANJA</strong></td>
+            <td align="right"><strong>0</td>
+            <td align="right"><strong>0</td>
+         </tr -->
+    </table>
+    		<!-- /patTemplate:sub -->
+     <!-- /patTemplate:tmpl -->
+<!-- /patTemplate:tmpl -->
+

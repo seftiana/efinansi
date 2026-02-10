@@ -1,0 +1,85 @@
+<!-- patTemplate:tmpl name="content" -->
+
+<table width="622" height="503" border="0">
+	<tr>
+		<td colspan="4"><div align="right">Form. KU.10</div></td></tr>
+	<tr>
+		<td colspan='4' style="text-align:center;"><h2><!-- patTemplate:gtfwgetconfig config="language" name="surat_perintah_mengeluarkan_uang" / --> </h2></td>
+	</tr>
+	<tr>
+	    <td width="264">Dari Direktur: </td>
+	    <td width="5">:</td>
+	    <td width="219">{NAMA_PIMPINAN}</td>
+	    <td width="154"><!-- patTemplate:gtfwgetconfig config="language" name="jenis_anggaran" / --> :</td>
+	</tr>
+	<tr>
+	    <td><!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / --></td>
+	    <td>:</td>
+	    <td><!-- patTemplate:var name="TGL_NOW" modifier="gtfwindonesiandate" format="long" separator=" " / --></td>
+	    <td><b>{JENIS_ANGGARAN}</b></td>
+	</tr>
+	<tr>
+	    <td><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></td>
+	    <td>:</td>
+	    <td colspan="2">{KODE_MATA_ANGGARAN}</td>
+	</tr>
+	<tr>
+	    <td><!-- patTemplate:gtfwgetconfig config="language" name="beban_anggaran_tahun" / --></td>
+	    <td>:</td>
+	    <td colspan="2">{TAHUN_ANGGARAN}</td>
+	</tr>
+	<tr>
+		<td colspan="4"><!-- patTemplate:gtfwgetconfig config="language" name="bendahara" / -->, <!-- patTemplate:gtfwgetconfig config="language" name="membayar_rp" / --> </td>
+	</tr>
+	<tr>
+		<td colspan="4">
+			<table width="654">
+				<tr>
+					<td width="6" style="text-align:center;"><!-- patTemplate:gtfwgetconfig config="language" name="no" / -->.</td>
+					<td width="170" style="text-align:center;"><!-- patTemplate:gtfwgetconfig config="language" name="no_rekening" / --></td>
+					<td width="243" style="text-align:center;"><!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / --></td>
+					<td width="157" style="text-align:center;"><!-- patTemplate:gtfwgetconfig config="language" name="jumlah" / --></td>
+				</tr>
+				<!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+				<!-- patTemplate:sub condition="YES" -->
+				<tr><td colspan="4" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+				<!-- /patTemplate:sub -->
+				<!-- patTemplate:sub condition="NO" -->
+				<!-- patTemplate:tmpl name="data_item" -->
+				<tr {DATA_CLASS_NAME}>
+					<td style="text-align:center;">{DATA_NOMOR}.</td>
+					<td width="170">{DATA_KODE}</td>
+					<td width="243">{DATA_URAIAN}</td>
+					<td style="text-align:right;"><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {DATA_JUMLAH} </td>
+				</tr>
+				<!-- /patTemplate:tmpl -->
+				<!-- /patTemplate:sub -->
+				<!-- /patTemplate:tmpl -->
+				<tr>
+					<td colspan="3" ><div align="center"><!-- patTemplate:gtfwgetconfig config="language" name="jumlah" / --></div></td>
+					<td style="text-align:right;"><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {TOTAL_ANGGARAN} </td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4" ><!-- patTemplate:gtfwgetconfig config="language" name="terbilang" / -->: <em><b>{TERBILANG} rupiah</b></em></td>
+	</tr>
+	<tr>
+	<tr>
+		<td colspan="4">Kepada:</td></tr>
+	<tr>
+		<td colspan="3"></td>
+		<td colspan="4" style="text-align:center;"><!-- patTemplate:gtfwgetconfig config="organization" name="city" / -->, <!-- patTemplate:var name="TGL_NOW" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+		<p style="text-align:center;">Direktur/ PD II</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p style="text-align:center;">( {NAMA_PIMPINAN} )</p></td>
+	</tr>
+</table>
+<div class="foot-note">
+Dicetak Oleh : {USERNAME} - {TIMESTAMP}
+</div>
+<!-- /patTemplate:tmpl -->

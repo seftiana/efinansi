@@ -1,0 +1,277 @@
+<!-- patTemplate:tmpl name="content" -->
+<style>
+    .pembayaran {
+        background-color: #fafafa !important;
+    }    
+    .potongan {
+        background-color:#f4f4ff !important;
+    }
+    .deposit {
+        background-color:#e9e9fe !important;
+    }
+    .piutang {
+        background-color: #ccccff !important;
+    }
+    
+    .p-aksi {
+        background-color: #a6a6ff !important;
+    }
+</style>
+<script type="text/javascript">
+
+</script>
+
+<script type="text/javascript">
+
+    function hapus_akun(obj) {
+        obj.parentNode.parentNode.parentNode.removeChild(obj.parentNode.parentNode);
+    }
+
+    function popup_coa_pembayaran() {
+        showPopup('{URL_POPUP_COA_PEMBAYARAN}', 'Chart Of Account', 500);
+    }
+    function popup_coa_potongan() {
+        showPopup('{URL_POPUP_COA_POTONGAN}', 'Chart Of Account', 500);
+    }
+    function popup_coa_deposit() {
+        showPopup('{URL_POPUP_COA_DEPOSIT}', 'Chart Of Account', 500);
+    }
+    
+    function popup_coa_piutang() {
+        showPopup('{URL_POPUP_COA_PIUTANG}', 'Chart Of Account', 500);
+    }
+    function popupJB() {
+        //alert('ok');
+        showPopup('{URL_POPUP_JB}', 'Jenis Biaya', 500);        
+    }
+    var flyin_value;
+    function hanyaHurufDanBesar(evt, obj) {
+        evt = (evt) ? evt : event;
+        var charCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode : ((evt.which) ? evt.which : 0));
+        /* if (charCode > 31 && (charCode < 65 || charCode > 90) &&  (charCode < 97 || charCode > 122)) { */
+        if (charCode > 31 && (charCode < 48 || charCode > 105)) {
+            if (typeof (flyin_value) == 'undefined')
+                obj.value = '';
+            else
+                obj.value = flyin_value;
+        } else {
+            if (typeof (obj.value) == 'undefined')
+                obj.value = '';
+            else {
+                obj.value = obj.value.toUpperCase();
+                flyin_value = obj.value.toUpperCase();
+            }
+        }
+    }
+</script>
+
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_coa_jenis_biaya" / --></h1>
+<br/>
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{STYLE_PESAN}">
+    {ISI_PESAN}
+</div>
+<br/>
+<!-- /patTemplate:tmpl -->
+
+
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
+    <input type="hidden" name="dataId" value="{DATAID}"  />
+
+    <table class="table-edit" width="100%">
+        <tr class="subhead">
+            <th colspan="2">Form <!-- patTemplate:gtfwgetconfig config="language" name="manajemen_coa_jenis_biaya" / --><input type="hidden" name="refresh_coa" id="refresh_coa" value="1" /></th>
+        </tr>
+        <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="jenis_biaya" / --></th>
+            <td>
+                <input type="hidden" name="jenis_biaya_id" id="jenis_biaya_id" value="{JENIS_BIAYA_ID}"/>
+                <input type="text" name="jenis_biaya_nama" id="jenis_biaya_nama" value="{JENIS_BIAYA_NAMA}" size="35" readonly="readonly"/>
+                <input type="button"  name="but_jenis_biaya" onclick="popupJB()" value=" ... " />&nbsp;*
+            </td>
+        </tr>
+        <tr class="subhead">
+            <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="pembayaran" / --></th>
+        </tr>        
+        <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="coa" / --></th>
+            <td>
+                <input type="hidden" name="jenis_biaya_pembayaran_coa_id" id="jenis_biaya_pembayaran_coa_id" value="{JENIS_BIAYA_PEMBAYARAN_COA_ID}"/>
+                <input type="text" name="jenis_biaya_pembayaran_coa_nama" id="jenis_biaya_pembayaran_coa_nama" value="{JENIS_BIAYA_PEMBAYARAN_COA_NAMA}" size="35" readonly="readonly"/>
+                <input type="button"  name="but_jenis_biaya" onclick="popup_coa_pembayaran()" value=" ... " />&nbsp;*
+            </td>
+        </tr>        
+        <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="debet" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="kredit" / --></th>
+            <td>
+                <input type="radio" name="jenis_biaya_pembayaran_coa_dk" value="D" {IS_PEMBAYARAN_DEBET} /><!-- patTemplate:gtfwgetconfig config="language" name="debet" / -->
+                <input type="radio" name="jenis_biaya_pembayaran_coa_dk" value="K" {IS_PEMBAYARAN_KREDIT} /><!-- patTemplate:gtfwgetconfig config="language" name="kredit" / -->
+
+            </td>
+        </tr> 
+
+        <tr class="subhead">
+            <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="potongan" / --></th>
+        </tr>        
+        <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="coa" / --></th>
+            <td>
+                <input type="hidden" name="jenis_biaya_potongan_coa_id" id="jenis_biaya_potongan_coa_id" value="{JENIS_BIAYA_POTONGAN_COA_ID}"/>
+                <input type="text" name="jenis_biaya_potongan_coa_nama" id="jenis_biaya_potongan_coa_nama" value="{JENIS_BIAYA_POTONGAN_COA_NAMA}" size="35" readonly="readonly"/>
+                <input type="button"  name="but_jenis_biaya" onclick="popup_coa_potongan()" value=" ... " />&nbsp;*
+            </td>
+        </tr>        
+        <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="debet" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="kredit" / --></th>
+            <td>
+                <input type="radio" name="jenis_biaya_potongan_coa_dk" value="D" {IS_POTONGAN_DEBET} /><!-- patTemplate:gtfwgetconfig config="language" name="debet" / -->
+                <input type="radio" name="jenis_biaya_potongan_coa_dk" value="K" {IS_POTONGAN_KREDIT} /><!-- patTemplate:gtfwgetconfig config="language" name="kredit" / -->
+
+            </td>
+        </tr> 
+
+        <tr class="subhead">
+            <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="deposit" / --></th>
+        </tr>        
+        <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="coa" / --></th>
+            <td>
+                <input type="hidden" name="jenis_biaya_deposit_coa_id" id="jenis_biaya_deposit_coa_id" value="{JENIS_BIAYA_DEPOSIT_COA_ID}"/>
+                <input type="text" name="jenis_biaya_deposit_coa_nama" id="jenis_biaya_deposit_coa_nama" value="{JENIS_BIAYA_DEPOSIT_COA_NAMA}" size="35" readonly="readonly"/>
+                <input type="button"  name="but_jenis_biaya" onclick="popup_coa_deposit()" value=" ... " />&nbsp;*
+            </td>
+        </tr>        
+        <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="debet" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="kredit" / --></th>
+            <td>
+                <input type="radio" name="jenis_biaya_deposit_coa_dk" value="D" {IS_DEPOSIT_DEBET} /><!-- patTemplate:gtfwgetconfig config="language" name="debet" / -->
+                <input type="radio" name="jenis_biaya_deposit_coa_dk" value="K" {IS_DEPOSIT_KREDIT} /><!-- patTemplate:gtfwgetconfig config="language" name="kredit" / -->
+
+            </td>
+        </tr>         
+        <tr class="subhead">
+            <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="piutang" / --></th>
+        </tr>        
+        <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="coa" / --></th>
+            <td>
+                <input type="hidden" name="jenis_biaya_piutang_coa_id" id="jenis_biaya_piutang_coa_id" value="{JENIS_BIAYA_PIUTANG_COA_ID}"/>
+                <input type="text" name="jenis_biaya_piutang_coa_nama" id="jenis_biaya_piutang_coa_nama" value="{JENIS_BIAYA_PIUTANG_COA_NAMA}" size="35" readonly="readonly"/>
+                <input type="button"  name="but_jenis_piutang_biaya" onclick="popup_coa_piutang()" value=" ... " />&nbsp;*
+            </td>
+        </tr>        
+        <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="debet" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="kredit" / --></th>
+            <td>
+                <input type="radio" name="jenis_biaya_piutang_coa_dk" value="D" {IS_PIUTANG_DEBET} /><!-- patTemplate:gtfwgetconfig config="language" name="debet" / -->
+                <input type="radio" name="jenis_biaya_piutang_coa_dk" value="K" {IS_PIUTANG_KREDIT} /><!-- patTemplate:gtfwgetconfig config="language" name="kredit" / -->
+
+            </td>
+        </tr> 
+        <tr class="buttons">
+            <td></td>
+            <td>
+                <input type="submit" name="btnsimpan" value=" <!-- patTemplate:gtfwgetconfig config="language" name="simpan" / --> " class="buttonSubmit"/>
+                       <input type="submit"  name="btnbalik" value=" <!-- patTemplate:gtfwgetconfig config="language" name="batal" / --> " class="buttonSubmit"/>
+            </td>
+        </tr>
+    </table>
+    <br />
+
+    <table class="table-common" width="100%" id="table-coa" >
+        <tr>
+            <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+            <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="jenis_biaya" / --></th>
+            <th colspan="3"><!-- patTemplate:gtfwgetconfig config="language" name="pembayaran" / --></th>
+            <th colspan="3"><!-- patTemplate:gtfwgetconfig config="language" name="potongan" / --></th>
+            <th colspan="3"><!-- patTemplate:gtfwgetconfig config="language" name="deposit" / --></th>
+            <th colspan="3"><!-- patTemplate:gtfwgetconfig config="language" name="piutang" / --></th>            
+            <th rowspan="2" width="65"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+        </tr>
+        <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_coa" / --></th>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_coa" / --></th>
+            <th>
+                D/K
+            </th>
+
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_coa" / --></th>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_coa" / --></th>
+            <th>
+                D/K
+            </th>
+
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_coa" / --></th>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_coa" / --></th>
+            <th>
+                D/K
+            </th>
+            
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_coa" / --></th>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_coa" / --></th>
+            <th>
+                D/K
+            </th>
+        </tr>
+        <tbody id="table_tbody">
+
+            <!-- patTemplate:tmpl name="data" type="condition" conditionvar="DATA_EMPTY" -->
+            <!-- patTemplate:sub condition="YES" -->
+                <tr><td colspan="9" align="center"><em>-- Data tidak ditemukan --</em></td></tr>
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr >
+                <td align="center">{JB_NOMOR}</td>
+                <td>{JB_NAMA}</td>
+                
+                <td align="center" class="pembayaran">{JB_PEMBAYARAN_COA_KODE}</td>
+                <td class="pembayaran">{JB_PEMBAYARAN_COA_NAMA}</td>
+                <td class="links pembayaran" align="center">
+                    <a><img src="images/icons/16/{JB_PEMBAYARAN_DEBET_KREDIT}.png" alt="{JB_PEMBAYARAN_DEBET_KREDIT}"/></a>
+                </td>
+                
+                <td class="potongan" align="center">{JB_POTONGAN_COA_KODE}</td>
+                <td class="potongan" >{JB_POTONGAN_COA_NAMA}</td>
+                <td class="links potongan" align="center">
+                    <a><img src="images/icons/16/{JB_POTONGAN_DEBET_KREDIT}.png" alt="{JB_POTONGAN_DEBET_KREDIT}"/></a>
+                </td>
+                <td class="deposit" align="center">{JB_DEPOSIT_COA_KODE}</td>
+                <td class="deposit" >{JB_DEPOSIT_COA_NAMA}</td>
+                <td class="links deposit" align="center">
+                    <a><img src="images/icons/16/{JB_DEPOSIT_DEBET_KREDIT}.png" alt="{JB_DEPOSIT_DEBET_KREDIT}"/></a>
+                </td>
+                
+                <td class="piutang" align="center">{JB_PIUTANG_COA_KODE}</td>
+                <td class="piutang" >{JB_PIUTANG_COA_NAMA}</td>
+                <td class="link piutang" align="center">
+                    <a><img src="images/icons/16/{JB_PIUTANG_DEBET_KREDIT}.png" alt="{JB_PIUTAG_DEBET_KREDIT}"/></a>
+                </td>
+                <td class="links" align="center">
+                    <a class="xhr dest_subcontent-element" href="{JB_URL_EDIT}" title="<!-- patTemplate:gtfwgetconfig config="language" name="ubah" / -->">
+                       <img src="images/button-edit.gif" alt="Ubah"/>
+                    </a>
+                    <a class="xhr dest_subcontent-element" href="{JB_URL_DELETE}" title="<!-- patTemplate:gtfwgetconfig config="language" name="detil" / -->">
+                       <img src="images/button-delete.gif" alt="Detil"/>
+                    </a>                     
+                </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+            <!-- /patTemplate:tmpl -->
+
+
+        </tbody>
+    </table>
+</form>
+
+<br/>
+
+<div class="petunjuk-area">
+    <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+    <ul>
+        <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --> </li>
+    </ul>
+</div>
+<!-- /patTemplate:tmpl -->

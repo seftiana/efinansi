@@ -1,0 +1,54 @@
+<!-- patTemplate:tmpl name="body" -->
+
+   <!--Header-->
+
+   <div id="header" style="padding: 0px">
+      <div id="header-image">
+         <img src="images/logo-sample.png" />
+			<h1><!-- patTemplate:gtfwgetconfig config="organization" name="application_name" / --></h1>
+			<h2><!-- patTemplate:gtfwgetconfig config="organization" name="company_name" / --></h2>
+      </div>
+      <div id="header-filler">
+         <h1><!-- patTemplate:gtfwgetconfig config="organization" name="application_version" / --></h1>
+      </div>
+      <div id="js-alert"></div>
+   </div>
+
+   <!--Navigation-->
+
+   <div id="navigation">
+      <div class="breadcrumb">
+         <h2 class="hidden">Navigasi</h2>
+         <ul>
+            <li class="home"><a class="xhr dest_subcontent-element" href="<!-- patTemplate:gtfwgeturl module="home" sub="home" action="view" type="html" params="" / -->">Home</a></li>
+         </ul>
+      </div>
+      <div class="navigation-infobar">
+	         <ul class="standard">
+	            <a id="profil" class="xhr dest_subcontent-element" href="<!-- patTemplate:gtfwgeturl module="user" sub="profile" action="view" type="html" params=""  / -->"></a>
+	            <a id="logout" href="<!-- patTemplate:gtfwgeturl module="login_default" sub="logout" action="do" type="html" params=""  / -->"></a>
+	         </ul>
+		</div>
+   </div>
+
+   <div id="loading-box-active" class="busy-indicator">
+   <div class="animation-icon" >
+   </div>
+   </div>
+
+   <div id="content">
+
+	<!--sidebar-->
+      <div id="sidebar">
+         <div id="sidebarContents" class="sidebarContents">
+            <!-- patTemplate:gtfwrendermodule name="menu" module="menu" submodule="menu" action="view" type="html" params="" / -->
+         </div>
+      </div>
+
+      <div id="subcontent-wide">
+         <div class="subcontent-element" id="subcontent-element">
+            <!-- patTemplate:link src="content" / -->
+         </div>
+      </div>
+   </div>
+<!-- /patTemplate:tmpl -->

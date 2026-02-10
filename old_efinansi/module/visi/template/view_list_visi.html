@@ -1,0 +1,140 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+$(document).ready(function(){
+	$('#check_all').click(function(){
+		//$(this).parents().find('input:checkbox[@name=id_program]').attr('checked', this.checked);
+		var checked_status = this.checked;
+		$("input[name=id[]]").each(function() {
+            if(this.disabled == false){
+			this.checked = checked_status;
+            }
+		});
+	});
+	//$('#notebox-alert').fadeOut(3000);
+}); 
+// ]]>
+</script>
+<h1>
+    List Visi
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox" name="filterbox">
+    <table>
+        <tr class="subhead">
+            <th colspan="2">
+                <h2>
+                    <strong>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+                    </strong>
+                </h2>
+            </th>
+        </tr>
+        <tr>
+            <th>Kode/Nama</th>
+            <td>
+                <input type="text" name="txt_search" id="txt_search" value="{TXT_SEARCH}" size="30" />
+            </td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            </td>
+        </tr>
+    </table>
+</form>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+    {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<form name="frm_list" id="frm_list" action="{URL_DELETE}" method="POST" 
+class="xhr_simple_form dest_subcontent-element">
+<div class="pageBar">
+    <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+    <div class="toolbar"> 
+	    <a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Data" >
+	        <img src="images/button-add.gif" alt="">
+	        Tambah Visi
+	    </a>
+	<input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="inputButton" />
+	</div>
+</div>
+
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+    <tr>
+        <th>
+            No
+        </th>
+        <th width="5" {STYLE} >
+	        <input type="checkbox" name="check_all" id="check_all" />
+	    </th>
+        <th>
+            Kode
+        </th>
+        <th>
+            Nama
+        </th>
+        <th>
+            Renstra
+        </th>
+        <th>
+            Aksi
+        </th>
+    </tr>
+    <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+        <!-- patTemplate:sub condition="YES" -->
+            <tr>
+                <td colspan="6" align="center">
+                    <em>
+                        -- Data tidak ditemukan --
+                    </em>
+                </td>
+            </tr>
+        <!-- /patTemplate:sub -->
+        <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+                <tr class="{VISI_CLASS_NAME}">
+                    <td style="width:25px;" align="center">
+                        {VISI_NOMOR}
+                    </td>
+                    <td {STYLE}>
+	
+	                    <input type="checkbox" name="id[]" id="visi_id_{VISI_ID}" value="{VISI_ID}" 
+	                    {VISI_DISABLED} {ONCLICK} />
+	                    <input type="hidden" name="name[{VISI_ID}]" value="{VISI_KODE} - {VISI_NAMA}" />
+	                 
+	                </td>
+                    <td>
+                        {VISI_KODE}
+                    </td>
+                    <td>
+                        {VISI_NAMA}
+                    </td>
+                    <td width="135">
+                        {VISI_RENSTRA_NAMA}
+                    </td>
+                    <td style="width:18px;">
+                        <a class="xhr dest_subcontent-element" href="{VISI_URL_EDIT}" title="Ubah">
+	                    <img src="images/button-edit.gif" alt="Ubah" />
+                    </td>
+                </tr>
+            <!-- /patTemplate:tmpl -->
+        <!-- /patTemplate:sub -->
+    <!-- /patTemplate:tmpl -->
+</table>
+<!-- end: Table List -->
+</form>
+<br />
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+      <ul>
+         <li><img src="images/button-edit.gif" alt="Ubah"/>&nbsp;&nbsp;
+         <!-- patTemplate:gtfwgetconfig config="language" name="ubah" / -->&nbsp;Visi</li>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

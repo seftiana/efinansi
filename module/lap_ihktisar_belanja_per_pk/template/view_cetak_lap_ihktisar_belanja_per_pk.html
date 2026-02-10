@@ -1,0 +1,45 @@
+<!-- patTemplate:tmpl name="content" -->
+<center><h1>Laporan Ihktisar Belanja Per Program Kegiatan</h1></center>
+<br>
+<center><h1><!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / --> {TAHUN_PERIODE}</h1></center>
+<br>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / 
+<!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --> : {UNIT_KERJA_LABEL}</h1>   
+  <br />
+
+   <table class="table-common" width="100%">
+   <tr>
+	   
+        <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+        <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="uraian" / --></th>
+        <th colspan="{MAX_HEADER}"><!-- patTemplate:gtfwgetconfig config="language" name="alokasi" / --></th>
+        <th ><!-- patTemplate:gtfwgetconfig config="language" name="target" / --></th>
+        <th rowspan="2">Unit Penanggung Jawab</th>
+    </tr>
+	<tr>
+            <!-- patTemplate:tmpl name="data_header_item" -->
+            <th>{NAMA}</th>
+            <!-- /patTemplate:tmpl -->
+		<th>Volume Satuan</th>
+	</tr>
+	
+    <!-- patTemplate:tmpl name="list_data" type="condition" conditionvar="IS_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="5" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+				<!-- patTemplate:tmpl name="list_data_item" -->
+   
+				<tr class="{CLASS_NAME}" style="{FONT_STYLE}">
+				<td align="right">{KODE}</td>
+				<td align="left"  >{NAMA}</td>
+				  {COLOM}				
+				<td align="right"></td>
+				<td>{UNIT}</td>
+				</tr>
+			<!-- /patTemplate:tmpl -->
+			
+		<!-- /patTemplate:sub -->
+     <!-- /patTemplate:tmpl -->
+    </table> 
+<!-- /patTemplate:tmpl -->

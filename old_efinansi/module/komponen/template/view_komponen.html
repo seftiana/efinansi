@@ -1,0 +1,245 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="manajemen_komponen" / -->
+</h1>
+<br />
+<form method="POST" name="frmSearch" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama_komponen" / -->
+         </th>
+         <td>
+            <textarea name="nama_komponen" rows="3" cols="50" style="resize:none;">{NAMA}</textarea>
+         </td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+            <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+<form method="POST" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <input type="hidden" name="control_label" value="{CONTROL_LABEL}" />
+   <input type="hidden" name="control_action" value="{CONTROL_ACTION}" />
+   <input type="hidden" name="control_return" value="{CONTROL_RETURN}" />
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar">
+         <a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Data Komponen" >
+            <img src="images/button-add.gif" alt="">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / -->
+         </a>
+         <a href="{URL_EXCEL}" title="Export ke Excel" target="_blank">
+            <img src="images/icons/export_excel.gif" alt="">
+            <!-- patTemplate:gtfwgetconfig config="language" name="excel" / -->
+         </a>
+         <input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="inputButton" />
+      </div>
+   </div>
+   <table class="table-common" width="100%">
+      <thead>
+         <tr>
+            <th width="5" rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+            </th>
+            <th width="5" rowspan="2">
+               <input type="checkbox" value="" class="CheckBoxFW_parent"/>
+            </th>
+            <th colspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="satuan" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="formula" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="harga_satuan" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="kode_coa"" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama_coa" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="sumber_dana" / -->
+            </th>
+            <th width="32" rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+            </th>
+         </tr>
+         <tr>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+            </th>
+         </tr>
+      </thead>
+      <tbody>
+         <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+            <!-- patTemplate:sub condition="YES" -->
+            <tr><td colspan="12" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+               <!-- patTemplate:tmpl name="data_list" -->
+               <tr class="{CLASS_NAME}">
+                  <td align="center">
+                     {NUMBER}
+                  </td>
+                  <td>
+                     <!-- patTemplate:tmpl name="komponen" type="condition" conditionvar="DISABLED" -->
+                        <!-- patTemplate:sub condition="YES" -->
+                           <input type="checkbox" name="id[]" id="komponen_id_{ID}" value="{ID}" class="CheckBoxFW_child" disabled />
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="NO" -->
+                           <input type="checkbox" name="id[]" id="komponen_id_{ID}" value="{ID}" class="CheckBoxFW_child" />
+                           <input type="hidden" name="name[{ID}]" value="{NAMA}" />
+                        <!-- /patTemplate:sub -->
+                     <!-- /patTemplate:tmpl -->
+                  </td>
+                  <td style="text-align: center;">
+                     {KODE}
+                  </td>
+                  <td>
+                     {NAMA}
+                  </td>
+                  <td style="text-align: center;">
+                     {SATUAN}
+                  </td>
+                  <td>
+                     {DESKRIPSI}
+                  </td>
+                  <td>
+                     {FORMULA}
+                  </td>
+                  <td style="text-align:right">
+                     {HARGA_SATUAN}
+                  </td>
+                  <td>
+                     {KODE_COA}
+                  </td>
+                  <td>
+                     {NAMA_COA}
+                  </td>
+                  <td>
+                     {SUMBER_DANA}
+                  </td>
+                  <td class="links" align="center">
+                     <a class="xhr dest_subcontent-element" href="{URL_EDIT}" title="Ubah komponen {NAMA_KOMPONEN}"><img src="images/button-edit.gif" alt="Ubah"/></a>
+                     <!-- a class="xhr dest_subcontent-element" href="{URL_SUB_KOMPONEN}" title="List sub komponen pada {NAMA_KOMPONEN}" ><img src="images/button-detail.gif" alt="" /></a-->
+                  </td>
+               </tr>
+               <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </tbody>
+   </table>
+</form>
+<br />
+
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:
+   </h4>
+   <ul>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / --><img src="images/button-delete.gif"/> <!-- patTemplate:gtfwgetconfig config="language" name="untuk_mendelete_data" / -->
+      </li>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / --> <img src="images/button-edit.gif"/> <!-- patTemplate:gtfwgetconfig config="language" name="untuk_mengupdate_data" / -->
+      </li>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / --> <img src="images/icons/export_excel.gif"/> <!-- patTemplate:gtfwgetconfig config="language" name="untuk_mengeksport_data" / -->
+      </li>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / --> <img src="images/button-add.gif"/> <!-- patTemplate:gtfwgetconfig config="language" name="untuk_menambah_data" / -->
+      </li>
+   </ul>
+</div>
+
+<script type="text/javascript">
+CheckBoxFW_initiate = function (Obj)
+{
+   if (!Obj || Obj.className.indexOf('CheckBoxFW_parent') < 0 || !Obj.form) return;
+
+   var CBList     = new Array;
+   var CheckedAll = true;
+   var FormObj    = Obj.form;
+
+   for (var i = 0; i < FormObj.length; i++) if (FormObj[i] == Obj) break;
+   if (i == FormObj.length) return;
+
+   for(i += 1; i < FormObj.length; i++)
+   {
+      var CBObj = FormObj[i];
+      if (CBObj.type.toUpperCase() != 'CHECKBOX') continue;
+      if (CBObj.className.indexOf('CheckBoxFW_child') >= 0)
+      {
+         CBObj.onchange = function () {
+            Obj.checkChild();
+         }
+         CBList[CBList.length] = CBObj;
+         if (!CBObj.checked) CheckedAll = false;
+      }
+      if (CBObj.className.indexOf('CheckBoxFW_parent') >= 0) break;
+   }
+
+   if (CBList.length > 0)
+   {
+      Obj.onchange = function ()
+      {
+         for (var i = 0; i < CBList.length; i++){
+            if(CBList[i].getAttribute('disabled') == null){
+               CBList[i].checked = this.checked;
+            }
+         }
+      }
+
+      Obj.checkChild = function ()
+      {
+         var CheckedAll = true;
+         for (var i = 0; i < CBList.length; i++) if (!CBList[i].checked)
+         {
+            CheckedAll = false;
+            break;
+         }
+         this.checked = CheckedAll;
+      }
+
+      Obj.checked = CheckedAll;
+   }
+}
+var formObj       = document.getElementById('form_list');
+if(typeof(formObj) != 'undefined' && formObj != null){
+   for (var i = 0; i < formObj.length; i++){
+      CheckBoxFW_initiate(formObj[i]);
+   }
+}
+</script>
+<!-- /patTemplate:tmpl -->

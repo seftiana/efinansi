@@ -1,0 +1,111 @@
+<!-- patTemplate:tmpl name="content" -->	
+	<div class="a4-potrait">
+		<table class="table-outer">
+			<tr><td>
+				<img src="" alt="Logo" class="logo" /> 
+				<h1>
+					<!-- patTemplate:gtfwgetconfig config="language" name="formulir_rincian_anggaran_pendapatan" / --><br/>
+					<!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / --><br/>
+					<br/>
+					<!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->: {TA_NAMA}
+				</h1>
+			</td>
+			<td width="15%" class="center"><h1><!-- patTemplate:gtfwgetconfig config="language" name="rk_rinci_1" / --></h1><small><!-- patTemplate:gtfwgetconfig config="language" name="hal" / --> 1 <!-- patTemplate:gtfwgetconfig config="language" name="dari" / --> 2 <!-- patTemplate:gtfwgetconfig config="language" name="halaman" / --></small></td>
+			</tr>
+		</table>
+		<table class="table-outer">
+			<tr>
+				<td width="20%"><!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / 
+				<!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / -->:</td>
+				<td>{UNIT_NAMA}</td>
+				<td><!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->:</td>
+				<td>{UNIT_KODE}</td>
+			</tr>
+			<!--tr>
+				<td>patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" :</td>
+				<td>{SUBUNIT_NAMA}</td>
+				<td> patTemplate:gtfwgetconfig config="language" name="kode" :</td>
+				<td>{SUBUNIT_KODE}</td>
+			</tr -->
+		</table>
+		<table class="table-outer">
+			<tr>
+				<td width="50%"><!-- patTemplate:gtfwgetconfig config="language" name="kode_program" / -->: {PROGRAM_KODE}</td>
+				<td><!-- patTemplate:gtfwgetconfig config="language" name="nama_program" / -->: {PROGRAM_NAMA}</td>
+			</tr>
+			<tr>
+				<td width="50%"><!-- patTemplate:gtfwgetconfig config="language" name="kode_sub_kegiatan" / -->: (R/nR) {SUBKEGIATAN_KODE}</td>
+				<td><!-- patTemplate:gtfwgetconfig config="language" name="kode_ma" / -->: {KODE_MATA_ANGGARAN}</td>
+			</tr>
+		</table>
+		<table class="table-outer">
+			<tr>
+				<td><!-- patTemplate:gtfwgetconfig config="language" name="nama_kegiatan" / -->: {KEGIATAN_NAMA}</td>
+			</tr>
+			<tr>
+				<td><!-- patTemplate:gtfwgetconfig config="language" name="nama_sub_kegiatan" / -->: {SUBKEGIATAN_NAMA}</td>
+			</tr>
+			<tr>
+				<td><!-- patTemplate:gtfwgetconfig config="language" name="deskripsi_sub_kegiatan" / -->: {KEGIATANDETAIL_DESKRIPSI}</td>
+			</tr>
+			<tr>
+				<td><!-- patTemplate:gtfwgetconfig config="language" name="no_rekening" / --> : </td>
+			</tr>
+		</table>
+		<table class="table-outer">
+			<tr>
+				<th><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>				
+				<th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="uraian" / --></th>
+				<th><!-- patTemplate:gtfwgetconfig config="language" name="satuan" / --></th>
+				<th><!-- patTemplate:gtfwgetconfig config="language" name="nilai_satuan" / --> (<!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->.)</th>
+				<th><!-- patTemplate:gtfwgetconfig config="language" name="kuantitas" / --></th>
+				<th><!-- patTemplate:gtfwgetconfig config="language" name="jumlah" / --> (<!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->.)</th>
+			</tr>
+			<!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="7" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+			  <td>{DATA_NOMOR} </td>			  		   
+               <td colspan="2">{DATA_URAIAN}</td>			   
+		       <td>{DATA_SATUAN}</td>
+               <td style="text-align:right;">{DATA_KUANTITAS}</td>               
+			   <td style="text-align:right;">{DATA_NILAI_SATUAN}</td>
+			   <td style="text-align:right;">{DATA_JUMLAH}</td>
+               
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->			
+			<tr>
+				<td colspan="6">
+					<!-- patTemplate:gtfwgetconfig config="language" name="total_anggaran" / --> disetujui per <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / --></td>
+				<td style="text-align:right;">{TOTAL_ANGGARAN_YA}</td>
+			</tr>
+			<tr>
+				<td colspan="6">
+					<!-- patTemplate:gtfwgetconfig config="language" name="total_anggaran" / --> tidak disetujui per <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / --></td>
+				<td style="text-align:right;">{TOTAL_ANGGARAN_TIDAK}</td>
+			</tr>
+			<tr>
+				<td colspan="6">
+					<!-- patTemplate:gtfwgetconfig config="language" name="total_anggaran" / --> belum disetujui per <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / --></td>
+				<td style="text-align:right;">{TOTAL_ANGGARAN_BELUM}</td>
+			</tr>
+		</table>
+		<table class="table-outer">
+			<tr>
+				<th width="40%"><!-- patTemplate:gtfwgetconfig config="language" name="catatan" / --></th>
+				<th><!-- patTemplate:gtfwgetconfig config="language" name="pimpinan_unit_kerja" / --> /
+				<!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / --></th>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td align="center"><br/><br/><br/>( {UNIT_PIMPINAN} )</td>
+				<!-- td align="center"><br/><br/><br/>( {SUBUNIT_PIMPINAN} )</td -->
+			</tr>
+		</table>
+	</div>
+<!-- /patTemplate:tmpl -->

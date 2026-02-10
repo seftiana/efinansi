@@ -1,0 +1,255 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css">
+table.table-edit tr td table.table-common thead tr th{
+   text-align: center;
+   font-weight: bold;
+}
+table.table-edit tr{
+   vertical-align: top;
+}
+</style>
+<h1>
+   Surat Permintaan Pembayaran
+</h1>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<form name="frmInput" action="{URL_ACTION}" id="frmInput" class="xhr_form std_form dest_subcontent-element" method="POST" data-target="{URL_RETURN}">
+   <input type="hidden" name="data_id" value="{ID}" />
+   <input type="hidden" name="realisasi_id" value="{REALISASI_ID}" />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            Update Surat Permintaan Pembayaran
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <td>
+            <label style="font-weight: bold;">
+               {NOMOR}
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode_tahun" / -->
+         </th>
+         <td>
+            <input type="hidden" name="ta_id" value="{TA_ID}" />
+            <label style="font-weight: bold;">
+               {TA_NAMA}
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+         </th>
+         <td>
+            <input type="hidden" name="unit_id" value="{UNIT_ID}" />
+            <label style="font-weight: bold;">
+               {UNIT_NAMA}
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="sifat_pembayaran" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="sifat_pembayaran"  / --> *
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="jenis_pembayaran" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="jenis_pembayaran"  / --> *
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Jumlah Pembayaran
+         </th>
+         <td>
+            <label style="font-weight: bold;">
+               Rp. {NOMINAL}
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="keperluan" / -->
+         </th>
+         <td>
+            <textarea name="keperluan" id="txt_keperluan" rows="3" style="width: 60%; resize: none;">{KEPERLUAN}</textarea> *
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="jenis_belanja" / -->
+         </th>
+         <td>
+            <textarea name="jenis_belanja" id="txt_jenis_belanja" rows="3" style="width: 60%; resize: none;">{JENIS_BELANJA}</textarea> *
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="atas_nama" / -->
+         </th>
+         <td>
+            <input type="text" name="nama" id="txt_nama" value="{NAMA}" size="35" /> *
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="alamat" / -->
+         </th>
+         <td>
+            <textarea name="alamat" id="txt_alamat" rows="3" style="width: 60%; resize: none">{ALAMAT}</textarea>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="rekening" / -->
+         </th>
+         <td>
+            <input type="text" name="rekening" value="{REKENING}" size="35" id="txt_rekening" />
+         </td>
+      </tr>
+      <tr>
+         <th style="text-transform: uppercase;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="npwp" / -->
+         </th>
+         <td>
+            <input type="text" name="npwp" id="txt_npwp" size="35" value="{NPWP}" />
+         </td>
+      </tr>
+      <tr class="subhead">
+         <th colspan="2">
+            SPK
+         </th>
+      </tr>
+      <tr>
+         <th style="padding-left: 30px;">
+            Nomor SPK
+         </th>
+         <td>
+            <input type="text" name="nomor_spk" value="{NOMOR_SPK}" size="35" id="txt_nomor_spk" />
+         </td>
+      </tr>
+      <tr>
+         <th style="padding-left: 30px;">
+            Tanggal SPK
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="spk_tanggal"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th style="padding-left: 30px;">
+            Nilai SPK/Kontrak
+         </th>
+         <td>
+            <input type="text" name="nominal_spk" id="txt_nominal_spk" class="gvNum" value="{NOMINAL_SPK}" />
+         </td>
+      </tr>
+      <tr class="buttons">
+         <td colspan="2">
+            <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+            <input type="reset"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+         </td>
+      </tr>
+      <tr class="subhead">
+         <th colspan="2">
+            Detail SPP
+         </th>
+      </tr>
+      <tr>
+         <td colspan="2" style="padding: 0px;">
+            <table class="table-common" width="100%">
+               <thead>
+                  <tr>
+                     <th>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="mak_kode" / -->
+                     </th>
+                     <th style="width: 135px;">
+                        Pagu dalam DIPA (Rp.)
+                     </th>
+                     <th style="width: 135px;">
+                        SPP LALU (Rp.)
+                     </th>
+                     <th style="width: 135px;">
+                        SPP INI (Rp.)
+                     </th>
+                     <th style="width: 135px;">
+                        Jumlah SPP s/d saat ini (Rp.)
+                     </th>
+                     <th style="width: 135px;">
+                        Sisa Dana (Rp.)
+                     </th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <!-- patTemplate:tmpl name="data_spp" type="condition" conditionvar="DATA_EMPTY" -->
+                     <!-- patTemplate:sub condition="YES" -->
+                        <tr>
+                           <td colspan="5" style="text-align: center;">
+                              <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                           </td>
+                        </tr>
+                     <!-- /patTemplate:sub -->
+                     <!-- patTemplate:sub condition="NO" -->
+                        <!-- patTemplate:tmpl name="data_list" -->
+                           <input type="hidden" name="data_spp[{REALISASI_ID}][realisasi_id]" value="{REALISASI_ID}" />
+                           <input type="hidden" name="data_spp[{REALISASI_ID}][nominal]" value="{NOMINAL}" />
+                           <tr>
+                              <td style="text-align: center;">
+                                 {MAK_KODE}
+                              </td>
+                              <td style="text-align: right;">
+                                 {NOMINAL_PAGU}
+                              </td>
+                              <td style="text-align: right;">
+                                 {SPP_LALU}
+                              </td>
+                              <td style="text-align: right;">
+                                 {SPP_INI}
+                              </td>
+                              <td style="text-align: right;">
+                                 {SPP_TOTAL}
+                              </td>
+                              <td style="text-align: right;">
+                                 {SISA_DANA}
+                              </td>
+                           </tr>
+                        <!-- /patTemplate:tmpl -->
+                     <!-- /patTemplate:sub -->
+                  <!-- /patTemplate:tmpl -->
+               </tbody>
+            </table>
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div class="petunjuk-area" id="petunjuk">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / -->
+      </li>
+   </ul>
+</div>
+<!-- /patTemplate:tmpl -->

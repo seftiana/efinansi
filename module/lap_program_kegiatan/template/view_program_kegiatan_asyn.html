@@ -1,0 +1,89 @@
+<!-- patTemplate:tmpl name="content" -->
+  	<!-- patTemplate:tmpl name="pk" type="condition" conditionvar="IS_PARENT" -->
+    	<!-- patTemplate:sub condition="YES" -->
+        <tr id="{ID}" class="child-of-{PARENT}">
+            <td>
+                <!-- a href="#" class="expand">[+]</a>
+                <a href="#" class="collapse">[-]</a -->                
+            </td>
+            <td>{F_KODE}</td>
+            <td>
+                <a href="#" class="expand" {ON_EXPAND}>{F_NAMA}</a>
+                <a href="#" class="collapse" {ON_COLLAPSE}>{F_NAMA}</a>
+                <input type="hidden" id="status_expand_{ID}" name="status_expand_{ID}" value="0" />
+                <input type="hidden" name="parent_{ID}" value="{PARENT}" />
+                <input type="hidden" name="up_parent_{ID}" value="{UP_PARENT}" />
+                <input type="hidden" name="pk[id][]" value="{ID}" />
+                <input type="hidden" name="pk[kode][]" value="{KODE}" />
+                <input type="hidden" name="pk[tipe][]" value="{TIPE}" />
+                <input type="hidden" name="pk[nama][]" value="{NAMA}" />              
+            </td>
+            <td>
+                {UNIT_NAMA}
+                <input type="hidden" name="unit_nama_{ID}" value="{UNIT_NAMA}" />
+            </td>
+            <td align="right">
+                            <label id="label_total_komp_blt_{ID}">{F_LANGSUNG_TETAP}</label>
+                           <input type="hidden" name="total_komp_blt_{ID}" id="total_komp_blt_{ID}" 
+                           value="{LANGSUNG_TETAP}" /></td>
+            <td align="right">
+                            <label id="label_total_komp_bltt_{ID}">{F_LANGSUNG_TAK_TETAP}</label>
+                            <input type="hidden" name="total_komp_bltt_{ID}" id="total_komp_bltt_{ID}" 
+                            value="{LANGSUNG_TAK_TETAP}" /></td>
+            <td align="right">
+                            <label id="label_total_komp_btlt_{ID}">{F_TAK_LANGSUNG_TETAP}</label>
+                            <input type="hidden" name="total_komp_btlt_{ID}" id="total_komp_btlt_{ID}" 
+                            value="{TAK_LANGSUNG_TETAP}" /></td>
+            <td align="right">
+                        <label id="label_total_komp_btltt_{ID}">{F_TAK_LANGSUNG_TAK_TETAP}</label>
+                        <input type="hidden" name="total_komp_btltt_{ID}" id="total_komp_btltt_{ID}" 
+                           value="{TAK_LANGSUNG_TAK_TETAP}" /></td>
+            <td align="right"></td>
+            <td align="right"></td>
+            <td align="right"></td>
+        </tr>
+        <tr class="child-of-{ID} child-placeholder"></tr>                               
+	 	<!-- /patTemplate:sub -->
+	 	<!-- patTemplate:sub condition="NO" -->
+        <tr class="child-of-{PARENT}">
+            <td></td>
+            <td>
+                {KODE}
+                <input type="hidden" name="parent_{ID}" value="{PARENT}" />
+                <input type="hidden" name="up_parent_{ID}" value="{UP_PARENT}" />
+                <input type="hidden" name="top_parent_{ID}" value="{TOP_PARENT}" />
+                <input type="hidden" name="pk[id][]" value="{ID}" />
+                <input type="hidden" name="pk[kode][]" value="{KODE}" />
+                <input type="hidden" name="pk[tipe][]" value="{TIPE}" />
+                </td>
+            <td>
+                {NAMA}
+                <input type="hidden" name="pk[nama][]" value="{NAMA}" />
+            </td>
+            <td>
+                {UNIT_NAMA}
+                <input type="hidden" name="unit_nama_{ID}" value="{UNIT_NAMA}" />
+            </td>
+            <td align="{ALIGN}">{LANGSUNG_TETAP}
+                <input type="hidden" id="posisi_{ID}" value="{POSISI}" />
+                <input type="hidden" id="posisi_lama_{ID}" value="{POSISI}" />
+                <input type="hidden" id="counter_lt_{ID}" value="{C_LT}" name="counter_lt_{ID}" />
+                </td>
+            <td align="{ALIGN}">
+                            {LANGSUNG_TAK_TETAP}
+                            <input type="hidden" id="counter_ltt_{ID}" value="{C_LTT}" name="counter_ltt_{ID}" /></td>
+            <td align="{ALIGN}">
+                            {TAK_LANGSUNG_TETAP}
+                            <input type="hidden" id="counter_tlt_{ID}" value="{C_TLT}" name="counter_tlt_{ID}" /></td>
+            <td align="{ALIGN}">
+                            {TAK_LANGSUNG_TAK_TETAP}
+                            <input type="hidden" id="counter_tltt_{ID}" value="{C_TLTT}" name="counter_tltt_{ID}" /></td>
+            <td align="right">{JUMLAH}<input type="hidden" name="kuantitas_{ID}" value="{JUMLAH}" /></td>
+            <td align="right">{BIAYA}<input type="hidden" name="biaya_nilai_satuan_{ID}" value="{BIAYA}" /></td>
+            <td align="right">
+                            {TOTAL}
+                            <input type="hidden" id="komponen_{ID}" name="komponen_{ID}" value="{TOTAL_RAW}" /></td>
+        </tr>    
+		<!-- /patTemplate:sub -->
+    <!-- /patTemplate:tmpl -->
+<!-- /patTemplate:tmpl -->

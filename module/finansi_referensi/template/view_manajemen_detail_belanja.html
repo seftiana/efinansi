@@ -1,0 +1,161 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   Manajemen Detail Belanja
+</h1>
+<br />
+<table class="table-details" width="100%">
+   <tr class="subhead">
+      <th colspan="2">
+         Data Komponen
+      </th>
+   </tr>
+   <tr>
+      <th style="width: 135px;">
+         <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+      </th>
+      <td>
+         <strong>
+            {THANGGAR_NAMA}
+         </strong>
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+      </th>
+      <td>
+         <strong>
+            {KEGIATAN_NAMA}
+         </strong>
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->
+      </th>
+      <td>
+         <strong>
+            {OUTPUT_NAMA}
+         </strong>
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+      </th>
+      <td>
+         <strong>
+            {NAMA}
+         </strong>
+      </td>
+   </tr>
+</table>
+<br />
+<div id="box-subcontent-element">
+   <!-- untuk load data detail belanja: add/edit/delete -->
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}" id="message-box">
+      {ISI_PESAN}
+   </div>
+   <br />
+   <!-- /patTemplate:tmpl -->
+</div>
+
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   <div class="toolbar">
+      <a class="xhr dest_box-subcontent-element" href="{URL_ADD}" title="Tambah Data">
+         <img src="images/button-add.gif" alt="tambah" />
+         Tambah <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+      </a>
+      <a class="xhr dest_subcontent-element" href="{URL_REDIRECT}" title="Kembali">
+         Kembali Ke Daftar Program Kegiatan
+         <img src="images/redirect.gif" alt="" style="float: none; margin-bottom: -2px;">
+      </a>
+   </div>
+</div>
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th rowspan="2" style="width: 20px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+         </th>
+         <th rowspan="2" style="width: 35px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="satuan" / -->
+         </th>
+         <th rowspan="2" style="width: 115px;">
+            Nominal Satuan
+         </th>
+         <th rowspan="2" style="width: 65px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 95px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="6">
+                  <center>
+                     <em>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                     </em>
+                  </center>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+               <tr class="{CLASS_NAME}">
+                  <td style="text-align: center;">
+                     {NOMOR}
+                  </td>
+                  <td style="text-align: center;">
+                     {KODE}
+                  </td>
+                  <td>
+                     {NAMA}
+                  </td>
+                  <td style="text-align: center;">
+                     {SATUAN}
+                  </td>
+                  <td style="text-align: right;">
+                     {NOMINAL}
+                  </td>
+                  <td class="links">
+                     <a class="xhr dest_box-subcontent-element" href="{URL_EDIT}" title="Ubah">
+                        <img src="images/button-edit.gif" alt="Ubah" />
+                     </a>
+                     <!-- patTemplate:tmpl name="link_delete" type="condition" conditionvar="DELETABLE" -->
+                        <!-- patTemplate:sub condition="YES" -->
+                           <a class="xhr dest_box-subcontent-element" href="{URL_DELETE}" title="Delete">
+                              <img src="images/button-delete.gif" alt="delete" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="NO" -->
+                           <a href="javascript:void(0);" title="Delete" onclick="alert('Data sudah terdefinisikan untuk kegiatan');">
+                              <img src="images/button-batal.gif" alt="delete" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                     <!-- /patTemplate:tmpl -->
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<!-- end: Table List -->
+<!-- /patTemplate:tmpl -->

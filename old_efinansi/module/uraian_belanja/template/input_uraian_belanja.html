@@ -1,0 +1,45 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_uraian_belanja" / --></h1>
+<br />
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="notebox-alert">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+
+<form method="POST" class="xhr_form std_form" action="{URL_ACTION}" id="frmInput" name="frmJenisBelanja" >
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">{JUDUL} <!-- patTemplate:gtfwgetconfig config="language" name="uraian_belanja" / --></th>
+      </tr>
+	  <tr>
+      <th width="25%"><!-- patTemplate:gtfwgetconfig config="language" name="nama_uraian_belanja" / --></th>
+      <td><input type="text" name="nama_uraian_belanja" value="{URAIAN_BELANJA}" size="43" maxlength="255" /> *
+         <input type="hidden" name="uraianBelanja" value="{ID}" />
+         </td>
+      </tr>
+      <tr>
+      <th width="25%"><!-- patTemplate:gtfwgetconfig config="language" name="jenis_belanja" / --></th>
+      <td><!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="jenisBelanja"  / -->         
+        * </td>
+      </tr>
+      <tr class="buttons">
+         <th>&nbsp;   
+         </th>
+         <td>                        
+            <input type="submit" name="{BTN_SUBMIT}" value=" <!-- patTemplate:gtfwgetconfig config="language" name="simpan" / --> " class="buttonSubmit"/>
+			   <input  type="submit"  name="btnbalik" value=" <!-- patTemplate:gtfwgetconfig config="language" name="batal" / --> " class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<div class="petunjuk-area">
+   <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --> :</h4>
+   <ul>
+      <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --></li>
+   </ul>
+</div>
+<!-- /patTemplate:tmpl -->

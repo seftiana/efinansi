@@ -1,0 +1,132 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	var xpopup = false;
+	function fokus(elemId) {
+		document.getElementById(elemId).focus();
+		document.getElementById(elemId).select;
+	}
+	function bukaPopupKodePenerimaan(xurl) {	
+		showPopup(xurl,'','700','500');
+	}
+ 	function bukaPopupCoa(xurl) {
+	  showPopup(xurl,'Coa',700,550);
+   }
+	
+</script>
+
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_kode_penerimaan" / --></h1>
+<br/>
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="notebox-alert">
+      {ISI_PESAN}
+   </div>
+   <br/>
+   <!-- /patTemplate:tmpl -->
+   
+   
+   <form method="POST" name="frmKegiatan" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
+   <input type="hidden" name="data[kodepenerimaan][id]" value="{DATA_KODEPENERIMAAN_ID}"  />
+      <table class="table-edit" width="100%">
+         <tr class="subhead">
+            <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="kode_penerimaan" / --></th>
+         </tr>
+		 
+ 	 	<tr>
+         <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kode_coa" / --></th>
+         <td>
+            <input type="text" id="kode_coa" name="data[kodepenerimaan][kode_coa]" value="{DATA_KODE_COA}" 
+            size="20" readonly="readonly" />&nbsp;
+            <input type="hidden" id="id_coa" 
+            name="data[kodepenerimaan][coaid]" value="{DATA_ID_COA}"/> 
+            <input type="button" id="btn_coa" name="btn_coa" value=" ... " onclick="bukaPopupCoa('{URL_POPUP_COA}')" />
+            
+			</td>
+		 </tr>
+		 <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="nama_coa" / --></th>
+            <td><input type="text" id="nama_coa" name="data[kodepenerimaan][nama_coa]" value="{DATA_NAMA_COA}" size="20"/ readonly="readonly"></td>
+         </tr>
+		<tr>
+            <th>Kode Penerimaan Header</th>
+            <td><input type="hidden" name="data[kodepenerimaan][parent_id]" 
+				id="kp_parent_id" value="{DATA_PARENT_ID}" />
+				<textarea name="data[kodepenerimaan][parent_nama]" id="kp_parent_nama"
+					rows="2" cols="40" style="resize: none;" readonly>{DATA_PARENT_NAMA}</textarea><input type="button" name="but_sumber_dana" id="but_sumber_dana" 
+						onclick="bukaPopupKodePenerimaan('{URL_POPUP_KP_HEADER}')" value=" ... " />&nbsp;</td>
+         </tr>    		 		 
+		 <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kode_penerimaan" / --></th>
+            <td><input type="text" name="data[kodepenerimaan][kode]" value="{DATA_KODEPENERIMAAN_KODE}" size="10"  notab="1" />&nbsp;* </td>
+         </tr>
+     
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="nama" / --></th>
+            <td><input type="text" name="data[kodepenerimaan][nama]" value="{DATA_KODEPENERIMAAN_NAMA}" size="35" notab="2" />&nbsp;* </td>
+         </tr>
+		 <tr>
+            <th>Set Header</th>
+            <td>
+				<input type="radio" name="data[kodepenerimaan][is_header]" value="header" {IS_HEADER} /><!-- patTemplate:gtfwgetconfig config="language" name="ya" / -->
+				<input type="radio" name="data[kodepenerimaan][is_header]" value="" {NO_HEADER} /><!-- patTemplate:gtfwgetconfig config="language" name="tidak" / -->
+			</td>
+         </tr>
+         
+         <tr>
+            <th>Set Aktif</th>
+            <td>
+				<input type="radio" name="data[kodepenerimaan][aktif]" value="Y" {AKTIF_YA} /><!-- patTemplate:gtfwgetconfig config="language" name="ya" / -->
+				<input type="radio" name="data[kodepenerimaan][aktif]" value="T" {AKTIF_TIDAK} /><!-- patTemplate:gtfwgetconfig config="language" name="tidak" / -->
+			</td>
+         </tr>
+         
+      <tr style="display:none">
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_terima_rkakl" / --></th>
+         <td>
+            <input type="hidden" name="data[kodepenerimaan][kode_rkakl]" id="data[kodepenerimaan][kode_rkakl]" value="{DATA_KODE_RKAKL}" />
+            <input type="text" name="data[kodepenerimaan][kode_rkakl_nama]" id="kode_rkakl_label" size="35" value="{DATA_KODE_RKAKL_NAMA}" readonly="readonly">&nbsp;
+            <input type="button" name="but_kode_rkakl" id="but_kode_rkakl" onclick="bukaPopupKodePenerimaan('{URL_POPUP_KODE_RKAKL}')" value=" ... " />
+            
+		   </td>
+      </tr>
+     <tr style="display:none">
+         <th>
+            MAP
+         </th>
+         <td style="vertical-align: top;">
+            <textarea name="data[kodepenerimaan][mak_nama]" id="mak_nama" rows="3" cols="33" style="resize: none;" readonly>{DATA_MAK_KODE}</textarea>
+            <input type="hidden" name="data[kodepenerimaan][mak_id]" id="mak_id" value="{DATA_MAK_ID}" />
+            <span style="vertical-align: top;">
+            <input type="button" name="but_mak" id="but_mak" onclick="bukaPopupKodePenerimaan('{POPUP_MAK}');" value=" ... "  style="vertical-align: top;" />
+            &nbsp;*</span> 
+         </td>
+      </tr> 
+		<tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="sumber_dana" / --></th>
+            <td><input type="hidden" name="data[kodepenerimaan][sd_id]" 
+				id="id_sumber_dana" value="{DATA_SD_ID}" />
+				<input type="text" name="data[kodepenerimaan][sd_nama]" id="nama_sumber_dana" size="35" 
+					value="{DATA_SD_NAMA}" readonly="readonly">&nbsp;<input type="button" name="but_sumber_dana" id="but_sumber_dana" 
+						onclick="bukaPopupKodePenerimaan('{URL_POPUP_SD}')" value=" ... " />&nbsp;</td>
+         </tr>
+                  
+         <tr class="buttons">
+            <th>&nbsp;
+            </th>
+            <td>
+               <input type="submit" name="btnsimpan" value=" <!-- patTemplate:gtfwgetconfig config="language" name="simpan" / --> " class="buttonSubmit"/>
+               <input  type="submit"  name="btnbalik" value=" <!-- patTemplate:gtfwgetconfig config="language" name="batal" / --> " class="buttonSubmit"/>
+            </td>
+         </tr>
+      </table>
+   </form>
+   
+   <br/>
+   
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+      <ul>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --></li>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

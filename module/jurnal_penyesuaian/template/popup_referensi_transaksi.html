@@ -1,0 +1,56 @@
+<!-- patTemplate:tmpl name="content" -->
+<form name="frmInput" method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong>(<!-- patTemplate:gtfwgetconfig config="language" name="pencarian_transaksi_umum" / -->)</strong></h2></th>
+      </tr>	
+      <tr>      
+         <th width="20%"><!-- patTemplate:gtfwgetconfig config="language" name="nama_referensi" / --></th>
+         <td><input type="text" name="data[referensi]" value="{SEARCH_REFERENSI}" size="40" /></td> 
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Cari Transaksi &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+
+<table class="table-common" width="100%">
+   <tr>
+      <th width="10"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+      <th><!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / --></th>
+	  <th><!-- patTemplate:gtfwgetconfig config="language" name="referensi" / --></th>
+	  <th><!-- patTemplate:gtfwgetconfig config="language" name="catatan" / --></th>
+	  <th><!-- patTemplate:gtfwgetconfig config="language" name="nilai_rp" / --></th>
+      <th width="70"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+   </tr>
+   <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_EMPTY" -->
+      <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="6" align="center"><em> <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> </em></td></tr>
+      <!-- /patTemplate:sub -->
+      <!-- patTemplate:sub condition="NO" -->
+         <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">{DATA_NO}</td>
+			   <td>{DATA_TANGGAL_VIEW}</td>
+               <td>{DATA_REFERENSI}</td>
+			   <td>{DATA_CATATAN}</td>
+			   <td align="right">{DATA_NILAI_VIEW}</td>			   
+               <td align="center" class="links">
+			      <a href="javascript:document.getElementById('referensi_id').value='{DATA_ID}';document.getElementById('referensi_nama').value='{DATA_REFERENSI}';document.getElementById('referensi_nilai').value='{DATA_NILAI}';document.getElementById('referensi_tanggal').value='{DATA_TANGGAL}';document.getElementById('td_referensi_nama').innerHTML='{DATA_REFERENSI}';document.getElementById('td_referensi_nilai_view').innerHTML='{DATA_NILAI_VIEW}';if (document.getElementById('referensi_keterangan')) document.getElementById('referensi_keterangan').value='{DATA_CATATAN_JS}';popupClose();" ><img src="images/button-check.gif" alt="Pilih"/><!-- patTemplate:gtfwgetconfig config="language" name="pilih" / --></a>			      
+               </td>
+            </tr>
+         <!-- /patTemplate:tmpl -->
+      <!-- /patTemplate:sub -->
+   <!-- /patTemplate:tmpl -->
+</table>
+<div class="pageBar">
+</div>
+<!-- /patTemplate:tmpl -->

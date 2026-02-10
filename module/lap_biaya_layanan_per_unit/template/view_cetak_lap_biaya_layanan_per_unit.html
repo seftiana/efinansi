@@ -1,0 +1,34 @@
+<!-- patTemplate:tmpl name="content" -->
+<center><h1><h1>Laporan Biaya Layanan Per Unit</h1></h1></center>
+<br>
+<center><h1><!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / --> {TAHUN_PERIODE}</h1></center>
+<br>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / 
+<!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --> : {UNIT_KERJA_LABEL}</h1>   
+   <table class="table-common" width="100%">
+   <tr>
+	   
+        <th width="20"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+        <th><!-- patTemplate:gtfwgetconfig config="language" name="uraian" / --></th>
+        <th width="60"><!-- patTemplate:gtfwgetconfig config="language" name="volume" / --> Layanan</th>
+        <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="jumlah" / --></th>
+    </tr>
+
+    <!-- patTemplate:tmpl name="list_data" type="condition" conditionvar="IS_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="4" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+				<!-- patTemplate:tmpl name="list_data_item" -->
+				<tr class="{CLASS_NAME}" style="{FONT_STYLE}">
+					<td align="right">{NOMOR}</td>
+					<td align="left">{URAIAN}</td>
+					<td align="right">{VOLUME}</td>
+					<td align="right">{JUMLAH}</td>
+				</tr>
+					
+			<!-- /patTemplate:tmpl -->
+		<!-- /patTemplate:sub -->
+     <!-- /patTemplate:tmpl -->
+    </table> 
+<!-- /patTemplate:tmpl -->

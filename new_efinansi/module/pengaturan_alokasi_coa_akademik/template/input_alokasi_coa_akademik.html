@@ -1,0 +1,96 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language='javascript'>
+function hapus_coa(obj) {
+   obj.parentNode.parentNode.parentNode.removeChild(obj.parentNode.parentNode);
+}
+
+function popupCoa(tipe){
+   showPopup('{URL_POP_UP_COA}&tipe='+tipe,'xpopup', 600, 500);
+  // if(document.getElementById('referensi_id').value !='') {   
+       //var xpopup = window.open('{URL_POP_UP_COA}&tipe='+tipe,'xpopup','width=400,height=500,resizable=yes,scrollbars=yes,right=0;center');
+       //xpopup.focus();  
+   //} else {
+   //   alert('silahkan pilih data referensi terlebih dahulu');
+  //}
+}
+
+</script>
+<h1>Pengelolaan Coa Alokasi Akademik Berdasarkan Jumlah Kelas</h1>
+<br/>
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="notebox-alert">
+      {ISI_PESAN}
+   </div>
+   <br/>
+   <!-- /patTemplate:tmpl -->
+   
+   
+   <form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
+   <input type="hidden" name="dataId" value="{DATAID}"  />
+   <input type="hidden" name="page" value="{PAGE}"  />
+      <table class="table-edit" width="100%">
+         <tr class="subhead">
+            <th colspan="2">{JUDUL} Coa</th>
+         </tr>
+         <tr>
+            <th width="50" style="padding-left:50px">Coa</th>
+            <td>
+               <input type='button' value='Tambah Coa' onClick="javascript: popupCoa('all')">
+            </td>
+         </tr>
+         <tr>
+            <td colspan="2" style="padding-left:50px">
+               <table class="table-edit" width="500" id="table_invoice_list">
+                  <tr class="subhead">
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="rekening" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_coa" / --></th>
+                     <th width="33"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+                  </tr>
+                  <tbody id="coa_list">
+                  <!-- patTemplate:tmpl name="tpl_pengguna_ruang_list" type="condition" conditionvar="PENGGUNA_RUANG_LIST_EMPTY" -->
+                     <!-- patTemplate:sub condition="YES" -->
+                     <tr id="invoice_empty"><td colspan="3" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+                     <!-- /patTemplate:sub -->
+                     <!-- patTemplate:sub condition="NO" -->
+                        <!-- patTemplate:tmpl name="tpl_pengguna_ruang_item" -->
+                        <tr class="{DATA_CLASS_NAME}">
+                           <td>{DATA_COA_KODE}</td>
+                           <td>{DATA_COA_NAMA}</td>
+                           <td>
+                              <a href="javascript:void(0)" onclick="hapus_coa(this)" title="<!-- patTemplate:gtfwgetconfig config="language" name="hapus" / -->"><img src="images/button-delete.gif" alt="Hapus"/></a>
+                           </td>
+                     </tr>
+                     <!-- /patTemplate:tmpl -->
+                     <!-- /patTemplate:sub -->
+                  <!-- /patTemplate:tmpl -->
+                  </tbody>
+                  <tr>
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+         <tr class="buttons">
+            <th>&nbsp;
+            </th>
+            <td>
+               <input type="submit" name="btnsimpan" value=" <!-- patTemplate:gtfwgetconfig config="language" name="simpan" / --> " class="buttonSubmit"/>
+               <input  type="submit"  name="btnbalik" value=" <!-- patTemplate:gtfwgetconfig config="language" name="batal" / --> " class="buttonSubmit"/>
+            </td>
+         </tr>
+      </table>
+   </form>
+   
+   <br/>
+   
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+      <ul>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --> </li>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

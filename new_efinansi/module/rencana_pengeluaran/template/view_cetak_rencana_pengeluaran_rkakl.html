@@ -1,0 +1,337 @@
+<!-- patTemplate:tmpl name="content" -->
+<!-- start: Table Detil -->
+<table class="table-details" width="800px">
+   <tr>
+      <th width="200" align="left">
+         <!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> /
+				<!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / -->
+      </th>
+      <td>
+         : {UNIT_NAMA} <!-- / {SUBUNIT_NAMA} -->
+      </td>
+      <td>
+         Tahun: {TA_NAMA}
+      </td>
+   </tr>
+   <tr>
+      <th width="200" align="left">
+         Program
+      </th>
+      <td colspan="2">
+         : {PROGRAM_NAMA}
+      </td>
+   </tr>
+   <tr>
+      <th width="200" align="left">
+         Kegiatan
+      </th>
+      <td colspan="2">
+         : {KEGIATAN_NAMA}
+      </td>
+   </tr>
+   <tr>
+      <th width="200" align="left">
+         Sub Kegiatan
+      </th>
+      <td colspan="2">
+         : {SUBKEGIATAN_NAMA}
+      </td>
+   </tr>
+   <tr>
+      <td colspan="3">
+&nbsp;
+      </td>
+   </tr>
+   <tr>
+      <th>
+         Indikator
+      </th>
+      <th>
+         Tolak Ukur Kinerja
+      </th>
+      <th>
+         Target Kinerja
+      </th>
+   </tr>
+   <tr>
+      <td>
+         Masukan
+      </td>
+      <td>
+         {MASUKAN_TUK}
+      </td>
+      <td>
+         {MASUKAN_TK}
+      </td>
+   </tr>
+   <tr>
+      <td>
+         Keluaran
+      </td>
+      <td>
+         {KELUARAN_TUK}
+      </td>
+      <td>
+         {KELUARAN_TK}
+      </td>
+   </tr>
+</table>
+<!-- stop: Table Detil -->
+<!-- start: Table Detil -->
+<table class="table-details" width="800px">
+   <tr>
+      <th colspan="3">Anggaran Belanja</th>
+   </tr>
+   <tr>
+      <td style="text-align:center">
+         Jenis Belanja
+      </td>
+      <td style="text-align:center">
+         Rincian Biaya<br />
+         (Satuan x Harga)
+      </td>
+      <td style="text-align:center">
+         Jumlah<br />
+         (Rp)
+      </td>
+   </tr>
+   <tr>
+      <td>
+         1. Biaya Langsung
+      </td>
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+   </tr>
+   <tr>
+      <td>
+         &nbsp;&nbsp;&nbsp;&nbsp;a. Biaya Variable
+      </td>
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+   </tr>
+
+   <!-- patTemplate:tmpl name="biaya_langsung_variable" -->
+   <tr>
+      <td>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {URAIAN}
+      </td>
+      <td style="text-align:right">
+         &nbsp;&nbsp;&nbsp;&nbsp;{NILAI_SATUAN} x {KUANTITAS}
+      </td>
+      <td style="text-align:right">
+         &nbsp;&nbsp;&nbsp;&nbsp;{JUMLAH}
+      </td>
+   </tr>
+   <!-- /patTemplate:tmpl -->
+   <tr>
+      <td>
+         &nbsp;&nbsp;&nbsp;&nbsp;Jumlah Biaya variable
+      </td>
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+   </tr>
+   <tr>
+      <td>
+         &nbsp;&nbsp;&nbsp;&nbsp;b. Biaya Tetap
+      </td>
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+   </tr>
+   <!-- patTemplate:tmpl name="biaya_langsung_tetap" -->
+   <tr>
+      <td>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {URAIAN}
+      </td>
+      <td style="text-align:right">
+         &nbsp;&nbsp;&nbsp;&nbsp;{NILAI_SATUAN} x {KUANTITAS}
+      </td>
+      <td style="text-align:right">
+         &nbsp;&nbsp;&nbsp;&nbsp;{JUMLAH}
+      </td>
+   </tr>
+   <!-- /patTemplate:tmpl -->
+   <tr>
+      <td>
+         &nbsp;&nbsp;&nbsp;&nbsp;Jumlah Biaya Tetap
+      </td>
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+   </tr>
+   <tr>
+      <td>
+         Jumlah Biaya Langsung
+      </td>
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+   </tr>
+   <tr>
+      <td>
+         2. Biaya Tidak Langsung
+      </td>
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+   </tr>
+   <tr>
+      <td>
+         &nbsp;&nbsp;&nbsp;&nbsp;a. Biaya Variable
+      </td>
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+   </tr>
+   <!-- patTemplate:tmpl name="biaya_tidak_langsung_variable" -->
+   <tr>
+      <td>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {URAIAN}
+      </td>
+      <td style="text-align:right">
+         &nbsp;&nbsp;&nbsp;&nbsp;{NILAI_SATUAN} x {KUANTITAS}
+      </td>
+      <td style="text-align:right">
+         &nbsp;&nbsp;&nbsp;&nbsp;{JUMLAH}
+      </td>
+   </tr>
+   <!-- /patTemplate:tmpl -->
+   <tr>
+      <td>
+         &nbsp;&nbsp;&nbsp;&nbsp;Jumlah Biaya Variable
+      </td>
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+   </tr>
+
+   <tr>
+      <td>
+         &nbsp;&nbsp;&nbsp;&nbsp;b. Biaya Tetap
+      </td>
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+   </tr>
+   <!-- patTemplate:tmpl name="biaya_tidak_langsung_tetap" -->
+   <tr>
+      <td>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {URAIAN}
+      </td>
+      <td style="text-align:right">
+         &nbsp;&nbsp;&nbsp;&nbsp;{NILAI_SATUAN} x {KUANTITAS}
+      </td>
+      <td style="text-align:right">
+         &nbsp;&nbsp;&nbsp;&nbsp;{JUMLAH}
+      </td>
+   </tr>
+   <!-- /patTemplate:tmpl -->
+   <tr>
+      <td>
+         &nbsp;&nbsp;&nbsp;&nbsp;Jumlah Biaya Tetap
+      </td>
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+   </tr>
+   <tr>
+      <td>
+         &nbsp;&nbsp;&nbsp;&nbsp;Jumlah Biaya Tidak Langsung
+      </td>
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+   </tr>
+   <tr>
+      <td>
+         Jumlah Biaya
+      </td>
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+   </tr>
+   <tr>
+      <td>
+         Biaya Per Unit Output
+      </td>
+      <td>
+
+      </td>
+      <td style="text-align:right">
+         {TOTAL_ANGGARAN}
+      </td>
+   </tr>
+</table>
+<!-- stop: Table Detil -->
+
+<!-- start: Table Detil -->
+<table class="table-details" width="800px">
+   <tr>
+      <th>
+         Catatan
+      </th>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="pimpinan_unit_kerja" / --> /
+				<!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / -->
+      </th>
+      <!--th>
+         Pimpinan Sub Unit Kerja
+      </th -->
+   </tr>
+   <tr>
+      <td>
+		{CATATAN}
+      </td>
+      <td style="text-align:center">
+         ({UNIT_PIMPINAN})
+      </td>
+      <!-- td style="text-align:center">
+         ({SUBUNIT_PIMPINAN})
+      </td -->
+   </tr>
+
+</table>
+<!-- stop: Table Detil -->
+<!-- /patTemplate:tmpl -->

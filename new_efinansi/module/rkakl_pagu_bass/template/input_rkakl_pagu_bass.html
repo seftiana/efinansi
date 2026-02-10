@@ -1,0 +1,76 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+    <!-- patTemplate:gtfwgetconfig config="language" name="rkakl_pagu_bas" / -->
+</h1>
+<br/>
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CSS}">
+    {ISI_PESAN}
+</div>
+<br/>
+<!-- /patTemplate:tmpl -->
+
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
+    <input type="hidden" name="dataId" value="{ID}"  />
+<table class="table-edit" width="100%">
+    <tr class="subhead">
+        <th colspan="2">
+            {JUDUL} <!-- patTemplate:gtfwgetconfig config="language" name="rkakl_pagu_bas" / -->
+        </th>
+    </tr>
+    <tr>
+        <th width="150">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+        </th>
+        <td>
+            <input type="text" name="kode" value="{KODE}" size="20"/>&nbsp;*
+        </td>
+    </tr>
+    <tr>
+        <th width="150">
+            <!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / -->
+        </th>
+        <td>
+            <input type="text" name="keterangan" value="{KETERANGAN}" size="50"/>&nbsp;*
+        </td>
+    </tr>
+    <tr>
+        <th width="150">
+            <!-- patTemplate:gtfwgetconfig config="language" name="set_aktif" / -->
+        </th>
+        <td>
+            <input type="radio" name="status_aktif" value="Y" {AKTIF_YA} />Ya
+            <input type="radio" name="status_aktif" value="N" {AKTIF_TIDAK} />Tidak
+        </td>
+    </tr>
+    <tr>
+        <th width="150">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nilai_default" / -->
+        </th>
+        <td>
+            <input type="radio" name="nilai_default" value="K" {KREDIT_SELECT} /> Kredit
+            <input type="radio" name="nilai_default" value="D" {DEBET_SELECT} /> Debet
+        </td>
+    </tr>
+    <tr class="buttons">
+        <th>
+            &nbsp;
+        </th>
+        <td>
+            <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+            <input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+        </td>
+    </tr>
+</table>
+<div id="calc" style="margin:20px; margin-bottom:50px; position:absolute; z-index:999999">
+&nbsp;
+</div>
+</form>
+
+<div class="petunjuk-area" id="petunjuk">
+<h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+<ul>
+<li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --></li>
+</ul>
+</div>
+<!-- /patTemplate:tmpl -->

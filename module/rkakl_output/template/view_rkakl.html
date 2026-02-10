@@ -1,0 +1,174 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+   function centangin_semua(varname, start_num, end_num) {
+      var obj = document.getElementById('cek_all');
+      var ceks;
+      if(obj.checked == false) {
+         for(i=start_num;i<=end_num;i++) {
+            ceks = document.getElementById(varname + i);
+            if(ceks) ceks.checked = false;
+         }
+      } else {
+         for(i=start_num;i<=end_num;i++) {
+            ceks = document.getElementById(varname + i);
+            if(ceks) ceks.checked = true;
+         }
+      }
+   }
+   function show_checkbox () {
+      if(document.getElementById('cek_all'))
+         document.getElementById('cek_all').style.display='';
+   }
+   document.onload = show_checkbox();
+</script>
+<h1>RKAKL Output</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>              
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / --> / 
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / --> Kegiatan
+         </th>
+         <td>
+            <input type="text" name="kegiatan" value="{KEGIATAN}" size="30" />
+         </td>
+      </tr>
+      <tr>              
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" value="{KODE}" size="30" />
+         </td>
+      </tr>
+      <tr>              
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <td>
+            <input type="text" name="nama" value="{NAMA}" size="30" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+            <a href="{URL_SEARCH}" class="btn buttonSubmit xhr dest_subcontent-element">
+               Reset &raquo;
+            </a>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+   
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+
+<br />
+<form method="POST" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <input type="hidden" name="control_action" value="{CONTROL_ACTION}" />
+   <input type="hidden" name="control_label" value="{CONTROL_LABEL}" />
+   <input type="hidden" name="control_return" value="{CONTROL_RETURN}" />
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar"> 
+         <a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Data" >
+         <img src="images/button-add.gif" alt="">
+         <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / -->
+         </a>
+      <input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="inputButton" />
+      </div>
+   </div>
+
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th width="5">
+            <input type="checkbox" name="cek_all" 
+            id="cek_all" value="ALL" 
+            onclick="centangin_semua('kinerja_id_','{FIRST_NUMBER}','{LAST_NUMBER}');" />
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <th width="31">
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_komponen" type="condition" conditionvar="RKAKL_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="5" align="center">
+                  <em>
+                     --<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--
+                  </em>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_komponen_item" -->                                              
+               <tr class="{DATA_CLASS_NAME}" style="{DATA_STYLE}">
+                  <td align="center" style="width: 30px; text-align: center;">
+                     {DATA_NUMBER}
+                  </td>
+                  <td align="center">
+                     <input type="checkbox" name="id[]" id="kinerja_id_{DATA_NUMBER}" value="{DATA_ID}" {DATA_CHECKDISABLED} style="{DATA_CHECKBOXSTYLE}" />
+                     <input type="hidden" name="name[{DATA_ID}]" value="{DATA_KODE}" />
+                  </td>
+                  <td style="width:65px; text-align: center;">
+                     {DATA_KODE}
+                  </td>
+                  <td>
+                     {DATA_NAMA}
+                  </td>
+                  <td class="links" align="center" style="width:30px;">
+                     <a class="xhr dest_subcontent-element" href="{DATA_URL_EDIT}" title="Ubah" style="{DATA_LINKSTYLE}">
+                        <img src="images/button-edit.gif" alt="Ubah" />
+                     </a>      
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_bottom"  / -->
+   </div>
+</form>
+<br />
+<div class="petunjuk-area" id="petunjuk">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         <span style="width: 14px; height: 14px; border: 1px solid #FDF1C1; display: inline-block; background: #FFFBDD !important; vertical-align: text-top;"></span> Program
+      </li>
+      <li>
+         <span style="background: #FFFDEF !important; width: 14px; height: 14px; border: 1px solid #FDF1C1; display: inline-block; vertical-align: text-top;"></span> Kegiatan
+      </li>
+   </ul>
+</div>
+<!-- /patTemplate:tmpl -->

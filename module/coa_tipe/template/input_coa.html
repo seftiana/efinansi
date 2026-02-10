@@ -1,0 +1,87 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>{TITLE} Chart Of Account</h1>
+<br />
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="notebox-alert">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+
+<form method="POST" class="xhr_form std_form" action="{URL_ACTION}" id="frm_input" name="frm_input" >
+   <table class="table-edit" width="100%">
+	  <input type="hidden" name="coa_id" value="{ID}" />
+		<tr class="subhead">
+			<th colspan="2">{JUDUL} Chart Of Account</th>
+		</tr>
+		<tr>
+			<th width="25%">Satuan Akuntansi</th>
+			<td>
+				<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="satuan_akuntansi"  / -->
+			</td>
+		</tr>  
+		<tr>
+			<th width="25%">Kode Rekening</th>
+			<td>
+				<input type="text" name="kode_akun" value="{KODE_AKUN}" size="25" tabindex='1' /> **
+			</td>
+		</tr>
+		<tr>
+			<th width="25%">Nama Rekening</th>
+			<td>
+				<input type="text" name="nama_akun" value="{NAMA_AKUN}" size="40" tabindex='2' /> *  
+			</td>
+		</tr>
+		<tr>
+			<th width="25%">Induk</th>
+			<td>
+				<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="induk"  / -->
+			</td>
+		</tr>
+		<tr>
+			<th width="25%">Saldo Normal</th>
+			<td>
+				<input type="radio" name="coa_is_debet" value="1" {SALDO_NORMAL_1_CHEKED}>Debet 
+				<input type="radio" name="coa_is_debet" value="0" {SALDO_NORMAL_0_CHEKED}>Kredit 
+			</td>
+		</tr>
+		<tr>
+			<th width="25%">Tipe</th>
+			<td>
+				<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tipe_coa"  / -->
+			</td>
+		</tr>
+		<tr>
+			<th width="25%">Rekening Kas</th>
+			<td>
+				<input type="radio" name="coa_is_kas" value="1" {KAS_1_CHEKED}>Debet 
+				<input type="radio" name="coa_is_kas" value="0" {KAS_0_CHEKED}>Kredit 
+			</td>
+		</tr>
+		<tr>
+			<th width="25%">Laba Rugi</th>
+			<td>
+				<input type="radio" name="coa_is_laba_rugi" value="1" {LABA_RUGI_1_CHEKED}>Debet 
+				<input type="radio" name="coa_is_laba_rugi" value="0" {LABA_RUGI_0_CHEKED}>Kredit 
+			</td>
+		</tr>
+		<tr class="buttons">
+			 <th>&nbsp;   
+			 </th>
+			 <td>                        
+				<input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+				   <input  type="submit"  name="btnbatal" value=" Batal " class="buttonSubmit"/>
+			 </td>
+		</tr>
+   </table>
+</form>
+
+<div class="petunjuk-area">
+   <h4>Keterangan :</h4>
+   <ul>
+      <li>Tanda * menunjukkan bahwa field ini harus diisi.</li>
+	  <li>Tanda ** Diisi tanpa satuan akuntansi
+   </ul>
+</div>
+<!-- /patTemplate:tmpl -->

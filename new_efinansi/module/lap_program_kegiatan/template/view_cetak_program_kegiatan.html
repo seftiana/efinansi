@@ -1,0 +1,83 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>Laporan Program Kegiatan</h1>
+<h2>Tahun Periode : {TH_ANGGAR_NAMA}</h2>
+<h2>Unit / Sub Unit : {UNIT_NAMA}</h2>
+<table class="table-common" id="program_kegiatan" width="900px">
+<thead>
+  <tr>
+    <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+    <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+    <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="uraian" / --></th>
+    <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / 
+                <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+    <th colspan="4"><!-- patTemplate:gtfwgetconfig config="language" name="biaya" / --></th>
+    <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="kuantitas" / --></th>
+    <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="nilai_satuan" / --></th>
+    <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="jumlah" / --></th>
+   </tr>
+   <tr>
+    <th><!-- patTemplate:gtfwgetconfig config="language" name="biaya_langsung" / --><br />
+   <!-- patTemplate:gtfwgetconfig config="language" name="biaya_tetap" / --></th>
+    <th><!-- patTemplate:gtfwgetconfig config="language" name="biaya_langsung" / --><br />
+    <!-- patTemplate:gtfwgetconfig config="language" name="biaya_tidak_tetap" / --></th>
+    <th><!-- patTemplate:gtfwgetconfig config="language" name="biaya_tidak_langsung" / --><br />
+    <!-- patTemplate:gtfwgetconfig config="language" name="biaya_tetap" / --></th>
+    <th><!-- patTemplate:gtfwgetconfig config="language" name="biaya_tidak_langsung" / --><br />
+    <!-- patTemplate:gtfwgetconfig config="language" name="biaya_tidak_tetap" / --></th>
+    </tr> 
+</thead>
+
+    <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tbody>
+          <tr>
+            <td colspan="11" align="center">
+                <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+            </td>
+          </tr>
+          </tbody> 
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+         <tbody>
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}" bgcolor="{DATA_COLOR}">
+                <td>
+                    {DATA_NOMOR}
+                </td>
+                <td >{DATA_KODE}</td>
+                <td>
+                    {DATA_NAMA}
+                </td>
+                <td>{DATA_UNIT_NAMA}</td>
+                <td align="right">{DATA_BLT}</td>
+                <td align="right">{DATA_BLTT}</td>
+                <td align="right">{DATA_BTLT}</td>
+                <td align="right">{DATA_BTLTT}</td>
+                <td align="center">{DATA_KUANTITAS}</td>
+                <td align="right">{DATA_BIAYA_NILAI_SATUAN}</td>
+                <td align="right">{DATA_JUMLAH}</td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         </tbody>
+ 
+<tfoot>
+    <td align="center" colspan="4">
+    <strong><!-- patTemplate:gtfwgetconfig config="language" name="total" / --></strong></td>
+    <td align="right" ><strong>
+                <label id="label_b_langsung_tetap">{TOTAL_BLT}</label></strong>                
+    </td>
+    <td align="right" ><strong>
+                <label id="label_b_langsung_tak_tetap">{TOTAL_BLTT}</label></strong>                
+    </td>
+    <td align="right"><strong>
+                <label id="label_b_tak_langsung_tetap">{TOTAL_BTLT}</label></strong>                
+    </td>
+    <td align="right"><strong>
+                <label id="label_b_tak_langsung_tak_tetap">{TOTAL_BTLTT}</label></strong>                
+    </td>
+    <td colspan="3" >&nbsp;</td>
+</tfoot> 
+        <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+</table> 
+<!-- /patTemplate:tmpl -->

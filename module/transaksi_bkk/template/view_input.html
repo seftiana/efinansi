@@ -1,0 +1,425 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>Transaksi BKK</h1>
+<br/>
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+{ISI_PESAN}
+</div>
+<br/>
+<!-- /patTemplate:tmpl -->
+
+<div class="toolbar"> 
+   <a class="xhr dest_subcontent-element" href="{URL_LIST}" title="List Transaksi" ><img width='16px' height='16px' src="images/button-tindaklanjuti.gif" alt=""> List Transaksi</a>
+</div>
+
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" name="frmInput" >
+   <table class="table-edit" width='100%'>
+      <tr class="subhead">
+         <th colspan="2">&nbsp;</th>
+      </tr>
+      <tr>
+         <th width="150">Transaksi</th>
+         <td>
+            <input type="text" name="transReferensiParent" value="{TRANSREFERENSIPARENT}" />
+            <a title="Pencarian Transaksi CAR" onclick="show_popup_transaksi()"><img src="images/button-search.gif"></a>
+            <input type="hidden" name="transTransRefId" value="{TRANSTRANSREFID}"/>
+         </td>
+      </tr>
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / --></th>
+         <td><textarea name='transCatatanParent' cols='40' rows='4' readonly>{TRANSCATATANPARENT}</textarea></td>
+      </tr>
+      <tr>
+         <th width="150">PR Number</th>
+         <td>
+            <input type="text" name="prNumber" value="{PRNUMBER}" readonly />
+            <input type="hidden" name="prId" value="{PRID}"/>
+         </td>
+      </tr>
+      <tr>
+         <th width="150">PR Description</th>
+         <td>
+            <textarea name="prDescription" cols='40' rows='4' readonly>{PRDESCRIPTION}</textarea>
+         </td>
+      </tr>
+      <tr>
+         <th>Item Purchase Request</th>
+         <td>&nbsp;</td>
+      </tr>
+      <tr>
+         <td colspan='2'>
+            <table class="table-common" width="100%">
+               <thead>
+                  <tr>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="budget_kode" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="spesifikasi" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="nominal" / --></th>
+                  </tr>
+               </thead>
+               <tbody id="PR_List_Place_Holder">
+                  <tr style='display: {PR_LIST_EMPTY}'>
+                     <td colspan="5" style='text-align: center; font-style: italic'>-- <!-- patTemplate:gtfwgetconfig config="language" name="belum_ada_yang_dipilih" / --> --</td>
+                  </tr>
+                  <!-- patTemplate:tmpl name="list_item_pr" visibility="hidden" -->
+                  <TR id="prDetId_{PRDETID}" class="{CLASS_NAME}">
+                     <TD style="padding: 2px; white-space: pre">{BUDGETKODE}<INPUT type="hidden" name="PR_List[{PRDETID}][budgetKode]" value="{BUDGETKODE}"></TD>
+                     <TD style="padding: 2px; text-align: left">{PRDETDESCRIPTION}<INPUT type="hidden" name="PR_List[{PRDETID}][prDetDescription]" value="{PRDETDESCRIPTION}"></TD>
+                     <TD style="padding: 2px; text-align: left">{PRDETSPESIFICATION}<INPUT type="hidden" name="PR_List[{PRDETID}][prDetSpesification]" value="{PRDETSPESIFICATION}"></TD>
+                     <TD style="padding: 2px; text-align: right">{PRDETEXTCOSTLABEL}
+                        <INPUT type="hidden" name="PR_List[{PRDETID}][prDetExtCostLabel]" value="{PRDETEXTCOSTLABEL}">
+                        <INPUT type="hidden" name="PR_List[{PRDETID}][prDetExtCost]" value="{PRDETEXTCOST}">
+                        <INPUT type="hidden" name="PR_List[{PRDETID}][transdetNominal]" value="{TRANSDETNOMINAL}" onkeyup="update_nominal(this)" max_nominal="{PRDETEXTCOST}" onblur='if (this.gvGetValue() > this.getAttribute("max_nominal")){alert("Requested tidak boleh lebih dari Available!");this.focus();}' class="gvFloat" style="text-align: right">
+                     </TD>
+                  </TR>
+                  <!-- /patTemplate:tmpl -->
+               </tbody>
+            </table>
+         </td>
+      </tr>
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nominal" / --></th>
+         <td>
+            <input type="text" name="transNilai" value="{TRANSNILAI}" class="gvFloat" readonly />
+         </td>
+      </tr>
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="coa" / --></th>
+         <td>
+            <div class="toolbar">
+               <a title="Tambah COA" onclick="showPopup('{URL_POPUP_COA}','COA List',560,420);"><img src="images/button-add.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / --></a>
+            </div>
+         </td>
+      </tr>
+      <tr>
+         <td colspan='2'>
+            <table class="table-common" width="100%">
+               <thead>
+                  <tr>
+                     <th width='5px'><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="debet" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="kredit" / --></th>
+                     <th width='32px'><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+                  </tr>
+               </thead>
+               <tbody id="COA_Place_Holder">
+                  <tr style='display: {COA_EMPTY}'>
+                     <td colspan="5" style='text-align: center; font-style: italic'>-- <!-- patTemplate:gtfwgetconfig config="language" name="belum_ada_yang_dipilih" / --> --</td>
+                  </tr>
+                  <!-- patTemplate:tmpl name="list_coa" visibility="hidden" type="condition" conditionvar="typeRekening" -->
+                  <!-- patTemplate:sub condition="D" -->
+                  <TR id="detailId_{COAID}" class="{CLASS_NAME}">
+                     <TD style="padding: 2px; text-align: center">{KODEREKENING}<INPUT type="hidden" name="COA[{COAID}][kodeRekening]" value="{KODEREKENING}"></TD>
+                     <TD style="padding: 2px; text-align: left">{NAMAREKENING}<INPUT type="hidden" name="COA[{COAID}][namaRekening]" value="{NAMAREKENING}"><INPUT type="hidden" name="COA[{COAID}][typeRekening]" value="{TYPEREKENING}"></TD>
+                     <TD style="padding: 2px; text-align: right">
+                        <INPUT type="text" name="COA[{COAID}][nominal]" value="{NOMINAL}" typeRekening="{TYPEREKENING}" onkeyup="update_total(this)" style="text-align: right" class="gvFloat">
+                        <INPUT type="text" name="COA[{COAID}][subAccount]" value="{SUBACCOUNT}" maxlength="15" />
+                     </TD>
+                     <TD></TD>
+                     <TD class="links" align="center"><A onclick="document.getElementById('COA_Place_Holder').deleteItem('detailId_{COAID}');" title="Hapus"><IMG src="images/button-delete.gif" alt="Hapus"></A></TD>
+                  </TR>
+                  <!-- /patTemplate:sub -->
+                  <!-- patTemplate:sub condition="K" -->
+                  <TR id="detailId_{COAID}" class="{CLASS_NAME}">
+                     <TD style="padding: 2px; text-align: center">{KODEREKENING}<INPUT type="hidden" name="COA[{COAID}][kodeRekening]" value="{KODEREKENING}"></TD>
+                     <TD style="padding: 2px; text-align: left">{NAMAREKENING}<INPUT type="hidden" name="COA[{COAID}][namaRekening]" value="{NAMAREKENING}"><INPUT type="hidden" name="COA[{COAID}][typeRekening]" value="{TYPEREKENING}"></TD>
+                     <TD></TD>
+                     <TD style="padding: 2px; text-align: right">
+                        <INPUT type="text" name="COA[{COAID}][nominal]" value="{NOMINAL}" typeRekening="{TYPEREKENING}" onkeyup="update_total(this)" style="text-align: right" class="gvFloat">
+                        <INPUT type="text" name="COA[{COAID}][subAccount]" value="{SUBACCOUNT}" maxlength="15" />
+                     </TD>
+                     <TD class="links" align="center"><A onclick="document.getElementById('COA_Place_Holder').deleteItem('detailId_{COAID}');" title="Hapus"><IMG src="images/button-delete.gif" alt="Hapus"></A></TD>
+                  </TR>
+                  <!-- /patTemplate:sub -->
+                  <!-- /patTemplate:tmpl -->
+               </tbody>
+               <tfoot id='total_debet_kredit' style="display: {SHOW_TOTAL};">
+                  <tr class="table-common-even1">
+                     <td colspan="2" align="right"><!-- patTemplate:gtfwgetconfig config="language" name="total" / --></td>
+                     <td style="padding: 2px; text-align: right"><input type="text" id="total_debet" value="{TOTAL_DEBET}" class="gvFloat" readonly></td>
+                     <td style="padding: 2px; text-align: right"><input type="text" id="total_kredit" value="{TOTAL_KREDIT}" class="gvFloat" readonly></td>
+                     <td>&nbsp;</td>
+                  </tr>
+               </tfoot>
+            </table>
+         </td>
+      </tr>
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="tanggal_transaksi" / --></th>
+         <td><!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="transTanggal" / --></td>
+      </tr>
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="due_date" / --></th>
+         <td><!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="transDueDate" / --></td>
+      </tr>
+      <tr>              
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="uraian_transaksi" / --></th>
+         <td><textarea name="transCatatan" cols="50" rows="5">{TRANSCATATAN}</textarea></td>
+      </tr>
+      <tr>              
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="penanggung_jawab" / --></th>
+         <td>
+            <input type="text" name="transPenanggungJawabNama" id="penanggung_jawab" value="{TRANSPENANGGUNGJAWABNAMA}" size="40" />
+            <input type="hidden" name="transUnitkerjaId" value="{TRANSUNITKERJAID}" />
+         </td>
+      </tr>
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="ttd" / --></th>
+         <td>
+            <div class="toolbar">
+               <a title="Tambah Signer" onclick="showPopup('{URL_POPUP_USER}','User List',560,420);"><img src="images/button-add.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / --></a>
+            </div>
+         </td>
+      </tr>
+      <tr>
+         <td colspan='2'>
+            <table class="table-common" width="100%">
+               <thead>
+                  <tr>
+                     <th width='5px' nowrap><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="nama" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="tipe" / --></th>
+                     <th width='32px'><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+                  </tr>
+               </thead>
+               <tbody id="Signer_Place_Holder">
+                  <tr style='display: {SIGNER_EMPTY}'>
+                     <td colspan="4" style='text-align: center; font-style: italic'>--<!-- patTemplate:gtfwgetconfig config="language" name="belum_ada_yang_dipilih" / --> --</td>
+                  </tr>
+                  <!-- patTemplate:tmpl name="list_signer" visibility="hidden" -->
+                  <TR id="formsignId_{FORMSIGNUSERID}" class="{CLASS_NAME}">
+                     <TD style="padding: 2px; text-align: center">{NOMOR}</TD>
+                     <TD style="padding: 2px">{REALNAME}<INPUT type="hidden" name="Signer[{FORMSIGNUSERID}][RealName]" value="{REALNAME}"></TD>
+                     <TD>
+                        <SELECT name="Signer[{FORMSIGNUSERID}][formsignSignGroupId]">
+                           <!-- patTemplate:tmpl name="combo_signer_group" --><OPTION value="{ID}"{SELECTED}>{NAME}</OPTION><!-- /patTemplate:tmpl -->
+                        </SELECT>
+                     </TD>
+                     <TD class="links" align="center"><A onclick="document.getElementById('Signer_Place_Holder').deleteItem('formsignId_{FORMSIGNUSERID}');" title="Hapus"><IMG src="images/button-delete.gif" alt="Hapus"></A></TD>
+                  </TR>
+                  <!-- /patTemplate:tmpl -->
+               </tbody>
+            </table>
+         </td>
+      </tr>
+      <tr class="buttons">
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btnsimpan" value=" Save " class="buttonSubmit"/>
+            <input type="submit" name="btnbatal" value=" Cancel " class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+<div style='display: none'>
+<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="ComboSignerGroup" / -->
+</div>
+<script>
+document.getElementById('COA_Place_Holder').addItem = function (detailId, kodeRekening, namaRekening, typeRekening, nominal)
+{
+   var id = 'detailId_' + detailId;
+   if (document.getElementById(id)) return true;
+   var childObj = this.getElementsByTagName('tr');
+   
+   var tr = document.createElement('tr');
+   tr.setAttribute("id", id);
+   
+   var tdKodeRekening = document.createElement('td');
+   tdKodeRekening.setAttribute("style", 'padding: 2px; text-align: center');
+   tdKodeRekening.innerHTML = kodeRekening +"<input type='hidden' name='COA[" + detailId + "][kodeRekening]' value='" + kodeRekening + "'>";
+   
+   var tdNamaRekening = document.createElement('td');
+   tdNamaRekening.setAttribute("style", 'padding: 2px; text-align: left');
+   tdNamaRekening.innerHTML = namaRekening + " <input type='hidden' name='COA[" + detailId + "][namaRekening]' value='" + namaRekening + "'><input type='hidden' name='COA[" + detailId + "][typeRekening]' value='" + typeRekening + "'>";
+   
+   var tdNominal = document.createElement('td');
+   tdNominal.setAttribute("style", 'padding: 2px; text-align: right');
+   tdNominal.innerHTML = "<input type='text' name='COA[" + detailId + "][nominal]' value='" + nominal + "' typeRekening='" + typeRekening + "' onkeyup='update_total(this)'>" +
+      "<input type='text' name='COA[" + detailId + "][subAccount]' maxlength='15' value='0-00-000-0-0000' >";
+   
+   var tdDelete = document.createElement('td');
+   tdDelete.setAttribute("class", "links");
+   tdDelete.setAttribute("align", 'center');
+   tdDelete.innerHTML = "<a onClick=\"document.getElementById('"+this.id+"').deleteItem('" + id + "');\" title='Hapus'><img src=\"images/button-delete.gif\" alt=\"Hapus\"/></a>";
+   
+   tr.appendChild(tdKodeRekening);
+   tr.appendChild(tdNamaRekening);
+   if (typeRekening == 'D')
+   {
+      tr.appendChild(tdNominal);
+      tr.appendChild(document.createElement('td'));
+      
+      var targetRow;
+      var trList = this.getElementsByTagName('tr');
+      for (var i = 0; i < trList.length; i++)
+      {
+         if (targetRow) break;
+         var inputList = trList[i].getElementsByTagName('input');
+         for (var j = 0; j < inputList.length; j++)
+            if (inputList[j].getAttribute('typeRekening') == 'K')
+               targetRow = trList[i];
+      }
+   }
+   else
+   {
+      tr.appendChild(document.createElement('td'));
+      tr.appendChild(tdNominal);
+   }
+   tr.appendChild(tdDelete);
+   if (!targetRow) this.appendChild(tr);
+   else this.insertBefore(tr, targetRow);
+   
+   childObj[0].style.display = 'none';
+   gValidation20090108['.gvFloat'](tdNominal.getElementsByTagName('input')[0]);
+   document.getElementById('total_debet_kredit').style.display = '';
+   this.updateClassName();
+   return true;
+}
+
+document.getElementById('COA_Place_Holder').deleteItem = function (id)
+{
+   this.removeChild(document.getElementById(id));
+   var Obj = this.getElementsByTagName('tr');
+   update_total(Obj);
+   if (Obj.length == 1)
+   {
+      Obj[0].style.display = '';
+      document.getElementById('total_debet_kredit').style.display = 'none';
+   }
+   else this.updateClassName();
+}
+
+document.getElementById('COA_Place_Holder').deleteAllItem = function ()
+{
+   var Obj = this.getElementsByTagName('tr');
+   for (i = Obj.length - 1; i > 0; i--)
+      if (Obj[i].id) this.removeChild(Obj[i]);
+   Obj[i].style.display = '';
+   document.getElementById('total_debet_kredit').style.display = 'none';
+   update_total(Obj);
+}
+
+document.getElementById('COA_Place_Holder').updateClassName = function ()
+{
+   var Obj = this.getElementsByTagName('tr');
+   for (var i = 1; i < Obj.length; i++)
+      Obj[i].setAttribute('class',(i % 2)?'':'table-common-even');
+}
+
+window.update_total = function (Obj)
+{
+   if (Obj.type && !Obj.getAttribute('typeRekening')) return false;
+   ObjForm = document.forms['frmInput'];
+   var total_debet = 0;
+   var total_kredit = 0;
+   
+   for (var i = 0; i < ObjForm.length; i++)
+   {
+      if (ObjForm[i].name.indexOf('COA[') !== 0 || !ObjForm[i].getAttribute('typeRekening')) continue;
+      var TypeRekening = ObjForm[i].getAttribute('typeRekening');
+      if (TypeRekening == 'D') total_debet += ObjForm[i].gvGetValue();
+      else if (TypeRekening == 'K') total_kredit += ObjForm[i].gvGetValue();
+   }
+   
+   document.getElementById('total_debet').gvSetValue(total_debet);
+   document.getElementById('total_kredit').gvSetValue(total_kredit);
+   
+   if (total_kredit == total_debet)
+      return total_kredit;
+   else return false;
+}
+
+document.getElementById('Signer_Place_Holder').addItem = function (formsignUserId, RealName, formsignSignGroupId)
+{
+   var id = 'formsignId_' + formsignUserId;
+   if (document.getElementById(id)) return true;
+   var childObj = this.getElementsByTagName('tr');
+   var nomor = childObj.length;
+   
+   var tr = document.createElement('tr');
+   tr.setAttribute("id", id);
+   if (nomor % 2 == 0) tr.setAttribute('class', 'table-common-even');
+   
+   var tdNomor = document.createElement('td');
+   tdNomor.setAttribute("style", 'padding: 2px; text-align: center');
+   tdNomor.innerHTML = nomor;
+   
+   var tdRealName = document.createElement('td');
+   tdRealName.setAttribute("style", 'padding: 2px');
+   tdRealName.innerHTML = RealName + "<input type='hidden' name='Signer[" + formsignUserId + "][RealName]' value='" + RealName + "'>";
+   
+   var tdSignerGroup = document.createElement('td');
+   var ComboSignerGroup = document.createElement('select');
+   ComboSignerGroup.setAttribute('name', 'Signer[' + formsignUserId +'][formsignSignGroupId]');
+   ComboSignerGroup.innerHTML = document.getElementById('ComboSignerGroup').innerHTML;
+   ComboSignerGroup.value = formsignSignGroupId;
+   tdSignerGroup.appendChild(ComboSignerGroup);
+   
+   var tdDelete = document.createElement('td');
+   tdDelete.setAttribute("class", "links");
+   tdDelete.setAttribute("align", "center");
+   tdDelete.innerHTML = "<a onClick=\"document.getElementById('"+this.id+"').deleteItem('" + id + "');\" title='Hapus'><img src=\"images/button-delete.gif\" alt=\"Hapus\"/></a>";
+   
+   tr.appendChild(tdNomor);
+   tr.appendChild(tdRealName);
+   tr.appendChild(tdSignerGroup);
+   tr.appendChild(tdDelete);
+   this.appendChild(tr);
+   
+   childObj[0].style.display = 'none';
+   return true;
+}
+
+document.getElementById('Signer_Place_Holder').deleteItem = function (id)
+{
+   this.removeChild(document.getElementById(id));
+   var Obj = this.getElementsByTagName('tr');
+   if (Obj.length == 1) Obj[0].style.display = '';
+   else for (var i = 1; i < Obj.length; i++)
+   {
+      Obj[i].setAttribute('class',(i % 2)?'':'table-common-even');
+      Obj[i].firstChild.innerHTML = i;
+   }
+}
+
+document.getElementById('Signer_Place_Holder').deleteAllItem = function ()
+{
+   var Obj = this.getElementsByTagName('tr');
+   for (i = Obj.length - 1; i > 0; i--)
+      if (Obj[i].id) this.removeChild(Obj[i]);
+   Obj[i].style.display = '';
+}
+
+window.show_popup_transaksi = function ()
+{
+   var FormObj = document.forms['frmInput'];
+   var url = "{URL_POPUP_TRANSAKSI}";
+   url += "&transReferensi=" + FormObj.transReferensiParent.value;
+   showPopup(url, 'Transaksi CAR', 500, 400);
+}
+
+window.popup_trans_set = function (id)
+{
+   var url = "{URL_SELF}&ascomponent=1";
+   url += "&idParent=" + id;
+   GtfwAjax.replaceContentWithUrl('subcontent-element', url);
+   popupClose();
+}
+
+document.forms['frmInput'].transReferensiParent.onkeypress = function (e)
+{
+   var charCode = 0;
+   if (e.charCode) charCode = e.charCode;
+   else if (e.keyCode) charCode = e.keyCode;
+   else if (e.which) charCode = e.which;
+   
+   if (charCode == 13)
+   {
+      show_popup_transaksi();
+      return false;
+   }
+}
+</script>
+<!-- /patTemplate:tmpl -->

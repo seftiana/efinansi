@@ -1,0 +1,183 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    function setParent(unitId,unitNama,xid,kegrefNomor,kegrefNama,kegdetId) {
+        document.getElementById('kegrefId').value = xid;
+        document.getElementById('kegrefNomor').value = kegrefNomor;
+        document.getElementById('kegrefNama').value = kegrefNama;
+        document.getElementById('kegrefIdTujuan').value = '';
+        document.getElementById('kegrefNomorTujuan').value = '';
+        document.getElementById('kegrefNamaTujuan').value = '';
+        document.getElementById('unitKerjaId').value = unitId;
+        document.getElementById('unitKerjaNama').value = unitNama;
+        document.getElementById('unitKerjaNamaLabel').innerHTML = unitNama;
+        
+        document.getElementById('kegDetId').value = kegdetId;
+        //popupClose();
+    }
+    window.update_KOMP_list = function (id)
+    {
+        var data = {JSON_KOMPONEN_ANGGARAN};
+        document.getElementById('KOMP_Place_Holder2').deleteAllItem();
+        document.getElementById('KOMP_Place_Holder').deleteAllItem();
+        var dataToMount = data[id];
+        
+        for (var i in dataToMount)
+        {
+        document.getElementById('KOMP_Place_Holder').addItem
+        (
+            dataToMount[i]['rp_id'],
+            dataToMount[i]['rp_kompkode'],
+            dataToMount[i]['rp_kompnama'],
+            dataToMount[i]['nilai'],
+            dataToMount[i]['nilai']
+        );
+        }
+        popupClose();
+    }
+    
+// ]]>
+</script>
+
+<h1>
+    <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan_anggaran" / --> Asal
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+<table>
+    <tr>
+        <th colspan="2">
+            <h2>
+                <strong>
+                    <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+                </strong>
+            </h2>
+        </th>
+    </tr>
+    
+    <tr>              
+        <th>
+           
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+            <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / -->
+        </th>
+        <td>
+            <!-- <input type="text" name="kode" value="{KODE}" size="50" /> -->
+            <input type="hidden" name="unitKerjaId" value="{UNIT_KERJA_ID}" id="unitKerjaId" />
+            <input type="hidden" name="unitKerjaNama" value="{UNIT_KERJA_NAMA}" id="unitKerjaNama" />
+            <label style="font-weight: bold;" id="unitKerjaNamaLabel">{UNIT_KERJA_NAMA}</label>
+        </td>
+    </tr>
+    <tr>              
+        <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+        </th>
+        <td>
+            <input type="text" name="kegiatanref" value="{KEGIATANREF}" size="40" />
+        </td>
+    </tr>
+  <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="bulan" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="bulan"  / -->
+         </td>
+      </tr>        
+    <tr>
+        <th>&nbsp;</th>
+        <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+        </td>
+    </tr>
+</table>
+</form>
+<br />
+   
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+    {ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+
+<div class="pageBar">
+    <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+
+<br />
+<table class="table-common" width="100%">
+    <tr>
+        <th width="5">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+        </th>
+        <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+        </th>
+        <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+        </th>
+         <th style="display: none;">
+             <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / -->
+        </th>
+        <th>
+             <!-- patTemplate:gtfwgetconfig config="language" name="bulan" / -->
+        </th>
+        <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="total_anggaran" / -->
+        </th>
+        <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="total_pencairan" / -->
+        </th>
+        <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="total_anggaran_tersedia" / -->
+        </th>   		 
+        <th width="31">
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+        </th>
+    </tr>
+    <!-- patTemplate:tmpl name="data_kegiatanref" type="condition" conditionvar="KEGIATANREF_EMPTY" -->
+        <!-- patTemplate:sub condition="YES" -->
+        <tr><td colspan="8" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+        <!-- /patTemplate:sub -->
+        <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_kegiatanref_item" -->
+                <tr class="{KEGIATANREF_CLASS_NAME}">
+                    <td align="center">
+                        {KEGIATANREF_NUMBER}
+                    </td>
+                    <td>
+                        {KEGIATANREF_KODE}
+                    </td>
+                    <td>
+                        {KEGIATANREF_NAMA}
+                        {KEGIATANREF_DESKRIPSI}
+                    </td>
+                     <td style="display: none;">
+                         {KEGIATANREF_UNIT_KERJA_NAMA}
+                    </td>
+                     <td>
+                        {KEGIATANREF_BULAN_NAMA}
+                    </td>
+                    <td style="text-align:right;">
+                        {KEGIATANREF_TOTAL_ANGGARAN}
+                    </td>
+                    <td style="text-align:right;">
+                        {KEGIATANREF_TOTAL_REALISASI}
+                    </td>
+                     <td style="text-align:right;">
+                        {KEGIATANREF_TOTAL_AVAILABLE}
+                    </td>
+                    <td class="links" align="center">
+                    <!-- patTemplate:tmpl name="select_button" -->
+                    <a href="javascript:setParent('{KEGIATANREF_UNIT_KERJA_ID}','{KEGIATANREF_UNIT_KERJA_NAMA}','{KEGIATANREF_ID}','{KEGIATANREF_KODE}','{KEGIATANREF_NAMA}','{KEGIATANREF_KEGIATANDETAIL_ID}');update_KOMP_list({KEGIATANREF_KEGIATANDETAIL_ID})" 
+                    onclick="" title="">
+                        <img alt="Pilih" src="images/button-check.gif"/>
+                    </a>
+                    <!-- /patTemplate:tmpl -->
+                    </td> 	
+                </tr>
+            <!-- /patTemplate:tmpl -->
+        <!-- /patTemplate:sub -->
+    <!-- /patTemplate:tmpl -->
+</table>
+<!-- /patTemplate:tmpl -->

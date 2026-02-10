@@ -1,0 +1,354 @@
+<!-- patTemplate:tmpl name="content" -->
+<script languange="javascript">
+function popupReferensi(){
+  showPopup('{POPUP_REFERENSI}','',600, 500);
+}
+
+function popupCoa(tipe){
+      showPopup('{POPUP_COA}&tipe='+tipe,'',600, 500);
+}
+
+function deleteAkunEdit(obj, val, nama , tipe) {
+	//membuat input hidden untuk dihapus
+	var input_hidden;
+	input_hidden = document.createElement('input');
+	input_hidden.type = 'hidden';
+	input_hidden.name = 'data[deleted][id][]';
+	input_hidden.value = val;
+	document.getElementById('div-deleted-akun').appendChild(input_hidden);
+	obj.parentNode.parentNode.parentNode.removeChild(obj.parentNode.parentNode);
+
+}
+
+function hapus_akun(obj) {
+	obj.parentNode.parentNode.parentNode.removeChild(obj.parentNode.parentNode);
+}
+
+
+</script>
+
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="jurnal_penyesuaian" / --></h1>
+<br/>
+    <div class="pageBar">
+      <div class="toolbar">
+   		<a class="xhr dest_subcontent-element" href="{URL_LIST_JURNAL_PENERIMAAN}" title="Daftar Jurnal Penyesuaian" ><img src="images/button-detail.gif" alt="^" /> Daftar Jurnal Penyesuaian</a>
+      </div>
+   </div>
+
+
+   <form method="POST" name="frmInput" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
+   <input type="hidden" name="data[action]" value="{DATA_ACTION}" />
+   <input type="hidden" name="data[pembukuan_referensi_id]" value="{PEMBUKUAN_REFERENSI_ID}" />
+   <div id="div-deleted-akun">
+   <!-- patTemplate:tmpl name="deleted_value" type="condition" conditionvar="HAVE_DATA" -->
+	  <!-- patTemplate:sub condition="YES" -->
+		  <!-- patTemplate:tmpl name="deleted_item"  -->
+		     <input type="hidden" name="data[deleted][id][]" value="{DELETED_ID}" />
+		  <!-- /patTemplate:tmpl -->
+      <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </div>
+
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="tambah_jurnal_penyesuaian" / --></th>
+      </tr>
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="tanggal_transaksi" / --></th>
+         <td><!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="referensi_tanggal" / --></td>
+         <input type="hidden" name="data[referensi_id]" id="referensi_id" value="{REFERENSI_ID}" size="25"  / >
+      </tr>
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / --></th>
+         <td><textarea name="data[referensi_keterangan]" id="referensi_keterangan" rows="3" cols='50'>{REFERENSI_KETERANGAN}</textarea></td>
+      </tr>
+      <!-- patTemplate:tmpl name="approval" visibility="hidden" -->
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="is_kas" / --></th>
+         <td><!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="data[status_iskas]"  / --></td>
+      </tr>
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="bentuk_transaksi" / --></th>
+         <td><!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="data[bentuk_transaksi]"  / --></td>
+      </tr>
+      <!-- /patTemplate:tmpl -->
+   </table>
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}" >
+      {ISI_PESAN}
+   </div>
+   <br/>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+
+
+	<table class="table-common" width="100%" id="table-referensi"  style="display:none">
+      <tr>
+         <th ><!-- patTemplate:gtfwgetconfig config="language" name="referensi" / --></th>
+		 <th ><!-- patTemplate:gtfwgetconfig config="language" name="nilai_rp" / --></th>
+      </tr>
+	  <tr>
+		 <td id="td_referensi_nama">{REFERENSI_NAMA}</td>
+		 <td id="td_referensi_nilai_view" align="right">{REFERENSI_NILAI_VIEW}</td>
+	  </tr>
+    </table>
+
+	<br />
+	<table cellpadding="1" cellspacing="2" width="100%" class="table-common" >
+		<tbody>
+		  <tr>
+			<td width="30" style="border:none"><strong><!-- patTemplate:gtfwgetconfig config="language" name="debet" / --></strong></td>
+			<td width="5" style="border:none">:</td>
+			<td class="links" align="center" style="border:none">
+               <a class="dest_subcontent-element" href="javascript:void(0)" onclick="javascript:showPopup('{POPUP_COA}&tipe=debet','',600, 500);" title="Tambah Kredit">
+			      <b><!-- patTemplate:gtfwgetconfig config="language" name="tambah_akun" / --></b>
+			   </a>
+			</td>
+		</tr>
+	  </tbody>
+	</table>
+	<br />
+
+	<table class="table-common" width="100%" id="table-debet" >
+      <tr>
+         <th ><!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / --></th>
+		 <th ><!-- patTemplate:gtfwgetconfig config="language" name="sub_account" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="no_referensi" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nilai_rp" / --></th>
+         <th>&nbsp;</th>
+      </tr>
+      <tbody id="table_tbody_debet" class="ddd">
+
+     <!-- patTemplate:tmpl name="bool-table-debet" type="condition" conditionvar="HAVE_DATA_DEBET" -->
+	  <!-- patTemplate:sub condition="YES" -->
+		  <!-- patTemplate:tmpl name="table-debet"  -->
+				<tr class="" >
+				   <td>{DEBET_KODE}
+				       <input type="hidden" name="data[debet][datalist][detail_id][]" value="{DEBET_DETAIL_ID}" />
+				       <input type="hidden" name="data[debet][datalist][id][]" value="{DEBET_ID}" />
+					   <input type="hidden" name="data[debet][datalist][kode][]" value="{DEBET_KODE}" />
+				   </td>
+				   <td><input class="input_mask" data-target="99-99-99-99-99-99-99" type="text" name="data[debet][tambah][sub_account][]" value="" /> </td>
+				   <td>{DEBET_NAMA}
+					   <input type="hidden" name="data[debet][datalist][nama][]" value="{DEBET_NAMA}" />
+				   </td>
+               <td align='center'>
+					   <input type="text" name="data[debet][datalist][keterangan][]" value="{DEBET_KETERANGAN}" />
+				   </td>
+				   <td align='center'>
+					   <input type="text" name="data[debet][datalist][deskripsi][]" value="{DEBET_DESKRIPSI}" />
+				   </td>
+				   <td>
+					   <input type="text" class="gvFloat" name="data[debet][datalist][nilai][]" value="{DEBET_NILAI}" />
+				   </td>
+                   <td>
+					   <a href="javascript:void(null)" title="Hapus" onclick="deleteAkunEdit(this, '{DEBET_DETAIL_ID}')"><img src="images/button-delete.gif" alt="Hapus"></a>
+				   </td>
+				</tr>
+           <!-- /patTemplate:tmpl -->
+        <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+
+
+
+	  <!-- patTemplate:tmpl name="bool-table-debet-tambah" type="condition" conditionvar="HAVE_DATA_DEBET_TAMBAH" -->
+	  <!-- patTemplate:sub condition="YES" -->
+		  <!-- patTemplate:tmpl name="table-debet-tambah"  -->
+				<tr class="table-common-even" >
+				   <td>{DEBET_KODE}
+				       <input type="hidden" name="data[debet][tambah][detail_id][]" value="{DEBET_DETAIL_ID}" />
+				       <input type="hidden" name="data[debet][tambah][id][]" value="{DEBET_ID}" />
+					   <input type="hidden" name="data[debet][tambah][kode][]" value="{DEBET_KODE}" />
+				   </td>
+				   <td><input class="input_mask" data-mask="99-99-99-99-99-99-99" type="text" name="data[debet][tambah][sub_account][]" value="" /> </td>
+				   <td>{DEBET_NAMA}
+					   <input type="hidden" name="data[debet][tambah][nama][]" value="{DEBET_NAMA}" />
+				   </td>
+               <td align='center'>
+					   <input type="text" name="data[debet][tambah][keterangan][]" value="{DEBET_KETERANGAN}" />
+				   </td>
+				   <td align='center'>
+					   <input type="text" name="data[debet][tambah][deskripsi][]" value="{DEBET_DESKRIPSI}" />
+				   </td>
+				   <td>
+					   <input type="text" class="gvFloat" name="data[debet][tambah][nilai][]" value="{DEBET_NILAI}" />
+				   </td>
+                   <td>
+					   <a href="javascript:void(null)" title="Hapus" onclick="hapus_akun(this)"><img src="images/button-delete.gif" alt="Hapus"></a>
+				   </td>
+				</tr>
+           <!-- /patTemplate:tmpl -->
+        <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+	  </tbody>
+   </table>
+	<table class="table-edit" width="100%">
+   <tr>
+         <td width="132">Total</td>
+         <td id="total_debet" style="text-align:right"></td>
+         <td width="17"></td>
+         </tr>
+   </table>
+	<br />
+
+	<table cellpadding="1" cellspacing="2" width="100%" class="table-common" >
+		<tbody>
+		  <tr>
+			<td width="30" style="border:none"><strong><!-- patTemplate:gtfwgetconfig config="language" name="kredit" / --></strong></td>
+			<td width="5" style="border:none">:</td>
+			<td class="links" align="center" style="border:none">
+               <a class="dest_subcontent-element" href="javascript:void(0)" onclick="javascript:popupCoa('kredit')" title="Tambah Kredit">
+			      <b><!-- patTemplate:gtfwgetconfig config="language" name="tambah_akun" / --></b>
+			   </a>
+			</td>
+		</tr>
+	  </tbody>
+	</table>
+	<br />
+
+	<table class="table-common" width="100%" id="table-kredit" >
+      <tr>
+         <th ><!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / --></th>
+		 <th ><!-- patTemplate:gtfwgetconfig config="language" name="sub_account" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="no_referensi" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nilai_rp" / --></th>
+         <th>&nbsp;</th>
+      </tr>
+      <tbody id="table-tbody-kredit">
+
+     <!-- patTemplate:tmpl name="bool-table-kredit" type="condition" conditionvar="HAVE_DATA_KREDIT" -->
+	  <!-- patTemplate:sub condition="YES" -->
+		  <!-- patTemplate:tmpl name="table-kredit"  -->
+				<tr class="" >
+				   <td>{KREDIT_KODE}
+				       <input type="hidden" name="data[kredit][datalist][detail_id][]" value="{KREDIT_DETAIL_ID}" />
+				       <input type="hidden" name="data[kredit][datalist][id][]" value="{KREDIT_ID}" />
+					   <input type="hidden" name="data[kredit][datalist][kode][]" value="{KREDIT_KODE}" />
+				   </td>
+				   <td><input class="input_mask" data-mask="99-99-99-99-99-99-99" type="text" name="data[kredit][tambah][sub_account][]" value="" /> </td>
+				   <td>{KREDIT_NAMA}
+					   <input type="hidden" name="data[kredit][datalist][nama][]" value="{KREDIT_NAMA}" />
+				   </td>
+                <td align='center'>
+					   <input type="text" name="data[kredit][datalist][keterangan][]" value="{KREDIT_KETERANGAN}" />
+				   </td>
+				   <td align='center'>
+					   <input type="text" name="data[kredit][datalist][deskripsi][]" value="{KREDIT_DESKRIPSI}" />
+				   </td>
+				   <td>
+					   <input type="text" class="gvFloat" name="data[kredit][datalist][nilai][]" value="{KREDIT_NILAI}" />
+				   </td>
+                   <td>
+					   <a href="javascript:void(null)" title="Hapus" onclick="deleteAkunEdit(this, '{KREDIT_DETAIL_ID}')"><img src="images/button-delete.gif" alt="Hapus"></a>
+				   </td>
+				</tr>
+           <!-- /patTemplate:tmpl -->
+        <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+
+
+
+	  <!-- patTemplate:tmpl name="bool-table-kredit-tambah" type="condition" conditionvar="HAVE_DATA_KREDIT_TAMBAH" -->
+	  <!-- patTemplate:sub condition="YES" -->
+		  <!-- patTemplate:tmpl name="table-kredit-tambah"  -->
+				<tr class="table-common-even" >
+				   <td>{KREDIT_KODE}
+				       <input type="hidden" name="data[kredit][tambah][detail_id][]" value="{KREDIT_DETAIL_ID}" />
+				       <input type="hidden" name="data[kredit][tambah][id][]" value="{KREDIT_ID}" />
+					   <input type="hidden" name="data[kredit][tambah][kode][]" value="{KREDIT_KODE}" />
+				   </td>
+				   <td><input class="input_mask" data-mask="99-99-99-99-99-99-99" type="text" name="data[kredit][tambah][sub_account][]" value="" /> </td>
+				   <td>{KREDIT_NAMA}
+					   <input type="hidden" name="data[kredit][tambah][nama][]" value="{KREDIT_NAMA}" />
+				   </td>
+               <td align='center'>
+					   <input type="text" name="data[kredit][tambah][keterangan][]" value="{KREDIT_KETERANGAN}" />
+				   </td>
+				   <td align='center'>
+					   <input type="text" name="data[kredit][tambah][deskripsi][]" value="{KREDIT_DESKRIPSI}" />
+				   </td>
+				   <td>
+				   <td>
+					   <input type="text" class="gvFloat" name="data[kredit][tambah][nilai][]" value="{KREDIT_NILAI}" />
+				   </td>
+                   <td>
+					   <a href="javascript:void(null)" title="Hapus" onclick="hapus_akun(this)"><img src="images/button-delete.gif" alt="Hapus"></a>
+				   </td>
+				</tr>
+           <!-- /patTemplate:tmpl -->
+        <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+	  </tbody>
+   </table>
+   <table class="table-edit" width="100%">
+   <tr>
+         <td width="126">Total</td>
+         <td id="total_credit" style="text-align:right"></td>
+         <td width="16"></td>
+         </tr>
+   </table>
+   <br />
+
+
+   <input name="btnsimpan" value=" <!-- patTemplate:gtfwgetconfig config="language" name="simpan" / --> " class="buttonSubmit" type="submit">
+   </form>
+   <script type="text/javascript" language="javascript" charset="utf-8">
+   // <![CDATA[
+   function setCurrency(valueCurr){
+      valueCurr+='';
+
+      valueCurrNominal = valueCurr.substr(0,valueCurr.length-2);
+      valueCurrDigit = valueCurr.substr(valueCurr.length-2,valueCurr.length);
+      valueCurr = valueCurrNominal;
+
+      n_loop = Math.round(valueCurr.length / 3)
+      x = 3
+
+      for (var inomer = 0;inomer < n_loop; inomer++)
+      {
+         a = valueCurr.substr(valueCurr.length-x)
+
+         if (a.length > 1){
+            if (a.length != valueCurr.length){
+               b = valueCurr.substr(0,valueCurr.length - a.length)
+               valueCurr = b + "." + a
+               x = x + 4
+            }
+         }
+      }
+       return valueCurr+','+valueCurrDigit;
+   };
+
+   function setTotalCredit(){
+      var totalCredit=0;
+      var credit;
+      for (var i = 0; i < $('.credit').length; i++) {
+         credit=$('.credit').get(i).value;
+         credit=credit.replace(",","").split(".");
+         totalCredit += parseFloat(credit.join(''));
+      }
+         $("#total_credit").html(setCurrency(totalCredit));
+   }
+
+   function setTotalDebet(){
+      var totalDebet=0;
+      var debet;
+      for (var i = 0; i < $('.debet').length; i++) {
+         debet=$('.debet').get(i).value;
+         debet=debet.replace(",","").split(".");
+         totalDebet += parseFloat(debet.join(''));
+      }
+         $("#total_debet").html(setCurrency(totalDebet));
+   }
+
+   setTotalCredit();
+   setTotalDebet();
+<!--      alert();-->
+   // ]]>
+   </script>
+<!-- /patTemplate:tmpl -->

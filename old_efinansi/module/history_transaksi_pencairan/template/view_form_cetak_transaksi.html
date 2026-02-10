@@ -1,0 +1,137 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+var xpopup;
+function bukaPopupCetak(xurl) {
+	var tahun_anggaran = document.getElementById('tahun_anggaran').options[document.getElementById('tahun_anggaran').selectedIndex].text;
+
+	var nomor_bukti = document.getElementById('nomor_bukti').value;
+	var mak = document.getElementById('mak').value;
+	var judul = document.getElementById('judul').value;
+	var terima_dari = document.getElementById('terima_dari').value;
+	var nilai = document.getElementById('nilai').value;
+	var untuk_pembayaran = document.getElementById('untuk_pembayaran').value;
+	var pembuat_kwitansi = document.getElementById('pembuat_kwitansi').value;
+	//var nama_pembuat_kwitansi = document.getElementById('nama_pembuat_kwitansi').value;
+	var tgl_pembayaran = document.getElementById('tgl_pembayaran').value;
+	var pejabat_pembantu_rektor = document.getElementById('pejabat_pembantu_rektor').options[document.getElementById('pejabat_pembantu_rektor').selectedIndex].value;
+	var pejabat_bendahara = document.getElementById('pejabat_bendahara').options[document.getElementById('pejabat_bendahara').selectedIndex].value;
+
+	var str_url = '&tahun_anggaran=' + tahun_anggaran + '&nomor_bukti=' + nomor_bukti + '&mak=' + mak + '&judul=' + judul + '&terima_dari=' + terima_dari + '&nilai=' + nilai + '&untuk_pembayaran=' + untuk_pembayaran + '&pembuat_kwitansi=' + pembuat_kwitansi + '&tgl_pembayaran=' + tgl_pembayaran + '&pejabat_pembantu_rektor=' + pejabat_pembantu_rektor + '&pejabat_bendahara=' + pejabat_bendahara;
+
+	xpopup=window.open(xurl + str_url,'xpopup','width=900,height=600,resizable=yes,scrollbars=yes,right=0;center');
+	xpopup.focus();
+}
+</script>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="cetak_transaksi" / -->
+</h1>
+<br />
+<form method="POST" action="{URL_ACTION}" target="_blank" data-target="{URL_RETURN}" id="frmInput">
+   <input type="hidden" name="data_id" value="{ID}" />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="cetak" / -->
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode_tahun" / -->
+         </th>
+         <td>
+            <label style="font-weight: bold;">
+               {TA_NAMA}
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="no_bukti" / -->
+         </th>
+         <td>
+            <label style="font-weight: bold;">
+               {NOMOR_REFERENSI}
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="mak" / -->
+         </th>
+         <td>
+            <label style="font-weight: bold;">
+               {NAMA}
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>Diterima Dari</th>
+         <td>
+            <input type="text" name="penyetor" size="35" value="{PENYETOR}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal" / -->
+         </th>
+         <td>
+            <label>
+               <!-- patTemplate:gtfwgetconfig config="language" name="rp" / --> {NOMINAL_LABEL}
+            </label>
+            <div>
+               {TERBILANG}
+            </div>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Untuk Pembayaran
+         </th>
+         <td>
+            {KETERANGAN}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Pembuat Kwitansi
+         </th>
+         <td>
+            <input type="text" name="pembuat_kwitansi" id="txt_pembuat_kwitansi" value="{PEMBUAT_KWITANSI}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal_pembayaran" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="pejabat_pembantu_rektor" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="pejabat_pembantu_rektor"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="pejabat_bendahara" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="pejabat_bendahara"  / -->
+         </td>
+      </tr>
+      <tr class="buttons">
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnsimpan" value=" Export " class="buttonSubmit"/>
+            <input type="reset"  name="btnbalik" value=" Batal " class="buttonSubmit" onclick="GtfwAjax.replaceContentWithUrl('subcontent-element','{URL_RETURN}&ascomponent=1')" />
+         </td>
+      </tr>
+   </table>
+</form>
+<!-- /patTemplate:tmpl -->

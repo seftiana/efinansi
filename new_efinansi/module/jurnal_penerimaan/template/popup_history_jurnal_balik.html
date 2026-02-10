@@ -1,0 +1,132 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css">
+table.table-common tr.posting td{
+   background-color: #F9D54B !important;color: #000000;
+}
+</style>
+<h2>
+   Detail <!-- patTemplate:gtfwgetconfig config="language" name="jurnal" / -->
+</h2>
+<table class="table-details" width="100%">
+   <tr class="subhead">
+      <th>
+         Jurnal {REFERENSI}
+      </th>
+   </tr>
+</table>
+<br/>
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th style="width: 25px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th style="width: 95px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="referensi" / -->
+         </th>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal_transaksi" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / -->
+         </th>
+         <th style="width: 105px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / --><br />
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_account" / -->
+         </th>
+         <th style="width: 165px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / -->
+         </th>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="debet" / -->
+         </th>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kredit" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="petugas" / -->
+         </th>
+         <th style="width: 75px;">
+            Status Jurnal Balik
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr>
+            <td colspan="10" align="center">
+               <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+            </td>
+         </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+               <!-- patTemplate:tmpl name="data_jurnal" type="condition" conditionvar="LEVEL" -->
+                  <!-- patTemplate:sub condition="PARENT" -->
+                     <tr class="{CLASS_NAME}">
+                        <td rowspan="{ROW_SPAN}" style="text-align: center;">
+                           {NOMOR}
+                        </td>
+                        <td rowspan="{ROW_SPAN}" style="text-align: center;">
+                           {REFERENSI}
+                        </td>
+                        <td rowspan="{ROW_SPAN}" style="text-align: center;">
+                           <!-- patTemplate:var name="TANGGAL" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+                        </td>
+                        <td rowspan="{ROW_SPAN}">
+                           {DESKRIPSI}
+                        </td>
+                        <td style="padding: 0px;">
+                           <label style="padding: 0.2em 0.4em;">
+                              {KODE}
+                           </label>
+                           <label style="border: none; border-top: 1px solid #FFF; padding: 0.2em 0.4em; margin: 0.4em 0em 0.6em;">
+                              {SUB_ACCOUNT}
+                           </label>
+                        </td>
+                        <td>
+                           {NAMA}
+                        </td>
+                        <td style="text-align: right;">
+                           {NOMINAL_DEBET}
+                        </td>
+                        <td style="text-align: right;">
+                           {NOMINAL_KREDIT}
+                        </td>
+                        <td rowspan="{ROW_SPAN}">
+                           {PENANGGUNG_JAWAB}
+                        </td>
+                        <td rowspan="{ROW_SPAN}">
+                           {STATUS_JURNAL}
+                        </td>
+                     </tr>
+                  <!-- /patTemplate:sub -->
+                  <!-- patTemplate:sub condition="DATA" -->
+                     <tr class="{CLASS_NAME}">
+                        <td style="padding: 0px;">
+                           <label style="padding: 0.2em 0.4em;">
+                              {KODE}
+                           </label>
+                           <label style="border: none; border-top: 1px solid #FFF; padding: 0.2em 0.4em; margin: 0.4em 0em 0.6em;">
+                              {SUB_ACCOUNT}
+                           </label>
+                        </td>
+                        <td>
+                           {NAMA}
+                        </td>
+                        <td style="text-align: right;">
+                           {NOMINAL_DEBET}
+                        </td>
+                        <td style="text-align: right;">
+                           {NOMINAL_KREDIT}
+                        </td>
+                     </tr>
+                  <!-- /patTemplate:sub -->
+               <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<!-- /patTemplate:tmpl -->

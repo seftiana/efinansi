@@ -1,0 +1,174 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="transaksi_penerimaan_kas" / -->
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterbox" name="filterbox" class="dataquest xhr_simple_form dest_subcontent-element">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" id="kode" size="35" value="{KODE}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode" / -->
+         </th>
+         <td>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="start_date"  / -->
+            </div>
+            <div>
+               <!-- patTemplate:gtfwgetconfig config="language" name="s_d" / -->
+            </div>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="end_date"  / -->
+            </div>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<br />
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   <div class="toolbar">
+      <a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Data" >
+         <img src="images/button-add.gif" alt="">
+         Tambah Data
+      </a>
+   </div>
+</div>
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+   <tr>
+      <th style="width: 30px;">
+         <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+      </th>
+      <th style="width: 115px;">
+         <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+      </th>
+      <th >
+         <!-- patTemplate:gtfwgetconfig config="language" name="kode_bpkb" / -->
+      </th>
+       <th style="width: 100px;">
+         <!-- patTemplate:gtfwgetconfig config="language" name="status_jurnal" / -->
+      </th>
+       <th style="width: 100px;">
+         <!-- patTemplate:gtfwgetconfig config="language" name="status_approval_jurnal" / -->
+      </th>
+      <th style="width: 135px;">
+         <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+      </th>
+      <th style="width: 130px;">
+         <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+      </th>
+   </tr>
+   <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+      <!-- patTemplate:sub condition="YES" -->
+         <tr>
+            <td colspan="7">
+               <center>
+                  <em>
+                     <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                  </em>
+               </center>
+            </td>
+         </tr>
+      <!-- /patTemplate:sub -->
+      <!-- patTemplate:sub condition="NO" -->
+         <!-- patTemplate:tmpl name="data_list" -->
+            <tr class="{CLASS_NAME}">
+               <td>
+                  {NOMOR}
+               </td>
+               <td>
+                  <!-- patTemplate:var name="tanggal" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+               </td>
+               <td>
+                  {BPKB}
+               </td>
+               <td align="center">
+                  {STATUS_JURNAL}
+               </td>
+                <td align="center">
+                  {STATUS_APPROVAL_JURNAL}
+               </td>
+               <td align="right">
+                  {NOMINAL}
+               </td>
+               <td class="links">
+                    <!-- patTemplate:tmpl name="is_jurnal_approve" visibility="hidden" -->
+                  <a class="xhr dest_subcontent-element" href="{URL_EDIT}" title="Ubah">
+                     <img src="images/icons/16/button-edit.gif" alt="Ubah" />
+                  </a>
+                  <a class="xhr dest_subcontent-element" href="{URL_DELETE}" title="Hapus">
+                     <img src="images/icons/16/button-delete.gif" alt="Hapus" />
+                  </a>
+                   <!-- /patTemplate:tmpl -->
+                  <a class="xhr dest_subcontent-element" href="{URL_DETAIL}" title="Detail">
+                     <img src="images/icons/16/detail.gif" alt="detail" />
+                  </a>
+                  <a target="_blank" href="{URL_EXPORT}" title="Export">
+                     <img src="images/icons/16/export_excel.gif" alt="Export" />
+                  </a>
+               </td>
+            </tr>
+         <!-- /patTemplate:tmpl -->
+      <!-- /patTemplate:sub -->
+   <!-- /patTemplate:tmpl -->
+</table>
+<!-- end: Table List -->
+<br />
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         <img src="images/icons/16/tick_circle.png" alt="approve" style="margin-bottom: -3px;" /> Jurnal sudah di setujui
+      </li>
+      <li>
+         <img src="images/icons/16/icon-warning-16x16.gif" alt="approve" style="margin-bottom: -3px;" /> Jurnal belum di setujui
+      </li>
+     
+      <li>
+         <img src="images/icons/16/button-edit.gif" alt="edit" style="margin-bottom: -3px;" /> Untuk mengubah data
+      </li>
+      <li>
+         <img src="images/icons/16/button-delete.gif" alt="hapus" style="margin-bottom: -3px;" /> Untuk menghapus data 
+      </li>
+     <li>
+         <img src="images/icons/16/detail.gif" alt="detail"  style="margin-bottom: -3px;" /> Untuk Melihat Detail data
+      </li>
+      <li>
+         <img src="images/icons/16/export_excel.gif" alt="Export" style="margin-bottom: -3px;" /> Untuk Export ke Format Excel
+      </li>
+   </ul>
+</div>
+<!-- /patTemplate:tmpl -->

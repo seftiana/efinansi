@@ -1,0 +1,175 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function resetFormIni() {
+		if(document.getElementById('sub_unit_id')) document.getElementById('sub_unit_id').value='';
+		if(document.getElementById('sub_unit_nama')) document.getElementById('sub_unit_nama').innerHTML='';
+		if(document.getElementById('sub_unit_id')) document.getElementById('sub_unit_id').value='';
+		if(document.getElementById('unit_id')) document.getElementById('unit_id').value='';
+	}
+	function popupunit(){
+		showPopup('{POPUP_UNIT}','', 550, 500);
+	}
+	function popupsubunit(){
+		var url 		= '{POPUP_SUBUNIT}';
+		var unit_id   	= document.getElementById('unit_id').value;	
+		var unit_nama 	= document.getElementById('unit_nama').value;
+		if(unit_id=='') {
+		    alert('Anda Harus Memilih Unit Kerja Dulu');
+		    return false;
+	    } else {
+		     url = url + '&satker=' + unit_id + '&satker_label=' + unit_nama;
+			 showPopup(url,'',550,500)
+		    
+		}
+	}
+</script>
+<h1>Surat Permintaan Pembayaran</h1>
+<br />
+
+<form method="POST" name="frmInput" action="{URL_SEARCH}" onsubmit="return cekSubmit();" 
+class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+	<table>
+		<tr>
+			<th colspan="2">
+				<h2>
+					<strong>
+						<!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+					</strong>
+				</h2>
+			</th>
+		</tr>
+		<tr>
+			<th width="30%">
+				<!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / -->
+			</th>
+			<td>
+				<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" 
+				action="view" name="ta_id"  / -->	
+			</td>
+		</tr>
+		<tr style="display:none;">
+			<th>Kode</th>
+			<td>
+				<input type="text" name="kode" size="20" value="{SEARCH_KODE}" id="kode" />
+			</td>
+		</tr>
+		<tr style="display:none;">
+			<th>Nama</th>
+			<td>
+				<input type="text" name="nama" size="30" value="{SEARCH_NAMA}" id="nama" />
+			</td>
+		</tr>
+		<tr>
+			<th>
+				<!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / -->
+			</th>
+			<td>
+				<label style="{LABEL_STYLE}">{SEARCH_UNIT}</label>
+				<input type="{INPUT_TYPE}" name="unit_nama" readonly size="30" 
+				value="{SEARCH_UNIT}" id="unit_nama" />
+				<input type="hidden" name="unit_id" value="{SEARCH_UNITID}" 
+				id="unit_id" />
+				<input type="button" name="btnshift" value=" ... " style="{BUTTON_STYLE}" 
+				onclick="javascript:popupunit();" />
+			</td>
+		</tr>
+		<tr style="display:none;">
+			<th>
+				<!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / -->
+			</th>
+			<td>
+				<input type="text" name="sub_unit_nama" readonly size="30"
+				value="{SEARCH_SUBUNIT}" id="sub_unit_nama" />
+				<input type="hidden" name="sub_unit_id" value="{SEARCH_SUBUNIT_ID}" 
+				id="sub_unit_id" />
+				<input type="button" name="btnshift" value=" ... " 
+				onclick="javascript:popupsubunit();" />
+			</td>
+		</tr>
+		<tr>
+			<th>&nbsp;</th>
+			<td>
+				<input name="btnTampilkan" value=" Tampilkan " class="buttonSubmit" type="submit">
+				<input name="btnReset" value=" Reset " class="buttonSubmit"  type="reset" 
+				onclick="resetFormIni();">
+			</td>
+		</tr>
+		
+	</table>
+</form>
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+	<br />
+	<div class="{CSS}">
+		{ISI_PESAN}
+	</div>
+	<br/>
+<!-- /patTemplate:tmpl -->
+
+<br />
+<form name="frmList" action="" class="xhr_simple_form dest_subcontent-element" id="frmList">
+	<div class="pageBar">
+	<!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" 
+	name="paging_top"  / -->
+	</div>
+	<table class="table-common" width="800px">
+		<tr>
+			<th width="30">
+				<!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+			</th>
+			<th width="95">
+				<!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+			</th>
+			<th>
+				<!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+			</th>
+			<th width="135">
+				<!-- patTemplate:gtfwgetconfig config="language" name="nilai_rp" / -->
+			</th>
+			<th width="135">
+				<!-- patTemplate:gtfwgetconfig config="language" name="nilai_setujui_rp" / -->
+			</th>
+			<th width="35">
+				<!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+			</th>
+		</tr>
+		<!-- patTemplate:tmpl name="dataGrid" type="condition" conditionvar="IS_EMPTY" -->
+			<!-- patTemplate:sub condition="YES" -->
+			<tr>
+				<td colspan="6" align="center">
+					<em>
+					<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+					</em>
+				</td>
+			</tr>
+			<!-- /patTemplate:sub -->
+			<!-- patTemplate:sub condition="NO" -->
+			<!-- patTemplate:tmpl name="data_item" -->
+			<tr>
+				<td align="center">
+					{DATA_NOMER}
+				</td>
+				<td>
+					{DATA_MAK_KODE}
+				</td>
+				<td>
+					{DATA_MAK_NAMA}
+				</td>
+				<td align="right">
+					{DATA_PAGU_DIPA}
+				</td>
+				<td align="right">
+					{DATA_NOMINAL_APPROVE}
+				</td>
+				<td class="links" style="text-align:center;">
+					<a href="{DATA_URL_ADD}" Title="Buat SPP">
+					<img alt="Detil" src="images/button-bukubuka.gif" align="center">
+					</a>
+				</td>
+			</tr>
+			<!-- /patTemplate:tmpl -->
+			<!-- /patTemplate:sub -->
+		<!-- /patTemplate:tmpl -->
+	</table>   
+</form>
+
+<!-- /patTemplate:tmpl -->

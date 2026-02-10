@@ -1,0 +1,166 @@
+<!-- patTemplate:tmpl name="content" -->
+<h2>
+   <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->
+</h2>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterboxpopup" name="filterboxpopup" class="dataquest xhr_simple_form dest_popup-subcontent">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->/
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / --> 
+            <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+         </th>
+         <td>
+            <input type="text" name="kode_kegiatan" id="kode_kegiatan" size="35" value="{KODE_KEGIATAN}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->/
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" id="kode" size="35" value="{KODE}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+      </th>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+      </th>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+      </th>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+      </th>
+   </tr>
+   <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+      <!-- patTemplate:sub condition="YES" -->
+         <tr>
+            <td colspan="4">
+               <center>
+                  <em>
+                     <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                  </em>
+               </center>
+            </td>
+         </tr>
+      <!-- /patTemplate:sub -->
+      <!-- patTemplate:sub condition="NO" -->
+         <!-- patTemplate:tmpl name="data_list" -->
+            <tr class="{CLASS_NAME}" style="{STYLE}">
+               <td>
+                  {NOMOR}
+               </td> 
+               <td>
+                  {KODE}
+               </td>
+               <td>
+                  {NAMA}
+               </td>
+               <td class="links" style="width: 25px;">
+                  <!-- patTemplate:tmpl name="status" type="condition" conditionvar="TYPE" -->
+                     <!-- patTemplate:sub condition="PARENT" -->
+                        <a href="javascript:void(0);" title="Pilih" onclick="Pilih('', '', '{ID}', '{NAMA}')">
+                           <img src="images/button-check.gif" alt="Pilih" />
+                        </a>
+                     <!-- /patTemplate:sub -->
+                     <!-- patTemplate:sub condition="CHILD" -->
+                        <a href="javascript:void(0);" title="Pilih" onclick="Pilih('{ID}', '{NAMA}', '{KEG_ID}', '{KEG_NAMA}')">
+                           <img src="images/button-check.gif" alt="Pilih" />
+                        </a>
+                     <!-- /patTemplate:sub -->
+                  <!-- /patTemplate:tmpl -->
+               </td>
+            </tr>
+         <!-- /patTemplate:tmpl -->
+      <!-- /patTemplate:sub -->
+   <!-- /patTemplate:tmpl -->
+</table>
+<!-- end: Table List -->
+<script type="text/javascript">
+Pilih    = function(id, nama, parent_id, parent_nama){
+   var parentId      = document.getElementById('kegiatan_id');
+   var parent        = document.getElementById('kegiatan');
+   var parent_label  = document.getElementById('kegiatan_label');
+   var output_id     = document.getElementById('output_id');
+   var output        = document.getElementById('output');
+
+   parentId.value    = parent_id == '' ? '' : parent_id;
+   parent.value      = parent_nama == '' ? '' : parent_nama;
+   parent_label.innerHTML  = parent_nama == '' ? '' : parent_nama;
+   output_id.value   = id == '' ? '' : id;
+   output.value      = nama ==  '' ? '' : nama;
+   popupClose();
+}
+
+var xhr_reset_form = {
+   '.xhr_simple_form': function(element) {
+      element.onreset   = function(){
+         var dest    = /\sdest_(.*?)\s/.exec(' '+this.className+' ');
+         var url     = this.getAttribute('action');
+         var target  = this.getAttribute('data-target');
+         if(typeof(target) != 'undefined' && target != null){
+            urlActions     = target;
+         }else{
+            urlActions     = url;
+         }
+         if(dest){
+            GtfwAjax.replaceContentWithUrl(dest[1], urlActions + '&ascomponent=1');
+         }
+
+         return false;
+      }
+   }, 
+   '.xhr_form': function(element) {
+      element.onreset   = function(){
+         var dest    = /\sdest_(.*?)\s/.exec(' '+this.className+' ');
+         var url     = '?mod=home&sub=Home&act=view&typ=html';
+         var target  = this.getAttribute('data-target');
+         if(typeof(target) != 'undefined' && target != null){
+            urlActions     = target;
+         }else{
+            urlActions     = url;
+         }
+         if(dest){
+            GtfwAjax.replaceContentWithUrl(dest[1], urlActions + '&ascomponent=1');
+         }
+
+         return false;
+      }
+   }
+}
+
+Behaviour.register(xhr_reset_form);
+</script>
+<!-- /patTemplate:tmpl -->

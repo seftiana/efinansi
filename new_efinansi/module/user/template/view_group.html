@@ -1,0 +1,46 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_grup" / --></h1>
+<br/>
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+   <br/>
+   
+   <div class="pageBar">
+      <div class="toolbar"> 
+   		<a class="xhr dest_subcontent-element" href="{GROUP_URL_ADD}" title="Tambah Data Group" ><img src="images/button-add.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / --></a> 	
+      </div>
+   </div>
+   
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5%"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <th width="15%"><!-- patTemplate:gtfwgetconfig config="language" name="nama_group" / --></th>
+         <th width="20%"><!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / --></th>
+         <th width="46%"><!-- patTemplate:gtfwgetconfig config="language" name="hak_aksees" / --></th>
+         <th width="14%" ><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_group" type="condition" conditionvar="GROUP_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="6" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_group_item" -->
+            <tr class="{GROUP_CLASS_NAME}">
+               <td>{GROUP_NUMBER}</td>
+               <td>{GROUP_GROUP_NAME}</td>
+               <td>{GROUP_GROUP_DESCRIPTION}</td>
+               <td>{GROUP_HAK_AKSES}</td>
+               <td class="links">
+                  <a class="xhr dest_subcontent-element" href="{GROUP_URL_EDIT}" title="Ubah"><img src="images/button-edit.gif" alt="Ubah" /></a>
+                  <a class="xhr dest_subcontent-element" href="{GROUP_URL_DELETE}"><img src="images/button-delete.gif" alt="Delete" /></a>
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,716 @@
+<!-- patTemplate:tmpl name="content" -->
+<style>
+    .title-label {
+        padding: 8px 0 3px 10px;
+        float: left;
+    }    
+    
+    .btn-title {
+        padding: 3px 0 3px 10px;
+        float: right;
+    }
+    .status_label_p {
+        padding: 1px 6px;        
+        text-align: center;
+        font-weight: bold;
+    }    
+    .status_label {
+        float: right;
+        margin: 3px;
+        display: block;
+        width: 15px;
+        text-align: center;
+        font-weight: bold;
+    }
+    .green{
+        border: 1px solid #9ce183;
+        background-color: #9ce183;
+        color: #1b4a0a;
+    }
+    .pink{
+        border: 1px solid #f680b6;
+        background-color: #f680b6;
+        color: #a4024c;
+    }
+    .grey{
+        border: 1px solid #dbe4d7;
+        background-color: #dbe4d7;
+        color: #6f6e6a;
+    }
+    
+</style>
+<script language='javascript'>
+    function hapus_coa(obj) {
+        obj.parentNode.parentNode.parentNode.removeChild(obj.parentNode.parentNode);
+    }
+
+    function popupCoa(tipe) {
+        showPopup('{URL_POP_UP_COA}&tipe=' + tipe, 'xpopup', 600, 500);
+    }
+
+    function popupKlpLaporan() {
+        showPopup('{URL_POPUP_KLP}', 'xpopup', 600, 500);
+    }
+
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_detil_kelompok_laporan" / --></h1>
+<br/>
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CSS_PESAN}">
+    {ISI_PESAN}
+</div>
+<br/>
+<!-- /patTemplate:tmpl -->
+
+
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInputCoaKelompok" >  
+   <input type="hidden" name="kellap_id" value="{DATA_KELLAP_ID}"  />
+   <input type="hidden" name="kellap_tipe" value="{DATA_KELLAP_TIPE}"  />
+   <input type="hidden" name="kellap_kode_sistem" value="{DATA_KELLAP_KODE_SISTEM}"  />
+   <input type="hidden" name="kellap_level" value="{DATA_KELLAP_LEVEL}"  />
+    <input type="hidden" name="page" value="{PAGE}"  />
+    <table class="table-edit" width="100%">
+        <tr class="subhead">
+            <th colspan="2">{JUDUL} <!-- patTemplate:gtfwgetconfig config="language" name="detil_kelompok_laporan" / --></th>
+        </tr>
+        <tr>
+            <th>Parent</th>
+            <th>
+                <!-- patTemplate:tmpl name="root_data" type="condition" conditionvar="DATA_EMPTY" -->
+                    <!-- patTemplate:sub condition="YES" -->
+                        -
+                    <!-- /patTemplate:sub -->
+                    <!-- patTemplate:sub condition="NO" -->
+                        <!-- patTemplate:tmpl name="root_data_item" -->
+                        <span style="padding-left: {KELLAP_PADDING}px">{KELLAP_NAMA}</span><br />
+                        <!-- /patTemplate:tmpl -->
+                   <!-- /patTemplate:sub -->
+                <!-- /patTemplate:tmpl -->                
+            </th>
+        </tr>
+         <tr>
+            <th width="150">Label Kelompok</th>
+            <td>
+                <input type="hidden" name="kellap_nama" value="{DATA_KELLAP_NAMA}" />
+                <label>{DATA_KELLAP_NAMA}</label>
+            </td>
+         </tr>
+        <tr>
+            <td class="links" colspan="2">
+                <div class="title-label">
+                    <!-- patTemplate:gtfwgetconfig config="language" name="daftar_coa" / --> : 
+                </div>
+                <div class="btn-title">
+                    <a class="dest_subcontent-element" href="javascript:void(0)" onclick="javascript:showPopup('{URL_POP_UP_COA}','',600, 500);" title="Tambah COA">
+                       <img src="images/icons/16/button-add.gif" style="margin-bottom: -4px;" />
+                       <b><!-- patTemplate:gtfwgetconfig config="language" name="tambah_akun" / --></b>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"  style="padding: 0px; margin: 0px;">
+                
+                <table class="table-common" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th style="width: 125px;" rowspan="2">
+                                <!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / -->
+                             </th>
+                             <th  rowspan="2">
+                                <!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / -->
+                             </th>
+                             <th style="width: 50px;padding-top: 18px;"  rowspan="2">(+) / (-)</th>
+                             <th style="width: 60px;padding-top: 18px;"  rowspan="2">Saldo Awal</th>
+                             <th colspan="3" style="text-align: center;">Mutasi</th>
+                             <th style="width: 30px;" rowspan="2">
+                                <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+                             </th>
+                          </tr>
+                          <tr>
+                              <th style="width: 60px;text-align: center;">Mutasi D / K </th>
+                              <th style="width: 60px;text-align: center;">Mutasi D </th>
+                              <th style="width: 60px;text-align: center;">Mutasi K </th>
+                          </tr>
+                    </thead>
+                    <tbody id="CoaPlaceHolder_coa">
+                        <tr id="coa-empty-row">
+                             <td colspan="8" style="text-align: center;">
+                                Pilih data Akun
+                             </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        
+        
+        <tr>
+            <td colspan="2" class="links">     
+                <div class="title-label">                    
+                Daftar referensi dari kelompok laporan lain :                 
+                </div>
+                <div class="btn-title">
+                    <a class="dest_subcontent-element" href="javascript:void(0)" onclick="javascript:showPopup('{URL_POPUP_KLP}','',600, 500);" title="Tambah Kelompok Laporan">
+                       <img src="images/icons/16/button-add.gif" style="margin-bottom: -4px;" />
+                       <b><!-- patTemplate:gtfwgetconfig config="language" name="tambah_klp_laporan" / --></b>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"  style="padding: 0px; margin: 0px;">
+                
+                <table class="table-common" style="width: 100%;">
+                    <thead>
+                        <tr>
+                             <th >
+                                Kelompok Laporan
+                             </th>
+                             <th style="width: 30px;">
+                                <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+                             </th>
+                          </tr>
+                    </thead>
+                    <tbody id="KlpPlaceHolder">
+                        <tr id="klp-empty-row">
+                             <td colspan="2" style="text-align: center;">
+                                Pilih Referensi Kelompok Laporan
+                             </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="buttons">
+            <td></td>
+            <td style="text-align: right;">
+                <input name="btnsimpan" value=" <!-- patTemplate:gtfwgetconfig config="language" name="simpan" / --> " class="buttonSubmit" type="submit">
+                <input name="btnReset" value=" <!-- patTemplate:gtfwgetconfig config="language" name="batal" / --> " class="buttonSubmit" type="submit">
+            </td>
+        </tr>
+    </table>
+</form>
+
+<br/>
+
+<div class="petunjuk-area">
+    <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+    <ul>
+        <li>Daftar Coa atau Referensi kelompok dari kelompok laporan lain bisa diisikan salah satu</li>
+        <li>Pada Kolom <b>(+)/(-)</b> untuk memilih opsi perhitungan <label class="status_label_p green">+</label> positif atau <label class="status_label_p pink">-</label> negatif</li>
+        <li>Pada Kolom <b>Saldo Awal</b> untuk memilih saldo awal saja yang akan dihitung dalam laporan</li>
+        <li>Pada Kolom <b>Mutasi</b> untuk memilih mutasi debet, mutasi kredit atau keduanya yang akan dihitung dalam laporan</li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+var formInput     = document.forms['frmInputCoaKelompok'];
+var formElements  = formInput.elements;
+
+var clearCurrency = function(str){
+   num      = str.toString();
+   num      = num.replace(/\$|\./g, '');
+   num      = num.replace(/\$|\,/g,'.');
+   num      = parseFloat(num);
+   return num;
+}
+
+var formatNumber = function (num, mode){
+   var num     = num.toString();
+   num         = num.replace(/\$|\,/g,'');
+   if(isNaN(num)){
+      num      = "0";
+   }
+   sign        = (num == (num = Math.abs(num)));
+   num         = Math.floor(num*100+0.50000000001);
+   cents       = num%100;
+   num         = Math.floor(num/100).toString();
+   if(cents<10){
+      cents    = "0" + cents;
+   }
+   for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++){
+      num      = num.substring(0,num.length-(4*i+3))+'.'+num.substring(num.length-(4*i+3));
+   }
+
+   return ((sign)?'':'-') + num + ',' + cents;;
+}
+
+document.getElementById('CoaPlaceHolder_coa').addItem     = function( id,kode, nama,is_positif,is_saldo_awal,is_mutasi_dk,is_mutasi_d,is_mutasi_k){
+    
+   var elemen_id  = 'jurnal_debet_'+id;
+   if(document.getElementById(elemen_id)){
+      return true;
+   }
+   var frag             = document.createDocumentFragment();
+   var childObj         = this.getElementsByTagName('tr');
+
+   for (var i = childObj.length - 1; i >= 0; i--) {
+      if(childObj[i].id === 'coa-empty-row' || childObj[i].id == 'row-coa-total'){
+         this.removeChild(childObj[i]);
+      }
+   };
+
+   var tr      = document.createElement('tr');
+   tr.id       = elemen_id;
+
+   var inputId       = document.createElement('input');
+   inputId.type      = 'hidden';
+   inputId.id        = 'coa-id-'+id;
+   inputId.name      = 'coa['+id+'][id]';
+   inputId.value     = id;
+
+   var tdKode        = document.createElement('td');
+   tdKode.style.textAlign  = 'center';
+   var inputKode     = document.createElement('input');
+   inputKode.type    = 'hidden';
+   inputKode.name    = 'coa['+id+'][kode]';
+   inputKode.id      = 'coa-kode-'+id;
+   inputKode.value   = kode;
+
+   var labelKode     = document.createElement('label');
+   labelKode.innerHTML  = kode;
+   labelKode.style.display    = 'block';
+   labelKode.style.width      = '100%';
+   tdKode.appendChild(labelKode);
+
+   var tdNama        = document.createElement('td');
+   var inputNama     = document.createElement('input');
+   inputNama.type    = 'hidden';
+   inputNama.id      = 'coa-nama-'+id;
+   inputNama.name    = 'coa['+id+'][nama]';
+   inputNama.value   = nama;
+   var labelNama     = document.createElement('label');
+   labelNama.innerHTML  = nama;
+   tdNama.appendChild(labelNama);
+   
+   //cekbox is positif
+   var tdIsPositif        = document.createElement('td');
+   var inputIsPositif    = document.createElement('input');
+   inputIsPositif.type    = 'checkbox';
+   inputIsPositif.id      = 'coa-is-positif'+id;
+   inputIsPositif.name    = 'coa['+id+'][is_positif]';
+   inputIsPositif.value   = 'Y';
+   
+   var labelIsPositif    = document.createElement('label');
+   labelIsPositif.id = 'coa-is-positif-label-'+id;   
+   labelIsPositif.setAttribute('class','status_label');  
+   
+   if(is_positif === 'Y') {
+        inputIsPositif.checked = true;       
+        labelIsPositif.innerHTML   = '+';
+        labelIsPositif.classList.add('green');
+        labelIsPositif.classList.remove('pink')
+   } else {
+       inputIsPositif.checked = false; 
+       labelIsPositif.innerHTML   = '-';
+       labelIsPositif.classList.add('pink');
+       labelIsPositif.classList.remove('green')
+   }
+   inputIsPositif.setAttribute('onchange','onIsPositif("'+ id +'",this)');   
+  
+   tdIsPositif.style.textAlign     = 'center';
+   tdIsPositif.appendChild(inputIsPositif);
+   tdIsPositif.appendChild(labelIsPositif);
+   
+   //cekbox saldo awal
+   var tdSaldoAwal        = document.createElement('td');
+   var inputSaldoAwal    = document.createElement('input');
+   inputSaldoAwal.type    = 'checkbox';
+   inputSaldoAwal.id      = 'coa-is-saldo-awal-'+id;
+   inputSaldoAwal.name    = 'coa['+id+'][is_saldo_awal]';
+   inputSaldoAwal.value   = 'Y';
+    if(is_saldo_awal === 'Y') {
+       inputSaldoAwal.checked = true;
+   } else {
+       inputSaldoAwal.checked = false;
+   }   
+   tdSaldoAwal.style.textAlign     = 'center';
+   tdSaldoAwal.appendChild(inputSaldoAwal);
+
+   //cekbox mutasi
+   var tdMutasiDK        = document.createElement('td');
+   var inputMutasiDK    = document.createElement('input');
+   inputMutasiDK.type    = 'checkbox';
+   inputMutasiDK.id      = 'coa-is-mutasi-dk-'+id;
+   inputMutasiDK.name    = 'coa['+id+'][is_mutasi_dk]';
+   inputMutasiDK.value   = 'Y';
+   inputMutasiDK.setAttribute('onchange','onIsMutasiDK("'+ id +'",this)');   
+   tdMutasiDK.style.textAlign     = 'center';
+   tdMutasiDK.appendChild(inputMutasiDK);
+   
+   var tdMutasiD        = document.createElement('td');
+   var inputMutasiD    = document.createElement('input');
+   inputMutasiD.type    = 'checkbox';
+   inputMutasiD.id      = 'coa-is-mutasi-d-'+id;
+   inputMutasiD.name    = 'coa['+id+'][is_mutasi_d]';
+   inputMutasiD.value   = 'Y';
+   inputMutasiD.setAttribute('onchange','onIsMutasiD("'+ id +'",this)');
+   tdMutasiD.style.textAlign     = 'center';
+   tdMutasiD.appendChild(inputMutasiD);
+   
+   var tdMutasiK        = document.createElement('td');
+   var inputMutasiK    = document.createElement('input');
+   inputMutasiK.type    = 'checkbox';
+   inputMutasiK.id      = 'coa-is-mutasi-k-'+id;
+   inputMutasiK.name    = 'coa['+id+'][is_mutasi_k]';
+   inputMutasiK.value   = 'Y';
+   inputMutasiK.setAttribute('onchange','onIsMutasiK("'+ id +'",this)');
+   tdMutasiK.style.textAlign     = 'center';
+   tdMutasiK.appendChild(inputMutasiK);
+   
+   if(is_mutasi_d === 'Y') {
+       inputMutasiDK.checked = false;
+       inputMutasiD.checked = true;
+       inputMutasiK.checked = false;
+   } else if(is_mutasi_k == 'Y') {
+       inputMutasiDK.checked = false;
+       inputMutasiD.checked = false;
+       inputMutasiK.checked = true;
+   } else if(is_mutasi_dk == 'Y'){       
+       inputMutasiDK.checked = true;
+       inputMutasiD.checked = false;
+       inputMutasiK.checked = false;
+   } else {
+       inputMutasiDK.checked = false;
+       inputMutasiD.checked = false;
+       inputMutasiK.checked = false;
+   }
+   
+   var tdAksi        = document.createElement('td');
+   tdAksi.className  = 'links';
+   tdAksi.style.padding       = 0;
+   tdAksi.style.paddingTop    = '4px';
+   tdAksi.style.textAlign     = 'center';
+   var linkAksiDelete         = document.createElement('a');
+   linkAksiDelete.style.float = 'none';
+   linkAksiDelete.style.display = 'inline-block';
+   linkAksiDelete.href        = 'javascript:void(0);';
+   linkAksiDelete.title       = 'Delete '+id;
+   linkAksiDelete.setAttribute('onclick', 'deleteRecord("'+this.id+'", this);');
+   var iconDelete             = document.createElement('img');
+   iconDelete.src             = 'images/icons/16/button-delete.gif';
+   iconDelete.alt             = 'delete';
+
+   linkAksiDelete.appendChild(iconDelete);
+   tdAksi.appendChild(linkAksiDelete);
+        
+   tdKode.appendChild(inputId);
+   tdKode.appendChild(inputKode);
+   tdKode.appendChild(inputNama);
+   tr.appendChild(tdKode);
+   tr.appendChild(tdNama);
+   tr.appendChild(tdIsPositif);
+   tr.appendChild(tdSaldoAwal);
+   tr.appendChild(tdMutasiDK)
+   tr.appendChild(tdMutasiD);
+   tr.appendChild(tdMutasiK)
+   tr.appendChild(tdAksi);
+
+   frag.appendChild(tr);   
+   this.appendChild(frag);
+   return true;
+}
+
+var deleteRecord     = function(elemenId, el){
+   var tBody         = document.getElementById(elemenId);
+   if(typeof(tBody) != 'undefined' && tBody != null){
+      var emptyRow   = 'coa-empty-row';
+      var totalRow   = 'row-coa-total';
+
+      var record        = el.parentNode.parentNode;
+      var firstNode     = tBody.firstChild.nextSibling;
+      var childObj      = tBody.getElementsByTagName('tr');
+
+      if(firstNode.id != emptyRow || firstNode.id != totalRow){
+         tBody.removeChild(record);
+         if(childObj.length === 0){
+            setEmptyRecord(tBody);
+         }else{
+            if(childObj[0].id == totalRow){
+               setEmptyRecord(tBody);
+            }
+         }
+      }else{
+         setEmptyRecord(tBody);
+      }
+   }else{
+      console.log('Cannot find HTML elemen');
+   }
+}
+
+var setEmptyRecord      = function(elemen){
+   var emptyRow   = 'coa-empty-row';
+
+
+   var childObj   = elemen.getElementsByTagName('tr');
+   for (var i = childObj.length - 1; i >= 0; i--) {
+      elemen.removeChild(childObj[i]);
+   };
+
+   var frag       = document.createDocumentFragment();
+   var tr         = document.createElement('tr');
+   tr.id          = emptyRow;
+   var td         = document.createElement('td');
+   td.setAttribute('colspan', 3);
+   td.style.textAlign   = 'center';
+   td.innerHTML   = 'Pilih Data Akun';
+
+   tr.appendChild(td);
+   frag.appendChild(tr);
+   elemen.insertBefore(frag, elemen.firstChild);
+
+   return true;
+}
+
+document.getElementById('CoaPlaceHolder_coa').deleteAllItem = function ()
+{
+   var Obj        = this.getElementsByTagName('tr');
+   var emptyRow   = document.createElement('tr');
+   emptyRow.id    = 'coa-empty-row';
+   var tdEmpty    = document.createElement('td');
+   tdEmpty.setAttribute('colspan', '3');
+   tdEmpty.style.textAlign    = 'center';
+   tdEmpty.style.fontStyle    = 'italic';
+   tdEmpty.innerHTML          = '-- Pilih Data Akun -- ';
+   emptyRow.appendChild(tdEmpty);
+
+   for (var i = Obj.length - 1; i >= 0; i--) {
+      this.removeChild(Obj[i]);
+   };
+   this.appendChild(emptyRow);
+};
+
+var dataCOA       = {COA_DATA};
+
+if(dataCOA.length > 0){
+   for(var i in dataCOA){
+      document.getElementById('CoaPlaceHolder_coa').addItem(
+         dataCOA[i].id,
+         dataCOA[i].kode,
+         dataCOA[i].nama,
+         dataCOA[i].is_positif,
+         dataCOA[i].is_saldo_awal,
+         dataCOA[i].is_mutasi_dk,
+         dataCOA[i].is_mutasi_d,
+         dataCOA[i].is_mutasi_k
+      );
+   }
+}
+
+
+// untnuk kelompok laporan
+document.getElementById('KlpPlaceHolder').addItem     = function( id,nama){
+    
+   var elemen_id  = 'klp_laporan_'+id;
+   if(document.getElementById(elemen_id)){
+      return true;
+   }
+   var frag             = document.createDocumentFragment();
+   var childObj         = this.getElementsByTagName('tr');
+
+   for (var i = childObj.length - 1; i >= 0; i--) {
+      if(childObj[i].id === 'klp-empty-row' || childObj[i].id == 'row-klp-total'){
+         this.removeChild(childObj[i]);
+      }
+   };
+
+   var tr      = document.createElement('tr');
+   tr.id       = elemen_id;
+
+   var inputId       = document.createElement('input');
+   inputId.type      = 'hidden';
+   inputId.id        = 'klp-id-'+id;
+   inputId.name      = 'klp['+id+'][id]';
+   inputId.value     = id;
+
+   var tdNama        = document.createElement('td');
+   var inputNama     = document.createElement('input');
+   inputNama.type    = 'hidden';
+   inputNama.id      = 'klp-nama-'+id;
+   inputNama.name    = 'klp['+id+'][nama]';
+   inputNama.value   = nama;
+   var labelNama     = document.createElement('label');
+   labelNama.innerHTML  = nama;
+   tdNama.appendChild(labelNama);
+
+   var tdAksi        = document.createElement('td');
+   tdAksi.className  = 'links';
+   tdAksi.style.padding       = 0;
+   tdAksi.style.paddingTop    = '4px';
+   tdAksi.style.textAlign     = 'center';
+   var linkAksiDelete         = document.createElement('a');
+   linkAksiDelete.style.float = 'none';
+   linkAksiDelete.style.display = 'inline-block';
+   linkAksiDelete.href        = 'javascript:void(0);';
+   linkAksiDelete.title       = 'Delete '+id;
+   linkAksiDelete.setAttribute('onclick', 'deleteRecord("'+this.id+'", this);');
+   var iconDelete             = document.createElement('img');
+   iconDelete.src             = 'images/icons/16/button-delete.gif';
+   iconDelete.alt             = 'delete';
+
+   linkAksiDelete.appendChild(iconDelete);
+   tdAksi.appendChild(linkAksiDelete);
+        
+   tdNama.appendChild(inputId);
+   tdNama.appendChild(inputNama);
+   tr.appendChild(tdNama);
+   tr.appendChild(tdAksi);
+
+   frag.appendChild(tr);   
+   this.appendChild(frag);
+   return true;
+}
+
+var deleteRecord     = function(elemenId, el){
+   var tBody         = document.getElementById(elemenId);
+   if(typeof(tBody) !== 'undefined' && tBody !== null){
+      var emptyRow   = 'klp-empty-row';
+      var totalRow   = 'row-klp-total';
+
+      var record        = el.parentNode.parentNode;
+      var firstNode     = tBody.firstChild.nextSibling;
+      var childObj      = tBody.getElementsByTagName('tr');
+
+      if(firstNode.id !== emptyRow || firstNode.id !== totalRow){
+         tBody.removeChild(record);
+         if(childObj.length === 0){
+            setEmptyRecord(tBody);
+         }else{
+            if(childObj[0].id === totalRow){
+               setEmptyRecord(tBody);
+            }
+         }
+      }else{
+         setEmptyRecord(tBody);
+      }
+   }else{
+      console.log('Cannot find HTML elemen');
+   }
+}
+
+var setEmptyRecord      = function(elemen){
+   var emptyRow   = 'klp-empty-row';
+
+
+   var childObj   = elemen.getElementsByTagName('tr');
+   for (var i = childObj.length - 1; i >= 0; i--) {
+      elemen.removeChild(childObj[i]);
+   };
+
+   var frag       = document.createDocumentFragment();
+   var tr         = document.createElement('tr');
+   tr.id          = emptyRow;
+   var td         = document.createElement('td');
+   td.setAttribute('colspan', 3);
+   td.style.textAlign   = 'center';
+   td.innerHTML   = 'Pilih Referensi Kelompok Laporan';
+
+   tr.appendChild(td);
+   frag.appendChild(tr);
+   elemen.insertBefore(frag, elemen.firstChild);
+
+   return true;
+}
+
+document.getElementById('KlpPlaceHolder').deleteAllItem = function ()
+{
+   var Obj        = this.getElementsByTagName('tr');
+   var emptyRow   = document.createElement('tr');
+   emptyRow.id    = 'klp-empty-row';
+   var tdEmpty    = document.createElement('td');
+   tdEmpty.setAttribute('colspan', '2');
+   tdEmpty.style.textAlign    = 'center';
+   tdEmpty.style.fontStyle    = 'italic';
+   tdEmpty.innerHTML          = '-- Pilih Referensi Kelompok Laporan -- ';
+   emptyRow.appendChild(tdEmpty);
+
+   for (var i = Obj.length - 1; i >= 0; i--) {
+      this.removeChild(Obj[i]);
+   };
+   this.appendChild(emptyRow);
+};
+
+var dataKLP       = {KLP_DATA};
+if(dataKLP.length > 0){
+   for(var i in dataKLP){
+      document.getElementById('KlpPlaceHolder').addItem(              
+         dataKLP[i].id,
+         dataKLP[i].nama
+      );
+   }
+}
+
+
+//cange label is positif
+
+
+var onIsPositif = function(id,elCheckbox){
+    if(document.getElementById('coa-is-positif-label-' + id)){
+        var myLabel = document.getElementById('coa-is-positif-label-' + id);
+        var getStatus = elCheckbox;        
+        if(getStatus.checked == true) {
+            myLabel.innerHTML = '+';
+            myLabel.classList.add('green');
+            myLabel.classList.remove('pink');
+        } else {
+            myLabel.innerHTML = '-';
+            myLabel.classList.add('pink');
+            myLabel.classList.remove('green');
+        }
+    }
+    
+}
+
+var onIsMutasiDK = function(id,elCheckbox) {
+    
+    var cMDK = document.getElementById('coa-is-mutasi-dk-' + id);
+    var cMD = document.getElementById('coa-is-mutasi-d-' + id);
+    var cMK = document.getElementById('coa-is-mutasi-k-' + id); 
+    if(elCheckbox.checked == true){
+        cMDK.checked = true;
+        cMD.checked = false;
+        cMK.checked = false;
+    } else {
+        cMDK.checked = false;
+        cMD.checked = false;
+        cMK.checked = false;
+    }
+}
+
+var onIsMutasiD = function(id,elCheckbox) {
+    
+    var cMDK = document.getElementById('coa-is-mutasi-dk-' + id);
+    var cMD = document.getElementById('coa-is-mutasi-d-' + id);
+    var cMK = document.getElementById('coa-is-mutasi-k-' + id);        
+    if(elCheckbox.checked == true){
+        cMDK.checked = false;
+        cMD.checked = true;
+        cMK.checked = false;
+    } else {
+        cMDK.checked = false;
+        cMD.checked = false;
+        cMK.checked = false;
+    }
+    
+}
+
+var onIsMutasiK = function(id,elCheckbox) {
+    
+    var cMDK = document.getElementById('coa-is-mutasi-dk-' + id);
+    var cMD = document.getElementById('coa-is-mutasi-d-' + id);
+    var cMK = document.getElementById('coa-is-mutasi-k-' + id);        
+    if(elCheckbox.checked == true){        
+        cMDK.checked = false;
+        cMD.checked = false;
+        cMK.checked = true;
+    } else {
+        cMDK.checked = false;
+        cMD.checked = false;
+        cMK.checked = false;
+    }
+}
+
+</script>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,88 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript">
+function refreshNilai(){
+	   $(".nominal").each(function() {
+		    $(this).val(this.gvSetValue(this.value));
+		});
+	}
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="tahun_pembukuan" / --></h1>
+<div id="warning_box" class="notebox-warning" style="display:none" onclick="$(this).hide();"></div>
+<br/>
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="notebox-alert">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+      
+   <form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
+   <input type="hidden" name="coa_id" value="{COA_ID}"  />
+   <input type="hidden" name="is_debet_positif" value="{IS_DEBET_POSITIF}"  />
+   <input type="hidden" name="op" value="{OP}"/>
+      <table class="table-edit" width="100%">
+         <tr class="subhead">
+            <th colspan="2">{ACTION} <!-- patTemplate:gtfwgetconfig config="language" name="saldo_awal" / --></th>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / --></th>
+            <td><!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal" / --></td>
+         </tr>
+		 <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / --></th>
+            <td>{KODE_AKUN}</td>
+         </tr>
+		 <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / --></th>
+            <td>{NAMA_AKUN}</td>
+         </tr>
+         <tr>
+         	<th><!-- patTemplate:gtfwgetconfig config="language" name="sub_account" / --></th>
+         	<td>
+         		<!-- patTemplate:tmpl name="data" type="condition" conditionvar="IS_EDIT" -->
+         			<!-- patTemplate:sub condition="YES" -->
+         				{SUBACC}
+         				<input type="hidden" name="sub_account" value="{SUBACC}" />
+         			<!-- /patTemplate:sub -->
+         			<!-- patTemplate:sub condition="NO" -->
+         				<input type="text"  name="sub_account" value=""  data-mask="**-**-**-**-**-**-**" class="subaccount input_mask"/> *
+         			<!-- /patTemplate:sub -->
+         		<!-- /patTemplate:tmpl -->
+         	</td>
+         </tr>
+         <tr style="display:none">
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="saldo_awal" / --></th>
+            <td></td>
+         </tr>
+         
+         <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="debet" / --> (<!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->.)</th>
+            <td><input type="text" name="debet" id="debet" value="{DEBET}" class="gvFloat debet" size="15"  /> </td>
+         </tr>
+         <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kredit_rp" / --></th>
+            <td><input type="text" name="kredit" id="kredit" value="{KREDIT}" class="gvFloat kredit" size="15"  /> </td>
+         </tr>
+         <tr style="display:none">
+         	<th>Nominal</th>
+         	<td><input type="text" name="nominal" id="nominal" value="{NOMINAL}" class="gvFloat nominal" size="15"  /></td>
+         </tr>
+         <tr class="buttons">
+            <th>&nbsp;</th>
+            <td>
+               <input type="submit" name="btnsimpan" value="<!-- patTemplate:gtfwgetconfig config="language" name="simpan" / -->" class="buttonSubmit"/>
+               <input  type="submit"  name="btnbatal" id="btnbatal" value="<!-- patTemplate:gtfwgetconfig config="language" name="batal" / -->" class="buttonSubmit"/>
+            </td>
+         </tr>
+      </table>
+   </form>
+   
+   <br/>
+   
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+      <ul>
+         <li>Jika * tidak diisi, maka <!-- patTemplate:gtfwgetconfig config="language" name="sub_account" / --> akan diset default <em>{SUBAKUN_DEFAULT}</em> </li>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

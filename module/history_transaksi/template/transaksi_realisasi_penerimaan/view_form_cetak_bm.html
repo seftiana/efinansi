@@ -1,0 +1,83 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+var xpopup;
+function bukaPopupCetak(xurl) {
+	var nomor_bukti = document.getElementById('nomor_bukti').value;
+	var nilai = document.getElementById('nilai').value;
+	var keterangan = document.getElementById('keterangan').value;
+	var auditor = document.getElementById('auditor').value;
+	//var nama_pembuat_kwitansi = document.getElementById('nama_pembuat_kwitansi').value;
+	var pejabat_rektor = document.getElementById('pejabat_rektor').options[document.getElementById('pejabat_rektor').selectedIndex].value;
+	var pejabat_finansial = document.getElementById('pejabat_finansial').options[document.getElementById('pejabat_finansial').selectedIndex].value;
+
+	var str_url = '&nomor_bukti=' + nomor_bukti + '&nilai=' + nilai + '&keterangan=' + keterangan + '&pejabat_rektorat=' + pejabat_rektor + '&pejabat_finansial=' + pejabat_finansial + '&auditor=' + auditor;
+
+	xpopup=window.open(xurl + str_url,'xpopup','width=900,height=600,resizable=yes,scrollbars=yes,right=0;center');
+	xpopup.focus();
+}
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="form_cetak_bm" / --></h1>
+<br/>
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="notebox-alert">
+      {ISI_PESAN}
+   </div>
+   <br/>
+   <!-- /patTemplate:tmpl -->
+   
+   
+   <form method="POST" action="{URL_BATAL}" class="xhr_form std_form" id="frmInput" >
+   <input type="hidden" name="dataId" value="{DATAID}"  />
+      <table class="table-edit" width="100%">
+         <tr class="subhead">
+            <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="cetak_bm" / --></th>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="no_bukti" / --></th>
+            <td>{NOMOR_BUKTI}<input type="hidden" name="nomor_bukti" id="nomor_bukti" value="{NOMOR_BUKTI}" size="30" readonly="readonly" /></td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="nilai" / --></th>
+            <td><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {NILAI_LABEL}<input type="hidden" name="nilai_label" value="{NILAI_LABEL}" readonly="readonly" id="nilai_label" style="text-align:right" size="20" />
+			<input type="hidden" name="nilai" id="nilai" value="{NILAI}" /><div id="nilai_terbilang">{NILAI_TERBILANG}</div></td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / --></th>
+            <td>{UNTUK_PEMBAYARAN}<input type="hidden" name="keterangan" id="keterangan" value="{UNTUK_PEMBAYARAN}" size="40" /></td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="pejabat_rektor" / --></th>
+            <td>
+				<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="pejabat_rektor"  / -->
+			</td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="pejabat_bidang_finansial" / --></th>
+            <td>
+				<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="pejabat_finansial"  / -->
+			</td>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="kepala_urusan_audit_internal" / --></th>
+            <td><input type="text" name="auditor" id="auditor" value="" size="40" /></td>
+         </tr> 
+         </tr>
+         <tr class="buttons">
+            <th>&nbsp;
+            </th>
+            <td>
+               <input type="button" name="btnsimpan" value=" <!-- patTemplate:gtfwgetconfig config="language" name="cetak" / --> " class="buttonSubmit" onclick="bukaPopupCetak('{URL_CETAK}')" />
+               <a class="xhr dest_subcontent-element" href="{URL_BATAL}" title="<!-- patTemplate:gtfwgetconfig config="language" name="batal" / -->"><input type="button" name="btnbalik" value=" <!-- patTemplate:gtfwgetconfig config="language" name="batal" / --> " class="buttonSubmit"/></a>
+            </td>
+         </tr>
+      </table>
+      </form>
+   <br/>
+   
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+      <ul>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --> </li>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

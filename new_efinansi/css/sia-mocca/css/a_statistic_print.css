@@ -1,0 +1,135 @@
+/* CSS Document */
+
+#common {
+	page: A4;
+	margin: 1.5cm 2.0cm;
+}
+
+#page {
+
+	clear: both;
+
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+
+	font-size: 10px;
+
+	line-height: 14px;
+
+	text-align: center;
+	
+	width:  16cm;
+
+	height: 26.0cm;
+
+	
+	padding: 0.5cm 0.5cm;
+
+}
+
+
+
+#page h1{
+
+	font-family:Arial, Helvetica, sans-serif;
+
+	font-size: 18px;
+	text-align:left;
+	
+
+	font-weight: bold;
+
+	margin: 0px 0px;
+
+	padding: 0cm 0cm;
+
+}
+
+
+
+#page h2 {
+
+	font-family:Arial, Helvetica, sans-serif;
+	text-align:left;
+
+	font-size: 15px;
+
+	font-weight: bold;
+
+	margin: 5px 0px;
+
+	padding: 0cm 0cm;
+
+}
+
+
+
+#page p {
+
+	margin: 0px 0px 5px 0px;
+
+	padding: 0px 0px 0px 0px;
+
+}
+
+
+
+#page table {
+
+	border: 1px solid #000000;
+
+	border-collapse: collapse;
+
+	text-align: left;
+
+	width: 100%;
+
+}
+
+
+
+#page th {
+
+	border-bottom: 1px solid #000000;
+
+	border-collapse: collapse;
+
+	font-weight: normal;
+
+	text-align: left;
+
+	width: 10px;;
+
+	padding: 0px 5px 0px 5px;
+
+}
+
+
+
+#page td {
+
+	border: 1px solid #000000;
+
+	border-collapse: collapse;
+
+	text-align: left;
+	height: 30px;
+
+	padding: 0px 0px 0px 5px;
+
+}
+
+#page tr {
+
+	border: 1px solid #000000;
+
+	border-collapse: collapse;
+
+	text-align: left;
+
+	padding: 0px 0px 0px 5px;
+
+}
+
+
+
+

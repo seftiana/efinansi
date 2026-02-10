@@ -1,0 +1,108 @@
+<!-- patTemplate:tmpl name="content" -->
+<style>
+    /**
+style untuk multi chechbox
+**/
+
+.com_multicheckbox{
+    margin: 0;
+    padding: 0;
+}
+.com_multicheckbox ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.com_multicheckbox ul li {
+    margin: 0;
+    padding: 10px 0 10px 0;
+}
+.com_multicheckbox ul li label{
+    margin: 0;
+    padding: 5px 5px 0 5px;
+}
+/** 
+ * end style
+ */
+</style>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="coa" / --></h1>
+<br />
+<form method="POST" name="frm_coa" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+      <tr>
+         <th width="20%"><!-- patTemplate:gtfwgetconfig config="language" name="kata_kunci" / --></th>
+         <td><input type="text" name="input" value="{INPUT}" size="50" /></td>
+      </tr>
+      
+      <tr>
+         <th width="20%"><!-- patTemplate:gtfwgetconfig config="language" name="rekening_kas" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="tipe_coa" / --> </th>
+         <td class="com_multicheckbox">
+             <ul>
+                 <li>
+                     <input type="checkbox" name="coa_is_kas" value="1" {KAS_CHEKED}>
+                     <label><!-- patTemplate:gtfwgetconfig config="language" name="is_kas" / --></label>
+                 </li>
+                 <li>
+                     <input type="checkbox" name="coa_is_laba_rugi" value="1" {LABA_RUGI_CHEKED}>
+                     <label><!-- patTemplate:gtfwgetconfig config="language" name="laba_rugi" / --></label>
+                 </li>
+                 <li>
+                     <input type="checkbox" name="coa_is_laba_rugi_at" value="1" {LABA_RUGI_AT_CHEKED}>
+                     <label><!-- patTemplate:gtfwgetconfig config="language" name="laba_rugi_at" / --> </label>
+                 </li>
+             </ul>
+         </td>
+      </tr>
+      
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Proses &raquo;" class="buttonSubmit"/>
+            <input type="reset" name="btnReset" value=" Reset" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   <div class="toolbar"> 
+	  <a class="xhr dest_subcontent-element" href="{URL_KEMBALI}" title="Kembali ke Chart Of Account" tabindex="2">
+	  <!-- patTemplate:gtfwgetconfig config="language" name="kembali" / --></a>
+   </div>
+</div>
+<table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_coa" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_akun" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="saldo_normal" / --></th>
+		 <th width="31"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="coa" type="condition" conditionvar="USER_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="4" align="center"><em>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="list_coa" -->
+            <tr class="{CLASS_NAME}">
+               <td align="center">{NUMBER}</td>
+               <td>{KODE_AKUN}</td>
+               <td>{NAMA_AKUN}</td>
+               <td>{SALDO_NORMAL}</td>
+               <td class='links'><a class="xhr dest_subcontent-element" href="{URL_UBAH}" title="ubah Chart Of Account {NAMA_AKUN}"><img src="images/button-edit.gif" alt="Ubah"/></a></td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+<!-- /patTemplate:tmpl -->

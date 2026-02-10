@@ -1,0 +1,188 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   Detail Module
+</h1>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<form name="frmInput" id="frm-input" method="POST" class="xhr_form dest_subcontent-element" data-target="{URL_RETURN}" action="{URL_ACTION}">
+   <div class="pageBar">
+      <div class="toolbar">
+         <a class="xhr dest_subcontent-element" href="{URL_RETURN}" title="Redirect" >
+            Return
+            <img src="images/icons/16/redirect.gif" alt="" style="float: right; margin-left: 0.3635rem; padding-top: 0.09735rem;">
+         </a>
+         <input type="submit" name="btnRegister" value="register" class="inputButton" />
+      </div>
+   </div>
+   <table class="table-details" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            <strong>
+               Detail Module
+            </strong>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 135px;">
+            Module Name
+         </th>
+         <td>
+            {NAME}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Path
+         </th>
+         <td>
+            {PATH}
+         </td>
+      </tr>
+      <tr class="subhead">
+         <th colspan="2">
+            Sub Module [belum terdaftar]
+         </th>
+      </tr>
+      <tr>
+         <td colspan="2" style="padding: 0px;">
+            <!-- patTemplate:tmpl name="sub_module_unregister" type="condition" conditionvar="DATA_EMPTY" -->
+               <!-- patTemplate:sub condition="YES" -->
+                  <center>
+                     <strong>
+                        <em>
+                           Semua sub module sudah terdaftar
+                        </em>
+                     </strong>
+                  </center>
+               <!-- /patTemplate:sub -->
+               <!-- patTemplate:sub condition="NO" -->
+                  <!-- start: Table List -->
+                  <table class="table-common" width="100%">
+                     <thead>
+                        <tr>
+                           <th style="width: 16px; padding-left: 8px;">
+                              <input type="checkbox" class="CheckBoxFW_parent" />
+                           </th>
+                           <th style="width: 65px;">
+                              Access
+                           </th>
+                           <th style="width: 215px;">
+                              NAME
+                           </th>
+                           <th style="width: 45px;">
+                              ACTION
+                           </th>
+                           <th style="width: 45px;">
+                              TYPE
+                           </th>
+                           <th>
+                              Description
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <!-- patTemplate:tmpl name="list_unregister_sub_module" -->
+                           <tr class="{CLASS_NAME}">
+                              <td style="padding-left: 12px; text-align: center;">
+                                 <input type="checkbox" class="CheckBoxFW_child" name="id[]" value="{ID}" />
+                                 <input type="hidden" name="register[{ID}][app_id]" value="{APP_ID}" />
+                                 <input type="hidden" name="register[{ID}][module]" value="{MODULE_NAME}" />
+                                 <input type="hidden" name="register[{ID}][sub_module]" value="{NAME}" />
+                                 <input type="hidden" name="register[{ID}][type]" value="{TYPE}" />
+                                 <input type="hidden" name="register[{ID}][action]" value="{ACTION}" />
+                                 <input type="hidden" name="register[{ID}][label]" value="{LABEL}" />
+                              </td>
+                              <td>
+                                 <select name="register[{ID}][access]">
+                                    <option value="Exclusive">Exclusive</option>
+                                    <option value="All">All</option>
+                                 </select>
+                              </td>
+                              <td>
+                                 {NAME}
+                              </td>
+                              <td style="text-align: center;">
+                                 {ACTION}
+                              </td>
+                              <td style="text-align: center;">
+                                 {TYPE}
+                              </td>
+                              <td>
+                                 <textarea name="register[{ID}][description]" rows="2" style="width: 100%; resize: none;"></textarea>
+                              </td>
+                           </tr>
+                        <!-- /patTemplate:tmpl -->
+                     </tbody>
+                  </table>
+                  <!-- end: Table List -->
+               <!-- /patTemplate:sub -->
+            <!-- /patTemplate:tmpl -->
+         </td>
+      </tr>
+   </table>
+</form>
+<script type="text/javascript">
+CheckBoxFW_initiate = function (Obj)
+{
+   if (!Obj || Obj.className.indexOf('CheckBoxFW_parent') < 0 || !Obj.form) return;
+
+   var CBList     = new Array;
+   var CheckedAll = true;
+   var FormObj    = Obj.form;
+
+   for (var i = 0; i < FormObj.length; i++) if (FormObj[i] == Obj) break;
+   if (i == FormObj.length) return;
+
+   for(i += 1; i < FormObj.length; i++)
+   {
+      var CBObj = FormObj[i];
+      if (CBObj.type.toUpperCase() != 'CHECKBOX') continue;
+      if (CBObj.className.indexOf('CheckBoxFW_child') >= 0)
+      {
+         CBObj.onchange = function () {
+            Obj.checkChild();
+         }
+         CBList[CBList.length] = CBObj;
+         if (!CBObj.checked) CheckedAll = false;
+      }
+      if (CBObj.className.indexOf('CheckBoxFW_parent') >= 0) break;
+   }
+
+   if (CBList.length > 0)
+   {
+      Obj.onchange = function ()
+      {
+         for (var i = 0; i < CBList.length; i++){
+            if(CBList[i].getAttribute('disabled') == null){
+               CBList[i].checked = this.checked;
+            }
+         }
+      }
+
+      Obj.checkChild = function ()
+      {
+         var CheckedAll = true;
+         for (var i = 0; i < CBList.length; i++) if (!CBList[i].checked)
+         {
+            CheckedAll = false;
+            break;
+         }
+         this.checked = CheckedAll;
+      }
+
+      Obj.checked = CheckedAll;
+   }
+}
+var formObj       = document.getElementById('frm-input');
+if(typeof(formObj) != 'undefined' && formObj != null){
+   for (var i = 0; i < formObj.length; i++){
+      CheckBoxFW_initiate(formObj[i]);
+   }
+}
+</script>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,49 @@
+<!-- patTemplate:tmpl name="content" -->
+   <br />
+   <h1>Cetak List Penyusutan</h1>
+   <table class="empty-table">
+   <tr>
+      <td>
+         Periode Penyusutan
+      </td>
+      <td>
+         : {TGL_AWAL} <!-- patTemplate:gtfwgetconfig config="language" name="s_d" / --> {TGL_AKHIR}
+      </td>
+   </tr>
+   </table>
+   <table width="80%">
+   <thead>
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <th>Periode Penyusutan</th>
+         <th>Kode Aset</th>
+         <th>Nama Aset</th>
+         <th>Unit PJ Barang</th>
+         <th>Nilai Penyusutan (Rp)</th>
+         <th>Akumulasi Penyusutan (Rp)</th>
+         <th>Nilai Buku (Rp)</th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="8" align="center"><em>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{CLASS_NAME}">
+               <td align="center">{NUMBER}</td>
+               <td>{PERIODE_PENYUSUTAN}</td>
+               <td style="text-align:center;">{KODE_ASET}</td>
+               <td>{NAMA_ASET}</td>
+               <td>{UNIT_PJ}</td>
+               <td style="text-align:right;">{NILAI_PENYUSUTAN}</td>
+               <td style="text-align:right;">{AKUMULASI_PENYUSUTAN}</td>
+               <td style="text-align:right;">{NILAI_BUKU}</td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+   </table>
+<!-- /patTemplate:tmpl -->

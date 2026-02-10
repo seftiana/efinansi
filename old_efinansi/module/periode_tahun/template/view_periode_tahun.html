@@ -1,0 +1,229 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="manajemen_periode_tahun" / -->
+</h1>
+<br />
+<form method="POST" name="frmRenstra" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+<table>
+   <tr>
+      <th colspan="2">
+         <h2>
+            <strong>
+               <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+            </strong>
+         </h2>
+      </th>
+   </tr>
+   <tr>
+      <th style="width: 115px;">
+         <!-- patTemplate:gtfwgetconfig config="language" name="renstra" / -->
+      </th>
+      <td>
+         <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view"
+         name="cmb_renstra"  / -->
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="nama_tahunan" / -->
+      </th>
+      <td>
+         <input type="text" name="nama" value="{NAMA}" size="35" />
+      </td>
+   </tr>
+   <tr>
+      <th>
+         &nbsp;
+      </th>
+      <td>
+         <input type="submit" name="btncari" value=" <!-- patTemplate:gtfwgetconfig
+         config="language"    name="tampilkan" / --> &raquo;" class="buttonSubmit"/>
+         <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+      </td>
+   </tr>
+</table>
+</form>
+
+<br />
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+
+<br />
+<form method="post" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar">
+         <a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Data" >
+            <img src="images/button-add.gif" alt="">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / -->
+         </a>
+      </div>
+   </div>
+<table class="table-common" width="100%">
+   <thead>
+      <tr >
+         <th rowspan="2" width="5">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th rowspan="2" align="center">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama_periode_tahunan" / -->
+         </th>
+         <th colspan="2" align="center">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <th colspan="2" valign="center">
+            <!-- patTemplate:gtfwgetconfig config="language" name="status" / -->
+         </th>
+         <th rowspan="2" valign="center" width="70px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="awal" / -->
+         </th>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="akhir" / -->
+         </th>
+         <th valign="center" width="35px">
+            Aktif
+         </th>
+         <th valign="center" width="35px">
+            Open
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="7" align="center">
+                  <em>
+                     --<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--
+                  </em>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+               <tr class="{CLASS_NAME}" style="{ROW_STYLE}">
+                  <td align="center">
+                     {NOMOR}
+                  </td>
+                  <td>
+                     {NAMA}
+                  </td>
+                  <td align="center">
+                     <!-- patTemplate:var name="TGL_AWAL" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+                  </td>
+                  <td align="center">
+                     <!-- patTemplate:var name="TGL_AKHIR" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+                  </td>
+                  <td class="links" align="center">
+                     <!-- patTemplate:tmpl name="status_aktif" type="condition" conditionvar="AKTIF" -->
+                        <!-- patTemplate:sub condition="YES" -->
+                           <a href="javascript: void(0);">
+                              <img src="images/icons/16/tick_circle.png" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="NO" -->
+                           <a class="set_active" href="{URL_AKTIF}" data-id="{DATA_ID}" title="Set Aktif">
+                              <img src="images/icons/16/button-check.gif" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="NOT_ACTIVE" -->
+                           <a href="javascript: void(0);">
+                              <img src="images/icons/16/red.gif" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="ACTIVE" -->
+                           <a href="javascript: void(0);">
+                              <img src="images/icons/16/green.gif" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                     <!-- /patTemplate:tmpl -->
+                  </td>
+                  <td align="center" class="links">
+                     <!-- patTemplate:tmpl name="status_open" type="condition" conditionvar="OPEN" -->
+                        <!-- patTemplate:sub condition="YES" -->
+                           <a href="javascript: void(0);">
+                              <img src="images/icons/16/green.gif" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="NO" -->
+                           <a href="javascript: void(0);">
+                              <img src="images/icons/16/inaktif.gif" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                     <!-- /patTemplate:tmpl -->
+                  </td>
+                  <td class="links" align="center">
+                     <!-- patTemplate:tmpl name="link_status" type="condition" conditionvar="ENABLE" -->
+                        <!-- patTemplate:sub condition="YES" -->
+                           <a class="xhr dest_subcontent-element" href="{URL_EDIT}" title="ubah">
+                              <img src="images/icons/16/button-edit.gif" alt="Ubah"/>
+                           </a>
+                           <a class="xhr dest_subcontent-element" href="{URL_DELETE}" title="hapus" >
+                              <img src="images/icons/16/button-delete.gif" alt="Hapus" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="NO" -->
+                           <a href="javascript:void(0);" title="ubah">
+                              <img src="images/icons/16/button-edit-disabled.gif" alt="Ubah"/>
+                           </a>
+                           <a href="javascript:void(0);" title="hapus" >
+                              <img src="images/icons/16/button-batal.gif" alt="Hapus" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="ONLY_EDIT" -->
+                           <a class="xhr dest_subcontent-element" href="{URL_EDIT}" title="ubah">
+                              <img src="images/icons/16/button-edit.gif" alt="Ubah"/>
+                           </a>
+                           <a href="javascript:void(0);" title="hapus" >
+                              <img src="images/icons/16/button-batal.gif" alt="Hapus" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                     <!-- /patTemplate:tmpl -->
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+</form>
+<br />
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / -->
+         <img src="images/button-add.gif" /> untuk menambah periode tahun
+      </li>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / -->
+         <img src="images/button-check.gif" /> untuk set aktif periode tahun
+      </li>
+      <li>
+         <img src="images/lamp-green.gif" /> Periode Tahun berada pada status open
+      </li>
+      <li>
+         <img src="images/lamp-off.gif" /> Periode Tahun tidak open
+      </li>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / -->
+         <img src="images/button-edit.gif" /> Untuk mengedit periode tahun
+      </li>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / -->
+         <img src="images/button-delete.gif" /> untuk menghapus periode tahun
+      </li>
+   </ul>
+</div>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,205 @@
+<!-- patTemplate:tmpl name="content" -->
+<form name="frmInput" method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+   <table>
+      <tr>
+         <th colspan="2">
+            <h2>
+               <strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" value="{KODE}" size="40" />
+         </td>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <td>
+            <input type="text" name="nama" value="{NAMA}" size="40" />
+         </td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Cari Coa &raquo;" class="buttonSubmit"/>
+            <input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th width="10">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th style="width: 95px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <th style="width: 30px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="4" align="center">
+                  <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+               <tr class="{CLASS_NAME}" id="coa_akun_{ID}">
+                  <td align="center">
+                     {NOMOR}
+                  </td>
+                  <td align="right">
+                     {KODE}
+                  </td>
+                  <td>
+                     {NAMA}
+                  </td>
+                  <td align="center" class="links">
+                     <!-- patTemplate:tmpl name="content_links" type="condition" conditionvar="TIPE" -->
+                        <!-- patTemplate:sub condition="DEBET" -->
+                           <a href="javascript:void(0);" onclick="setData(this, '{ID}', 'DEBET');" title="debet" id="links-{ID}">
+                              <img src="images/icons/16/button-check.gif" alt="debet" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="KREDIT" -->
+                           <a href="javascript:void(0);" onclick="setData(this, '{ID}', 'KREDIT');" title="kredit" id="links-{ID}">
+                              <img src="images/icons/16/button-check.gif" alt="kredit" />
+                           </a>
+                        <!-- /patTemplate:sub -->
+                     <!-- /patTemplate:tmpl -->
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<br />
+<div class="petunjuk-area" id="petunjuk">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         <img src="images/icons/16/button-check.gif" style="margin: -3px;" /> &nbsp; Untuk memilih akun
+      </li>
+      <li>
+         <img src="images/icons/16/button-cancel-tindaklanjut.gif" style="margin: -3px;" /> &nbsp; Data Akun sudah di definisikan untuk jurnal
+      </li>
+   </ul>
+</div>
+<script type="text/javascript">
+var dataCoa       = {COA_DATA};
+
+var setData       = function(elemen, id, tipe) {
+   var node       = document.getElementById('coa_akun_'+id);
+   var parentNode = elemen.parentNode;
+   // parentNode.removeChild(elemen);
+
+   var data       = dataCoa[id];
+   var dataId     = data.id;
+   var dataKode   = data.kode;
+   var dataNama   = data.nama;
+   if(tipe.toUpperCase() == 'DEBET'){
+      document.getElementById('CoaPlaceHolder_debet').addItem(
+         data.id,
+         data.kode,
+         data.nama,
+         '',
+         '', '', 0
+      );
+      // console.log('debet');
+   }
+
+   if(tipe.toUpperCase() == 'KREDIT'){
+       document.getElementById('CoaPlaceHolder_kredit').addItem(
+         data.id,
+         data.kode,
+         data.nama,
+         '',
+         '',
+         '',
+         0
+      );
+   }
+   loadSubAkun();
+}
+
+function loadSubAkun () {
+   var debetPlaceHolder    = document.getElementById('CoaPlaceHolder_debet');
+   var kreditPlaceHolder   = document.getElementById('CoaPlaceHolder_kredit');
+   var coaAkun             = new Array();
+   var patern              = /(\w+)_(\w+)_(\d+)/;
+   if(debetPlaceHolder && typeof(debetPlaceHolder) != 'undefined'){
+      var debetNodes       = debetPlaceHolder.getElementsByTagName('tr');
+      if(debetNodes.length > 0){
+         for (var i = debetNodes.length - 1; i >= 0; i--) {
+            var str  = debetNodes[i].id;
+            if(str.match(patern)){
+               var debetSplit    = str.split('_');
+               var idDebet       = debetSplit[2];
+               coaAkun.push(idDebet);
+            }
+         };
+      }
+   }
+
+   if(kreditPlaceHolder && typeof(kreditPlaceHolder) != 'undefined'){
+      var kreditNodes         = kreditPlaceHolder.getElementsByTagName('tr');
+      if(kreditNodes.length > 0){
+         for (var i = kreditNodes.length - 1; i >= 0; i--) {
+            var str  = kreditNodes[i].id;
+            if(str.match(patern)){
+               var kreditSplits     = str.split('_');
+               var idKredit         = kreditSplits[2];
+               coaAkun.push(idKredit);
+            }
+         };
+      }
+   }
+
+   if(coaAkun.length > 0){
+      for (var i = coaAkun.length - 1; i >= 0; i--) {
+         var node       = document.getElementById('coa_akun_'+coaAkun[i]);
+         var links      = document.getElementById('links-'+coaAkun[i]);
+         var img        = document.createElement('img');
+         img.src        = 'images/icons/16/button-cancel-tindaklanjut.gif';
+         if(typeof(links) != 'undefined' && links != null){
+
+            links.href        = 'javascript:void(0);';
+            links.innerHTML   = '';
+            links.appendChild(img);
+            links.removeAttribute('onclick');
+         }
+      };
+   }
+}
+// check link yang sudah di definisikan pada form input
+loadSubAkun();
+</script>
+<!-- /patTemplate:tmpl -->

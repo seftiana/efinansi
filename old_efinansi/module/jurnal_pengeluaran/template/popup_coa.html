@@ -1,0 +1,114 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type='text/javascript'>
+/*
+function setParent(obj,id,kode,nama)
+{
+    var randomnumber=Math.floor(Math.random()*20);
+    var tr, td;
+	var trid = 'tr-debet' + id + '-' + randomnumber;
+
+    tbody = document.getElementById('table-debet');
+    tbody.style.display='block';
+
+
+    tr = tbody.insertRow(tbody.rows.length);
+	tr.id = trid;
+    tr.setAttribute("class","table-common-even");
+
+	td = tr.insertCell(tr.cells.length);
+    td.innerHTML =
+
+	td = tr.insertCell(tr.cells.length);
+
+	td = tr.insertCell(tr.cells.length);
+
+	td = tr.insertCell(tr.cells.length);
+
+	td = tr.insertCell(tr.cells.length);
+	obj.style.display='none';
+
+    //window.close();
+}
+*/
+function setParent(obj,id,kode,nama) {
+
+   var random=Math.floor(Math.random()*666);
+
+	var tr = document.createElement('tr');
+	var td_kode = document.createElement('td');
+    var td_sub_account = document.createElement('td');
+	var td_nama = document.createElement('td');
+	var td_nilai = document.createElement('td');
+	var td_delete = document.createElement('td');
+	var tbodi = document.getElementById("tbody_akun_list");
+
+	td_kode.innerHTML = '<input type="hidden" name="data[debet][tambah][id][]" value="' + id + '" /> ' + '<input type="hidden" name="data[debet][tambah][kode][]" value="' + kode + '" /> ' + kode;
+	td_sub_account.innerHTML = '<input class="input_mask" data-mask="9999-99-99-99-99-99-99" type="text" name="data[debet][tambah][sub_account][]" value="" /> ';
+   td_nama.innerHTML = '<input type="hidden" name="data[debet][tambah][nama][]" value="' + nama + '" /> ' + nama;
+   td_nilai.innerHTML = '<input class="gvFloat debet" type="text" name="data[debet][tambah][nilai][]" style="text-align:right" id="' + random + '" />';
+   td_delete.innerHTML = '<a href="javascript:void(null)" title="Hapus" onclick="hapus_akun(this)"><img src="images/button-delete.gif" alt="Hapus" /></a>';
+
+	tr.appendChild(td_kode);
+	tr.appendChild(td_sub_account);
+	tr.appendChild(td_nama);
+	tr.appendChild(td_nilai);
+	tr.appendChild(td_delete);
+	tbodi.appendChild(tr);
+	gValidation20090108['.gvFloat'](td_nilai.getElementsByTagName('input')[0]);
+   obj.style.display='none';
+	Behaviour.apply();
+}
+</script>
+<form name="frmInput" method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --> </strong></h2></th>
+      </tr>
+      <tr>
+         <th width="20%"><!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->/<!-- patTemplate:gtfwgetconfig config="language" name="nama_coa" / --></th>
+         <td><input type="text" name="data[nama]" value="{SEARCH_NAMA}" size="40" /></td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Cari Coa &raquo;" class="buttonSubmit"/>
+			<input type="button" name="btnclose" value=" Tutup " class="buttonSubmit" onclick="popupClose()" />
+         </td>
+      </tr>
+   </table>
+</form>
+
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+
+<table class="table-common" width="100%">
+   <tr>
+      <th width="10"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+      <th><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+	  <th><!-- patTemplate:gtfwgetconfig config="language" name="nama" / --></th>
+      <th width="70"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+   </tr>
+   <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_EMPTY" -->
+      <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="4" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+      <!-- /patTemplate:sub -->
+      <!-- patTemplate:sub condition="NO" -->
+         <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">{DATA_NO}</td>
+			   <td>{DATA_KODE}</td>
+               <td>{DATA_NAMA}</td>
+               <td align="center" class="links">
+			      {DATA_SET_PARENT}
+               </td>
+            </tr>
+         <!-- /patTemplate:tmpl -->
+      <!-- /patTemplate:sub -->
+   <!-- /patTemplate:tmpl -->
+</table>
+<div class="pageBar">
+</div>
+
+<!-- /patTemplate:tmpl -->

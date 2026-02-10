@@ -1,0 +1,189 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   Laporan Harian Kas
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterbox" name="filterbox" class="dataquest xhr_simple_form dest_subcontent-element">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode" / -->
+         </th>
+         <td>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="start_date"  / -->
+            </div>
+            <div>
+               <!-- patTemplate:gtfwgetconfig config="language" name="s_d" / -->
+            </div>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="end_date"  / -->
+            </div>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   <div class="toolbar">
+      <a href="{URL_EXPORT}" title="Export Laporan Harian Kas" target="_blank">
+         <img src="images/icons/16/export_excel.gif" alt="">
+         <!-- patTemplate:gtfwgetconfig config="language" name="excel" / -->
+      </a>
+   </div>
+</div>
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <th>
+            No. BPKK
+         </th>
+         <th>
+            Penjelasan
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="no_rek" / -->
+         </th>
+         <th style="width: 40px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="status_jurnal" / -->
+         </th>
+         <th style="width: 100px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="debet" / -->
+         </th>
+         <th style="width: 100px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kredit" / -->
+         </th>
+         <th style="width: 115px;">
+            Jumlah
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="8">
+                  <center>
+                     <em>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                     </em>
+                  </center>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+               <tr>
+                  <td style="font-weight: bold;" colspan="8" align="center">
+                     Saldo Awal
+                  </td>
+                  <td style="font-weight: bold;" align="right">
+                     {SALDO_AWAL}
+                  </td>
+               </tr>
+            <!-- patTemplate:tmpl name="data_list" -->
+               <tr class="{DATA_CLASS_NAME}">
+                  <td align="center">
+                     {NOMOR}
+                  </td>
+                  <td align="right">
+                     <!-- patTemplate:var name="TANGGAL" modifier="gtfwindonesiandate" format="short" separator="/" / -->
+                  </td>
+                  <td align="center">
+                     {NOMOR_REFERENSI}
+                  </td>
+                  <td>
+                     {TRANS_CATATAN}
+                  </td>
+                  <td>
+                     {NO_REK}
+                  </td>
+                     <td style="text-align:center; padding-top: 6px;">
+                        <!-- patTemplate:tmpl name="status_jurnal" type="condition" conditionvar="STATUS" -->
+                           <!-- patTemplate:sub condition="Y" -->
+                              <img src="images/lamp-green.gif" />
+                           <!-- /patTemplate:sub -->
+                           <!-- patTemplate:sub condition="T" -->
+                              <img src="images/lamp-yellow.gif" />
+                           <!-- /patTemplate:sub -->
+                        <!-- /patTemplate:tmpl -->
+                     </td>
+                  <td style="text-align: right;">
+                     {DEBET}
+                  </td>
+                  <td style="text-align: right;">
+                     {KREDIT}
+                  </td>
+                  <td style="text-align: right;">
+                     {JUMLAH}
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+            <tr>
+               <td colspan="6">
+                  &nbsp;
+               </td>
+               <td style="font-weight: bold;" align="right">
+                  {MUTASI_DEBET}
+               </td>
+               <td style="font-weight: bold;" align="right">
+                  {MUTASI_KREDIT}
+               </td>
+               <td style="font-weight: bold;" align="right">
+                  {MUTASI_JUMLAH}
+               </td>
+            </tr>
+            <tr>
+               <th colspan="8">
+                  Saldo Akhir
+               </th>
+               <td style="font-weight: bold;" align="right">
+                  {SALDO_AKHIR}
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   
+   <ul>
+      <li>
+         <img src="images/lamp-green.gif" style="margin-bottom: -4px;"/> Menandakan transaksi sudah dijurnalkan
+      </li>
+      <li>
+         <img src="images/lamp-yellow.gif" style="margin-bottom: -4px;"/> Menandakan transaksi belum dijurnalkan
+      </li>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="klik" / --> <img src="images/icons/16/export_excel.gif" style="margin-bottom: -4px;"/> Untuk melakukan export excel 
+      </li>
+   </ul>
+</div>
+<!-- end: Table List -->
+<!-- /patTemplate:tmpl -->

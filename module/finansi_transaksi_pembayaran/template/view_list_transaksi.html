@@ -1,0 +1,138 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css">
+   .pageBar{
+      max-width: 98%;
+      background-color: #FFF;
+      padding: 0.6em 0.4em;
+      height: auto;
+      border-bottom: #ece9d6 1px solid;
+      -webkit-box-shadow: 0px 2px 1px 0px rgba(0,0,0,0.75);
+      -moz-box-shadow: 0px 2px 1px 0px rgba(0,0,0,0.75);
+      box-shadow: 0px 2px 1px 0px rgba(0,0,0,0.75);
+   }
+   .clearfix{
+      display: table;
+      clear: both;
+      content: ' ';
+      line-height: 0;
+   }
+</style>
+<h1>
+   Pencatatan Transaksi Pembayaran
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterbox" name="filterbox" class="dataquest xhr_simple_form dest_subcontent-element">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 100px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <td>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="start_date"  / -->
+            </div>
+            <div>
+               <!-- patTemplate:gtfwgetconfig config="language" name="s_d" / -->
+            </div>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="end_date"  / -->
+            </div>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="referensi" / -->
+         </th>
+         <td>
+            <input type="text" name="referensi" value="{REFERENSI}" size="30" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   <div class="toolbar">
+      <a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Pencatatan Transaksi" >
+         <img src="images/icons/16/redirect.gif" alt="redirect">
+         Pencatatan Transaksi
+      </a>
+   </div>
+   <div class="clearfix"></div>
+</div>
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th style="width: 30px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="referensi" / -->
+         </th>
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+         </th>
+         <th style="width: 20px;">
+            Aksi
+         </th>
+      </tr>
+   </thead>
+   <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+      <!-- patTemplate:sub condition="YES" -->
+         <tr>
+            <td colspan="5">
+               <center>
+                  <em>
+                     <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                  </em>
+               </center>
+            </td>
+         </tr>
+      <!-- /patTemplate:sub -->
+      <!-- patTemplate:sub condition="NO" -->
+         <!-- patTemplate:tmpl name="data_list" -->
+            <tr class="{CLASS_NAME}">
+               <td align="center">
+                  {NOMOR}
+               </td>
+               <td align="center">
+                  <!-- patTemplate:var name="DUE_DATE" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+               </td>
+               <td>
+                  {REFERENSI}
+               </td>
+               <td align="right">
+                  {NOMINAL}
+               </td>
+               <td class="links">
+                  <a target="_blank" href="{URL_BANK_RECEIVE}" title="Bank receive">
+                     <img src="images/icons/16/export_excel.gif" alt="BR" />
+                  </a>
+               </td>
+            </tr>
+         <!-- /patTemplate:tmpl -->
+      <!-- /patTemplate:sub -->
+   <!-- /patTemplate:tmpl -->
+</table>
+<!-- end: Table List -->
+<!-- /patTemplate:tmpl -->

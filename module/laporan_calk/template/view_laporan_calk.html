@@ -1,0 +1,127 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+   var xpopup;
+   function bukaPopupCetak(xurl) {
+       xpopup = window.open(xurl, 'xpopup', 'width=900,height=600,resizable=yes,scrollbars=yes,right=0;center');
+       xpopup.focus();
+   }
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="laporan_calk" / --></h1>
+<br />
+
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox" style="width:700px">
+   <table>
+       <tr>
+           <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+       </tr>
+       <tr>
+           <th style="width: 130px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="sub_account" / -->
+           </th>
+           <td>
+               <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="sub_account"  / -->          
+           </td>
+       </tr>
+       <tr>
+        <th><!-- patTemplate:gtfwgetconfig config="language" name="periode" / --></th>
+        <td>
+           <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_awal"  / -->
+           <!-- patTemplate:gtfwgetconfig config="language" name="s_d"  / -->
+        </td>
+     </tr>
+     <tr>
+        <th></th>
+        <td>
+           <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_akhir"  / -->
+        </td>
+     </tr>
+       <tr>
+           <th>&nbsp;</th>
+           <td>
+               <input type="submit" name="btncari" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan" / --> &raquo;" class="buttonSubmit"/>
+               <input type="reset" name="btncari" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan_semua" / --> &raquo;" class="buttonSubmit"/>
+           </td>
+       </tr>
+   </table>
+</form>
+
+<br />
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+<br />
+<div class="pageBar" style="width:700px">
+    <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+    <div class="toolbar">
+        <a href="javascript:void(0)" onclick="bukaPopupCetak('{URL_CETAK}')" title="Cetak" ><img src="images/icons/16/button-print.gif" alt="Cetak"> <!-- patTemplate:gtfwgetconfig config="language" name="cetak" / --></a>
+        <a href="{URL_EXCEL}" title="Export Excel" target="_blank"><img src="images/icons/16/export_excel.gif" alt=""><!-- patTemplate:gtfwgetconfig config="language" name="excel" / --></a>
+    </div>
+</div>
+
+<table class="table-common" width="700px">
+    <tr>
+        <th align="left">Uraian</th>
+        <th width="130">{LABEL_BULAN_INI}</th>
+        <th width="130">{LABEL_BULAN_LALU}</th>
+        <th width="50">%</th>
+    </tr>
+    <!-- patTemplate:tmpl name="posisi_keuangan" -->
+        <tr class="table-padding">
+            <td style="padding-left: {KELLAP_PADDING}px;{KELLAP_STYLE}">{KELLAP_NAMA}</td>
+            <!-- patTemplate:tmpl name="status" type="condition" conditionvar="KELLAP_STATUS" -->
+                <!-- patTemplate:sub condition="PARENT" -->        
+                    <td align="right">
+                    </td>
+                    <td align="right">
+                    </td>
+                    <td align="right">
+                    </td>
+                <!-- /patTemplate:sub --> 
+                <!-- patTemplate:sub condition="CHILD" -->     
+                    <td align="right">
+                    </td>
+                    <td align="right">
+                    </td>
+                    <td align="center"></td>
+                <!-- /patTemplate:sub --> 
+                <!-- patTemplate:sub condition="SUMMARY" -->        
+                    <td align="right">
+                        <b>{KELLAP_NOMINAL_SALDO}</b>
+                    </td>
+                    <td align="right">
+                        <b>{KELLAP_NOMINAL_SALDO_LALU}</b>
+                    </td>
+                    <td align="center">
+                        <b>{KELLAP_PERSENTASE}%</b>
+                    </td>
+                <!-- /patTemplate:sub --> 
+            <!-- /patTemplate:tmpl -->
+        </tr>
+        <!-- patTemplate:tmpl name="is_show_detail" type="condition" conditionvar="SHOW_DETAIL" -->
+            <!-- patTemplate:sub condition="YA" -->       
+                <!-- patTemplate:tmpl name="posisi_keuangan_coa"  visibility="hidden" -->
+                    <tr class="{DATA_CLASS_NAME}">
+                        <td style="padding-left: {DET_PADDING}px;">
+                            <label class="kode-akun">{DET_NOMOR_COA}. {DET_KELLAP_COA_NAMA} 
+                        </td>
+                        <td align="right">{DET_KELLAP_NOMINAL_SALDO}</td>
+                        <td align="right">{DET_KELLAP_NOMINAL_SALDO_LALU}</td>
+                        <td align="center">{DET_PERSENTASE}%</td>
+                    </tr>
+                <!-- /patTemplate:tmpl -->
+                <tr class="{DATA_CLASS_NAME}">
+                    <td style="padding-left: {PADDING}px;">
+                        <b><label class="kode-akun">Total {PARENT_NAMA}</b>
+                    </td>
+                    <td align="right"><b>{TOTAL_SALDO}</b></td>
+                    <td align="right"><b>{TOTAL_BL}</b></td>
+                    <td align="center"><b>{PERSENTASE}%</b></td>
+                </tr>
+            <!-- /patTemplate:sub --> 
+        <!-- /patTemplate:tmpl -->
+    <!-- /patTemplate:tmpl -->
+</table>
+<!-- /patTemplate:tmpl -->

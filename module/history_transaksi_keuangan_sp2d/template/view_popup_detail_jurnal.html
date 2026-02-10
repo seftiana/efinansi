@@ -1,0 +1,111 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">	
+	function closePopupDetailJurnal(){
+	    popupClose();
+	}
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="detil_transaksi" / --></h1>       
+   <table  class="table-details" width="100%">
+      <tr class="subhead"><th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="data_transaksi" / --></th></tr>
+      <tr>
+         <th width="145"><!-- patTemplate:gtfwgetconfig config="language" name="nomor_bukti" / --></th>
+         <td>
+			 {TRANSAKSI_NO_BUKTI}
+			 <input type="hidden" name="transaksi_no_bukti" id="transaksi_no_bukti" value="{TRANSAKSI_NO_BUKTI}" / >
+         </td>
+      </tr>	
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="tanggal_transaksi" / --></th>
+         <td><!-- patTemplate:var name="TRANSAKSI_TANGGAL_F" modifier="gtfwindonesiandate" format="long" separator=" " / -->			 
+			<input type="hidden" name="transaksi_tanggal" id="tansaksi_tanggal" value="{TRANSAKSI_TANGGAL}"/ >
+         </td>         
+      </tr>	
+      <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="uraian" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / --></th>
+         <td>
+			 {TRANSAKSI_URAIAN}
+			<input type="hidden" name="transaksi_uraian" id="transaksi_uraian" value="{TRANSAKSI_URAIAN}"/ >
+         </td>         
+      </tr>	
+      <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="penanggung_jawab" / --></th>
+         <td>
+			 {TRANSAKSI_PENANGGUNG_JAWAB}
+			<input type="hidden" name="transaksi_penanggung_jawab" id="trasaksi_penanggung_jawab" value="{TRANSAKSI_PENANGGUNG_JAWAB}"/ >
+         </td>         
+      </tr>	
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nominal" / --></th>
+         <td>
+			 {TRANSAKSI_NOMINAL_F}
+			<input type="hidden" name="transaksi_nominal" id="trasaksi_nominal" value="{TRANSAKSI_NOMINAL}"/ >
+         </td>         
+      </tr>	
+    <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="skenario_auto_jurnal" / --></th>
+         <td></td>
+    </tr>
+      <tr>         
+         <td colspan="2">
+			<table class="table-common" width="100%">
+               <thead>
+                  <tr>
+                     <th width="80"><!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / --></th>
+                     <th width="100"><!-- patTemplate:gtfwgetconfig config="language" name="debet" / --> </th> 
+                     <th width="100"><!-- patTemplate:gtfwgetconfig config="language" name="kredit" / --></th>
+                  </tr>
+               </thead>
+               <tbody>
+				<!-- patTemplate:tmpl name="data" type="condition" conditionvar="DATA_EMPTY" -->
+					<!-- patTemplate:sub condition="YES" -->
+					<tr>
+                     <td colspan="3" style='text-align: center; font-style: italic'>--<!-- patTemplate:gtfwgetconfig config="language" name="belum_ada_yang_dipilih" / -->! --</td>
+					</tr>
+					<!-- /patTemplate:sub -->
+					<!-- patTemplate:sub condition="NO" -->
+						<!-- patTemplate:tmpl name="data_item" -->
+							<tr>
+								<td>{DATA_AKUN_KODE}</td>
+								<td>{DATA_AKUN_NAMA}</td>
+								<td style="padding: 2px; text-align: right;">
+									<!-- patTemplate:tmpl name="nominal_d" visibility="hidden" -->
+									{DATA_AKUN_NOMINAL}
+									 <!-- /patTemplate:tmpl -->   
+								</td>
+								<td style="padding: 2px; text-align: right;">
+									<!-- patTemplate:tmpl name="nominal_k" visibility="hidden" -->
+									{DATA_AKUN_NOMINAL}	
+									<!-- /patTemplate:tmpl -->   
+								</td>
+							</tr>
+                        <!-- /patTemplate:tmpl -->
+					<!-- /patTemplate:sub -->
+				<!-- /patTemplate:tmpl -->
+               </tbody>
+               <tfoot>
+				   <tr style="font-weight:bold">
+						<td colspan="2">
+						<!-- patTemplate:gtfwgetconfig config="language" name="total" / -->
+						</td>
+						<td style="padding: 2px; text-align: right;">
+								{DATA_TOTAL_NOMINAL_D}
+						</td>
+						<td style="padding: 2px; text-align: right;">
+								{DATA_TOTAL_NOMINAL_K}
+						</td>
+				  </tr>
+               </tfoot>                    
+            </table>
+            </td>
+      </tr>
+      
+	<tr>
+         <td colspan="2">
+			 <div  class="toolbar">
+			 <input type="button" id="btnClose" name="btnClose" value="Tutup" class="inputButton" onclick="closePopupDetailJurnal()" />   
+			 </div>
+         </td>
+      </tr>   
+   </table>
+<!-- /patTemplate:tmpl -->

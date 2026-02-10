@@ -1,0 +1,185 @@
+<!-- patTemplate:tmpl name="content" -->
+<script>
+// melakukan cek pada list unit kerja ref
+CheckBoxFW_initiate = function (Obj)
+{
+   if (!Obj || Obj.className.indexOf('CheckBoxFW_parent') < 0 || !Obj.form) return;
+
+   var CBList = new Array;
+   var CheckedAll = true;
+   var FormObj = Obj.form;
+
+   for (var i = 0; i < FormObj.length; i++) if (FormObj[i] == Obj) break;
+   if (i == FormObj.length) return;
+
+   for(i += 1; i < FormObj.length; i++)
+   {
+      var CBObj = FormObj[i];
+      if (CBObj.type.toUpperCase() != 'CHECKBOX') continue;
+      if (CBObj.className.indexOf('CheckBoxFW_child') >= 0)
+      {
+         CBObj.onchange = function () {Obj.checkChild();}
+         CBList[CBList.length] = CBObj;
+         if (!CBObj.checked) CheckedAll = false;
+      }
+      if (CBObj.className.indexOf('CheckBoxFW_parent') >= 0) break;
+   }
+
+   if (CBList.length > 0)
+   {
+      Obj.onchange = function ()
+      {
+         for (var i = 0; i < CBList.length; i++)
+            CBList[i].checked = this.checked;
+      }
+
+      Obj.checkChild = function ()
+      {
+         var CheckedAll = true;
+         for (var i = 0; i < CBList.length; i++) if (!CBList[i].checked)
+         {
+            CheckedAll = false;
+            break;
+         }
+         this.checked = CheckedAll;
+      }
+
+      Obj.checked = CheckedAll;
+   }
+}
+
+for (var i = 0; i < document.getElementById('frmInput').length; i++)
+   CheckBoxFW_initiate(document.getElementById('frmInput')[i]);
+   
+//end check unit kerja ref
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_detail_belanja" / --></h1>
+<br />
+
+<table class="table-details" width="100%">    
+     <tr>
+       <th width="120px"><!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / --></th>
+       <td> {DETAIL_TAHUNPERIODE} </td>
+    </tr>    
+	<tr>
+       <th ><!-- patTemplate:gtfwgetconfig config="language" name="program" / --></th>
+       <td> {DETAIL_PROGRAM} </td>
+    </tr>    	 
+	<tr>
+       <th ><!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --></th>
+       <td> {DETAIL_KEGIATAN} </td>
+    </tr>    
+    <tr>
+       <th ><!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / --></th>
+       <td> {DETAIL_SUBKEGIATAN} </td>
+    </tr>    
+	
+</table>
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+   
+<br/>
+
+<form method="post" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+		<div class="toolbar">
+   		<a class="xhr dest_subcontent-element" href="{URL_RETURN}" > &lt;&lt; &nbsp; Kembali </a>
+		</div>
+   </div>
+   </form>
+
+<table class="table-common" width="100%">
+      <tr>
+         <th width="5">No</th>		 
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="komponen" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="satuan" / --></th>         
+		 <th>Nominal Satuan</th>		 
+         <th width="65"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="5" align="center"><em>-- Data tidak ditemukan --</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">{DATA_NOMOR}</td>			   
+		       <td>{DATA_KOMPONEN_NAMA}</td>
+               <td>{DATA_KOMPONEN_SATUAN}</td>               
+			   <td style="text-align:right;">{DATA_KOMPONEN_NOMINAL}</td>
+               <td class="links" align="center">
+						<a class="xhr dest_subcontent-element" href="{DATA_URL_EDIT}" title="Edit">
+							<img src="images/button-edit.gif" alt="Edit" />
+						</a>
+						<a class="xhr dest_subcontent-element" href="{DATA_URL_DELETE}" title="Hapus"><img src="images/button-delete.gif" alt="Hapus" /> 						</a>
+						
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+
+<br/>
+
+   
+<form method="POST" name="filterbox" action="{URL_ACTION}"
+class="dataquest xhr_simple_form dest_subcontent-element" id="frmInput"  style="width: 100%;">
+<input type="hidden" name="data[detail][tahunperiode]" value="{DETAIL_TAHUNPERIODE}" />				
+<input type="hidden" name="data[detail][program]" value="{DETAIL_PROGRAM}" />				
+<input type="hidden" name="data[detail][kegiatan]" value="{DETAIL_KEGIATAN}" />				
+<input type="hidden" name="data[detail][subkegiatan]" value="{DETAIL_SUBKEGIATAN}" />
+<input type="hidden" name="proses" value="1" />
+<input type="hidden" name="data[aksi]" value="{AKSI}" />
+
+<input type="hidden" name="data[kegref_id]" value="{DATA_KEGREF_ID}" />
+			
+   <table >
+      <tr>
+         <th colspan="2"><h2><strong>{LABEL_AKSI} Detil Belanja</strong></h2></th>
+      </tr>    
+		 <tr>
+            <th width="120">Nama Detil Belanja</th>
+            <td><input type="text" name="data[komponen_nama][readonly]" id="komponen_nama_ro" value="{DATA_KOMPONEN_NAMA}" size="50" readonly="readonly" /> 			    
+                <input type="button" name="btnshift" value="..."  onClick="showPopup('{POPUP_KOMPONEN}','',550, 550)" />
+				<input type="hidden" name="data[komponen_nama]" id="komponen_nama_hidden" value="{DATA_KOMPONEN_NAMA}" size="25"  />
+                <input type="hidden" name="data[komponen_id]" id="komponen_id" value="{DATA_KOMPONEN_ID}" size="25" />				
+				<input type="hidden" name="data[komponen_id_old]" id="komponen_id_old" value="{DATA_KOMPONEN_ID}" size="25" />	
+            </td>
+         </tr>	         
+		
+	 </tr>    
+		 <tr>
+            <th width="120">Nominal Rp.</th>
+            <td><input class="gvNum" type="text" name="data[komponen_nominal]" id="komponen_nominal" value="{DATA_KOMPONEN_NOMINAL}" size="50"  /> 			                    
+            </td>
+         </tr>	         
+          <tr >
+          <th width="120">Unit Kerja Yang Menggunakan</th>
+		 	<td><ul style="list-style: none; margin:0;padding:2px 0 2px 0; ">
+		 		{LIST_UNIT_KERJA}
+			</ul><input type="hidden" name="data[checkbox]" value="0" />
+		 	</td>
+		 </tr>
+      <tr>
+      
+         <th>&nbsp;</th>
+         <td><input name="btnsimpan" value=" {BUTTON_AKSI} " class="buttonSubmit" type="submit">
+		 <a class="xhr dest_subcontent-element" href="{URL_BATAL}"><input name="btnbatal" value="Batal" class="buttonSubmit" type="submit" /></a>
+         </td>
+      </tr>		 
+		 
+   </table>
+   </form>
+		<div class="toolbar">
+   		<a class="xhr dest_subcontent-element" href="{URL_RETURN}" > &lt;&lt; &nbsp; Kembali </a>
+		</div>
+   </div>
+   </form>
+   <br /> 
+<!-- /patTemplate:tmpl -->

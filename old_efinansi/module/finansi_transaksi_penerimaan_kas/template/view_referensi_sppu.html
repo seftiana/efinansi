@@ -1,0 +1,166 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>Daftar SPPU</h1>
+<form method="POST" action="{URL_SEARCH}" id="filterboxpopup" name="filterboxpopup" class="dataquest xhr_simple_form dest_popup-subcontent">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 110px;">
+            Kode SPPU
+         </th>
+         <td>
+            <input type="text" name="kode" id="kode" size="35" value="{KODE}" />
+         </td>
+      </tr>
+      
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / --> SPPU
+         </th>
+         <th style="display: none;" >
+            BPKB 
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+   <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+      <!-- patTemplate:sub condition="YES" -->
+         <tr>
+            <td colspan="6">
+               <center>
+                  <em>
+                     <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                  </em>
+               </center>
+            </td>
+         </tr>
+      <!-- /patTemplate:sub -->
+      <!-- patTemplate:sub condition="NO" -->
+         <!-- patTemplate:tmpl name="data_list" -->
+            <tr class="{CLASS_NAME}">
+               <td>
+                  {NOMOR}
+               </td>
+               <td>
+                  <!-- patTemplate:var name="TANGGAL" modifier="gtfwindonesiandate" format="long" separator="-" / -->
+               </td>
+               <td>
+                  {KODE}
+               </td>
+               <td style="display: none;">
+                  {BPKB_CR}
+               </td>
+               <td align="right">
+                  {NOMINAL_F}
+               </td>
+               <td class="links">
+                  <a href="javascript:void(0);" title="Pilih" onclick="javascript:setData('{ID}');" id="komponen_item_{ID}">
+                     <img src="images/icons/16/button-check.gif" alt="Pilih" />
+                  </a>
+               </td>
+            </tr>
+         <!-- /patTemplate:tmpl -->
+      <!-- /patTemplate:sub -->
+   <!-- /patTemplate:tmpl -->
+   
+   </tbody>
+</table>
+<!-- end: Table List -->
+<script type="text/javascript">
+var dataKomponen  = {SPPU_ITEM};
+var setData       = function (id){
+   var data       = dataKomponen[id];
+   //alert(data);
+   if(typeof(place_holder) != 'undefined'){
+       place_holder.setEmptyKomponen();
+      for (var i in data){
+      place_holder.addRows(         
+         data[i]['d_id'],
+         data[i]['id'],
+         data[i]['keterangan'],
+         data[i]['nominal']
+      );
+      }
+   }
+   // document.getElementById('input_bpkb').value = no_bpkb;
+   document.getElementById('sppu_id').value = id;
+   checkKomponen(place_holder);
+   popupClose();
+}
+
+
+var checkKomponen       = function(object){
+   
+   var komp_id       = [];
+   if(typeof(object) != 'undefined'){
+      if(document.getElementById('komponen_sppu_id')){
+        var sppu_id = document.getElementById('komponen_sppu_id').value;
+        komp_id.push(sppu_id);
+      }
+       /*
+      var childKomponen    = object.getElementsByTagName('tr');
+      for (var i = childKomponen.length - 1; i >= 0; i--) {
+         if(typeof(childKomponen[i].id) != 'undefined' && childKomponen[i].id != null){
+            if(matches = childKomponen[i].id.match(/komponen_sppu_(\d+)/)){
+               komp_id.push(matches[1]);
+            }
+         }
+      };
+      */
+     
+   }
+   
+   for (var i in komp_id){
+      item  = document.getElementById('komponen_item_'+komp_id[i]);
+      var images_cancel    = document.createElement('img');
+      images_cancel.src    = 'images/icons/16/button-cancel-tindaklanjut.gif';
+      images_cancel.alt    = 'Cannot Select';
+      if(item){
+         item.removeAttribute('onclick');
+         item.innerHTML    = '';
+         item.appendChild(images_cancel);
+         item.style.display = 'none';
+      }
+   }
+}
+
+checkKomponen(place_holder);
+</script>
+<!-- /patTemplate:tmpl -->

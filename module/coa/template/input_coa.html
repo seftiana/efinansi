@@ -1,0 +1,213 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css">
+	.std_form,
+	.std_form tr td{
+	   vertical-align: top;
+	}
+	
+	#treeboxbox_tree table tr td{
+	   vertical-align: middle !important;
+	}
+	
+	#treeboxbox_tree,
+	#treeboxbox_tree .containerTableStyle{
+	   background: transparent !important;
+	}
+	
+	label > input[type="checkbox"]{
+	   display: inline;
+	   margin-top: 6px;
+	   float: left;
+	}
+	</style>
+<h1>{TITLE} <!-- patTemplate:gtfwgetconfig config="language" name="coa" / --></h1>
+<br />
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="notebox-alert">
+   {ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+<form method="POST" class="xhr_form std_form" action="{URL_ACTION}" id="frm_input" name="frm_input" >
+   <table class="table-edit" width="100%">
+	  <input type="hidden" name="coa_id" value="{ID}" />
+	  <input type="hidden" name="op" value="{OPERASI}" />
+	  
+		<tr class="subhead">
+			<th colspan="2">{JUDUL} <!-- patTemplate:gtfwgetconfig config="language" name="coa" / --></th>
+			<input type="hidden" name="smpn" value="{SMPN}" />
+		</tr>		
+		<tr>
+			<th width="150px"><!-- patTemplate:gtfwgetconfig config="language" name="induk" / --></th>
+			<td>
+				<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="induk"  / -->
+			</td>
+		</tr>
+		<tr>
+			<th><!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / --></th>
+			<td>
+				<input type="text" name="kode_akun" value="{KODE_AKUN}" size="25" tabindex='1' /> *
+			</td>
+		</tr>
+		<tr>
+			<th><!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / --></th>
+			<td>
+				<input type="text" name="nama_akun" value="{NAMA_AKUN}" size="40" tabindex='2' /> *  
+			</td>
+		</tr>
+		<tr>
+			<th><!-- patTemplate:gtfwgetconfig config="language" name="rekening_kas" / --></th>
+			<td>
+				<input type="radio" name="coa_is_kas" value="1" {KAS_1_CHEKED}><!-- patTemplate:gtfwgetconfig config="language" name="ya" / --> 
+				<input type="radio" name="coa_is_kas" value="0" {KAS_0_CHEKED}><!-- patTemplate:gtfwgetconfig config="language" name="tidak" / --> 
+			</td>
+		</tr>
+        <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="tipe_coa" / --></th>
+            <td>
+                <input type="checkbox" name="coa_is_laba_rugi" value="1"    {LABA_RUGI_CHEKED}><!-- patTemplate:gtfwgetconfig config="language" name="laba_rugi" / --> <br />
+				<input type="checkbox" name="coa_is_laba_rugi_at" value="1" {LABA_RUGI_AT_CHEKED}><!-- patTemplate:gtfwgetconfig config="language" name="laba_rugi_at" / --> 
+			</td>
+        </tr>
+		<!-- patTemplate:tmpl name="tipe_coa_item" -->
+		<tr style="display: none;">
+		<th>
+			<label id="label_tipe_coa_id_{TIPE_COA_ID}" for="tipe_coa_id_{TIPE_COA_ID}">
+			{TIPE_COA_NAME}</label>
+		</th>
+		<td>
+			<input type="checkbox" name="tipe_coa_id[]" id="tipe_coa_id_{TIPE_COA_ID}" value="{TIPE_COA_ID}" {TIPE_COA_CHECKED} />
+			<input type="hidden" name="tipe_coa_name[{TIPE_COA_ID}]" value="{TIPE_COA_NAME}" />
+		</td>
+		</tr>
+      	<!-- /patTemplate:tmpl -->
+      	<tr>
+			<th><!-- patTemplate:gtfwgetconfig config="language" name="deposit_masuk" / --> </th>
+			<td>
+				<label><input type="radio" name="coa_is_deposit_masuk" value="1" {DEPOSIT_MASUK_1_CHEKED}><!-- patTemplate:gtfwgetconfig config="language" name="ya" / --> </label>
+				<label><input type="radio" name="coa_is_deposit_masuk" value="0" {DEPOSIT_MASUK_0_CHEKED}><!-- patTemplate:gtfwgetconfig config="language" name="tidak" / --> </label>
+			</td>
+		</tr>
+		<tr>
+			<th><!-- patTemplate:gtfwgetconfig config="language" name="saldo_normal" / --> </th>
+			<td>
+				<label><input type="radio" name="coa_is_debet" value="1" {SALDO_NORMAL_1_CHEKED}>Debet</label>
+				<label><input type="radio" name="coa_is_debet" value="0" {SALDO_NORMAL_0_CHEKED}>Kredit</label>
+			</td>
+		</tr>
+		<tr>
+			<th>
+			   <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / -->
+			</th>
+			<td>
+			   <div id="treeboxbox_tree"></div>
+			   <div id="unit_PlaceHolder"></div>
+			</td>
+		</tr>
+		<tr class="buttons">
+			 <th>&nbsp;   
+			 </th>
+			 <td>
+				<input type="hidden" name="coa_parent" value="{COA_PARENT_ID}" />
+				<input type="submit" name="btnsimpan" value=" <!-- patTemplate:gtfwgetconfig config="language" name="simpan" / --> " class="buttonSubmit"/>
+				   <input  type="submit"  name="btnbatal" value=" <!-- patTemplate:gtfwgetconfig config="language" name="batal" / --> " class="buttonSubmit"/>
+			 </td>
+		</tr>
+   </table>
+</form>
+
+<div class="petunjuk-area">
+   <h4><!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / --> :</h4>
+   <ul>
+      <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --></li>
+      <li>Tipe "Laba Rugi" menandakan COA untuk menampung laba rugi tahun berjalan</li>
+      <li>Tipe "Laba Awal Tahun" menandakan COA untuk menampung laba awal tahun</li>
+   </ul>
+</div>
+
+<script type="text/javascript">
+	checkBranch = function(id,state){
+		if (state){
+			tree.setSubChecked(id,true);
+		}else{
+			tree.setSubChecked(id,false);
+		}
+	}
+
+	var dataUnit   = [];
+	var tree = new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
+	tree.setSkin('dhx_skyblue');
+	tree.setImagePath("js/dhtmlx/dhtmlxtree/imgs/dhxtree_skyblue/");
+	tree.enableCheckBoxes(true);
+	tree.enableTreeLines(true);
+	tree.enableThreeStateCheckboxes(false);
+	tree.setOnCheckHandler(checkBranch);
+	
+	tree.setCheck(1007, true);
+	
+	tree.attachEvent("onCheck", function(id, state){
+		var list          = JSON.parse('['+tree.getAllChecked()+']');
+		var placeHolder   = document.getElementById('unit_PlaceHolder');
+		placeHolder.emptyRecord();
+		for (var i = list.length - 1; i >= 0; i--) {
+			var label      = tree.getItemText(list[i]);
+			label          = label.split('—');
+			var kode       = label[0].trim();
+			var nama       = label[1].trim();
+			placeHolder.addItem(list[i], kode, nama);
+		};
+		
+	});
+	
+	tree.loadJSON('{URL_GET_UNIT_KERJA}',function(){
+		tree.openAllItems(0);
+		var dataUnit   = {UNIT_DATA};
+		if(dataUnit.length > 0){
+			var placeHolder   = document.getElementById('unit_PlaceHolder');
+			placeHolder.emptyRecord();
+			for(var i in dataUnit){
+				tree.setCheck(dataUnit[i].id, true);
+				placeHolder.addItem(dataUnit[i].id, dataUnit[i].kode, dataUnit[i].nama);
+			}
+		}
+	});
+	
+	function showpopup(url,label){
+	   showPopup(url,label,600, 500);
+	}
+	
+	document.getElementById('unit_PlaceHolder').emptyRecord  = function(){
+		var childNode     = this.getElementsByTagName('input');
+		for (var i = childNode.length - 1; i >= 0; i--) {
+			this.removeChild(childNode[i]);
+		};
+		
+		return true;
+	}
+	
+	document.getElementById('unit_PlaceHolder').addItem   = function(id, kode, nama){
+		var frag             = document.createDocumentFragment();
+		var txtUnit          = document.createElement('input');
+		txtUnit.type         = 'hidden';
+		txtUnit.name         = 'unit['+id+'][id]';
+		txtUnit.value        = id;
+		
+		var txtKode          = document.createElement('input');
+		txtKode.type         = 'hidden';
+		txtKode.name         = 'unit['+id+'][kode]';
+		txtKode.value        = kode;
+		
+		var txtNama          = document.createElement('input');
+		txtNama.type         = 'hidden';
+		txtNama.name         = 'unit['+id+'][nama]';
+		txtNama.value        = nama;
+		
+		frag.appendChild(txtUnit);
+		frag.appendChild(txtKode);
+		frag.appendChild(txtNama);
+		this.appendChild(frag);
+		
+		return true;
+	}
+</script>
+<!-- /patTemplate:tmpl -->

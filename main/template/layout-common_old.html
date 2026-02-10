@@ -1,0 +1,71 @@
+<!-- patTemplate:tmpl name="body" -->
+   <!-- header BEGIN -->
+   <div id="fedora-header">
+      <div id="fedora-header-logo">
+         <a href="index.php" id="link-internal"><img src="images/bunny.gif" alt="GTFW Project"></a>
+      </div>
+
+      <div id="fedora-header-items">
+         <span class="fedora-header-icon">
+            <!-- patTemplate:gtfwgetconfig config="Organization" name="name" / -->
+            <!-- patTemplate:gtfwrendermodule module="login_default" submodule="anchor" action="view" / -->
+            <!-- patTemplate:gtfwrendermodule module="login_sso" submodule="SsoAnchor" action="view" / -->
+            <a href="<!-- patTemplate:gtfwgeturl module="faq" sub="faq" action="view" type="html" params="" / -->" id="link-internal"><img src="images/header-faq.png" alt="Frequently Asked Question">FAQ</a>
+         </span>
+      </div>
+   </div>
+
+   <div id="fedora-nav"></div>
+   <!-- header END -->
+
+   <!-- leftside BEGIN -->
+   <div id="fedora-side-left">
+      <div id="fedora-side-nav-label">
+       Site Navigation:
+      </div>
+      <ul id="fedora-side-nav">
+         <li><strong><a href="<!-- patTemplate:gtfwgeturl module="about" sub="about" action="view" type="html" params="name=asdf&pass=asdf" / -->" id="link-internal">About</a></strong></li>
+         <li><a href="<!-- patTemplate:gtfwgeturl module="demo" sub="demo" action="view" type="html" params="" / -->" id="link-internal">Demo</a></li>
+         <li><a href="<!-- patTemplate:gtfwgeturl module="guest_book" sub="guestbook" action="view" type="html" params="name=asdf&pass=asdf" -->
+                         name1 := asdf
+                         pass1 := asdf
+                      <!-- /patTemplate:gtfwgeturl -->" id="link-internal">Guest book</a></li>
+      </ul>
+      <strong>Componetized menu:</strong>
+      <!-- patTemplate:gtfwrendermodule module="menu" submodule="MenuAnchor" action="view" / -->
+   </div>
+   <!-- leftside END -->
+
+   <!-- content BEGIN -->
+   <div id="fedora-middle-two">
+      <div class="fedora-corner-tr">&nbsp;</div>
+      <div class="fedora-corner-tl">&nbsp;</div>
+
+      <div id="fedora-content">
+      <!-- patTemplate:link src="content" / -->
+      </div>
+
+      <div class="fedora-corner-br">&nbsp;</div>
+      <div class="fedora-corner-bl">&nbsp;</div>
+
+      <!-- log message container -->
+      <div class="fedora-corner-tr">&nbsp;</div>
+      <div class="fedora-corner-tl">&nbsp;</div>
+      <!-- patTemplate:gtfwrendermodule module="syslog" submodule="log" action="view" / -->
+      <div class="fedora-corner-br">&nbsp;</div>
+      <div class="fedora-corner-bl">&nbsp;</div>
+   </div>
+   <!-- content END -->
+
+   <!-- footer BEGIN -->
+   <div id="fedora-footer">
+      Copyright &copy; 2005 PT Gamatechno Indonesia. All rights reserved.
+      <br>
+      GTFW is a trademark of PT Gamatechno Indonesia.
+      <br>
+      The GTFW Project is a supported product of PT Gamatechno Indonesia.
+      <br>
+      PT Gamatechno Indonesia is not responsible for the content of other sites.
+   </div>
+   <!-- footer END -->
+<!-- /patTemplate:tmpl -->

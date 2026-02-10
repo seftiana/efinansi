@@ -1,0 +1,150 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css" media="all">
+   .table-common tbody tr.rkat td{
+      border-bottom-color: #CCCCCC !important;
+   }
+   label.rkakl{
+      display: block;
+      width: 100%;
+      border-top: #D4D4D4 1px solid;
+      margin: 4px 0px;
+      padding-top: 4px;
+   }
+</style>
+<center>
+   <h1>
+      <!-- patTemplate:gtfwgetconfig config="language" name="lap_rencana_pencairan_dana" / -->
+   </h1>
+</center>
+<br />
+<center>
+   <h1>
+      <!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / --> {TAHUN_PERIODE}
+   </h1>
+</center>
+<br />
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --> : {UNIT_KERJA_LABEL}
+</h1>
+<table class="table-common" width="1200px">
+   <thead>
+      <tr>
+         <th width="5px" rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th colspan="2" width="350px">
+            <!-- patTemplate:gtfwgetconfig config="language"  name="label_rincian"  / -->
+         </th>
+         <th rowspan="2" >
+            <!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+         </th>
+         <th rowspan="2" width="50px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="volume" / -->
+         </th>
+         <th rowspan="2" width="75px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="alokasi_pagu_rp" / -->
+         </th>
+         <th colspan="12">
+            <!-- patTemplate:gtfwgetconfig config="language" name="rencana_penarikan_bulan" / -->
+         </th>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <th style="width: 400px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <th width="100px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="januari" / -->
+         </th>
+         <th width="100px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="februari" / -->
+         </th>
+         <th width="100px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="maret" / -->
+         </th>
+         <th width="100px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="april" / -->
+         </th>
+         <th width="100px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="mei" / -->
+         </th>
+         <th width="100px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="juni" / -->
+         </th>
+         <th width="100px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="juli" / -->
+         </th>
+         <th width="100px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="agustus" / -->
+         </th>
+         <th width="100px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="september" / -->
+         </th>
+         <th width="100px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="oktober" / -->
+         </th>
+         <th width="100px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="november" / -->
+         </th>
+         <th width="100px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="desember" / -->
+         </th>
+      </tr>
+   </thead>
+   <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+      <!-- patTemplate:sub condition="YES" -->
+         <tr>
+            <td colspan="18" align="center">
+               <em>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong"  / --> --</em>
+            </td>
+         </tr>
+      <!-- /patTemplate:sub -->
+      <!-- patTemplate:sub condition="NO" -->
+         <!-- patTemplate:tmpl name="data_list" -->
+            <tr class="{CLASS_NAME}" style="{ROW_STYLE}">
+               <td align="center">{NOMOR}</td>
+               <td align="right">{KODE}</td>
+               <td>
+                  {NAMA}
+                  <!-- patTemplate:tmpl name="rkakl" type="condition" conditionvar="JENIS" -->
+                     <!-- patTemplate:sub condition="KEGIATAN" -->
+                        <label class="rkakl">
+                           [{RKAKL_NAMA}]
+                        </label>
+                     <!-- /patTemplate:sub -->
+                     <!-- patTemplate:sub condition="OUTPUT" -->
+                        <label class="rkakl">
+                           [{RKAKL_NAMA}]
+                        </label>
+                     <!-- /patTemplate:sub -->
+                     <!-- patTemplate:sub condition="SUB_KEGIATAN" -->
+                        <label class="rkakl">
+                           [{RKAKL_NAMA}]
+                        </label>
+                     <!-- /patTemplate:sub -->
+                  <!-- /patTemplate:tmpl -->
+               </td>
+               <td>{UNIT_NAMA}</td>
+               <td>{VOLUME}</td>
+               <td style="text-align:right;">{NOMINAL_TOTAL}</td>
+               <td style="text-align:right;">{NOMINAL_JANUARI}</td>
+               <td style="text-align:right;">{NOMINAL_FEBRUARI}</td>
+               <td style="text-align:right;">{NOMINAL_MARET}</td>
+               <td style="text-align:right;">{NOMINAL_APRIL}</td>
+               <td style="text-align:right;">{NOMINAL_MEI}</td>
+               <td style="text-align:right;">{NOMINAL_JUNI}</td>
+               <td style="text-align:right;">{NOMINAL_JULI}</td>
+               <td style="text-align:right;">{NOMINAL_AGUSTUS}</td>
+               <td style="text-align:right;">{NOMINAL_SEPTEMBER}</td>
+               <td style="text-align:right;">{NOMINAL_OKTOBER}</td>
+               <td style="text-align:right;">{NOMINAL_NOVEMBER}</td>
+               <td style="text-align:right;">{NOMINAL_DESEMBER}</td>
+            </tr>
+         <!-- /patTemplate:tmpl -->
+      <!-- /patTemplate:sub -->
+   <!-- /patTemplate:tmpl -->
+</table>
+
+<!-- /patTemplate:tmpl -->

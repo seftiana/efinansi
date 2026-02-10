@@ -1,0 +1,89 @@
+<!-- patTemplate:tmpl name="content" -->
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_tab-container" id="filterbox" style="width:100%">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+      <tr>
+         <th width="120"><!-- patTemplate:gtfwgetconfig config="language" name="periode" / --></th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_awal"  / -->
+            s/d
+         </td>
+      </tr>
+      <tr>
+         <th></th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_akhir"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan" / --> &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div class="pageBar" >
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   <div class="toolbar">
+      <a href="javascript:void(0)" onclick="bukaPopupCetak('{URL_CETAK}')" title="Cetak" ><img src="images/icons/16/button-print.gif" alt="Cetak"> <!-- patTemplate:gtfwgetconfig config="language" name="cetak" / --></a>
+      <!-- <a href="javascript:void(0)" onclick="bukaPopupCetak('{URL_CETAK_DETIL}')" title="Cetak" ><img src="images/icons/16/button-print.gif" alt="Cetak"> <!-- patTemplate:gtfwgetconfig config="language" name="cetak" / --> Detail</a> -->
+      <a href="{URL_EXCEL}" title="Export Excel" target="_blank"><img src="images/icons/16/export_excel.gif" alt=""><!-- patTemplate:gtfwgetconfig config="language" name="excel" / --></a>
+      <!-- <a href="{URL_EXCEL_DETIL}" title="Export Excel Detail" target="_blank"><img src="images/icons/16/export_excel.gif" alt=""><!-- patTemplate:gtfwgetconfig config="language" name="excel" / --> Detail</a> -->
+   </div>
+</div>
+<table class="table-common" width="100%">
+   <tr>
+      <th rowspan="2">Description</th>
+      <th colspan="2">UNIT</th>
+      <th rowspan="2">Konsolidasi</th>
+   </tr>
+   <tr>
+      <th>Institute Perbanas</th>
+      <th>Sekretariat</th>
+   </tr>
+   <!-- patTemplate:tmpl name="laporan_konsolidasi" -->
+      <tr class="table-padding">
+         <td style="padding-left: {KELLAP_PADDING}px;{KELLAP_STYLE}">{KELLAP_NAMA}</td>
+         <!-- patTemplate:tmpl name="status" type="condition" conditionvar="KELLAP_STATUS" -->
+            <!-- patTemplate:sub condition="PARENT" -->
+               <td align="right"></td>
+               <td align="right"></td>
+               <td align="right"></td>
+            <!-- /patTemplate:sub --> 
+            <!-- patTemplate:sub condition="CHILD" -->
+               <td align="right">
+                  <a href="javascript:void(0)" onclick="showPopup('{KELLAP_URL_DETIL}&title=Komprehensif&sub_account=00', '', 600, 400)" title="Lihat Detail" >
+                     {KELLAP_NOMINAL_SALDO}
+                  </a>
+               </td>
+               <td align="right">
+                  <a href="javascript:void(0)" onclick="showPopup('{KELLAP_URL_DETIL}&title=Komprehensif&sub_account=01', '', 600, 400)" title="Lihat Detail" >
+                     {KELLAP_NOMINAL_SALDO_YAYASAN}
+                  </a>
+               </td>
+               <td align="right">
+                  <a href="javascript:void(0)" onclick="showPopup('{KELLAP_URL_DETIL}&title=Komprehensif&sub_account=', '', 600, 400)" title="Lihat Detail" >
+                     {KELLAP_NOMINAL_SALDO_GABUNG}
+                  </a>
+               </td>
+            <!-- /patTemplate:sub --> 
+            <!-- patTemplate:sub condition="SUMMARY" -->
+               <td align="right">
+                  <b>{KELLAP_NOMINAL_SALDO}</b>
+               </td>
+               <td align="right">
+                  <b>{KELLAP_NOMINAL_SALDO_YAYASAN}</b>
+               </td>
+               <td align="right">
+                  <b>{KELLAP_NOMINAL_SALDO_GABUNG}</b>
+               </td>
+            <!-- /patTemplate:sub --> 
+         <!-- /patTemplate:tmpl -->
+      </tr>
+   <!-- /patTemplate:tmpl -->
+</table>
+<!-- /patTemplate:tmpl -->

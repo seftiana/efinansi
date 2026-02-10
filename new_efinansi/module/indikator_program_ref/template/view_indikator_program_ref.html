@@ -1,0 +1,154 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function popupIP(url){
+      showPopup(url,'Popup <!-- patTemplate:gtfwgetconfig config="language" name="ip" / -->',550, 550);
+    }
+    
+	function resetFormPencarian() {
+	    GtfwAjax.replaceContentWithUrl("subcontent-element","{URL_RESET}&ascomponent=1");
+	}    
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="ip_k" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterbox" 
+        class="dataquest xhr_simple_form dest_subcontent-element" >
+<table>
+<tr>
+	<th colspan="2">
+	<h2><strong>
+	<!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+	</strong>
+	</h2>
+	</th>
+</tr>
+<tr>              
+	<th width="150">
+	<!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+	</th>
+	<td>
+	<input type="text" name="kode" value="{KODE}" size="25" />
+	</td>
+</tr>
+<tr>              
+	<th>
+	<!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+	</th>
+	<td>
+	<input type="text" name="nama" value="{NAMA}" size="50" />
+	</td>
+</tr>
+<tr>              
+	<th>
+	<!-- patTemplate:gtfwgetconfig config="language" name="ip" / -->
+	</th>
+	<td>
+	<input type="hidden" name="ipId" id="ipId" value="{IP_ID}"/>
+    <input type="text" name="ipNama" id="ipNama" value="{IP_NAMA}" size="45" readonly="readonly" />&nbsp;&nbsp;
+    <input type="button" id="popup_program" name="popup_program" value=" ... "  
+                title="Popup Indikator Program" class="inputButton" 
+                onclick="popupIP('{URL_POPUP_IP}')" />
+	</td>
+</tr>
+
+<tr>
+	<th>&nbsp;</th>
+	<td>
+	<input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+        <input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" onclick="resetFormPencarian();" />
+	</td>
+</tr>
+</table>
+</form>
+
+<br />
+   
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+{ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+
+<br />
+
+<div class="pageBar">
+    <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+    <div class="toolbar"> 
+        <a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Data <!-- patTemplate:gtfwgetconfig config="language" name="ip" / -->" >
+        <img src="images/button-add.gif" alt="" />
+        <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / --> <!-- patTemplate:gtfwgetconfig config="language" name="ip" / --></a>
+    
+    </div>
+</div>
+
+<table class="table-common" width="100%">
+<tr>
+	<th width="5" style="height: 22px;">
+	   <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+	</th>
+
+	<th width="50">
+	   <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+	</th>
+	<th>
+	   <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+	</th>
+    <th width="30">
+	   <!-- patTemplate:gtfwgetconfig config="language" name="nilai" / -->
+	</th>
+	<th width="95">
+	   <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+	</th>
+</tr>
+
+<!-- patTemplate:tmpl name="data_ip" type="condition" conditionvar="IS_DATA_EMPTY" -->
+    <!-- patTemplate:sub condition="YES" -->
+    <tr>
+	   <td colspan="6" align="center">
+	       <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+	   </td>
+    </tr>
+    <!-- /patTemplate:sub -->
+    <!-- patTemplate:sub condition="NO" -->
+    <!-- patTemplate:tmpl name="data_ip_item" -->                                              
+    <tr class="{DATA_CLASS_NAME}">
+	   <td align="center">{DATA_NOMOR}</td>
+	  
+	   <td align="center">{DATA_KODE}</td>
+	   <td>{DATA_NAMA}</td>
+       <td align="right">{DATA_VALUE}</td>
+	   <td class="links" align="center">
+       <a class="xhr dest_subcontent-element" href="{DATA_URL_ADD}" 
+            title="Tambah Indikator Kegiatan" style="display: {DATA_ADD_DISPLAY};">
+       <img src="images/button-add.gif" alt="Tambah"/></a>
+	   <a class="xhr dest_subcontent-element" href="{DATA_URL_EDIT}" title="Ubah">
+       <img src="images/button-edit.gif" alt="Ubah"/></a>
+       <a class="xhr dest_subcontent-element" href="{DATA_URL_DELETE}" title="Hapus">
+	   <img src="images/button-delete.gif" alt="Hapus"/></a>      
+</td>
+</tr>
+<!-- /patTemplate:tmpl -->
+<!-- /patTemplate:sub -->
+<!-- /patTemplate:tmpl -->
+</table>
+	<div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+      <ul>
+      <li>
+            <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / --> 
+            <img src="images/button-add.gif" /> 
+            untuk menambah
+            <!-- patTemplate:gtfwgetconfig config="language" name="ik" / -->
+            </li>
+      <li>
+            <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / -->
+            <img src="images/button-delete.gif"/> 
+            <!-- patTemplate:gtfwgetconfig config="language" name="untuk_mendelete_data" / --></li>
+        <li>
+                <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / --> 
+                <img src="images/button-edit.gif"/> 
+                <!-- patTemplate:gtfwgetconfig config="language" name="untuk_mengupdate_data" / --></li>
+		 
+      </ul>
+   </div>
+<br /> 
+<!-- /patTemplate:tmpl -->

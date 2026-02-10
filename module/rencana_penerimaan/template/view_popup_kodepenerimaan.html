@@ -1,0 +1,194 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+   function setParent(xalokasiPusatId,xalokasiId,xid, xkode, xlabel,xsatuan,xalokasi_unit,xalokasi_pusat) {
+      document.getElementById('alokasi_id').value=xalokasiId;
+      document.getElementById('alokasi_pusat_id').value=xalokasiPusatId;
+      document.getElementById('kodepenerimaan').value=xid;
+      document.getElementById('kodepenerimaan_label').value=xkode;
+      document.getElementById('namapenerimaan_label').value=xlabel;
+      document.getElementById('namapenerimaan_labelx').innerHTML=xlabel;
+      document.getElementById('satuan').value=xsatuan;
+      document.getElementById('satuan_label').innerHTML=xsatuan;
+      document.getElementById('alokasi_unit').value=xalokasi_unit;
+      document.getElementById('alokasi_pusat').value=xalokasi_pusat;
+      if(xalokasi_unit =='' || xalokasi_pusat == '' || (xalokasi_unit ==0 && xalokasi_pusat == 0)){
+         alert('Alokasi Penerimaan Belum Diset !.');
+      } else {
+         popupClose();
+      }
+   }
+</script>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="list_jenis_penerimaan" / -->
+</h1>
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+   <table>
+      <tr>
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / -->
+         </th>
+         <td>
+            <input type="hidden" name="unit_id" value="{UNIT_ID}" />
+            <label style="font-weight: bold;">
+               {UNIT_KODE} - {UNIT_NAMA}
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" value="{KODE}" size="30" />
+         </td>
+      </tr>
+      </tr>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <td>
+            <input type="text" name="nama" value="{NAMA}" size="30" />
+         </td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th width="5">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama_satuan" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="alokasi_unit" / --><br /> (%)
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="alokasi_pusat" / --><br /> (%)
+         </th>
+         <th width="31">
+            <!-- patTemplate:gtfwgetconfig config="language" name="pilih" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="8" align="center">
+                  <em>
+                     --<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--
+                  </em>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+               <tr class="{CLASS_NAME}" style="{ROW_STYLE}">
+                  <td align="center">
+                     {NOMOR}
+                  </td>
+                  <td align="right">
+                     {KODE}
+                  </td>
+                  <td>
+                     {NAMA}
+                  </td>
+                  <td>
+                     {SATUAN}
+                  </td>
+                  <td align="center">
+                     {ALOKASI_UNIT}
+                  </td>
+                  <td align="center">
+                     {ALOKASI_PUSAT}
+                  </td>
+                  <td class="links" align="center">
+                     <!-- patTemplate:tmpl name="show_button_pilih" type="condition" conditionvar="IS_SHOW" -->
+                        <!-- patTemplate:sub condition="YES" -->
+                     <a href="javascript:setData('{ID}')" onclick="">
+                        <img alt="Pilih" src="images/button-check.gif"/>
+                     </a>
+                           <a href="javascript:setParent('{DATA_ALOKASI_PUSAT_ID}','{DATA_ALOKASI_ID}','{DATA_ID}', '{DATA_KODE}', '{DATA_NAMA}','{DATA_SATUAN}','{DATA_ALOKASI_UNIT}','{DATA_ALOKASI_PUSAT}')" onclick="" style="display: none;">
+                              <img alt="Pilih" src="images/button-check.gif"/>
+                           </a>
+                           <!-- /patTemplate:sub -->
+                     <!-- /patTemplate:tmpl -->
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<script type="text/javascript">
+var dataReferensi       = {REFERENSI_DATA};
+setData     = function(id){
+   var data       = dataReferensi[id];
+   var formInput  = document.forms['frmInput'];
+   if(formInput){
+      var frmElement    = formInput.elements;
+      var txtAlokasiPusat     = frmElement['alokasi_pusat'];
+      var txtAlokasiPusatId   = frmElement['alokasi_pusat_id'];
+      var txtAlokasiUnit      = frmElement['alokasi_unit'];
+      var txtAlokasiUnitId    = frmElement['alokasi_unit_id'];
+      var txtId               = frmElement['kodepenerimaan_id'];
+      var txtKode             = frmElement['kodepenerimaan_kode'];
+      var txtNama             = frmElement['kodepenerimaan_nama'];
+      var label               = document.getElementById('namapenerimaan_labelx');
+      var sumberdanaId        = frmElement['sumber_dana'];
+      var sumberdana          = frmElement['sumber_dana_label'];
+      var satuan              = frmElement['satuan'];
+      if((data['alokasi_unit'] == '' || data['alokasi_pusat'] == '') || (data['alokasi_unit'] == 0 || data['alokasi_pusat'] == 0)){
+         alert('Belum ada alokasi yang di set');
+      }else{
+         txtAlokasiUnit.value    = data['alokasi_unit'];
+         txtAlokasiUnitId.value  = data['alokasi_id'];
+         txtAlokasiPusat.value   = data['alokasi_pusat'];
+         txtAlokasiPusatId.value = data['alokasi_pusat_id'];
+         txtId.value             = data['id'];
+         txtKode.value           = data['kode'];
+         txtNama.value           = data['nama'];
+         label.innerHTML         = data['nama'];
+         sumberdanaId.value      = data['sumberdana_id'];
+         sumberdana.value        = data['sumberdana_nama'];
+         satuan.value            = data['satuan'];
+      }
+
+      // console.log(data);
+   }
+
+   popupClose();
+}
+</script>
+<!-- /patTemplate:tmpl -->

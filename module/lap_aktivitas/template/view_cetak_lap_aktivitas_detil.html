@@ -1,0 +1,57 @@
+<!-- patTemplate:tmpl name="content" -->
+<div class="header" style="height: 36px;">
+    <h1>{HEADER_LAPORAN}</h1>
+</div>
+<br />
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="laporan_cetak_aktivitas" / --></h1>
+<table class="empty-table">
+    <tr>
+        <td align="left" width="100">
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode" / -->
+        </td>
+        <td align="left">
+            : {TGL_AWAL} s/d {TGL_AKHIR}
+        </td>
+    </tr>
+</table>
+<br />
+<table class="table-common" width="600px">
+    <tr>
+        <th align="left">Uraian</th>
+        <th width="130"><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_rp" / --></th>
+    </tr>
+    <!-- patTemplate:tmpl name="aktivitas" -->
+        <tr class="table-padding">
+            <td style="padding-left: {KELLAP_PADDING}px;{KELLAP_STYLE}">{KELLAP_NAMA}</td>
+            <!-- patTemplate:tmpl name="status" type="condition" conditionvar="KELLAP_STATUS" -->
+                <!-- patTemplate:sub condition="PARENT" -->        
+                    <td align="right">
+                </td>
+                <!-- /patTemplate:sub --> 
+                <!-- patTemplate:sub condition="CHILD" -->        
+                    <td align="right">
+                        {KELLAP_NOMINAL_SALDO}
+                    </td> 
+                <!-- /patTemplate:sub --> 
+                <!-- patTemplate:sub condition="SUMMARY" -->        
+                    <td align="right">
+                        <b>{KELLAP_NOMINAL_SALDO}</b>
+                    </td>
+                <!-- /patTemplate:sub --> 
+            <!-- /patTemplate:tmpl -->
+        </tr>
+        <!-- patTemplate:tmpl name="is_show_detail" type="condition" conditionvar="SHOW_DETAIL" -->
+            <!-- patTemplate:sub condition="YA" -->       
+                <!-- patTemplate:tmpl name="aktivitas_coa"  visibility="hidden" -->
+                    <tr class="{DATA_CLASS_NAME}">
+                        <td style="padding-left: {DET_PADDING}px;">
+                        <label class="kode-akun">{DET_KELLAP_COA_KODE} <i>[{DET_KELLAP_SUB_ACC}]</i></label> - {DET_KELLAP_COA_NAMA} 
+                        </td>
+                        <td align="right">{DET_KELLAP_NOMINAL_SALDO}</td>
+                    </tr>
+                <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub --> 
+        <!-- /patTemplate:tmpl -->
+    <!-- /patTemplate:tmpl -->
+</table>
+<!-- /patTemplate:tmpl -->

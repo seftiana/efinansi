@@ -1,0 +1,216 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+function setParent(xid, xlabel,kegiatandetail_id, total_anggaran , realisasi_nominal , realisasi_pencairan, programId, program_label, kegiatanunit_id, subProgramId, subProgLabel) {
+
+   var kegiatanRef      = document.getElementById('kegiatanref');
+   var kegiatanRefLabel = document.getElementById('kegiatanref_label');
+   var kegiatanDetailId = document.getElementById('kegiatandetail_id');
+   var totalAnggaranDiv = document.getElementById('total_anggaran_div');
+   var totalAnggaranTxt = document.getElementById('total_anggaran_txt');
+   var realisasiDiv     = document.getElementById('realisasi_pencairan_div');
+   var realisasiTxt     = document.getElementById('realisasi_pencairan_txt');
+   var pencairanDiv     = document.getElementById('realisasi_nominal_div');
+   var pencairanTxt     = document.getElementById('realisasi_nominal_txt');
+   var program          = document.getElementById('program');
+   var programLabel     = document.getElementById('program_label');
+   var kegiatanUnitId   = document.getElementById('kegiatanunit_id');
+   var programHidden    = document.getElementById('program_hidden');
+   var subProgram       = document.getElementById('subprogram');
+   var subProgramLabel  = document.getElementById('subprogram_label');
+   var subProgHidden    = document.getElementById('subprogram_label_hidden');
+   // var dataNominal      = document.getElementById('data_nominal');
+   // var presentase       = document.getElementById('persentase');
+
+
+   kegiatanRef.value          = xid;
+   kegiatanRefLabel.value     = xlabel;
+   kegiatanDetailId.value     = kegiatandetail_id;
+
+   totalAnggaranDiv.innerHTML = total_anggaran;
+   totalAnggaranTxt.value     = clearCurrency(total_anggaran);
+   
+   realisasiDiv.innerHTML     = realisasi_nominal;
+   realisasiTxt.value         = clearCurrency(realisasi_nominal);
+   
+   pencairanDiv.innerHTML     = realisasi_pencairan;
+   pencairanTxt.value         = clearCurrency(realisasi_pencairan);
+   
+   program.value              = programId;
+   programLabel.value         = program_label;
+   programHidden.value        = program_label;
+   kegiatanUnitId.value       = kegiatanunit_id;
+   
+   subProgram.value           = subProgramId;
+   subProgramLabel.value      = subProgLabel;
+   subProgHidden.value        = subProgLabel;
+     
+   // dataNominal.value          = total_anggaran;
+   // presentase.value           = (parseInt(realisasi_nominal)/parseInt(total_anggaran))*100;
+   
+   //popupClose();
+}
+
+window.update_KOMP_list = function (id, xid)
+{
+   var kegiatanRef      = document.getElementById('kegiatanref');
+   var data             = {JSON_KOMPONEN_ANGGARAN};
+   var dataToMount      = data[id];
+   var tBody            = document.getElementById('KOMP_Place_Holder');
+   var childObj         = tBody.getElementsByTagName('tr');
+   document.getElementById('KOMP_Place_Holder').deleteAllItem();
+   for (var i in dataToMount){
+      document.getElementById('KOMP_Place_Holder').addItem
+      (
+         dataToMount[i]['rp_id'],
+         dataToMount[i]['rp_kompkode'],
+         dataToMount[i]['rp_kompnama'],
+         dataToMount[i]['nilai'], 
+         dataToMount[i]['mak_id'], 
+         dataToMount[i]['makKode'], 
+         dataToMount[i]['makNama']
+      );
+   }
+   
+   popupClose();
+}
+
+function clearCurrency(str){
+   num      = str.toString();
+   num      = num.replace(/\$|\./g, '');
+   num      = num.replace(/\$|\,/g,'.');
+   num      = parseFloat(num);
+   return num;
+}
+
+function formatCurrency(num) {
+   var num     = num.toString();
+   num         = num.replace(/\$|\,/g,'');
+   if(isNaN(num)){
+      num      = "0";
+   }
+   sign        = (num == (num = Math.abs(num)));
+   num         = Math.floor(num*100+0.50000000001);
+   cents       = num%100;
+   num         = Math.floor(num/100).toString();
+   if(cents<10){
+      cents    = "0" + cents;
+   }
+   for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++){
+      num      = num.substring(0,num.length-(4*i+3))+'.'+num.substring(num.length-(4*i+3));
+   }
+
+   return ((sign)?'':'-') + num + ',' + cents;;
+}
+</script>
+
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="list_sub_kegiatan" / -->
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+   <table>
+      <tr>
+         <th colspan="2">
+            <h2>
+               <strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>              
+         <th width="30%">
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+         </th>
+         <td>
+            <input type="text" name="kegiatanref" value="{KEGIATANREF}" size="30" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+   
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+<div class="pageBar">
+<!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<br />
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th width="5">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="total_anggaran" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="total_realisasi" / -->
+         </th>       
+         <th width="31">
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_kegiatanref" type="condition" conditionvar="KEGIATANREF_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="6" align="center">
+                  <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_kegiatanref_item" -->
+               <tr class="{KEGIATANREF_CLASS_NAME}">
+                  <td align="center">
+                     {KEGIATANREF_NUMBER}
+                  </td>
+                  <td>
+                     {KEGIATANREF_KODE}
+                  </td>
+                  <td>
+                     {KEGIATANREF_NAMA}
+                  </td>
+               <td style="text-align:right;">
+                  {KEGIATANREF_TOTAL_ANGGARAN}
+               </td>
+               <td style="text-align:right;">
+                  {KEGIATANREF_TOTAL_REALISASI}
+               </td>
+               <!--
+                  <td class="links" align="center">
+                     <a href="javascript:void(0)" onclick="javascript:setParent('{KEGIATANREF_ENC_KEGIATANREF_ID}','{KEGIATANREF_ENC_KEGIATANREF_NAMA}','{KEGIATANREF_KEGIATANDETAIL_ID}')"><img alt="Pilih" src="images/button-check.gif"/></a>
+                  </td>
+               -->
+               <td class="links" align="center">
+                  <!-- patTemplate:tmpl name="select_button" -->
+                     <a href="javascript:setParent('{KEGIATANREF_ID}','{KEGIATANREF_NAMA}','{KEGIATANREF_KEGIATANDETAIL_ID}','{KEGIATANREF_TOTAL_ANGGARAN}','{KEGIATANREF_REALISASI_NOMINAL}','{KEGIATANREF_REALISASI_PENCAIRAN}','{KEGIATANREF_PROGRAMID}','{KEGIATANREF_PROGRAMNAMA}','{KEGIATANREF_KEGUNITKERJAID}','{KEGIATANREF_SUBPROGID}','{KEGIATANREF_SUBPROGNAMA}');update_KOMP_list('{KEGIATANREF_KEGIATANDETAIL_ID}', '{KEGIATANREF_ID}');" title="">
+                        <img alt="Pilih" src="images/button-check.gif"/>
+                     </a>
+                  <!-- /patTemplate:tmpl -->
+                  </td>    
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<!-- /patTemplate:tmpl -->

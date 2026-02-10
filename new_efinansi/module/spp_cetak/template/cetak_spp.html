@@ -1,0 +1,330 @@
+<!-- patTemplate:tmpl name="content" -->
+<div class="a4-potrait">
+	<h1 style="text-align:center; font-size:18px;">
+		SURAT PERMINTAAN PEMBAYARAN
+	</h1>
+	<center>
+		Tanggal : {TANGGAL} &nbsp;&nbsp; Nomor: {NOMOR_SPP}
+	</center>
+	<p style="padding-left:560px;">
+		Sifat Pembayaran&nbsp;&nbsp;&nbsp;:{KD_SIFAT_PEMBAYARAN}. {SIFAT_PEMBAYARAN}<br />
+		Jenis Pembayaran : {KD_JENIS_PEMBAYARAN}. {JENIS_PEMBAYARAN}</br >
+	</p>
+	<table>
+		<tr>
+			<td width="15" align="center">1.</td>
+			<td width="95">Departemen/Lembaga</td>
+			<td>
+				: 
+				<!-- patTemplate:gtfwgetconfig config="organization" name="kementerian_lembaga_nama" / -->
+			</td>
+			<td width="65">
+				( 
+				<!-- patTemplate:gtfwgetconfig config="organization" name="kementerian_lembaga_no" / -->
+				 )
+			</td>
+			<td width="15" align="center">6.</td>
+			<td width="160">Kode Output</td>
+			<td width="65">
+				
+			</td>
+		</tr>
+		<tr>
+			<td width="15" align="center">2.</td>
+			<td>Unit Organisasi</td>
+			<td>: 
+				<!-- patTemplate:gtfwgetconfig config="organization" name="unit_org_eselon_nama" / -->
+			</td>
+			<td>
+				
+			</td>
+			<td width="15" align="center">7.</td>
+			<td>Kode Komponen</td>
+			<td>
+				
+			</td>
+		</tr>
+		<tr>
+			<td width="15" align="center">3.</td>
+			<td>Kantor/Satuan kerja</td>
+			<td>
+				: 
+				<!-- patTemplate:gtfwgetconfig config="organization" name="company_name" / -->
+			</td>
+			<td>
+				( <!-- patTemplate:gtfwgetconfig config="organization" name="satker_no" / --> )
+			</td>
+			<td width="15" align="center">8.</td>
+			<td>Kode Sub Komponen</td>
+			<td>
+				
+			</td>
+		</tr>
+		<tr>
+			<td width="15" align="center">4.</td>
+			<td>Lokasi/tempat</td>
+			<td>
+				: 
+				<!-- patTemplate:gtfwgetconfig config="organization" name="city" / -->
+			</td>
+			<td>
+				
+			</td>
+			<td width="15" align="center">9.</td>
+			<td>Kode Fung, Sub Fung, Prog</td>
+			<td>
+				<!-- patTemplate:gtfwgetconfig config="organization" name="fungsi_no" / -->
+				<!-- patTemplate:gtfwgetconfig config="organization" name="subfungsi_no" / -->
+				<!-- patTemplate:gtfwgetconfig config="organization" name="program_no" / -->
+			</td>
+		</tr>
+		<tr>
+			<td width="15" align="center">5.</td>
+			<td>Alamat</td>
+			<td>
+				: <!-- patTemplate:gtfwgetconfig config="organization" name="company_address" / -->
+			</td>
+			<td>
+				
+			</td>
+			<td width="15" align="center">10.</td>
+			<td>
+				Kewenangan Pelaksana
+			</td>
+			<td>
+				
+			</td>
+		</tr>
+		<tr>
+			<td colspan="7">
+				<p>
+					Kepada Yth.<br />
+					Pejabat Penerbit SPM <!-- patTemplate:gtfwgetconfig config="organization" name="company_name" / --><br />
+					di <!-- patTemplate:gtfwgetconfig config="organization" name="city" / --><br />
+				</p>
+				Berdasarkan DIPA Tahun 2011 <!-- patTemplate:gtfwgetconfig config="organization" name="company_name" / --> No. <!-- patTemplate:gtfwgetconfig config="organization" name="no_dipa" / -->, Tanggal 20 Desember 2010 bersama ini kami ajukan permintaan pembayaran sebagai berikut:
+				<table style="border:none;">
+					<tr>
+						<td width="15" align="center">1.</td>
+						<td width="235">Jumlah Pembayaran yang diminta</td>
+						<td>{SPP_TOTAL}</td>
+					</tr>
+					<tr>
+						<td align="center"></td>
+						<td>Dengan Huruf</td>
+						<td>{TERBILANG}</td>
+					</tr>
+					<tr>
+						<td align="center">2.</td>
+						<td>Untuk Keperluan</td>
+						<td>{KEPERLUAN}</td>
+					</tr>
+					<tr>
+						<td align="center">3.</td>
+						<td>Jenis Belanja</td>
+						<td>{JENIS_BELANJA}</td>
+					</tr>
+					<tr>
+						<td align="center">4.</td>
+						<td>Atas Nama</td>
+						<td>{ATAS_NAMA}</td>
+					</tr>
+					<tr>
+						<td align="center">5.</td>
+						<td>Alamat</td>
+						<td>{ALAMAT}</td>
+					</tr>
+					<tr>
+						<td align="center">6.</td>
+						<td>Mempunyai Rekening</td>
+						<td>{REKENING}</td>
+					</tr>
+					<tr>
+						<td align="center">7.</td>
+						<td>Nomor dan tanggal SPK/Kontrak</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td align="center">8.</td>
+						<td>Nilai SPK/Kontrak</td>
+						<td>{NILAI_SPK}</td>
+					</tr>
+					<tr>
+						<td align="center">9.</td>
+						<td colspan="2">Dengan Penjelasan</td>
+					</tr>
+				</table>
+				
+			</td>
+		</tr>
+		<tr>
+			<td colspan="7">
+				<table>
+					<tr>
+						<td width="35" align="center" rowspan="2">No</td>
+						<td valign="top" align="left">
+							I. Keg, SubKeg dan MAK bersangkutan
+						</td>
+						<td align="center" width="115" valign="top">
+							Pagu<br />
+							dalam DIPA
+						</td>
+						<td align="center" width="115" valign="top">
+							SPP/SPM<br />
+							Sampai dengan yang lalu
+						</td>
+						<td align="center" width="115" valign="middle">
+							SPP ini
+						</td>
+						<td align="center" width="115" valign="top">
+							Jumlah sampai<br />
+							dengan SPP ini
+						</td>
+						<td align="center" width="115" valign="middle">
+							Sisa Dana
+						</td>
+					</tr>
+					<tr>
+						<td valign="top" align="left">
+							II. Semua Kode Keg. dalam DIPA
+						</td>
+						<td align="center" width="115" valign="bottom">
+							(Rp.)
+						</td>
+						<td align="center" width="115" valign="bottom">
+							(Rp.)
+						</td>
+						<td align="center" width="115" valign="bottom">
+							(Rp.)
+						</td>
+						<td align="center" width="115" valign="bottom">
+							(Rp.)
+						</td>
+						<td align="center" width="115" valign="bottom">
+							(Rp.)
+						</td>
+					</tr>
+					<tr>
+						<td align="center">1</td>
+						<td align="center">2</td>
+						<td align="center">3</td>
+						<td align="center">4</td>
+						<td align="center">5</td>
+						<td align="center">6</td>
+						<td align="center">7</td>
+					</tr>
+					<tr>
+						<td colspan="7" align="left">
+							Fung/SubFung/prog : 
+							<!-- patTemplate:gtfwgetconfig config="organization" name="fungsi_no" / -->.
+							<!-- patTemplate:gtfwgetconfig config="organization" name="subfungsi_no" / -->.
+							<!-- patTemplate:gtfwgetconfig config="organization" name="program_no" / -->.
+						</td>
+					</tr>
+					<tr>
+						<td align="center">I</td>
+						<td align="left">
+							Semua Kegiatan
+						</td>
+						<td rowspan="2" valign="bottom" align="right">
+							{NOMINAL_DIPA}
+						</td>
+						<td rowspan="2" valign="bottom" align="right">
+							
+						</td>
+						<td rowspan="2" valign="bottom" align="right">
+							{NOMINAL_DETIL}
+						</td>
+						<td rowspan="2" valign="bottom" align="right">
+							{SPP_SAAT_INI}
+						</td>
+						<td rowspan="2" valign="bottom" align="right">
+							{SISA_DANA}
+						</td>
+					</tr>
+					<tr>
+						<td align="center">RM</td>
+						<td>2010 40 011 {MAK_KODE}</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>
+							<strong>
+								Jumlah
+							</strong>
+						</td>
+						<td align="right">{NOMINAL_DIPA}</td>
+						<td align="right">&nbsp;</td>
+						<td align="right">{NOMINAL_DETIL}</td>
+						<td align="right">{SPP_SAAT_INI}</td>
+						<td align="right">{SISA_DANA}</td>
+					</tr>
+					<tr>
+						<td align="center">
+							RM
+						</td>
+						<td align="left">
+							Uang Persediaan
+						</td>
+						<td align="right">&nbsp;</td>
+						<td align="right">&nbsp;</td>
+						<td align="right">&nbsp;</td>
+						<td align="right">&nbsp;</td>
+						<td align="right">&nbsp;</td>
+					</tr>
+					<tr>
+						<td align="center">
+							PNP
+						</td>
+						<td align="left">
+							Uang Persediaan
+						</td>
+						<td align="right">&nbsp;</td>
+						<td align="right">&nbsp;</td>
+						<td align="right">&nbsp;</td>
+						<td align="right">&nbsp;</td>
+						<td align="right">&nbsp;</td>
+					</tr>
+					<tr>
+						<td colspan="7">Lampiran</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<br />
+							Diterima Oleh :<br />
+							Penguji SPP/SPM<br />
+							tgl..................<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							
+							(..........................................)<br />
+							NIP.
+						</td>
+						<td colspan="5" style="padding-left:375px;" valign="top">
+							<br />
+							<center>
+								Bangkalan, {TANGGAL}<br />
+								Pejabat Pembuat Komitmen<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								
+								Ir. Hj. Siti Fatimah, M.Si<br />
+								NIP. 196509191994032003
+							</center>
+						</td>
+					</tr>
+					
+				</table>
+				
+			</td>
+		</tr>
+	</table>
+	
+	
+	<br />
+</div>
+<!-- /patTemplate:tmpl -->

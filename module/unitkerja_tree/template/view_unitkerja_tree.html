@@ -1,0 +1,26 @@
+<!-- patTemplate:tmpl name="content" -->
+
+    <ul class="jqueryFileTree" style="display: none;" >
+  	<!-- patTemplate:tmpl name="unit_kerja" type="condition" conditionvar="IS_PARENT" -->
+    	<!-- patTemplate:sub condition="YES" -->
+            <li class="directory collapsed">
+            <a href="{URL_ADD_SUB_UNIT}" id="{UNIT_ID}" class="add" title="Tambah">
+            <img src="images/button-add.gif" width="12" height="12" alt="Tambah"/></a>
+            <a href="{URL_EDIT}" id="{UNIT_ID}" class="edit" title="Ubah">
+            <img src="images/button-edit.gif" width="12" height="12" alt="Ubah"/></a>
+            <label id="{UNIT_ID}">[{UNIT_KODE}] - {UNIT_NAMA}</label>
+            </li>                    
+	 	<!-- /patTemplate:sub -->
+	 	<!-- patTemplate:sub condition="NO" -->
+            <li class="file">
+            <a href="{URL_ADD_SUB_UNIT}" id="{UNIT_ID}" class="add" title="Tambah">
+            <img src="images/button-add.gif" width="12" height="12" alt="Tambah"/></a>
+            <a href="{URL_EDIT}" id="{UNIT_ID}" class="edit" title="Ubah">
+            <img src="images/button-edit.gif" width="12" height="12" alt="Ubah"/></a>
+            <label id="{UNIT_ID}">[{UNIT_KODE}] - {UNIT_NAMA}</label>            
+            </li>    
+		<!-- /patTemplate:sub -->
+    <!-- /patTemplate:tmpl -->
+    </ul>
+   
+<!-- /patTemplate:tmpl -->

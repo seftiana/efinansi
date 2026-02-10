@@ -1,0 +1,203 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+   function cetakSp2d(){
+      alert('cetak sp2d');
+   }
+// ]]>
+</script>
+<h1>
+   Surat Perintah Pencairan Dana Intern
+</h1>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}" id="warning-box">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<div id="warning" style="display: none;">
+   
+</div>
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput">
+   <input type="hidden" name="data_id" value="{DATA_ID}" />
+   <input type="hidden" name="ta_id" value="{TRANSTHANGGARID}" />
+   <input type="hidden" name="trans_id" value="{TRANSID}" />
+   <input type="hidden" name="spm_id" value="{SPMID}" />
+   <input type="hidden" name="unit_kode" value="{UNITKERJAKODE}" />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            Cetak Surat Perintah Pencairan Dana Intern
+         </th>
+      </tr>
+      <tr>
+         <th>
+            Dari
+         </th>
+         <td>
+            Bendahara Penerima BLU {SATKER_NAMA}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Tanggal
+         </th>
+         <td>
+            <input type="hidden" name="sppd_tanggal" id="sppd_tanggal" value="{TANGGAL}" />
+            <!-- patTemplate:var name="TANGGAL" modifier="gtfwindonesiandate" format="short" separator="-" / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Nomor SPPD
+         </th>
+         <td>
+            <input type="text" name="sppd_nomor" id="sppd_nomor" value="{NOMOR_SP2D}" size="30" />
+            <label id="sppd-nomor" style="display: none;">
+               AUTO
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Tahun Anggaran
+         </th>
+         <td>
+            {THANGGARNAMA}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Nomor SPMi
+         </th>
+         <td>
+            <input type="hidden" name="nomor_spmi" id="nomor_spmi" size="35" value="{SPMNOMOR}" />
+            <label for="nomor_spmi">{SPMNOMOR}</label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Tanggal SPMi
+         </th>
+         <td>
+            <label>
+               <!-- patTemplate:var name="SPMTANGGAL" modifier="gtfwindonesiandate" format="short" 
+               separator="-" / -->
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Satuan Kerja
+         </th>
+         <td>
+            {SATKER_NO}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            {SATKER_NAMA}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Klasifikasi Belanja
+         </th>
+         <td>
+            {KLASIFIKASI_BELANJA}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Bank/Pos
+         </th>
+         <td>
+            {SPMBANK}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Nomor Rekening
+         </th>
+         <td>
+            {SPMREKENING}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Cara Pembayaran
+         </th>
+         <td>
+            {CARABAYARKODE} - {CARABAYARNAMA}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Nominal
+         </th>
+         <td>
+            {NOMINAL}
+            <input type="hidden" name="sppdNominal" id="sppdNominal" value="{TRANSNILAI}" />
+         </td>
+      </tr>
+      <tr class="subhead">
+         <th colspan="2">
+            Keterangan Surat Perintah Pencairan Dana Intern
+         </th>
+      </tr>
+      <tr>
+         <th>
+            Kepada
+         </th>
+         <td>
+            <input type="text" name="kepada" id="kepada" value="{KEPADA}" size="35" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            NPWP
+         </th>
+         <td>
+            <input type="text" name="npwp" id="npwp" value="{SPPD_NPWP}" size="35" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Nomor Rekening
+         </th>
+         <td>
+            <input type="text" name="sppd_norek" id="sppd_norek" value="{SPPD_NOREK}" size="35" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Bank/Pos
+         </th>
+         <td>
+            <input type="text" name="sppd_bank" id="sppd_bank" value="{SPPD_BANK}" size="35" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Keterangan
+         </th>
+         <td>
+            <textarea name="keterangan" id="keterangan" cols="60" rows="5" style="resize: none;">{KETERANGAN}</textarea>
+         </td>
+      </tr>
+      <tr class="buttons">
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnsimpan" value=" Cetak SPPD " class="buttonSubmit"/>
+            <input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit"/> 
+         </td>
+      </tr>
+   </table>
+</form>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,145 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+$(document).ready(function(){
+	$('#check_all').click(function(){
+		//$(this).parents().find('input:checkbox[@name=id_program]').attr('checked', this.checked);
+		var checked_status = this.checked;
+		$("input[name=id[]]").each(function() {
+            if(this.disabled == false){
+			this.checked = checked_status;
+            }
+		});
+	});
+	//$('#notebox-alert').fadeOut(3000);
+}); 
+
+	function resetFormPencarian() {
+	    GtfwAjax.replaceContentWithUrl("subcontent-element","{URL_RESET}&ascomponent=1");
+	}    
+// ]]>
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_tujuan" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox" name="filterbox">
+    <table>
+        <tr class="subhead">
+            <th colspan="2">
+                <h2>
+                    <strong>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+                    </strong>
+                </h2>
+            </th>
+        </tr>
+        <tr>
+            <th> <!-- patTemplate:gtfwgetconfig config="language" name="kode" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="uraian" / --></th>
+            <td>
+                <input type="text" name="txt_search" id="txt_search" value="{TXT_SEARCH}" size="30" />
+            </td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+                 <input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" onclick="resetFormPencarian();" />
+            </td>
+        </tr>
+    </table>
+</form>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+    {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<form name="frm_list" id="frm_list" action="{URL_DELETE}" method="POST" 
+class="xhr_simple_form dest_subcontent-element">
+<div class="pageBar">
+    <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+    <div class="toolbar"> 
+	    <a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Tujuan" >
+	        <img src="images/button-add.gif" alt="">
+	        <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / -->
+	    </a>
+	<input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="inputButton" />
+	</div>
+</div>
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+    <tr>
+        <th>
+           <!-- patTemplate:gtfwgetconfig config="language" name="no" / --></h1>
+        </th>
+        <th width="5" {STYLE} >
+	        <input type="checkbox" name="check_all" id="check_all" />
+	    </th>
+        <th width="100">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></h1>
+        </th>
+        <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="uraian" / --></h1>
+        </th>
+        <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></h1>
+        </th>
+    </tr>
+    <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+        <!-- patTemplate:sub condition="YES" -->
+            <tr>
+                <td colspan="5" align="center">
+                    <em>
+                        -- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --></h1> --
+                    </em>
+                </td>
+            </tr>
+        <!-- /patTemplate:sub -->
+        <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+                <tr class="{TUJUAN_CLASS_NAME}">
+                    <td style="width:25px;" align="center">
+                        {TUJUAN_NOMOR}
+                    </td>
+                    <td {STYLE}>
+	
+	                    <input type="checkbox" name="id[]" id="visi_id_{TUJUAN_ID}" value="{TUJUAN_ID}" />
+	                    <input type="hidden" name="name[{TUJUAN_ID}]" value="{TUJUAN_KODE} - {TUJUAN_NAMA}" />  
+	                </td>
+                    <td >
+                        {TUJUAN_KODE}
+                    </td>
+                    <td>
+                        {TUJUAN_NAMA}
+                    </td>
+                    <td style="width:18px;">
+                        <a class="xhr dest_subcontent-element" href="{TUJUAN_URL_EDIT}" title="Ubah">
+	                    <img src="images/button-edit.gif" alt="Ubah" />
+                    </td>
+                </tr>
+            <!-- /patTemplate:tmpl -->
+        <!-- /patTemplate:sub -->
+    <!-- /patTemplate:tmpl -->
+</table>
+
+<!--  end: Table List -->
+</form>
+<br />
+
+   	<div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+      <ul>
+      <li>
+            <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / --> 
+            <img src="images/button-add.gif" /> 
+            <!-- patTemplate:gtfwgetconfig config="language" name="untuk_menambah_data" / -->
+            </li>
+      
+        <li>
+                <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk_klik" / --> 
+                <img src="images/button-edit.gif"/> 
+                <!-- patTemplate:gtfwgetconfig config="language" name="untuk_mengupdate_data" / --></li>
+		 
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,566 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css">
+table.table-edit table.table-common > thead > tr > th{
+   text-align: center;
+   font-weight: bold;
+   vertical-align: middle;
+}
+</style>
+<h1>
+   Surat Pencairan Pengeluaran Uang (SPPU)
+</h1>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form dest_subcontent-element" data-target="{URL_RETURN}" id="frmInput">
+   <input type="hidden" name="data_id" value="{ID}" />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="edit" / --> Data
+         </th>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <td>
+            <label style="font-weight: bold;">
+               ({NOMOR})
+            </label>
+         </td>
+      </tr>
+
+      <tr>
+         <th style="width: 115px;">
+            Bank Payment
+         </th>
+         <td>
+            <input type="checkbox" value="Y" name="bp" id="check_bp"  {CHECKED_BP} >
+         </td>
+      </tr>
+      <tr>
+         <th style="width: 115px;">            
+            Cash Receipt
+         </th>
+         <td>
+            <input type="checkbox" value="Y" name="cr" id="check_cr" {CHECKED_CR} >
+         </td>
+      </tr>   
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no_bukti" / -->
+         </th>
+         <td>
+            <input type="text" name="nomor_bukti" id="nomor_bukti" size="35" value="{NOMOR_BUKTI}" /> *
+         </td>
+      </tr>      
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="bank" / -->
+         </th>
+         <td>
+            <input type="text" name="bank" size="35" value="{BANK}" /> *
+         </td>
+      </tr>
+            <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="no_cek_giro" / -->
+         </th>
+         <td>
+            <input type="text" name="no_cek_giro" size="35" value="{NO_CEK_GIRO}" /> *
+         </td>
+      </tr> 
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="no_rekening" / -->
+         </th>
+         <td>
+            <input type="text" name="no_rekening" size="35" value="{NO_REKENING}" /> *
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal" / -->
+         </th>
+         <td>
+            <label style="font-weight: bold; float: left; margin-right: 6px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->
+            </label>
+            <span style="font-weight: bold;" id="realisasi-total-label">
+               {NOMINAL}
+            </span>
+            <div id="relaisasi-total-terbilang" style="font-weight: bold; display: block; width: 100%; clear: both; font-style: italic; padding-left: 8px; padding-top: 8px;">
+               {TERBILANG}
+            </div>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / -->
+         </th>
+         <td>
+            <textarea name="keterangan" id="txt_keterangan" style="width: 70%; resize: none;" rows="4">{KETERANGAN}</textarea>
+         </td>
+      </tr>
+      <tr class="buttons">
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+            <input type="reset" name="btnbalik" value=" Batal " class="buttonSubmit"/>
+         </td>
+      </tr>
+      <tr class="subhead">
+         <th colspan="2">
+            Daftar FPA
+             <div class="toolbar">
+            <a href="#" title="Tambah Data" onclick="showPopup('{URL_POPUP_FPA}', '', 795, 550);">
+         <img src="images/button-add.gif" alt="tambah" />
+         Tambah <!-- patTemplate:gtfwgetconfig config="language" name="mak" / -->
+      </a>
+   </div>
+         </th>
+      </tr>
+      <tr>
+         <td colspan="2" style="padding: 0px;">
+            <table class="table-common" style="width: 100%;">
+               <thead>
+                  <tr>
+                     <th style="width: 25px;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+                     </th>
+                     <th style="width: 95px;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="no_pengajuan" / -->
+                     </th>
+                     <th style="width: 115px;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / --> FPA
+                     </th>
+                     <th>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->,
+                        <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->,
+                        <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+                     </th>
+                     <th>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->
+                     </th>
+                     <th style="width: 110px;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="jumlah_rp" / -->
+                     </th>
+                     <th style="width: 30px;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+                     </th>
+                  </tr>
+               </thead>
+               <tbody id="realisasi_PlaceHolder">                  
+                        <tr id="realisasi-empty-row">
+                           <td colspan="7" style="text-align: center; font-style: italic;">
+                              <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                           </td>
+                        </tr>
+               </tbody>
+            </table>
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div class="petunjuk-area" id="petunjuk">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / -->
+      </li>
+   </ul>
+</div>
+
+
+<script type="text/javascript">
+var formInput     = document.forms['frmInput'];
+var formElements  = formInput.elements;
+//add element FPA
+var formatNumber = function(num, mode){
+   var num     = num.toString();
+   num         = num.replace(/\$|\,/g,'');
+   if(isNaN(num)){
+      num      = "0";
+   }
+   sign        = (num == (num = Math.abs(num)));
+   num         = Math.floor(num*100+0.50000000001);
+   cents       = num%100;
+   num         = Math.floor(num/100).toString();
+   if(cents<10){
+      cents    = "0" + cents;
+   }
+   for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++){
+      num      = num.substring(0,num.length-(4*i+3))+'.'+num.substring(num.length-(4*i+3));
+   }
+
+   return ((sign)?'':'-') + num + ',' + cents;;
+}
+
+
+document.getElementById('realisasi_PlaceHolder').addItem     = function(
+    nomor, realisasi_id, no_fpa, nominal,prog_nama,keg_nama,sub_keg_nama,lingkup,unit_nama,tanggal){  
+    
+   var numRows = document.getElementById('realisasi_PlaceHolder').getElementsByTagName("tr").length;
+   
+   if(nomor == 0) {
+       nomor = numRows ;
+   }
+   var id = realisasi_id;     
+   var elemen_id  = 'realisasi_'+id;
+   if(document.getElementById(elemen_id)){
+      return true;
+   }
+   var frag             = document.createDocumentFragment();
+   var childObj         = this.getElementsByTagName('tr');
+
+   for (var i = childObj.length - 1; i >= 0; i--) {
+      if(childObj[i].id === 'realisasi-empty-row' || childObj[i].id == 'row-realisasi-total'){
+         this.removeChild(childObj[i]);
+      }
+   };
+
+//
+
+   var tr      = document.createElement('tr');
+   tr.id       = elemen_id;   
+   /*
+   var sppuId    = document.createElement('input');
+   sppuId.type      = 'hidden';
+   sppuId.id        = 'realisasi-sppu-'+id;
+   sppuId.name      = 'data['+id+'][id]';
+   sppuId.value     = id;
+   */
+   var realisasiId       = document.createElement('input');
+   realisasiId.type      = 'hidden';
+   realisasiId.id        = 'realisasi-id-'+id;
+   realisasiId.name      = 'data['+id+'][realisasi_id]';
+   realisasiId.value     = realisasi_id;
+/*
+   var pengajuanId       = document.createElement('input');
+   pengajuanId.type      = 'hidden';
+   pengajuanId.id        = 'pengajuan-id-'+id;
+   pengajuanId.name      = 'data['+id+'][pengajuan_id]';   
+   pengajuanId.value     = pengajuan_id;
+
+   var kegiatanId       = document.createElement('input');
+   kegiatanId.type      = 'hidden';
+   kegiatanId.id        = 'kegitan-id-'+id;
+   kegiatanId.name      = 'data['+id+'][kegiatan_id]';
+   kegiatanId.value     = kegiatan_id;
+
+   var akunId       = document.createElement('input');
+   akunId.type      = 'hidden';
+   akunId.id        = 'akun-id-'+id;
+   akunId.name      = 'data['+id+'][akun_id]';
+   akunId.value     = akun_id;
+*/
+   var noFpa       = document.createElement('input');
+   noFpa.type      = 'hidden';
+   noFpa.id        = 'no-fpa-'+id;
+   noFpa.name      = 'data['+id+'][no_fpa]';
+   noFpa.value     = no_fpa;
+   var labelNoFpa       = document.createElement('label');
+   labelNoFpa.innerHTML  = no_fpa;
+  /* 
+   var komponenId       = document.createElement('input');
+   komponenId.type      = 'hidden';
+   komponenId.id        = 'akun-kode-'+id;
+   komponenId.name      = 'data['+id+'][komponen_id]';
+   komponenId.value     = komponen_id;
+   */
+   var eNominal       = document.createElement('input');
+   eNominal.type      = 'hidden';
+   eNominal.id        = 'nominal-'+id;
+   eNominal.name      = 'data['+id+'][nominal]';
+   eNominal.value     = nominal;
+
+   var progNama      = document.createElement('input');
+   progNama.type      = 'hidden';
+   progNama.id        = 'prog-nama-'+id;
+   progNama.name      = 'data['+id+'][prog_nama]';
+   progNama.value     = prog_nama;
+   var labelProgNama  = document.createElement('label');
+   labelProgNama.innerHTML  = prog_nama;
+   labelProgNama.style.fontWeight = 'bold';
+
+   var kegNama      = document.createElement('input');
+   kegNama.type      = 'hidden';
+   kegNama.id        = 'keg-nama-'+id;
+   kegNama.name      = 'data['+id+'][keg_nama]';
+   kegNama.value     = keg_nama;
+   var labelKegNama  = document.createElement('label');
+   labelKegNama.innerHTML  = keg_nama;
+   
+   var subKegNama       = document.createElement('input');
+   subKegNama.type      = 'hidden';
+   subKegNama.id        = 'sub-keg-nama-'+id;
+   subKegNama.name      = 'data['+id+'][sub_keg_nama]';
+   subKegNama.value     = sub_keg_nama;
+   var labelSubKegNama  = document.createElement('label');
+   labelSubKegNama.innerHTML  = sub_keg_nama;   
+
+   var lingkupKomponen   = document.createElement('input');
+   lingkupKomponen.type  = 'hidden';
+   lingkupKomponen.id    = 'lingkup-'+id;
+   lingkupKomponen.name  = 'data['+id+'][lingkup]';
+   lingkupKomponen.value = lingkup;
+   var labelLingkupKomponen  = document.createElement('label');
+   labelLingkupKomponen.innerHTML  = '( '+lingkup+' )';
+   labelLingkupKomponen.style.fontStyle ='italic';
+
+   var unitNama       = document.createElement('input');
+   unitNama.type      = 'hidden';
+   unitNama.id        = 'unit-nama-'+id;
+   unitNama.name      = 'data['+id+'][unit_nama]';
+   unitNama.value     = unit_nama;
+   var labelUnitNama  = document.createElement('label');
+   labelUnitNama.innerHTML  = unit_nama;
+
+   var eTanggal       = document.createElement('input');
+   eTanggal.type      = 'hidden';
+   eTanggal.id        = 'unit-tanggal-'+id;
+   eTanggal.name      = 'data['+id+'][tanggal]';
+   eTanggal.value     = tanggal;
+   var labelETanggal  = document.createElement('label');
+   labelETanggal.innerHTML  = tanggal;
+
+   var labelNomor  = document.createElement('label');
+   labelNomor.innerHTML  = nomor;
+   var tdNomor        = document.createElement('td');
+   tdNomor.style.textAlign  = 'center';
+   //tdNomor.appendChild(sppuId);
+   tdNomor.appendChild(realisasiId);
+   //tdNomor.appendChild(pengajuanId);
+   //tdNomor.appendChild(kegiatanId);
+  // tdNomor.appendChild(komponenId);
+   tdNomor.appendChild(labelNomor);
+   
+   
+   var tdNoPengajuan        = document.createElement('td');
+   //tdNoPengajuan.appendChild(akunId);
+   tdNoPengajuan.appendChild(noFpa);
+   tdNoPengajuan.appendChild(labelNoFpa);
+
+   var tdTanggal     = document.createElement('td');
+   tdTanggal.appendChild(eTanggal);
+   tdTanggal.appendChild(labelETanggal);
+
+   var tdKeterangan   = document.createElement('td');
+   tdKeterangan.appendChild(progNama);
+   tdKeterangan.appendChild(kegNama);
+   tdKeterangan.appendChild(subKegNama);
+   tdKeterangan.appendChild(lingkupKomponen);
+   
+   tdKeterangan.appendChild(labelProgNama);
+   tdKeterangan.appendChild(labelKegNama);
+   tdKeterangan.appendChild(labelSubKegNama);
+   tdKeterangan.appendChild(labelLingkupKomponen);
+
+   var tdUnitNama  = document.createElement('td');
+   tdUnitNama.appendChild(unitNama);
+   tdUnitNama.appendChild(labelUnitNama);
+
+   var tdNominal     = document.createElement('td');
+   tdNominal.appendChild(eNominal);
+   var labelNominal  = document.createElement('label');
+   labelNominal.innerHTML  = formatNumber(nominal);
+   labelNominal.style.textAlign   = 'right';
+   tdNominal.appendChild(labelNominal);
+
+   var tdAksi        = document.createElement('td');
+   tdAksi.className  = 'links';
+   tdAksi.style.padding       = 0;
+   tdAksi.style.paddingTop    = '4px';
+   tdAksi.style.textAlign     = 'center';
+   var linkAksiDelete         = document.createElement('a');
+   linkAksiDelete.style.float = 'none';
+   
+   linkAksiDelete.href        = 'javascript:void(0);';
+   linkAksiDelete.title       = 'Delete '+id;
+   linkAksiDelete.setAttribute('onclick', 'deleteRecord("'+this.id+'", this);');
+   var iconDelete             = document.createElement('img');
+   iconDelete.src             = 'images/icons/16/button-delete.gif';
+   iconDelete.alt             = 'delete';
+   linkAksiDelete.style.display = 'inline-block';
+   linkAksiDelete.appendChild(iconDelete);
+   tdAksi.appendChild(linkAksiDelete);
+
+   tr.appendChild(tdNomor);
+   tr.appendChild(tdNoPengajuan);
+   tr.appendChild(tdTanggal);
+   tr.appendChild(tdKeterangan);
+   tr.appendChild(tdUnitNama);
+   tr.appendChild(tdNominal);
+   tr.appendChild(tdAksi);
+
+   frag.appendChild(tr);
+
+   // elemen row total
+   var trTotal       = document.createElement('tr');
+   trTotal.id        = 'row-realisasi-total';
+   trTotal.style.fontWeight      = 'bold';
+
+   var tdTotalLabel              = document.createElement('td');
+   tdTotalLabel.innerHTML        = 'Total';
+   tdTotalLabel.style.textAlign  = 'center';
+   tdTotalLabel.setAttribute('colspan', '5');
+
+   var tdTotalNominal            = document.createElement('td');
+   var labelNominalTotal         = document.createElement('label');
+   labelNominalTotal.id          = 'realisasi-total';
+   labelNominalTotal.style.display     = 'block';
+   labelNominalTotal.style.fontWeight  = 'bold';
+   labelNominalTotal.style.textAlign   = 'right';
+   labelNominalTotal.style.width       = '100%';
+   labelNominalTotal.innerHTML         = 0;
+   tdTotalNominal.appendChild(labelNominalTotal);
+
+   var tdEmptyTotal              = document.createElement('td');
+   tdEmptyTotal .innerHTML        = '';
+   
+   trTotal.appendChild(tdTotalLabel);
+   trTotal.appendChild(tdTotalNominal);
+   trTotal.appendChild(tdEmptyTotal);
+   frag.appendChild(trTotal);
+   this.appendChild(frag);
+
+   setNominalTotal(this.id);
+   return true;
+}
+
+
+var deleteRecord     = function(elemenId, el){
+   var tBody         = document.getElementById(elemenId);
+   if(typeof(tBody) != 'undefined' && tBody != null){
+      var emptyRow   = 'realisasi-empty-row';
+      var totalRow   = 'row-realisasi-total';
+      
+      var record        = el.parentNode.parentNode;
+      var firstNode     = tBody.firstChild.nextSibling;
+      var childObj      = tBody.getElementsByTagName('tr');
+
+      if(firstNode.id != emptyRow || firstNode.id != totalRow){
+         tBody.removeChild(record);
+         if(childObj.length === 0){
+            setEmptyRecord(tBody);
+         }else{
+            if(childObj[0].id == totalRow){
+               setNominalTotal(tBody.id);
+               setEmptyRecord(tBody);               
+            }else{
+               setNominalTotal(tBody.id);
+            }
+         }
+      }else{
+         setEmptyRecord(tBody);
+      }
+       //setNominalTotal(tBody.id);
+   }else{
+      console.log('Cannot find HTML elemen');
+   }
+}
+
+
+var setEmptyRecord      = function(elemen){
+   var emptyRow   = 'realisasi-empty-row';
+
+   var childObj   = elemen.getElementsByTagName('tr');
+   for (var i = childObj.length - 1; i >= 0; i--) {
+      elemen.removeChild(childObj[i]);
+   };
+
+   var frag       = document.createDocumentFragment();
+   var tr         = document.createElement('tr');
+   tr.id          = emptyRow;
+   var td         = document.createElement('td');
+   td.setAttribute('colspan', 7);
+   td.style.textAlign = 'center';
+   td.style.fontStyle = 'italic';
+   td.innerHTML   = '<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->';
+
+   tr.appendChild(td);
+   frag.appendChild(tr);
+   elemen.insertBefore(frag, elemen.firstChild);
+
+   return true;
+}
+
+//class js dari -> app_root/js/nominalTerbilang.js
+var nTerbilang = new nominalTerbilang();
+
+var setNominalTotal    = function (elemenId, el){
+   var elemen           = document.getElementById(elemenId);
+   var childObj         = elemen.getElementsByTagName('input');
+   var elemenId         = elemen.id.toUpperCase();
+   //var maxNominal       = formElements.nominal.gvGetValue();
+   var patern           = /data\[(\d+)\]\[nominal\]/;
+   var nominalHolder    = document.getElementById('realisasi-total');
+   var nominalHolder2   = document.getElementById('realisasi-total-label');//pada form input
+   var nominalHolder3   = document.getElementById('relaisasi-total-terbilang');//pada form input
+   
+   var nominalTotal     = 0;
+
+   if(childObj.length > 0){
+      for (var i = childObj.length - 1; i >= 0; i--) {
+         var str  = childObj[i].name;
+         if(str.match(patern)){
+            var nominal       = parseFloat(childObj[i].value);
+            nominalTotal+= nominal;
+            // console.log(childObj[i].value);
+         }
+      };
+   }
+
+   if(nominalHolder != null || typeof(nominalHolder) != 'undefined'){
+      nominalHolder.innerHTML       = formatNumber(nominalTotal);
+      nominalHolder2.innerHTML       = formatNumber(nominalTotal);
+      nominalHolder3.innerHTML       = nTerbilang.Terbilang(nominalTotal,4);
+   }
+   //alert(nominalTotal);
+}
+
+
+var dataRealisasi = {REALISASI_DATA};
+if( dataRealisasi.length > 0){
+   urut = 1;
+   for(var i in dataRealisasi){
+      document.getElementById('realisasi_PlaceHolder').addItem(
+         urut,
+         dataRealisasi[i].realisasi_id,
+         dataRealisasi[i].no_fpa,
+         dataRealisasi[i].nominal,
+         dataRealisasi[i].prog_nama,
+         dataRealisasi[i].keg_nama,
+         dataRealisasi[i].sub_keg_nama,
+         dataRealisasi[i].lingkup,
+         dataRealisasi[i].unit_nama,
+         dataRealisasi[i].tanggal
+      );
+      urut++;
+   }
+}
+
+
+
+
+
+</script>
+<!-- /patTemplate:tmpl -->

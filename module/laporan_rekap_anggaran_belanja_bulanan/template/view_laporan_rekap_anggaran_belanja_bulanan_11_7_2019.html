@@ -1,0 +1,199 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+     <!-- patTemplate:gtfwgetconfig config="language" name="laporan_rekap_anggaran_belanja_bulanan" / -->
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterbox" name="filterbox" class="dataquest xhr_simple_form dest_subcontent-element">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="tahun_anggaran"  / -->
+         </td>
+      </tr>
+
+      <!-- patTemplate:tmpl name="data_unit" type="condition" conditionvar="TYPE" -->
+         <!-- patTemplate:sub condition="PARENT" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="unit_id" value="{UNIT_ID}" id="src_unit_id" />
+                  <input type="text" name="unit_nama" value="{UNIT_NAMA}" id="src_unit_nama" readonly size="40" />
+                  <input type="button" value=" ... " onclick="showPopup('{URL_POPUP_UNIT}', '', 600, 500);" />
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="CHILD" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="unit_id" value="{UNIT_ID}" id="src_unit_id" />
+                  <input type="hidden" name="unit_nama" value="{UNIT_NAMA}" id="src_unit_nama" />
+                  <label>
+                     {UNIT_NAMA}
+                  </label>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+         </th>
+         <td>
+            <input type="hidden" name="program_id" id="src_program_id" value="{PROGRAM_ID}" />
+            <textarea name="program" style="resize: none;" rows="3" cols="40" id="src_program" readonly>{PROGRAM}</textarea>
+            <input type="button" value=" ... " onclick="javascript:popupProgram('{URL_POPUP_PROGRAM}');" />
+         </td>
+      </tr>
+      <tr>
+          <th>Status Approval</th>
+          <td>
+           <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" 
+            action="view" name="status_approval"  / -->        </td>
+      </tr>
+      <!-- patTemplate:tmpl name="cmb_bulan" visibility="hidden" -->
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal"  / -->
+         </td>
+      </tr>
+      <!-- /patTemplate:tmpl -->
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   <div class="toolbar">
+      <!-- patTemplate:tmpl name="content_link" visibility="hidden" -->
+         <a target="_blank" href="{EXPORT_EXCEL}" title="Export Data" >
+            <img src="images/icons/16/export_excel.gif" alt="Export">
+            <!-- patTemplate:gtfwgetconfig config="language" name="export_excel" / -->
+         </a>
+      <!-- /patTemplate:tmpl -->
+   </div>
+</div>
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="program" / --> /
+            <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --> /
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+         </th>
+          <th colspan="{COLSPAN_BULAN}">
+            <!-- patTemplate:gtfwgetconfig config="language" name="bulan" / -->
+         </th>
+         <th rowspan="2">
+            Total Anggaran
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 95px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+     
+           <!-- patTemplate:tmpl name="header_bulan" -->
+          <th>
+            {NAMA_BULAN}
+         </th>
+          <!-- /patTemplate:tmpl -->
+      
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="16">
+                  <center>
+                     <em>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                     </em>
+                  </center>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+               <tr class="{CLASS_NAME}" style="{ROW_STYLE}">
+                  <td align="center">
+                     {NOMOR}
+                  </td>
+                  <td align="right">
+                     {KODE}
+                  </td>
+                  <td>
+                     {NAMA}
+                  </td>
+               {NOMINAL_PER_BULAN}
+                  <td align="right">
+                     {NOMINAL}
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+               <tr class="table-common-even2" style="font-weight: bold;">
+                  <td align="center" colspan="3">
+                      Total
+                  </td>
+                 {TOTAL_NOMINAL_PER_BULAN}
+                  <td align="right">
+                     {TOTAL_NOMINAL}
+                  </td>
+               </tr>
+         <!-- /patTemplate:sub -->         
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<!-- end: Table List -->
+<script type="text/javascript">
+var frmSearch        = document.forms['filterbox'];
+var searchElements   = frmSearch.elements;
+var txtProgramId     = searchElements['program_id'];
+var txtProgram       = searchElements['program'];
+var cmbTahunAnggaran = searchElements['tahun_anggaran'];
+cmbTahunAnggaran.onchange     = function(){
+   txtProgramId.value         = '';
+   txtProgram.value           = '';
+}
+
+var popupProgram     = function(url){
+   var taId          = cmbTahunAnggaran.options[cmbTahunAnggaran.selectedIndex].value;
+   var xurl          = url+'&ta_id='+taId;
+
+   showPopup(xurl, '', 600, 500);
+}
+</script>
+<!-- /patTemplate:tmpl -->

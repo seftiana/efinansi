@@ -1,0 +1,496 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function bukaPopupUnitkerja(xurl,tipe) 
+	 {   
+		var kp = document.getElementById("kode_penerimaan_nama");
+		var nilai_p = document.getElementById("alokasi_pusat_nilai");
+		var nilai_u = document.getElementById("alokasi_unit_nilai");
+		
+		var p_id = document.getElementById("alokasi_pusat_id");
+		var u_id = document.getElementById("alokasi_unit_id");
+        
+        if(kp.value == ''){
+				alert('Maaf, Alokasi Kode Penerimaan harap diisi terlebih dulu !.');
+		} else {
+			
+			if(tipe == 'p'){
+				unit_id = p_id.value;
+			} else{
+				unit_id = u_id.value;
+			}
+			
+			if((tipe=='p') && (nilai_p.value == 0)){
+				alert('Maaf, Nilai Alokasi Untuk Pusat Nol, tidak bisa didistribusikan lagi!.');
+			} else if((tipe=='u') && (nilai_u.value == 0)){
+				alert('Maaf, Nilai Alokasi Untuk Unit Nol, tidak bisa didistribusikan lagi!.');
+			} else {
+				showPopup(xurl+'&unit_id='+unit_id+'&tipe='+tipe,'',550,550);
+			}	
+				//			showPopup(xurl,'',550,550);
+		}	
+	}
+
+	function popupKodePenerimaan(xurl) 
+	{
+        showPopup(xurl,'',600,500);
+	}
+	//untuk unit
+	function hapusUnitKerja(obj) 
+	{
+		//hasil = confirm('Apakah anda ingin menghapus unit ini ?');
+		//if(hasil == true){
+			var maks_nomor = document.getElementById("maks_nomor").value;
+			var maks = document.getElementById("maks").value;
+			
+			var tbodi = document.getElementById("table-unit");
+			var tr = document.createElement('tr');
+			var tr_kosong = document.createElement('td');
+			
+			document.getElementById("table-unit").removeChild(obj.parentNode.parentNode);
+			if(maks_nomor > 0){
+				maks_nomor -= 1;
+			}
+			document.getElementById("maks_nomor").value  = maks_nomor;
+			if(maks_nomor == 0){
+					tbodi.innerHTML='<tr id="table-kosong">'+
+									'<td colspan="5" align="center"><em>-- data kosong --</em></td></tr>';
+			}
+			//renumber
+			var no=1;
+			for(var i = 0; i<= maks ;i++){
+			   if(document.getElementById("h_no_urut_"+i)){
+					document.getElementById("no_urut_"+i).innerHTML = no;
+					no++;
+				}
+			}
+			hitungTotalAlokasiPenerima();
+		//}	
+	}
+	
+	//untuk pusat
+	function pHapusUnitKerja(obj) 
+	{
+		//hasil = confirm('Apakah anda ingin menghapus unit ini ?');
+		//if(hasil == true){
+			var p_maks_nomor = document.getElementById("p_maks_nomor").value;
+			var p_maks = document.getElementById("p_maks").value;
+			
+			var tbodi = document.getElementById("p-table-unit");
+			var tr = document.createElement('tr');
+			var tr_kosong = document.createElement('td');
+			
+			document.getElementById("p-table-unit").removeChild(obj.parentNode.parentNode);
+			if(p_maks_nomor > 0){
+				p_maks_nomor -= 1;
+			}
+			document.getElementById("p_maks_nomor").value  = p_maks_nomor;
+			if(p_maks_nomor == 0){
+					tbodi.innerHTML='<tr id="p-table-kosong">'+
+									'<td colspan="5" align="center"><em>-- data kosong --</em></td></tr>';
+			}
+			//renumber
+			var no=1;
+			for(var i = 0; i<= p_maks ;i++){
+			   if(document.getElementById("p_h_no_urut_"+i)){
+					document.getElementById("p_no_urut_"+i).innerHTML = no;
+					no++;
+				}
+			}
+			pHitungTotalAlokasiPenerima();
+		//}	
+	}
+	
+	//untuk unit
+	function hitungTotalAlokasiPenerima()
+	{
+		var maks =  document.getElementById("maks").value;
+		var totalMaks = document.getElementById("alokasi_unit_nilai").value;
+		var total = 0;
+		for(var i = 0; i<= maks ;i++){
+			   if(document.getElementById("unit_nilai_alokasi_"+i)){
+					n = document.getElementById("unit_nilai_alokasi_"+i).value;
+					n = n.replace(',','_').split('.');
+					n = n.join('');
+					n = n.replace('_','.');
+					total += parseFloat(n);
+				}
+		}
+		
+		if(total >  totalMaks)	{
+			//var msg = 'Nilai alokasi Unit Kerja Lebih dari 100%. Silahkan Cek kembali nilai alokasi';
+			//showWarning(msg, 'Warning', 400,100, 0, 0);
+			alert('Nilai alokasi Unit Kerja Lebih dari '+ totalMaks +'%. Silahkan Cek kembali nilai alokasi');
+		}
+      	document.getElementById("total_alokasi").gvSetValue(total);
+	}
+	
+	//untuk pusat
+	function pHitungTotalAlokasiPenerima()
+	{
+		var p_maks = document.getElementById("p_maks").value;
+		var totalMaks = document.getElementById("alokasi_pusat_nilai").value;
+		var total =0;
+		for(var i = 0; i<= p_maks ;i++){
+			   if(document.getElementById("p_unit_nilai_alokasi_"+i)){
+					n = document.getElementById("p_unit_nilai_alokasi_"+i).value;
+					n = n.replace(',','_').split('.');
+					n = n.join('');
+					n = n.replace('_','.');
+					total += parseFloat(n);
+				}
+		}
+		
+		if(total >  totalMaks)	{
+			//var msg = 'Nilai alokasi Unit Kerja Lebih dari 100%. Silahkan Cek kembali nilai alokasi';
+			//showWarning(msg, 'Warning', 400,100, 0, 0);
+			alert('Nilai alokasi Unit Kerja Lebih dari '+ totalMaks +'%. Silahkan Cek kembali nilai alokasi');
+		}
+      	document.getElementById("p_total_alokasi").gvSetValue(total);
+	}
+</script>
+
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_distribusi_alokasi_unit" / --></h1>
+<br/>
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="notebox-alert">
+      {ISI_PESAN}
+   </div>
+   <br/>
+   <!-- /patTemplate:tmpl -->
+   
+   <form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
+   <input type="hidden" name="data_id" value="{DATA_ID}"  />
+      <table class="table-edit" width="100%">
+         <tr class="subhead">
+            <th colspan="2">{JUDUL} Penerima Alokasi Unit</th>
+         </tr>
+         	
+		<tr>
+            <th width="180">Alokasi Kode Penerimaan</th>
+            <td>
+				<input type="hidden" name="alokasi_id" id="alokasi_id"value="{ALOKASI_ID}" />
+                <!-- patTemplate:tmpl name="is_edit" type="condition" conditionvar="IS_EDIT" -->
+                    <!-- patTemplate:sub condition="NO" -->
+						<input type="text" name="kode_penerimaan_nama" id="kode_penerimaan_nama" size="40" value="{KODE_PENERIMAAN_NAMA}" readonly="readonly"/>
+						<input type="button"  name="but_kodepenerimaan" onclick="popupKodePenerimaan('{URL_POPUP_KODE_PENERIMAAN}')" value=" ... " />&nbsp; *						
+                    <!-- /patTemplate:sub -->
+                    <!-- patTemplate:sub condition="YES" -->	
+					<input type="hidden" name="kode_penerimaan_nama" id="kode_penerimaan_nama" value="{KODE_PENERIMAAN_NAMA}"/>
+					<strong>{KODE_PENERIMAAN_NAMA}</strong>
+                    <!-- /patTemplate:sub -->
+                <!-- /patTemplate:tmpl -->				
+			</td>
+         </tr>
+         
+		<tr>
+            <th width="180">Unit / Sub Unit</th>
+            <td>
+				<input type="hidden" name="unit_kerja_nama" id="unit_kerja_nama"value="{UNIT_KERJA_NAMA}" />
+				<label id="unit_kerja_nama_label">{UNIT_KERJA_NAMA}</label>
+			</td>
+         </tr>
+		<tr>
+            <th width="180">Alokasi Untuk Pusat</th>
+            <td>
+				<input type="hidden" name="alokasi_pusat_id" id="alokasi_pusat_id"value="{ALOKASI_PUSAT_ID}" />
+				<input type="hidden" name="alokasi_pusat_nilai" id="alokasi_pusat_nilai"value="{ALOKASI_PUSAT_NILAI}" />
+				<label id="alokasi_pusat_nilai_label">{ALOKASI_PUSAT_NILAI}</label>&nbsp;%
+			</td>
+         </tr>
+         
+		<tr>
+            <th width="180">Alokasi Untuk Unit</th>
+            <td>
+				<input type="hidden" name="alokasi_unit_id" id="alokasi_unit_id" value="{ALOKASI_UNIT_ID}" />
+				<input type="hidden" name="alokasi_unit_nilai" id="alokasi_unit_nilai"value="{ALOKASI_UNIT_NILAI}" />
+				<label id="alokasi_unit_nilai_label">{ALOKASI_UNIT_NILAI}</label>&nbsp;%
+			</td>
+         </tr>
+
+		  <tr>
+			 <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/
+			 <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --> Penerima Pusat</th>
+			 <td>
+				<div class="toolbar">
+             <a href="#" onclick="javascript:bukaPopupUnitkerja('{URL_POPUP_UNITKERJA_PUSAT}','p')" >
+					<img src="images/button-add.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / -->&nbsp;Unit / Sub Unit
+					</a>
+				</div>
+             </td>
+		  </tr>
+		<tr>
+		<th colspan="2">
+
+		 <table class="table-common" width="100%">
+               <thead>
+                  <tr>
+                     <th width="25"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+                     <th width="100"><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+                     <th>Unit</th>
+                     <th width="100">Nilai Alokasi (%)
+                       <input type="hidden" name="p_maks_" id="p_maks" value="{P_MAX}" />
+                       <input type="hidden" name="p_maks_nomor" id="p_maks_nomor" value="{P_MAX_NOMOR}" />
+                     </th>
+                     <th width="20"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+                  </tr>
+               </thead>
+        <tbody  id="p-table-unit">
+            <!-- patTemplate:tmpl name="p_list_data" type="condition" conditionvar="P_IS_DATA_EMPTY" -->
+                <!-- patTemplate:sub condition="YES" -->
+                <tr id="p-table-kosong">
+                    <td colspan="5" align="center">
+                        <em>
+                            -- data kosong --
+                        </em>
+                    </td>
+                </tr>
+                <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+                <!-- patTemplate:tmpl name="p_list_data_item" -->
+                <tr class="{DATA_CLASS_NAME}" id="p-table-isi">
+                    <td align="center">
+						
+                        <input type="hidden" name="p_nomor" id="p_h_no_urut_{PDATA_INDEX}" value="{PDATA_NOMOR}" />
+                        <label id="p_no_urut_{PDATA_INDEX}">{PDATA_NOMOR}</label>
+                    </td>	
+                    
+                    <td>
+                       <input type="hidden" id="p_unit_kerja_{PDATA_INDEX}" value="{PDATA_UNIT_KERJA_ID}" />
+                        {PDATA_UNIT_KERJA_KODE}
+                        <input type="hidden" name="p_unit[{PDATA_INDEX}][unit_kerja_kode]" value="{PDATA_UNIT_KERJA_KODE}" />
+                        <input type="hidden" name="p_unit[{PDATA_INDEX}][unit_kerja_id]" value="{PDATA_UNIT_KERJA_ID}" />
+                    </td>
+                    <td>
+                        {PDATA_UNIT_KERJA_NAMA}
+                        <input type="hidden" name="p_unit[{PDATA_INDEX}][unit_kerja_nama]" value="{PDATA_UNIT_KERJA_NAMA}" />
+                    </td> 			   
+                    <td align="right">
+                        <input type="text" name="p_unit[{PDATA_INDEX}][nilai]" id="p_unit_nilai_alokasi_{PDATA_INDEX}" value="{PDATA_NILAI}" class="gvFloat4" size="5" onkeyup="pHitungTotalAlokasiPenerima()" />
+                    </td>
+                    
+                    <td align="right">
+						<a href="javascript:void(null)" title="Hapus" onclick="pHapusUnitKerja(this)">
+                      <img src="images/button-delete.gif" alt="Hapus" /></a>
+                    </td>   
+                </tr>
+                <!-- /patTemplate:tmpl -->
+
+            <!-- /patTemplate:sub -->
+          
+        <!-- /patTemplate:tmpl -->
+         </tbody>
+         <tfoot>
+                 <td colspan="3" align="right"><strong>Total</strong></td>
+                <td align="right"><input type="text" readonly="readonly" name="p_total_alokasi" id="p_total_alokasi" value="{P_TOTAL_ALOKASI}" class="gvFloat4" size="5" /></td>
+                <td ></th>
+         </tfoot>
+        </table>
+		</th>
+		</tr>
+
+<!-- untuk alokasi unit -->
+
+		  <tr>
+			 <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/
+			 <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --> Penerima Unit</th>
+			 <td>
+				<div class="toolbar">
+             <a href="#" onclick="javascript:bukaPopupUnitkerja('{URL_POPUP_UNITKERJA}','u')" >
+					<img src="images/button-add.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / -->&nbsp;Unit / Sub Unit
+					</a>
+				</div>
+             </td>
+		  </tr>
+		<tr>
+		<th colspan="2">
+
+		 <table class="table-common" width="100%">
+               <thead>
+                  <tr>
+                     <th width="25"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+                     <th width="100"><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+                     <th>Unit</th>
+                     <th width="100">Nilai Alokasi (%)
+                       <input type="hidden" name="maks" id="maks" value="{MAX}" />
+                       <input type="hidden" name="maks_nomor" id="maks_nomor" value="{MAX_NOMOR}" />
+                     </th>
+                     <th width="20"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+                  </tr>
+               </thead>
+        <tbody  id="table-unit">
+            <!-- patTemplate:tmpl name="list_data" type="condition" conditionvar="IS_DATA_EMPTY" -->
+                <!-- patTemplate:sub condition="YES" -->
+                <tr id="table-kosong">
+                    <td colspan="5" align="center">
+                        <em>
+                            -- data kosong --
+                        </em>
+                    </td>
+                </tr>
+                <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+                <!-- patTemplate:tmpl name="list_data_item" -->
+                <tr class="{DATA_CLASS_NAME}" id="table-isi">
+                    <td align="center">
+						
+                        <input type="hidden" name="nomor" id="h_no_urut_{DATA_INDEX}" value="{DATA_NOMOR}" />
+                        <label id="no_urut_{DATA_INDEX}">{DATA_NOMOR}</label>
+                    </td>	
+                    
+                    <td>
+                       <input type="hidden" id="unit_kerja_{DATA_INDEX}" value="{DATA_UNIT_KERJA_ID}" />
+                        {DATA_UNIT_KERJA_KODE}
+                        
+                        <input type="hidden" name="unit[{DATA_INDEX}][unit_kerja_kode]" value="{DATA_UNIT_KERJA_KODE}" />
+                        <input type="hidden" name="unit[{DATA_INDEX}][unit_kerja_id]" value="{DATA_UNIT_KERJA_ID}" />
+                    </td>
+                    <td>
+                        {DATA_UNIT_KERJA_NAMA}
+                        <input type="hidden" name="unit[{DATA_INDEX}][unit_kerja_nama]" value="{DATA_UNIT_KERJA_NAMA}" />
+                    </td> 			   
+                    <td align="right">
+                        <input type="text" name="unit[{DATA_INDEX}][nilai]" id="unit_nilai_alokasi_{DATA_INDEX}" value="{DATA_NILAI}" class="gvFloat4" size="5" onkeyup="hitungTotalAlokasiPenerima()" />
+                    </td>
+                    
+                    <td align="right">
+						<a href="javascript:void(null)" title="Hapus" onclick="hapusUnitKerja(this)">
+                      <img src="images/button-delete.gif" alt="Hapus" /></a>
+                    </td>   
+                </tr>
+                <!-- /patTemplate:tmpl -->
+
+            <!-- /patTemplate:sub -->
+          
+        <!-- /patTemplate:tmpl -->
+         </tbody>
+         <tfoot>
+                 <td colspan="3" align="right"><strong>Total</strong></td>
+                <td align="right"><input type="text" readonly="readonly" name="total_alokasi" id="total_alokasi" value="{TOTAL_ALOKASI}" class="gvFloat4" size="5" /></td>
+                <td ></th>
+         </tfoot>
+        </table>
+		</th>
+		</tr>
+				
+         <tr class="buttons">
+            <th>&nbsp;
+            </th>
+            <td>
+               <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+               <input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+            </td>
+         </tr>
+      </table>
+   </form>
+   
+   <br/>
+   
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+      <ul>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --> </li>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="info_input_pau" / --></li>
+      </ul>
+   </div>
+   <script>
+//untuk pusat
+document.getElementById('p-table-unit').addItem = function(id,unit_id,kode,nama)  {
+
+   var p_nomor =  document.getElementById("p_nomor");
+   var p_maks =  document.getElementById('p_maks');
+   var p_maks_nomor = document.getElementById("p_maks_nomor");
+   var tr = document.createElement('tr');
+   var td_no = document.createElement('td');
+   var td_kode = document.createElement('td');
+   var td_nama= document.createElement('td');
+   var td_nilai = document.createElement('td');
+   var td_aksi = document.createElement('td');
+   var tr_kosong = document.getElementById("p-table-kosong");
+  
+   i = parseInt(p_maks.value);
+   nm = parseInt(p_maks_nomor.value);
+   id = i +1;
+   
+   p_maks.value = id;
+   p_maks_nomor.value = nm + 1;
+   no = nm + 1;
+   td_no.innerHTML = '<input type="hidden" name="p_nomor" id="p_h_no_urut_'+id+'" value="'+no+'" />'+
+					 '<label id="p_no_urut_'+id+'">'+no+'</label>';   
+   td_no.style.textAlign='center';
+   td_kode.innerHTML ='<input type="hidden" id="p_unit_kerja_'+id+'" value="'+unit_id+'" />'+
+                    '<input type="hidden" name="p_unit['+id+'][unit_kerja_id]" value="'+unit_id+'" />'+
+                    '<input type="hidden" name="p_unit['+id+'][unit_kerja_kode]" value="'+kode+'"/>'+kode;
+   td_nama.innerHTML = '<input type="hidden" name="p_unit['+id+'][unit_kerja_nama]" value="'+nama+'"/>'+nama;
+   td_nilai.innerHTML ='<input type="text" name="p_unit['+id+'][nilai]" size="5" class="gvNum" id="p_unit_nilai_alokasi_'+id+'" onkeyup="pHitungTotalAlokasiPenerima()" />';
+   td_nilai.style.textAlign='right';
+   
+	
+   td_aksi.innerHTML =  '<a href="javascript:void(null)" title="Hapus" onclick="pHapusUnitKerja(this)">'+
+                      '<img src="images/button-delete.gif" alt="Hapus" /></a>';
+   td_aksi.style.textAlign='right';
+   	
+   tr.appendChild(td_no);
+   tr.appendChild(td_kode);
+   tr.appendChild(td_nama);
+   tr.appendChild(td_nilai);
+   tr.appendChild(td_aksi);
+   
+   if(tr_kosong){
+	   this.replaceChild(tr,tr_kosong);
+   } else{
+	   this.appendChild(tr);
+   }	
+	Behaviour.apply();  	
+}
+	   
+//untuk unit	
+document.getElementById('table-unit').addItem = function(id,unit_id,kode,nama)  {
+
+   var nomor =  document.getElementById("nomor");
+   var maks =  document.getElementById('maks');
+   var maks_nomor = document.getElementById("maks_nomor");
+   var tr = document.createElement('tr');
+   var td_no = document.createElement('td');
+   var td_kode = document.createElement('td');
+   var td_nama= document.createElement('td');
+   var td_nilai = document.createElement('td');
+   var td_aksi = document.createElement('td');
+   var tr_kosong = document.getElementById("table-kosong");
+  
+   i = parseInt(maks.value);
+   nm = parseInt(maks_nomor.value);
+   id = i +1;
+   
+   maks.value = id;
+   maks_nomor.value = nm + 1;
+   no = nm + 1;
+   td_no.innerHTML = '<input type="hidden" name="nomor" id="h_no_urut_'+id+'" value="'+no+'" />'+
+					 '<label id="no_urut_'+id+'">'+no+'</label>';   
+   td_no.style.textAlign='center';
+   td_kode.innerHTML ='<input type="hidden" id="unit_kerja_'+id+'" value="'+unit_id+'" />'+
+                    '<input type="hidden" name="unit['+id+'][unit_kerja_id]" value="'+unit_id+'" />'+
+                    '<input type="hidden" name="unit['+id+'][unit_kerja_kode]" value="'+kode+'"/>'+kode;
+   td_nama.innerHTML = '<input type="hidden" name="unit['+id+'][unit_kerja_nama]" value="'+nama+'"/>'+nama;
+   td_nilai.innerHTML ='<input type="text" name="unit['+id+'][nilai]" size="5" class="gvNum" id="unit_nilai_alokasi_'+id+'" onkeyup="hitungTotalAlokasiPenerima()" />';
+   td_nilai.style.textAlign='right';
+   
+	
+   td_aksi.innerHTML =  '<a href="javascript:void(null)" title="Hapus" onclick="hapusUnitKerja(this)">'+
+                      '<img src="images/button-delete.gif" alt="Hapus" /></a>';
+   td_aksi.style.textAlign='right';
+   	
+   tr.appendChild(td_no);
+   tr.appendChild(td_kode);
+   tr.appendChild(td_nama);
+   tr.appendChild(td_nilai);
+   tr.appendChild(td_aksi);
+   
+   if(tr_kosong){
+	   this.replaceChild(tr,tr_kosong);
+   } else{
+	   this.appendChild(tr);
+   }	
+	Behaviour.apply();  	
+}
+</script>
+<!-- /patTemplate:tmpl -->

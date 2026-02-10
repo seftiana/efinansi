@@ -1,0 +1,236 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css">
+input[type="button"].btn-check,
+input[type="button"].btn-check:hover{
+   padding: 3px 3px 4px 20px;
+}
+
+input[type="button"].btn-check{
+   background-color: transparent;
+   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAodJREFUeNqkk0tME0Ecxr/Z3b4ADZRqAqQ2hJJSmhAfxKjUqIlXLujJqAe96NGee+Bi4kE5edHIyRhOcsEY4sGDotGEgxEBCUQpTVqgD0262310dtaZlcL25MFJvs3M7P/37X+y8xHHcfA/QxEP8jwCyIRLLEgvCCb4bIwruleX5/oAB7NwnAJsvrIdODfKfw08Yzyo+DOJvkQ8FomGOwIdQdGfZqonNku59Fph/YrZMKf41lxLB034cODQ5MXUhaQCOUQtCtVSm+/a4t0DbdGuaPe7lfeTNd3dd02kvYLegOTPnB8aS1p1M6SqKgzDaNHLwWegeiN0Jn466Se+jGAODKgzMdgzEDdUI6RpGnRdb9GDgaxbNn98hpvQUCwcjQvGa3Au0h4J12o1mKbpSnSxvbuNO8Hr6Ky0I5/P4+bru1heWQYzWFgwXoNjMuSgbdv4fGkexUoRuZ0cYqQPZ7tGoSgKpjdf4FX5DRpSA4ZlBAXjNQC1KW73X8PS0hLmh2dwMjKCJyMPXfhteQGPC9NACK6oQl3mwKDhbJW1kpH9eh+yLMPn8+Hp0CP4FB/W6z9wbzML1sH4v4Ari5iGYLwdfNwuFatyWEb6+7j71aaurt8COrEPCxm1elUwXoPZ31uVDQlEJ30Ep75dduHUYho40gozZutmUd8QzIEBcwq2Rqcqn4qrDmU6iRGkvnA4hv1zC7EG1dXF6iqr21OCcWMgwkQIz0GMB2FUGpf65Yw/2R73J9rCcpcSFEX2L2pYa/WqtaptsJ8cXmRzyNlw2T0DcaW7uSLolXowjDSOIsXD5d42Hp4CdrGMFSygwHb4TomrzFnaNJA8J1X+kWCRRY2rzln2R4ABABpvPoBuuSpnAAAAAElFTkSuQmCC) !important;
+   background-position: 4px 50%;
+   background-repeat: no-repeat;
+}
+</style>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="list_skenario" / -->
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterboxpopup" name="filterboxpopup" class="dataquest xhr_simple_form dest_popup-subcontent">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 95px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="jenis" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="jenis"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <td>
+            <input type="text" name="nama" id="src_nama" size="35" value="{NAMA}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="button" name="btnSet" value=" Pilih " class="buttonSubmit btn-check" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div id="content-box" style="display: none;">
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   </div>
+   <form name="frm-list" id="frm-list">
+      <!-- start: Table List -->
+      <table class="table-common" width="100%">
+         <thead>
+            <tr>
+               <th style="width: 20px;">
+                  <input type="checkbox" class="CheckBoxFW_parent" />
+               </th>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+               </th>
+            </tr>
+         </thead>
+         <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+            <!-- patTemplate:sub condition="YES" -->
+               <tr>
+                  <td colspan="2">
+                     <center>
+                        <em>
+                           <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                        </em>
+                     </center>
+                  </td>
+               </tr>
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+               <!-- patTemplate:tmpl name="data_list" -->
+                  <tr class="{DATA_CLASS_NAME}">
+                     <td>
+                        <input type="checkbox" class="CheckBoxFW_child" value="{ID}" id="skenario_{ID}" />
+                     </td>
+                     <td>
+                        {NAMA}
+                     </td>
+                  </tr>
+               <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </table>
+      <!-- end: Table List -->
+   </form>
+</div>
+<script type="text/javascript">
+var dataSkenario  = {SKENARIO_DATA};
+var frmSeach      = document.forms['filterboxpopup'];
+var elements      = frmSeach.elements;
+var cmbJenis      = elements['jenis'];
+var jenis         = cmbJenis.options[cmbJenis.selectedIndex].value;
+var contentBox    = document.getElementById('content-box');
+var srcNama       = elements['nama'];
+var setChange     = function(id) {
+   var childNodes       = contentBox.getElementsByTagName('input');
+   for (var i = childNodes.length - 1; i >= 0; i--) {
+      if(childNodes[i].type.toUpperCase() == 'CHECKBOX'){
+         childNodes[i].checked   = '';
+      }
+   };
+   if(id.toUpperCase() == 'MANUAL'){
+      contentBox.setAttribute('style', 'display: none;');
+      srcNama.value     = '';
+      srcNama.disabled  = 'true';
+   }else{
+      contentBox.setAttribute('style', 'display: block;');
+      srcNama.value     = '';
+      srcNama.removeAttribute('disabled');
+   }
+}
+// LOAD JENIS
+setChange(jenis);
+
+cmbJenis.onchange    = function(e){
+   var contentBox    = document.getElementById('content-box');
+   var jenisId       = this.options[this.selectedIndex].value;
+   var elements      = this.form.elements;
+   setChange(jenisId);
+}
+
+frmSeach['btnSet'].onclick    = function(e){
+   var elements      = this.form.elements;
+   var jenis         = elements['jenis'];
+   var jenisId       = jenis.options[jenis.selectedIndex].value;
+   var jenisNama     = jenis.options[jenis.selectedIndex].text;
+   var frmList       = document.forms['frm-list'].elements;
+   var frmInput      = document.forms['frmInput'];
+   var skenarioId    = frmInput['skenario'];
+   var skenarioLabel = frmInput['skenario_label'];
+   var skenario      = []; // create array
+   var patern        = /(skenario_\d+)/i;
+   var holder        = document.getElementById('skenario_PlaceHolder');
+   if(jenisId.toUpperCase() == 'MANUAL'){
+      // hapus semua skenario yang ada
+      holder.setEmptyRecord();
+   }else{
+      for (var i = frmList.length - 1; i >= 0; i--) {
+         if(frmList[i].type.toUpperCase() == 'CHECKBOX' && frmList[i].id.match(patern)){
+            if(frmList[i].checked){
+               var data    = dataSkenario[frmList[i].value];
+               skenario.push(data);
+            }
+         }
+      };
+
+      if(skenario.length == 0){
+         alert('Silahkan pilih salah satu dari skenario yang ada');
+         return false;
+      }else{
+         for (var i = skenario.length - 1; i >= 0; i--) {
+            holder.addRow(skenario[i].id, skenario[i].nama);
+         };
+      }
+   }
+   skenarioId.value     = jenisId;
+   skenarioLabel.value  = jenisNama;
+   popupClose();
+}
+
+CheckBoxFW_initiate = function (Obj)
+{
+   if (!Obj || Obj.className.indexOf('CheckBoxFW_parent') < 0 || !Obj.form) return;
+
+   var CBList     = new Array;
+   var CheckedAll = true;
+   var FormObj    = Obj.form;
+
+   for (var i = 0; i < FormObj.length; i++) if (FormObj[i] == Obj) break;
+   if (i == FormObj.length) return;
+
+   for(i += 1; i < FormObj.length; i++)
+   {
+      var CBObj = FormObj[i];
+      if (CBObj.type.toUpperCase() != 'CHECKBOX') continue;
+      if (CBObj.className.indexOf('CheckBoxFW_child') >= 0)
+      {
+         CBObj.onchange = function () {
+            Obj.checkChild();
+         }
+         CBList[CBList.length] = CBObj;
+         if (!CBObj.checked) CheckedAll = false;
+      }
+      if (CBObj.className.indexOf('CheckBoxFW_parent') >= 0) break;
+   }
+
+   if (CBList.length > 0)
+   {
+      Obj.onchange = function ()
+      {
+         for (var i = 0; i < CBList.length; i++){
+            if(CBList[i].getAttribute('disabled') == null){
+               CBList[i].checked = this.checked;
+            }
+         }
+      }
+
+      Obj.checkChild = function ()
+      {
+         var CheckedAll = true;
+         for (var i = 0; i < CBList.length; i++) if (!CBList[i].checked)
+         {
+            CheckedAll = false;
+            break;
+         }
+         this.checked = CheckedAll;
+      }
+
+      Obj.checked = CheckedAll;
+   }
+}
+var formObj       = document.getElementById('frm-list');
+if(typeof(formObj) != 'undefined' && formObj != null){
+   for (var i = 0; i < formObj.length; i++){
+      CheckBoxFW_initiate(formObj[i]);
+   }
+}
+</script>
+<!-- /patTemplate:tmpl -->

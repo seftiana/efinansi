@@ -1,0 +1,27 @@
+.toolbar input.btn-sinkronisasi {	
+    background: url("../../images/icons/16/sinkronisasi.png") no-repeat  5px 2px;	
+	color: #A0410D;
+	background-color: #ffffff;
+	border: 1px #ece9d6  solid;
+	font-size: 8pt;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	height: 22px;
+	padding: 2px 7px 4px 23px;
+	margin: 1px 1px 0px 0px;
+	display: block;
+	float: left;
+	overflow: hidden;
+}
+
+.toolbar input.btn-sinkronisasi:hover {	
+    background: url("../../images/icons/16/sinkronisasi.png") no-repeat  5px 2px,
+				url("../sia-mocca/images/button_bg.gif") left bottom repeat;		
+	border: #FCE171 1px solid;
+}
+
+.toolbar input.btn-sinkronisasi:active {
+	padding: 2px 5px 0px 23px;
+	border: #ece9d6 2px solid;
+	border-bottom: #fffef5 2px solid;
+	border-right: #fffef5 2px solid;
+}

@@ -1,0 +1,108 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    function Check(id,name){
+        // var form = document.forms['frmInput'];
+        document.getElementById('visi_id').value    = id;
+        document.getElementById('visi_nama').value  = name;
+        //form.visi_id.value = id;
+        //form.visi_nama.value= name;          
+        popupClose();
+    }
+// ]]>
+</script>
+<h2>
+    Visi
+</h2>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form  dest_popup-subcontent" id="filterboxpopup" name="filterboxpopup">
+    <table>
+        <tr class="subhead">
+            <th colspan="2">
+                <h2>
+                    <strong>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+                    </strong>
+                </h2>
+            </th>
+        </tr>
+        <tr>
+            <th>Kode/Nama</th>
+            <td>
+                <input type="text" name="txt_search" id="txt_search" value="{TXT_SEARCH}" size="30" />
+            </td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            </td>
+        </tr>
+    </table>
+</form>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+    {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<div class="pageBar">
+    <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+    <tr>
+        <th>
+            No
+        </th>
+        <th>
+            Kode
+        </th>
+        <th>
+            Nama
+        </th>
+        <th>
+            Renstra
+        </th>
+        <th>
+            Aksi
+        </th>
+    </tr>
+    <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+        <!-- patTemplate:sub condition="YES" -->
+            <tr>
+                <td colspan="5" align="center">
+                    <em>
+                        -- Data tidak ditemukan --
+                    </em>
+                </td>
+            </tr>
+        <!-- /patTemplate:sub -->
+        <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+                <tr class="{VISI_CLASS_NAME}">
+                    <td style="width:25px;" align="center">
+                        {VISI_NOMOR}
+                    </td>
+                    <td>
+                        {VISI_KODE}
+                    </td>
+                    <td>
+                        {VISI_NAMA}
+                    </td>
+                    <td width="135">
+                        {VISI_RENSTRA_NAMA}
+                    </td>
+                    <td style="width:18px;">
+                        <a href="javascript:void(0);" title="Pilih" onclick="javascript:Check('{VISI_ID}','{VISI_KODE}')">
+	                    <img src="images/button-check.gif" alt="Pilih" />
+                    </td>
+                </tr>
+            <!-- /patTemplate:tmpl -->
+        <!-- /patTemplate:sub -->
+    <!-- /patTemplate:tmpl -->
+</table>
+<!-- end: Table List -->
+<!-- /patTemplate:tmpl -->

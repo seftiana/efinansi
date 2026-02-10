@@ -1,0 +1,281 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+   var xpopup;
+   function fokus(elemId) {
+      document.getElementById(elemId).focus();
+      document.getElementById(elemId).select;
+   }
+   function focusPopup() {
+      if(xpopup) xpopup.focus();
+      return true;
+   }
+   function bukaPopupSatker(xurl) {
+      showPopup(xurl,'',550,550);
+      //xpopup.focus();
+   }
+   function bukaPopupUnitkerja(xurl) {
+      var satker=document.getElementById('satker').value;
+      var satker_label=document.getElementById('satker_label').value;
+      if(!satker) {
+         alert('Silakan Pilih Unit Kerja.');
+         fokus('but_satker');
+      } else {
+         showPopup(xurl+'&satker='+satker+'&satker_label='+satker_label,'',550, 550);
+      }
+   }
+   function bukaPopupSumberDana(xurl) {
+      showPopup(xurl,'',550,550);
+   }
+   function popupMak(xurl) {
+      showPopup(xurl,'gtPopup',550,550);
+   }
+   function popUp(url){
+      showPopup(url,'',650,550);
+   }
+   //document.onmousedown=focusPopup();
+</script>
+
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="pau" / --> Per MAK
+</h1>
+<br/>
+
+<!-- error message shown here -->
+   
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{STYLE_PESAN}">
+      {ISI_PESAN}
+      <br/>
+   </div>
+<!-- /patTemplate:tmpl -->
+
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" name="frmInput" >
+<input type="hidden" name="pagu_id" value="{PAGU_ID}"  />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            {JUDUL} <!-- patTemplate:gtfwgetconfig config="language" name="pau" / --> Per Mak
+         </th>
+      </tr>
+      <!-- patTemplate:tmpl name="role" type="condition" conditionvar="WHOAMI" -->
+         <!-- patTemplate:sub condition="ADMINISTRATOR" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+               </th>
+               <td>
+                  <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" 
+                  action="view" name="tahun_anggaran"  / -->
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / --> / 
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="satker" id="satker" value="{UNITKERJA}" />
+                  <input type="text" name="satker_label" id="satker_label" value="{UNITKERJA_LABEL}" size="42" readonly="readonly" />
+                  <input type="button" onclick="javascript:bukaPopupSatker('{URL_POPUP_UNITKERJA}')" value=" ... " />
+                  &nbsp;*
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="OPERATORUNIT" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+               </th>
+               <td>
+                  <label style="font-weight: bold;">
+                     {TAHUN_ANGGARAN_LABEL}
+                  </label>
+                  <input type="hidden" name="tahun_anggaran" id="tahun_anggaran" value="{TAHUN_ANGGARAN}" />
+                  <input type="hidden" name="tahun_anggaran_label" id="tahun_anggaran_label" value="{TAHUN_ANGGARAN_LABEL}" />
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / --> / 
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="satker" id="satker" value="{UNITKERJA}" />
+                  <input type="text" name="satker_label" id="satker_label" value="{UNITKERJA_LABEL}" size="42" readonly="readonly" />
+                  <input type="button" onclick="javascript:bukaPopupSatker('{URL_POPUP_UNITKERJA}')" value=" ... " />
+                  &nbsp;*
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="OPERATORSUBUNIT" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+               </th>
+               <td>
+                  <label style="font-weight: bold;">
+                     {TAHUN_ANGGARAN_LABEL}
+                  </label>
+                  <input type="hidden" name="tahun_anggaran" id="tahun_anggaran" value="{TAHUN_ANGGARAN}" />
+                  <input type="hidden" name="tahun_anggaran_label" id="tahun_anggaran_label" value="{TAHUN_ANGGARAN_LABEL}" />
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / --> / 
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / -->
+               </th>
+               <td>
+                  <label style="font-weight: bold;">
+                     {UNITKERJA_LABEL}
+                  </label>
+                  <input type="hidden" name="satker" id="satker" value="{UNITKERJA}" />
+                  <input type="hidden" name="satker_label" id="satker_label" value="{UNITKERJA_LABEL}" />
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="ALL_EDIT" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+               </th>
+               <td>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / --> / 
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="satker" id="satker" value="{UNITKERJA}" />
+                  <input type="text" name="satker_label" id="satker_label" value="{UNITKERJA_LABEL}" size="35" readonly="readonly" />
+                  <input type="button" name="but_satker" id="but_satker" onclick="javascript:bukaPopupSatker('{URL_POPUP_UNITKERJA}')" value=" ... " />
+                  &nbsp;*
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+      
+      <tr>
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+         </th>
+         <td>
+            <input type="hidden" name="program" id="programId" value="{PROGRAM_ID}" />
+            <textarea name="program_nama" id="programNama" rows="3" cols="45" readonly style="resize:none;">{PROGRAM_NAMA}</textarea>
+            <input type="button" value=" ... " onclick="javascript:popUp('{URL_POPUP_PROGRAM}');" style="vertical-align:top;" />
+            <span  style="vertical-align:top;">
+            &nbsp;*
+            </span>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->
+         </th>
+         <td>
+            <input type="hidden" name="kegiatan_id" id="kegiatan_id" value="{KEGIATAN_ID}" />
+            <input type="hidden" name="kegiatan" id="kegiatan" value="{KEGIATAN}" />
+            <span id="kegiatan_label" style="font-weight:bold;">{KEGIATAN}</span> **
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="output" / -->
+         </th>
+         <td>
+            <input type="hidden" name="output_id" id="output_id" value="{OUTPUT_ID}" />
+            <textarea name="output" id="output" rows="3" cols="45" readonly style="resize:none;">{OUTPUT}</textarea>
+            <input type="button" name="but_output" id="but_output" onclick="javascript:popUp('{URL_OUTPUT}')" value=" ... "  style="vertical-align:top;" />
+            <span  style="vertical-align:top;">
+            &nbsp;*
+            </span>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+         </th>
+         <td>
+            <input type="hidden" name="sub_keg_id" id="sub_keg_id" value="{KOMPONEN_ID}" />
+            <textarea name="sub_keg" id="sub_keg" rows="3" cols="45" readonly style="resize:none;">{KOMPONEN}</textarea>
+            <input type="button" name="but_sub_keg" id="but_sub_keg" onclick="javascript:popUp('{URL_SUB_KEGIATAN}')" value=" ... "  style="vertical-align:top;" />
+            <span style="vertical-align:top;">
+               &nbsp;*
+            </span>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="mak" / -->
+         </th>
+         <td>
+            <input type="hidden" name="mak_id" id="mak_id" value="{MAK_ID}" />
+            <input type="text" name="mak_label" id="mak_label" value="{MAK}" size="42" readonly="readonly" />
+            <input type="button"  name="but_mak" onclick="javascript:popupMak('{URL_POPUP_MAK}')" value=" ... " /> &nbsp;*
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="sumber_dana" / -->
+         </th>
+         <td>
+            <input type="hidden" name="sumber_dana" id="sumber_dana" value="{SUMBER_DANA}" />
+            <input type="text" name="sumber_dana_label" id="sumber_dana_label" value="{SUMBER_DANA_LABEL}" size="42" readonly="readonly" />
+            <input type="button"  name="but_sumber_dana" onclick="javascript:bukaPopupSumberDana('{URL_POPUP_SUMBER_DANA}')" value=" ... " /> 
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Status Pagu Anggaran Unit
+         </th>
+         <td>
+            <input type="hidden" name="status_bintang" id="status_bintang" value="F" />
+            <input type="checkbox" name="status_bintang" value="T" id="status_bintang" {STATUS_CHECKED} /> 
+            <label for="status_bintang">
+               Disetujui?
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="pagu_anggaran_rp" / -->
+         </th>
+         <td>
+            <input type="text" class="gvFloat" name="nominal_pagu" value="{NOMINAL}" size="42">&nbsp;*
+         </td>
+      </tr>
+      <tr class="buttons">
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+            <a href="{URL_RETURN}" class="btn-action buttonSubmit xhr dest_subcontent-element">
+               &nbsp;Batal&nbsp;
+            </a>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br/>
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --> 
+      </li>
+      <li>
+         ** Akan terisi otomatis ketika memilih output
+      </li>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="info_input_pau" / -->
+      </li>
+   </ul>
+</div>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,711 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css" media="screen, print">
+   .header{
+      display: none !important;
+   }
+   .content-border{
+      padding: 0px;
+      border: 1px solid #000;
+      border-bottom: none !important;
+   }
+   .content-header{
+      padding: 15px 10px;
+      margin: 0px;
+      border: none;
+      border-bottom: 1px solid #000000;
+      text-align: center;
+   }
+   .content-header h1{
+      margin-bottom: 4px !important;
+   }
+   .content-header h4{
+      margin: 0px;
+      margin-bottom: 6px;
+   }
+   .table-header{
+      border: none !important;
+      width: 80% !important;
+      margin-top: 0px !important;
+      margin-left: auto !important;
+      margin-bottom: 0px !important;
+      margin-right: auto !important;
+   }
+   .table-header tr td{
+      border: none;
+      text-align: left;
+      vertical-align: text-top;
+   }
+   .content-row{
+      border: none;
+      border-bottom: 1px solid #000000;
+      padding: 5px 15px;
+   }
+   table.no-border{
+      margin: 0px !important;
+      border: none !important;
+   }
+   table.no-border tr td{
+      border: none;
+      text-align: left;
+      vertical-align: text-top;
+   }
+   td.sep{
+      width: 15px !important;
+      text-align: center;
+   }
+   td.pull-right{
+      text-align: right !important;
+   }
+   .content-list{
+      margin: 0px !important;
+      padding: 0px !important;
+   }
+   table.table-list{
+      margin: 0px;
+      width: 100% !important;
+      border: none !important;
+   }
+   table.table-list tr td,
+   table.table-list tr th{
+      border: none !important;
+      border-right: 1px solid #000000 !important;
+      border-bottom: 1px solid #000000 !important;
+   }
+   table.table-list tr td:last-child,
+   table.table-list tr th:last-child{
+      border-right: none !important;
+      border-bottom: none;
+   }
+   .head{
+      font-weight: bold;
+      text-decoration: underline;
+   }
+   .foot-note{
+      font-style: italic;
+      font-size: 9px;
+      padding: 10px;
+   }
+</style>
+<div class="content-border">
+   <div class="content-header">
+      <h1>
+         SURAT PERMINTAAN PEMBAYARAN
+      </h1>
+      <h4>
+         {UNIT_HEADER}
+      </h4>
+      <h4>
+         {UNIT_HEADER}
+      </h4>
+      <h4 style="display: none;">
+         KANTOR PUSAT ADMINISTRASI <!-- patTemplate:gtfwgetconfig config="organization" name="company_name" / -->
+      </h4>
+      <table class="table-header">
+         <tr>
+            <td>
+               Tanggal
+            </td>
+            <td>
+               :
+            </td>
+            <td>
+               <!-- patTemplate:var name="tanggal" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+            </td>
+            <td>
+               Nomor
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td>
+               {NOMOR}
+            </td>
+         </tr>
+         <tr>
+            <td>
+               Sifat Pembayaran
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td colspan="4">
+               {SIFAT_PEMBAYARAN_NAMA}
+            </td>
+         </tr>
+         <tr>
+            <td>
+               Jenis Pembayaran
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td colspan="4">
+               {JENIS_PEMBAYARAN_NAMA}
+            </td>
+         </tr>
+      </table>
+   </div>
+   <div class="content-row">
+      <table class="no-border">
+         <tr>
+            <td class="sep">
+               1
+            </td>
+            <td width="115">
+               Kementrian
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td>
+               <!-- patTemplate:gtfwgetconfig config="organization" name="kementerian_lembaga_nama" / -->
+               (<!-- patTemplate:gtfwgetconfig config="organization" name="kementerian_lembaga_no" / -->)
+            </td>
+            <td class="sep">
+               7
+            </td>
+            <td width="215">
+               Kegiatan
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td>
+               {KEGIATAN_NAMA}
+            </td>
+         </tr>
+         <tr>
+            <td class="sep">
+               2
+            </td>
+            <td>
+               Unit Organisasi
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td>
+               <!-- patTemplate:gtfwgetconfig config="organization" name="unit_org_eselon_nama" / -->
+               (<!-- patTemplate:gtfwgetconfig config="organization" name="unit_org_eselon_no" / -->)
+            </td>
+            <td class="sep">
+               8
+            </td>
+            <td>
+               Kode Kegiatan
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td>
+               {KEGIATAN_KODE}
+            </td>
+         </tr>
+         <tr>
+            <td class="sep">
+               3
+            </td>
+            <td>
+               Provinsi
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td>
+               <!-- patTemplate:gtfwgetconfig config="organization" name="provinsi" / -->
+               (<!-- patTemplate:gtfwgetconfig config="organization" name="provinsi_no" / --> )
+            </td>
+            <td class="sep">
+               9
+            </td>
+            <td>
+               Kode Fungsi, Sub. Fungsi, Program
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td>
+               <!-- patTemplate:gtfwgetconfig config="organization" name="fungsi_no" / -->.
+               <!-- patTemplate:gtfwgetconfig config="organization" name="subfungsi_no" / -->.
+               {PROGRAM_KODE}
+            </td>
+         </tr>
+         <tr>
+            <td class="sep">
+               4
+            </td>
+            <td>
+               Satker / SKS
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td>
+               {UNIT_NAMA}
+               ({UNIT_KODE})
+            </td>
+            <td class="sep">
+               10
+            </td>
+            <td>
+               Kewenangan Pelaksanaan
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td>
+               KD
+            </td>
+         </tr>
+         <tr>
+            <td class="sep">
+               5
+            </td>
+            <td>
+               Lokasi
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td colspan="5">
+               <!-- patTemplate:gtfwgetconfig config="organization" name="city" / -->
+               (<!-- patTemplate:gtfwgetconfig config="organization" name="city_number" / -->)
+            </td>
+         </tr>
+         <tr>
+            <td class="sep">
+               6
+            </td>
+            <td>
+               Alamat
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td colspan="5">
+               <!-- patTemplate:gtfwgetconfig config="organization" name="company_address" / -->
+            </td>
+         </tr>
+      </table>
+   </div>
+   <div class="content-row">
+      Kepada: <br />
+      Yth. Pejabat Penerbit Surat Perintah Membayar<br />
+      Satker Kantor Pusat Administrasi<br />
+      di <!-- patTemplate:gtfwgetconfig config="organization" name="city" / -->
+   </div>
+   <div class="content-row">
+      <table class="no-border">
+         <tr>
+            <td class="sep">
+               &nbsp;
+            </td>
+            <td colspan="3">
+               Berdasarkan DIPA NOMOR : {DIPA_NOMOR} bersama ini <br />kami ajukan Permintaan Pembayaran sebagai berikut:
+            </td>
+         </tr>
+         <tr>
+            <td class="sep">
+               1
+            </td>
+            <td width="195">
+               Jumlah Pembayaran yang diminta
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td>
+               {NOMINAL}
+            </td>
+         </tr>
+         <tr>
+            <td colspan="2" align="right" class="pull-right">
+               Terbilang
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td>
+               {TERBILANG}
+            </td>
+         </tr>
+         <tr>
+            <td class="sep">
+               2
+            </td>
+            <td>
+               Untuk Keperluan
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td>
+               {KEPERLUAN}
+            </td>
+         </tr>
+         <tr>
+            <td class="sep">
+               3
+            </td>
+            <td>
+               Jenis Belanja
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td>
+               {JENIS_BELANJA}
+            </td>
+         </tr>
+         <tr>
+            <td class="sep">
+               4
+            </td>
+            <td>
+               Atas Nama
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td>
+               {ATAS_NAMA}
+            </td>
+         </tr>
+         <tr>
+            <td class="sep">
+               5
+            </td>
+            <td>
+               Alamat
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td>
+               {ALAMAT}
+            </td>
+         </tr>
+         <tr>
+            <td class="sep">
+               6
+            </td>
+            <td>
+               Mempunyai Rekening
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td>
+               {REKENING}
+            </td>
+         </tr>
+         <tr>
+            <td class="sep">
+               7
+            </td>
+            <td>
+               Nomor dan Tanggal SPK/Kontrak
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td>
+               {SPK}
+            </td>
+         </tr>
+         <tr>
+            <td class="sep">
+               8
+            </td>
+            <td>
+               Nilai Nominal
+            </td>
+            <td class="sep">
+               :
+            </td>
+            <td>
+               {NILAI_SPK}
+            </td>
+         </tr>
+         <tr>
+            <td class="sep">
+               9
+            </td>
+            <td colspan="3">
+               Dengan Penjelasan
+            </td>
+         </tr>
+      </table>
+   </div>
+   <div>
+      <table class="table-list">
+         <thead>
+            <tr>
+               <th>
+                  NO <br />URUT
+               </th>
+               <th>
+                  KEGIATAN/OUTPUT/LOKASI/<br />SUB KELOMPOK AKUN/AKUN
+               </th>
+               <th>
+                  PAGU DALAM DIPA<br />
+                  (RP)
+               </th>
+               <th>
+                  SPP/SPM SD. <br />YANG LALU (RP)
+               </th>
+               <th>
+                  SPP INI (RP)
+               </th>
+               <th>
+                  JUMLAH SD. <br />SPP INI (RP)
+               </th>
+               <th>
+                  SISA DANA (RP)
+               </th>
+            </tr>
+            <tr>
+               <th>
+                  1
+               </th>
+               <th>
+                  2
+               </th>
+               <th>
+                  3
+               </th>
+               <th>
+                  4
+               </th>
+               <th>
+                  5
+               </th>
+               <th>
+                  6 (4+5)
+               </th>
+               <th>
+                  7 (3-6)
+               </th>
+            </tr>
+         </thead>
+         <tbody>
+            <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+               <!-- patTemplate:sub condition="YES" -->
+                  <tr>
+                     <td colspan="7">
+                        <center>
+                           <em>
+                              -- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --
+                           </em>
+                        </center>
+                     </td>
+                  </tr>
+               <!-- /patTemplate:sub -->
+               <!-- patTemplate:sub condition="NO" -->
+                  <!-- patTemplate:tmpl name="data_list" -->
+                     <tr class="{STYLE}">
+                        <td align="center">
+                           {NOMOR}
+                        </td>
+                        <td class="pull-right">
+                           {KODE}
+                        </td>
+                        <td class="pull-right">
+                           {NOMINAL_PAGU}
+                        </td>
+                        <td class="pull-right">
+                           {SPP_LALU}
+                        </td>
+                        <td class="pull-right">
+                           {SPP_INI}
+                        </td>
+                        <td class="pull-right">
+                           {SPP_TOTAL}
+                        </td>
+                        <td class="pull-right">
+                           {SISA_DANA}
+                        </td>
+                     </tr>
+                  <!-- /patTemplate:tmpl -->
+                  <tr>
+                     <td>
+                        &nbsp;
+                     </td>
+                     <td>
+                        &nbsp;
+                     </td>
+                     <td>
+                        &nbsp;
+                     </td>
+                     <td>
+                        &nbsp;
+                     </td>
+                     <td>
+                        &nbsp;
+                     </td>
+                     <td>
+                        &nbsp;
+                     </td>
+                     <td>
+                        &nbsp;
+                     </td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="center">
+                        <strong>
+                           JUMLAH I
+                        </strong>
+                     </td>
+                     <td class="pull-right">
+                        <strong>
+                           {TOTAL_PAGU}
+                        </strong>
+                     </td>
+                     <td class="pull-right">
+                        <strong>
+                           {TOTAL_SPP_LALU}
+                        </strong>
+                     </td>
+                     <td class="pull-right">
+                        <strong>
+                           {TOTAL_SPP_INI}
+                        </strong>
+                     </td>
+                     <td class="pull-right">
+                        <strong>
+                           {TOTAL_SPP}
+                        </strong>
+                     </td>
+                     <td class="pull-right">
+                        <strong>
+                           {TOTAL_SISA_DANA}
+                        </strong>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td align="center">
+                        II
+                     </td>
+                     <td align="center">
+                        SEMUA KEGIATAN
+                     </td>
+                     <td>
+                        &nbsp;
+                     </td>
+                     <td>
+                        &nbsp;
+                     </td>
+                     <td>
+                        &nbsp;
+                     </td>
+                     <td>
+                        &nbsp;
+                     </td>
+                     <td>
+                        &nbsp;
+                     </td>
+                  </tr>
+                  <tr>
+                     <td>
+                        &nbsp;
+                     </td>
+                     <td align="center">
+                        <!-- patTemplate:gtfwgetconfig config="organization" name="fungsi_no" / -->.
+                        <!-- patTemplate:gtfwgetconfig config="organization" name="subfungsi_no" / -->.
+                        {PROGRAM_KODE}.
+                        {KEGIATAN_KODE}
+                     </td>
+                     <td class="pull-right">
+                        <strong>
+                           {TOTAL_PAGU}
+                        </strong>
+                     </td>
+                     <td class="pull-right">
+                        <strong>
+                           {TOTAL_SPP_LALU}
+                        </strong>
+                     </td>
+                     <td class="pull-right">
+                        <strong>
+                           {TOTAL_SPP_INI}
+                        </strong>
+                     </td>
+                     <td class="pull-right">
+                        <strong>
+                           {TOTAL_SPP}
+                        </strong>
+                     </td>
+                     <td class="pull-right">
+                        <strong>
+                           {TOTAL_SISA_DANA}
+                        </strong>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td align="center">
+                        III
+                     </td>
+                     <td align="center">
+                        UANG PERSEDIAAN (UP)
+                     </td>
+                     <td>
+                        &nbsp;
+                     </td>
+                     <td>
+
+                     </td>
+                     <td>
+
+                     </td>
+                     <td>
+
+                     </td>
+                     <td>
+
+                     </td>
+                  </tr>
+               <!-- /patTemplate:sub -->
+            <!-- /patTemplate:tmpl -->
+         </tbody>
+      </table>
+   </div>
+   <div class="content-row">
+      <table class="no-border">
+         <tr>
+            <td width="65">
+               Lampiran
+            </td>
+            <td width="315" align="left">
+               - Dokumen Pendukung
+            </td>
+            <td>
+               *) Surat Bukti Pengeluaran
+            </td>
+         </tr>
+      </table>
+   </div>
+      <div class="content-row">
+      <table class="no-border">
+         <tr>
+            <td width="60%">
+
+            </td>
+            <td width="40%">
+               <!-- patTemplate:gtfwgetconfig config="organization" name="city" / -->,
+               <!-- patTemplate:var name="TANGGAL" modifier="gtfwindonesiandate" format="long" separator=" " / --><br />
+               Pejabat Pembuat Komitmen, <br />
+               <br />
+               <br />
+               <br />
+               <br />
+               <!-- patTemplate:gtfwgetconfig config="organization" name="pejabat_pembuat_komitmen" / --><br />
+               NIP. <!-- patTemplate:gtfwgetconfig config="organization" name="pejabat_pembuat_komitmen_nip" / -->
+            </td>
+         </tr>
+      </table>
+   </div>
+</div>
+<div class="foot-note">
+   Dicetak oleh {USERNAME} - {TIMESTAMP}
+</div>
+<!-- /patTemplate:tmpl -->

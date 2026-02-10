@@ -1,0 +1,69 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="penerimaan_map_rkakl" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table  width="800">
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+	  <tr>              
+         <th width="30%"><!-- patTemplate:gtfwgetconfig config="language" name="nama_map_rkakl" / --></th>
+         <td><input type="text" name="nama_map" size="50"><td>
+         </tr>
+	  <tr>
+         <th></th>
+         <td><input type="submit" name="btncari" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan" / --> &raquo;" class="buttonSubmit"/>
+	  </td>   
+     </tr>
+   </table>
+</form>
+
+<br />
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+   <form method="POST" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar"> 
+   	
+      </div>
+   </div>
+   <table class="table-common" width="700">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <th width="125"><!-- patTemplate:gtfwgetconfig config="language" name="kode_map_rkakl" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_map_rkakl" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="total_rp" / --></th>
+         <th width="125"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="9" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">{DATA_NUMBER}</td>
+			      <!--<td align="center">
+					<input type="checkbox" name="id[]" id="detil_id_{DATA_NUMBER}" value="{DATA_ID}" /><input type="hidden" name="name[{DATA_ID}]" value="{DATA_URAIAN}" /></td>-->
+               <td>{DATA_KODE_MAP}</td>
+               <td>{DATA_NAMA_MAP}</td>
+               <td align="right">{DATA_NOMINAL_LABEL}</td>
+               <td class="links" align="center">
+                  <a href="javascript:void(0)" onclick="showPopup('{DATA_URL_DETIL}', '', 500, 400)" title="Lihat Detil" ><img src="images/button-detail.gif" alt="Detil"></a>
+                  <a href="{DATA_URL_CETAK_RTF}" title="Cetak SSBP">Cetak RTF SSBP</a>                
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   </form>
+   <br /> 
+<!-- /patTemplate:tmpl -->

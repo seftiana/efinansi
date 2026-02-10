@@ -1,0 +1,156 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+function cetak(url)
+{
+	
+	var width  = 900;
+	var height = 600;
+	var left   = (screen.width  - width)/2;
+	var top    = (screen.height - height)/2;
+	var params = 'width='+width+', height='+height;
+	params += ', top='+top+', left='+left;
+	params += ', directories=no';
+	params += ', location=no';
+	params += ', menubar=no';
+	params += ', resizable=no';
+	params += ', scrollbars=yes';
+	params += ', status=no';
+	params += ', toolbar=no';
+	newwin=window.open(url,'cetak spp', params);
+	if (window.focus) { 
+		newwin.focus();
+	}
+	
+	return false;
+}
+function popupunit(){
+	showPopup('{POPUP_UNIT}','', 550, 500);
+}
+</script>
+<h1>Daftar Surat Permintaan Pembayaran</h1>
+<br />
+
+<form method="POST" action="{URL_SEARCH}" name="frmInput"
+class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+<table>
+	<tr>
+		<th colspan="2">
+			<h2>
+				<strong>
+					<!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+				</strong>
+			</h2>
+		</th>
+	</tr>
+	<tr>
+		<th width="30%">
+			<!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / -->
+		</th>
+		<td>
+			<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" 
+			action="view" name="ta_id"  / -->	
+		</td>
+	</tr>
+	<tr>
+		<th>
+			<!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / -->
+		</th>
+		<td>
+			<label style="{LABEL_STYLE}">{SEARCH_UNIT}</label>
+			<input type="{INPUT_TYPE}" name="unit_nama" readonly size="30" 
+			value="{SEARCH_UNIT}" id="unit_nama" />
+			<input type="hidden" name="unit_id" value="{SEARCH_UNITID}" 
+			id="unit_id" />
+			<input type="button" name="btnshift" value=" ... " style="{BUTTON_STYLE}" 
+			onclick="javascript:popupunit();" />
+		</td>
+	</tr>
+	<tr>
+		<th>&nbsp;</th>
+		<td>
+			<input type="submit" name="btnTampilkan" value=" Tampilkan " class="buttonSubmit"/>
+			<input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" />
+		</td>
+	</tr>
+</table>
+</form>
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+	<br />
+	<div class="{CSS}">
+		{ISI_PESAN}
+	</div>
+	<br/>
+<!-- /patTemplate:tmpl -->
+
+<br />
+<div class="pageBar">
+	<!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" 
+	name="paging_top"  / -->
+</div>
+<table class="table-common" width="800px">
+	<tr>
+		<th width="35">
+			<!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+		</th>
+		<th>
+			Nomor SPP
+		</th>
+		<th>
+			Keperluan
+		</th>
+		<th>
+			Jenis belanja
+		</th>
+		<th>
+			Nama
+		</th>
+		<th>
+			nominal (Rp.)
+		</th>
+		<th width="25">
+			<!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+		</th>
+	</tr>
+	<!-- patTemplate:tmpl name="dataGrid" type="condition" conditionvar="IS_EMPTY" -->
+		<!-- patTemplate:sub condition="YES" -->
+			<tr>
+				<td colspan="7" align="center">
+					<em>
+						<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+					</em>
+				</td>
+			</tr>
+		<!-- /patTemplate:sub -->
+		<!-- patTemplate:sub condition="NO" -->
+			<!-- patTemplate:tmpl name="data_item" -->
+				<tr>
+					<td align="center">
+						{_NO}
+					</td>
+					<td align="center">
+						{_NO_SPP}
+					</td>
+					<td>
+						{_KEPERLUAN}
+					</td>
+					<td>
+						{_JENIS_BELANJA}
+					</td>
+					<td>
+						{_SPP_NAMA}
+					</td>
+					<td align="right">
+						{_SPP_TOTAL}
+					</td>
+					<td class="links" width="25">
+						<a href="#" onclick="cetak('{_CETAK_SPP}');" 
+						Title="Cetak SPP">
+						<img alt="Detil" src="images/button-print.gif" align="center">
+						</a>
+					</td>
+				</tr>
+			<!-- /patTemplate:tmpl -->
+		<!-- /patTemplate:sub -->
+	<!-- /patTemplate:tmpl -->
+</table>
+<!-- /patTemplate:tmpl -->

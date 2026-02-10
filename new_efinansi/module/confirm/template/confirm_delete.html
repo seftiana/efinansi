@@ -1,0 +1,72 @@
+<!-- patTemplate:tmpl name="content" -->
+   <!-- patTemplate:tmpl name="emptydata" type="condition" conditionvar="IS_EMPTY_DATA" -->
+      <!-- patTemplate:sub condition="NO" -->
+         <form name="frmConfirm" id="frm-confirm" class="xhr_form dest_subcontent-element" data-target="{URL_KEMBALI}" method="POST" action="{FORM_ACTION_URL}">
+            <div class="alert-box">
+               <div class="alert-box-header">
+                  <h2>
+                     KONFIRMASI | Hapus {LABEL}
+                  </h2>
+               </div>
+               <div class="alert-box-content">
+                  <!-- patTemplate:tmpl name="multiple_delete" type="condition" conditionvar="IS_MULTIPLE_DELETE" -->
+                     <!-- patTemplate:sub condition="NO" -->
+                        <ol class="unstyle">
+                           <li>
+                              <input type="hidden" value="{ID}" name="idDelete" />
+                              <input type="hidden" value="{DATANAME}" name="nameDelete" />
+                              <b>{DATANAME}</b>
+                           </li>
+                        </ol>
+                     <!-- /patTemplate:sub -->
+                     <!-- patTemplate:sub condition="YES" -->
+                        <ol>
+                           <!-- patTemplate:tmpl name="multiple_delete_item" -->
+                              <li style="">
+                                 <input type="hidden" value="{MULTI_ID}" name="idDelete[]" />
+                                 <input type="hidden" value="{MULTI_DATANAME}" name="nameDelete[]" />
+                                 {MULTI_DATANAME}
+                              </li>
+                           <!-- /patTemplate:tmpl -->
+                        </ol>
+                     <!-- /patTemplate:sub -->
+                  <!-- /patTemplate:tmpl -->
+                  <div class="petunjuk">
+                     Apakah anda yakin akan menghapus data di atas?
+                     <p>{MESSAGE}</p>
+                  </div>
+               </div>
+               <div class="alert-box-footer">
+                  <div class="alert-actions">
+                     <!-- patTemplate:tmpl name="actions" visibility="hidden" -->
+                        <input type="submit" name="btnDelete" value="Hapus" class="btn" />
+                     <!-- /patTemplate:tmpl -->
+                     <input type="reset" name="btnReset" value="Batal" class="btn" />
+                  </div>
+               </div>
+            </div>
+         </form>
+      <!-- /patTemplate:sub -->
+      <!-- patTemplate:sub condition="YES" -->
+         <form name="frmConfirm" id="frm-confirm" class="xhr_form dest_subcontent-element" data-target="{URL_KEMBALI}" method="POST" action="{FORM_ACTION_URL}">
+            <div class="alert-box">
+               <div class="alert-box-header">
+                  <h2>
+                     KONFIRMASI | Hapus {LABEL}
+                  </h2>
+               </div>
+               <div class="alert-box-content">
+                  <div class="alert warning">
+                     Anda Harus Memilih Salah Satu Data Untuk Dihapus.<br />Silakan Kembali.
+                  </div>
+               </div>
+               <div class="alert-box-footer">
+                  <div class="alert-actions">
+                     <input type="reset" name="btnReset" value="Kembali" class="btn" />
+                  </div>
+               </div>
+            </div>
+         </form>
+      <!-- /patTemplate:sub -->
+   <!-- /patTemplate:tmpl -->
+<!-- /patTemplate:tmpl -->

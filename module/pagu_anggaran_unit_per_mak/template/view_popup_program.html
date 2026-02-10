@@ -1,0 +1,118 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterboxpopup" name="filterboxpopup"
+class="dataquest xhr_simple_form dest_popup-subcontent">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->/
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" id="kode" size="35" value="{SEARCH_KODE}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Tampilkan Semua" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="">
+                  <center>
+                     <em>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                     </em>
+                  </center>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+               <tr class="{DATA_CLASS_NAME}">
+                  <td align="center" style="width: 30px;">
+                     {DATA_NO}
+                  </td>
+                  <td>
+                     {DATA_KODE}
+                  </td>
+                  <td>
+                     {DATA_NAMA}
+                  </td>
+                  <td class="links" style="width: 25px;">
+                     <a href="javascript:void(0);" title="Pilih" onclick="javascript:Pilih('{DATA_ID}', '{DATA_KODE}', '{DATA_NAMA}');">
+                        <img src="images/icons/16/button-check.gif" alt="Pilih" />
+                     </a>
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<!-- end: Table List -->
+<script type="text/javascript">
+function Pilih(id, kode, nama){
+   var program    = '';
+   if(kode != '' || typeof(kode) != 'undefined'){
+      program     = kode + ' - ' + nama;
+   }else{
+      program     = '';
+   }
+   var programSearch    = document.getElementById('program');
+   var programInput     = document.getElementById('programNama');
+   if(typeof(programSearch) != 'undefined' && programSearch != null){
+      programSearch.value     = program;
+   }
+   if(typeof(programInput) != 'undefined' && programInput != null){
+      programInput.value      = nama;
+   }
+   document.getElementById('programId').value      = id;
+   popupClose();
+}
+</script>
+<!-- /patTemplate:tmpl -->

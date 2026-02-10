@@ -1,0 +1,80 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>Log Penyusutan Barang</h1>
+   <br />
+   <div class="pageBar">
+      <div class="toolbar">
+         <a class="xhr dest_subcontent-element" href="{URL_BACK}" title="<!-- patTemplate:gtfwgetconfig config="language" name="kembali" / -->" ><img src="images/arrow_ltr.png" alt="Kembali"><!-- patTemplate:gtfwgetconfig config="language" name="kembali" / --></a>
+      </div>
+   </div>
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="3">Log Penyusutan Barang</th>
+      </tr>
+      <tr>
+         <th width="150" style='padding-left: 40px'>Kode Barang</th>
+         <td>{KODE_ASET}</td>
+      </tr>
+      <tr>
+         <th width="150" style='padding-left: 40px'><!-- patTemplate:gtfwgetconfig config="language" name="nama_barang" / --></th>
+         <td>{BARANGNAMA}</td>
+      </tr>
+      <tr>
+         <th width="150" style='padding-left: 40px'>Label Barang</th>
+         <td>{LABEL_ASET}</td>
+      </tr>
+      <tr>
+         <th width="150" style='padding-left: 40px'>Merk</th>
+         <td>{INVMEREK}</td>
+      </tr>
+      <tr>
+         <th width="150" style='padding-left: 40px'>Spesifikasi</th>
+         <td>{INVSPESIFIKASI}</td>
+      </tr>
+   </table>
+   <br />
+   <h3>List Penyusutan Barang</h3>
+   <br />
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   </div>
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <th>Periode Penyusutan</th>
+         <th>Berita Acara</th>
+         <th>Nilai Penyusutan (Rp)</th>
+         <th>Nilai Buku (Rp)</th>
+      </tr>
+
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="9" align="center"><em>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{CLASS_NAME}">
+               <td align="center">{NOMOR}</td>
+               <td>{PENYUSUTANMSTPERIODE}</td>
+               <td align="left">{PENYUSUTANMSTNOBA}</td>
+               <td align="right">{PENYUSUTANDETNILAIPENYUSUTAN}</td>
+               <td align="right">{PENYUSUTANDETNILAIAKHIR}</td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   <br />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="3">&nbsp;</th>
+      </tr>
+      <tr>
+         <th width="150" style='padding-left: 40px'>Akumulasi Penyusutan</th>
+         <td><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {MSTPENYSTNNILAITOTALPENYUSUTAN}</td>
+      </tr>
+      <tr>
+         <th width="150" style='padding-left: 40px'>Nilai Buku</th>
+         <td><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {MSTPENYSTNDISUSUTKAN}</td>
+      </tr>
+   </table>
+<!-- /patTemplate:tmpl -->

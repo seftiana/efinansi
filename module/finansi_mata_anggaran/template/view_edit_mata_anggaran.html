@@ -1,0 +1,105 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="referensi_mak" / -->
+</h1>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form dest_subcontent-element" data-target="{URL_RETURN}" id="frmInput" name="frmInput">
+   <input type="hidden" name="data_id" value="{ID}" />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            Update Data
+         </th>
+      </tr>
+      <tr>
+         <th rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="coa" / -->
+         </th>
+         <td>
+            <input type="hidden" name="coa_id" value="{COA_ID}" id="txt_coa_id" />
+            <input type="text" name="coa_kode" value="{COA_KODE}" id="txt_coa_kode" readonly size="15" />
+            <input type="button" value=" ... " onclick="showPopup('{URL_POPUP_COA}', '', 600, 550);" />
+         </td>
+      </tr>
+      <tr>
+         <td>
+            <input type="text" name="coa_nama" value="{COA_NAMA}" id="txt_coa_nama" readonly size="35" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="rkakl_pagu_bas" / -->
+         </th>
+         <td>
+            <input type="hidden" name="bas_id" value="{BAS_ID}" id="txt_bas_id" />
+            <input type="text" name="bas" value="{BAS}" size="35" readonly id="txt_bas" />
+            <input type="button" value=" ... " onclick="showPopup('{URL_POPUP_BAS}', '', 600, 550);" /> *
+         </td>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" id="txt_kode" size="35" value="{KODE}" /> *
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <td>
+            <input type="text" name="nama" id="txt_nama" size="35" value="{NAMA}" /> *
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="status" / -->
+         </th>
+         <td>
+            <input type="hidden" name="status" value="T" />
+            <input type="checkbox" name="status" value="Y" {STATUS_CHECKED} />
+            <label style="vertical-align: middle; height: 100%;">
+               Aktif
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nilai_default" / -->
+         </th>
+         <td>
+            <label>
+               <input type="radio" value="D" name="nilai_default" {DEBET_CHECKED} /> <!-- patTemplate:gtfwgetconfig config="language" name="debet" / -->
+            </label>
+            <label>
+               <input type="radio" value="K" name="nilai_default" {KREDIT_CHECKED} /> <!-- patTemplate:gtfwgetconfig config="language" name="kredit" / -->
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tipe" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="tipe"  / -->
+         </td>
+      </tr>
+      <tr class="buttons">
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+            <input type="reset"  name="btnReset" value=" Batal " class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,114 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="cetak_transaksi" / -->
+</h1>
+<br />
+<form method="POST" action="{URL_ACTION}" target="_blank" data-target="{URL_RETURN}" id="frmInput">
+   <input type="hidden" name="data_id" value="{ID}" />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="cetak" / -->
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode_tahun" / -->
+         </th>
+         <td>
+            <label style="font-weight: bold;">
+               {TA_NAMA}
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="no_bukti" / -->
+         </th>
+         <td>
+            <label style="font-weight: bold;">
+               {NOMOR_REFERENSI}
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="mak" / -->
+         </th>
+         <td>
+            <label style="font-weight: bold;">
+               {MAP_NAMA}
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>Diterima Dari</th>
+         <td>
+            <input type="text" name="penyetor" size="35" value="{PENYETOR}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal" / -->
+         </th>
+         <td>
+            <label>
+               <!-- patTemplate:gtfwgetconfig config="language" name="rp" / --> {NOMINAL_LABEL}
+            </label>
+            <div>
+               {TERBILANG}
+            </div>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Untuk Pembayaran
+         </th>
+         <td>
+            {KETERANGAN}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Pembuat Kwitansi
+         </th>
+         <td>
+            <input type="text" name="pembuat_kwitansi" id="txt_pembuat_kwitansi" value="{PEMBUAT_KWITANSI}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal_pembayaran" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="pejabat_pembantu_rektor" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="pejabat_pembantu_rektor"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="pejabat_bendahara" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="pejabat_bendahara"  / -->
+         </td>
+      </tr>
+      <tr class="buttons">
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnsimpan" value=" Export " class="buttonSubmit"/>
+            <input type="reset"  name="btnbalik" value=" Batal " class="buttonSubmit" onclick="GtfwAjax.replaceContentWithUrl('subcontent-element','{URL_RETURN}&ascomponent=1')" />
+         </td>
+      </tr>
+   </table>
+</form>
+<!-- /patTemplate:tmpl -->

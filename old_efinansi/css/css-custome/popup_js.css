@@ -1,0 +1,87 @@
+.jWindow{
+   width:auto;
+   font-family:arial,verdana;
+   font-size:11px;
+   height:auto;
+   color:#333333;
+
+   background:#2D6EC2;
+
+   padding:1px;
+
+   position: absolute;
+
+   z-index:11111;
+
+}
+.jWBorder{
+   color:#e6e6fa;
+
+   padding:1px 2px;
+
+   height:15px;
+
+}
+.jWContent .subcontent-element{
+   padding:5px;
+
+   background:#e2ecfd;
+   font-size:11px;
+}
+
+.jWxIcon{
+   float:right;
+
+}
+
+.jWxIcon:hover{
+   font-weight:bold;
+
+}
+
+.jWfIcon{
+   float:left;
+   display:none;
+}
+
+.jWtitle{
+   float:left;
+   width:auto;
+   margin-right:20px;
+   font-weight:bold;
+}
+
+.jWlborder{
+   float:left;
+
+   width:30px;
+
+}
+
+.jWrborder{
+   float:right;
+   width:35px;
+
+}
+
+.jWMenu{
+   background:#3c3b37;
+
+   color:#D9D4CC;
+
+}
+
+.jWqIcon{
+   width:10px;
+   display:none;
+
+}
+.jWqIcon:hover{
+   font-weight:bold;
+
+}
+
+.firstWindow{
+   z-index:999999;
+
+}

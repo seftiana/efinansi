@@ -1,0 +1,117 @@
+<!-- patTemplate:tmpl name="content" -->
+<link rel="stylesheet" type="text/css" href="css/css-custome/print-kuitansi.css" media="all"/>
+<table class="table-common" width='74%'>
+<tr><td colspan="6"><p>Yth. Rektor <!-- patTemplate:gtfwgetconfig config="organization" name="company_name" / --></p>
+  <p>c.q. Pembantu Rektor II</p>
+  <p>{NAMA_KANTOR}</p>
+  <p>di tempat</p></td></tr>
+<tr>
+<td colspan="6"><div align="center"><strong>SURAT PERMINTAAN ANGGARAN KEGIATAN (SPAK)</strong></div></td>
+</tr>
+  <tr>
+    <td width="166"><p>Anggaran bulan </p>
+    </td>
+    <td width="5"><p>:</p></td>
+    <td width="208"><p><!-- patTemplate:var name="ANGGARAN_BULAN" modifier="gtfwindonesiandate" format="long" separator=" " / --></p>
+    </td>
+    <td width="218"><p>Fak./Jur./Bag./Lemb. </p>
+    </td>
+    <td width="5"><p>:</p></td>
+    <td width="126">{JURUSAN}</td>
+  </tr>
+ <tr>
+    <td width="166"><p>Untuk Keperluan</p>
+    </td>
+    <td width="5"><p>:</p></td>
+    <td colspan"4"><p>{NAMA_KEGIATAN}</p>
+  </tr>
+  <tr>
+    <td width="166"><p><!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / --></p>
+    </td>
+    <td width="5"><p>:</p></td>
+    <td colspan"4"><p>{TAHUN_ANGGARAN}</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="166"><p>Kode mata anggaran</p></td>
+    <td width="5"><p>:</p></td>
+    <td colspan"4"><p>{KODE_ANGGARAN}</p>
+  </tr>
+  <tr>
+    <td width="166"><p><!-- patTemplate:gtfwgetconfig config="language" name="nama_kegiatan" / --></p>
+    </td>
+    <td width="5"><p>:</p></td>
+    <td width="208"><p>{NAMA_KEGIATAN}</p>
+    </td>
+    <td width="218"><p><!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / --></p>
+    </td>
+    <td width="5"><p>:</p></td>
+    <td width="126"><!-- patTemplate:var name="TGL_NOW" modifier="gtfwindonesiandate" format="long" separator=" " / --></td>
+  </tr>
+  <tr>
+    <td width="166"><p>Jumlah Anggaran </p></td>
+    <td width="5"><p>:</p></td>
+    <td colspan="4"><p><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->.{JUMLAH_ANGGARAN}</p>
+  </tr>
+  <tr>
+    <td colspan="6">(..{TERBILANG} rupiah..)</td>
+  </tr>
+  <tr>
+    <td>Uang yang pernah kami terima </td>
+	<td colspan='5'>: <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {UANG_DITERIMA}</td>
+  </tr>
+  <!-- patTemplate:tmpl name="data_cetak" type="condition" conditionvar="CETAK_EMPTY" -->
+  <!-- patTemplate:sub condition="YES" -->
+  <tr><td colspan="6" align="center"><em>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --</em></td></tr>
+  <!-- /patTemplate:sub -->
+  <!-- patTemplate:sub condition="NO" -->
+  <!-- patTemplate:tmpl name="data_item" -->
+  <tr>
+    <td>Dengan SPMU Tgl </td>
+    <td>:</td>
+    <td>{DATA_TANGGAL_TRANS}</td>
+    <td><!-- patTemplate:gtfwgetconfig config="language" name="no" / -->. {DATA_NOMOR_TRANS}</td>
+    <td colspan="2" style="text-align:right;"><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {DATA_NOMINAL_TRANS}</td>
+  </tr>
+   <!-- /patTemplate:tmpl -->
+  <tr>
+    <td colspan="4"><div align="right"><!-- patTemplate:gtfwgetconfig config="language" name="jumlah" / --></div></td>
+    <td colspan="2" style="text-align:right;"><strong><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {TOTAL_SPMU}</strong></td>
+  </tr>
+  <!-- /patTemplate:sub -->
+  <!-- /patTemplate:tmpl -->
+  <tr>
+    <td>Anggaran yang diminta sekarang</td>
+    <td>:</td>
+    <td><strong><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {JUMLAH_ANGGARAN_DIMINTA}</strong></td>
+    <td>Anggaran yang disetujui</td>
+    <td>:</td>
+    <td><strong><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {JUMLAH_ANGGARAN_DISETUJUI}</strong></td>    
+  </tr>
+  <tr>
+    <td colspan="6">(#{TERBILANG2} rupiah #)</td>
+  </tr>
+  <tr>
+    <td colspan="6"><p>Untuk keperluan Kegiatan {NAMA_KEGIATAN}</p>
+      <p>(Terlampir kami sertakan rincian anggaran tersebut)</p>
+    <p>Mohon agar diterbitkan SPMU-nya </p></td>
+  </tr>
+   <tr>
+   <td colspan="5">&nbsp;</td>
+	<td style="text-align:center;"><!-- patTemplate:gtfwgetconfig config="organization" name="city" / -->, <!-- patTemplate:var name="TGL_TTD" modifier="gtfwindonesiandate" format="long" separator=" " / --></p>
+	  <p style="text-align:center;">Rektor/PR II/Kabag Keu</p>
+	  <p style="text-align:center;">&nbsp;</p>
+	  <p>&nbsp;</p>
+	  <p>&nbsp;</p>
+	  <p style="text-align:center;">( {NAMA_PIMPINAN} )</p></td>
+  </tr>
+  <tr>
+  <td colspan="6"><p>Ruang catatan untuk : Pimpinan/ Bagian Keuangan /Bag Anggaran </p>
+    <p>&nbsp;</p></td>
+  </tr>
+</table>
+<div class="foot-note">
+Dicetak Oleh : {USERNAME} - {TIMESTAMP}
+</div>
+</html>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,179 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   Laporan Realisasi Penerimaan Pengeluaran
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterbox" name="filterbox" class="dataquest xhr_simple_form dest_subcontent-element">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode_tahun" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="periode_tahun"  / -->
+         </td>
+      </tr>
+      <!-- patTemplate:tmpl name="data_unit" type="condition" conditionvar="LEVEL" -->
+         <!-- patTemplate:sub condition="PARENT" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> /
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="unit_id" value="{UNIT_ID}" id="src_unit_id" />
+                  <input type="text" name="unit_nama" value="{UNIT_NAMA}" id="src_unit_nama" readonly size="35" />
+                  <input type="button" value=" ... " onclick="showPopup('{URL_POPUP_UNIT}', '', 600, 500);" />
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="CHILD" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> /
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="unit_id" value="{UNIT_ID}" id="src_unit_id" />
+                  <input type="hidden" name="unit_nama" value="{UNIT_NAMA}" id="src_unit_nama" />
+                  <label style="font-weight: bold;">
+                     {UNIT_NAMA}
+                  </label>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <td>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="start_date"  / -->
+            </div>
+            <div>
+               <!-- patTemplate:gtfwgetconfig config="language" name="s_d" / -->
+            </div>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="end_date"  / -->
+            </div>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   <div class="toolbar">
+      <a href="{URL_EXPORT_EXCEL}" title="Export Excel" target="_blank" >
+         <img src="images/icons/16/export_excel.gif" alt="excel">
+         Export Laporan
+      </a>
+   </div>
+</div>
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+        <th rowspan="3">
+         <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+        </th>
+         <th rowspan="3">
+            Keterangan
+         </th>
+        
+         <th rowspan="3" width="80">
+           Total Anggaran
+         </th>
+          <th colspan="{COLSPAN_BULAN}">
+           Bulan
+         </th>
+         
+      </tr>
+      <tr>
+           <!-- patTemplate:tmpl name="header_bulan" -->
+          <th colspan="2">
+            {NAMA_BULAN}
+         </th>
+          <!-- /patTemplate:tmpl -->
+      </tr>
+      <tr>
+           <!-- patTemplate:tmpl name="header_bulan_keterangan" -->
+         <th>
+            Anggaran
+         </th>
+         <th>
+            Realisasi
+         </th>
+          <!-- /patTemplate:tmpl -->
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="{DATA_COLSPAN}" align="center">
+                  <em>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --</em>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+               <tr class="{CLASS_NAME}" style="{ROW_STYLE}">
+                  <td align="left">
+                     {NOMOR}
+                  </td>
+                  <td>
+                     {NAMA}
+                  </td>
+                    <td style="text-align:right;">
+                     {NOMINAL_TOTAL_USULAN}
+                  </td>
+               
+                     {NOMINAL}
+               </tr>
+               <!-- patTemplate:tmpl name="total" visibility="hidden" -->
+               <tr class="table-common-even2" style="font-weight: bold;">
+                  <td align="center">
+                     
+                  </td>
+                  <td>
+                     TOTAL {SECTION}
+                  </td>
+                    {TOTAL}
+                </tr>
+               <!-- /patTemplate:tmpl -->
+               
+               <!-- patTemplate:tmpl name="space" visibility="hidden" -->
+               <tr class="table-common-even2" style="font-weight: bold;">
+                  <td align="center">
+                     &nbsp;
+                  </td>
+                  <td>
+                  </td>
+                  <td style="text-align:right;">
+                  </td>
+                  {SPACE}
+                </tr>
+               <!-- /patTemplate:tmpl -->                              
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<!-- /patTemplate:tmpl -->

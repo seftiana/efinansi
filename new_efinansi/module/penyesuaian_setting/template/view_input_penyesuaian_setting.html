@@ -1,0 +1,195 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1 id="">Tambah / Ubah Setting Penyesuaian</h1>
+<br />
+<form class="xhr_form std_form" name="input_setting_penyesuaian" enctype="multipart/form-data" method="post" action="{URL_ACTION}">
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">Tambah / Ubah Setting Penyesuaian</th>
+      </tr>
+      <tr>
+         <th width="150">
+            Kode
+         </th>
+         <td>
+            <input type="text" name="setPenyesuaianKode" value="{SETPENYESUAIANKODE}" size="20" width="20" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Nama
+         </th>
+         <td>
+            <input type="text" name="setPenyesuaianNama" value="{SETPENYESUAIANNAMA}" size="40" width="40" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Jumlah Penyesuaian
+         </th>
+         <td>
+            <input type="text" name="setPenyesuaianTotalPenyesuaian" value="{SETPENYESUAIANTOTALPENYESUAIAN}" size="5" width="5" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            List Coa
+         </th>
+         <td>
+            <div class="toolbar">
+               <a title="Tambah COA" onclick="showPopup('{URL_POPUP_COA}','COA List',560,420);"><img src="images/button-add.gif" alt=""> COA</a>
+            </div>
+            <table class="table-common" width="100%">
+               <thead>
+                  <tr>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="debet_rp" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="kredit_rp" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+                  </tr>
+               </thead>
+               <tbody id="COA_Place_Holder">
+                  <tr>
+                     <td colspan="5" style='text-align: center; font-style: italic'>--<!-- patTemplate:gtfwgetconfig config="language" name="belum_ada_yang_dipilih" / -->! --</td>
+                  </tr>
+               </tbody>
+               <tbody id='total_debet_kredit' style="display: none;">
+                  <tr class="table-common-even1">
+                     <td colspan="2" align="right"><!-- patTemplate:gtfwgetconfig config="language" name="total" / --></td>
+                     <td style="padding: 2px; text-align: right"><input type="text" id="total_debet" class="gvFloat" readonly></td>
+                     <td style="padding: 2px; text-align: right"><input type="text" id="total_kredit" class="gvFloat" readonly></td>
+                     <td>&nbsp;</td>
+                  </tr>
+               </tbody>
+            </table>
+         </td>
+      </tr>
+
+      <tr class="buttons">
+         <td>&nbsp;</td>
+         <td>
+            <input name="btnsimpan" type="submit" value="Save" class="buttonSubmit" />
+            <input name="cancel" type="submit" value="Cancel" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+   </form>
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+   document.getElementById('COA_Place_Holder').addItem = function (detailId, kodeRekening, namaRekening, typeRekening, nominal)
+{
+   var id = 'detailId_'+detailId;
+   if (document.getElementById(id)) return true;
+
+   var childObj = this.getElementsByTagName('tr');
+   nomor = childObj.length;
+
+   var tr = document.createElement('tr');
+   tr.setAttribute("id", id);
+   if (nomor % 2 == 0) tr.setAttribute('class', 'table-common-even');
+
+   var tdKodeRekening = document.createElement('td');
+   tdKodeRekening.setAttribute("style", 'padding: 2px; text-align: center');
+   tdKodeRekening.innerHTML = kodeRekening +"<input type='hidden' name='COA[" + detailId + "][kodeRekening]' value='" + kodeRekening + "'>";
+
+   var tdNamaRekening = document.createElement('td');
+   tdNamaRekening.setAttribute("style", 'padding: 2px; text-align: left');
+   tdNamaRekening.innerHTML = namaRekening + " <input type='hidden' name='COA[" + detailId + "][namaRekening]' value='" + namaRekening + "'><input type='hidden' name='COA[" + detailId + "][typeRekening]' value='" + typeRekening + "'>";
+
+   var tdNominal = document.createElement('td');
+   tdNominal.setAttribute("style", 'padding: 2px; text-align: right');
+   tdNominal.innerHTML = "<input type='text' name='COA[" + detailId + "][nominal]' value='" + nominal + "' typeRekening='" + typeRekening + "' onkeyup='update_total_jurnal(this)'>";
+
+   var tdDelete = document.createElement('td');
+   tdDelete.setAttribute("class", "links");
+   tdDelete.setAttribute("align", 'center');
+   tdDelete.innerHTML = "<a onClick=\"document.getElementById('"+this.id+"').deleteItem('" + id + "');\" title='Hapus'><img src=\"images/button-delete.gif\" alt=\"Hapus\"/></a>";
+
+   tr.appendChild(tdKodeRekening);
+   tr.appendChild(tdNamaRekening);
+   if (typeRekening == 'debet' || typeRekening == 'D')
+   {
+      tr.appendChild(tdNominal);
+      tr.appendChild(document.createElement('td'));
+   }
+   else
+   {
+      tr.appendChild(document.createElement('td'));
+      tr.appendChild(tdNominal);
+   }
+   tr.appendChild(tdDelete);
+   this.appendChild(tr);
+
+   var childNode = tdNominal.firstChild;
+   while (!childNode.tagName || childNode.tagName.toUpperCase() != 'INPUT') childNode = childNode.nextSibling;
+   gValidation20090108['.gvFloat'](childNode);
+   update_total_jurnal(childNode);
+
+   childObj[0].style.display = 'none';
+   document.getElementById('total_debet_kredit').style.display = '';
+   return true;
+}
+
+document.getElementById('COA_Place_Holder').deleteItem = function (id)
+{
+   this.removeChild(document.getElementById(id));
+   var Obj = this.getElementsByTagName('tr');
+   update_total_jurnal(Obj);
+   if (Obj.length == 1)
+   {
+      Obj[0].style.display = '';
+      document.getElementById('total_debet_kredit').style.display = 'none';
+   }
+   else for (var i = 1; i < Obj.length; i++)
+      Obj[i].setAttribute('class',(i % 2)?'':'table-common-even');
+}
+
+document.getElementById('COA_Place_Holder').deleteAllItem = function ()
+{
+   var Obj = this.getElementsByTagName('tr');
+   for (i = Obj.length - 1; i > 0; i--)
+      if (Obj[i].id) this.removeChild(Obj[i]);
+   Obj[i].style.display = '';
+   document.getElementById('total_debet_kredit').style.display = 'none';
+   update_total_jurnal(Obj);
+}
+
+window.update_total_jurnal = function (Obj)
+{
+   if (Obj.type && !Obj.getAttribute('typeRekening')) return false;
+   ObjForm = document.forms['input_setting_penyesuaian'];
+   var total_debet = 0;
+   var total_kredit = 0;
+
+   for (var i = 0; i < ObjForm.length; i++)
+   {
+      if (ObjForm[i].name.indexOf('COA[') !== 0 || !ObjForm[i].getAttribute('typeRekening')) continue;
+      var TypeRekening = ObjForm[i].getAttribute('typeRekening');
+      if (TypeRekening == 'debet') total_debet += ObjForm[i].gvGetValue();
+      else if (TypeRekening == 'kredit') total_kredit += ObjForm[i].gvGetValue();
+   }
+
+   document.getElementById('total_debet').gvSetValue(total_debet);
+   document.getElementById('total_kredit').gvSetValue(total_kredit);
+
+   if (total_kredit == total_debet)
+      return total_kredit;
+   else return false;
+}
+
+{JSON_COA}
+for (var coaId in jsonCOA){
+
+   document.getElementById('COA_Place_Holder').addItem
+   (
+      jsonCOA[coaId].coaId,
+      jsonCOA[coaId].kodeRekening,
+      jsonCOA[coaId].namaRekening,
+      jsonCOA[coaId].typeRekening,
+      jsonCOA[coaId].nominal
+   )
+}
+
+// ]]>
+</script>
+<!-- /patTemplate:tmpl -->

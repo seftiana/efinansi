@@ -1,0 +1,33 @@
+<!-- patTemplate:tmpl name="content" -->
+ 
+      <!-- patTemplate:tmpl name="prodi" visibility="hidden" -->  
+      
+      <tr style="{DISPLAY_FAK}">
+         <th>Fakultas</th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="fakultas" / -->
+         </td>
+      </tr>
+      <tr>                        
+         <th width="20%">Program Studi</th>         
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="program_studi"  / -->        
+         </td>            
+      </tr> 
+      <!-- /patTemplate:tmpl -->  
+         
+<script>
+document.forms[0].fakultas.onchange = function ()
+{
+   var prodi = {JSON_PRODI}[this.value];
+   var Obj = this.form.program_studi;
+   while (Obj[1]) Obj[1] = undefined;
+   for (var i = 0; i < prodi.length; i++)
+   {
+      Obj[i+1] = new Option;
+      Obj[i+1].value = prodi[i][0];
+      Obj[i+1].text = prodi[i][1];
+   }
+}
+</script>  
+<!-- /patTemplate:tmpl -->

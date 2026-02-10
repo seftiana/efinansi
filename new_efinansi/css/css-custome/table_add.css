@@ -1,0 +1,91 @@
+.table-red td{
+background-color:#ff0000;
+}
+table.table-common tr.table-yellow td{
+    background-color: #FFFF66;
+}
+.table-common-even1 {
+}
+
+.table-common-even1 td {
+	background-color:#FFFBDD !important;
+	/* font-size:13px; */
+	color:#965F11;
+}
+
+.table-common-even2 {
+}
+
+.table-common-even2 td {
+	background-color:#FFFDEF !important;
+	/* font-size:13px; */
+	color:#965F11;
+}
+
+.table-ratio {
+	clear: both;
+	font-family: Verdana; 
+	font-size: 0.9em;
+	border-collapse: collapse;
+	margin: 0px 0px 0px 1px;
+}
+
+.table-ratio th {
+	color: #603913;
+	font-size: 1.6em;
+	text-transform: uppercase;
+	text-align: center;
+	padding: 0.8em 0em 0.8em 0em;
+	border: 1px solid #ece9d6;
+	border-top: 1px solid #F2EECE;
+	border-bottom: 1px solid #F9D54B;
+	background-color: #FEF8E0;
+	background-image: url('../sia-mocca/images/table-common-header.gif');
+	background-repeat: repeat-x;
+	margin: 0px;
+	border-collapse: separate;
+}
+
+.table-ratio td {
+	color: #333333;
+	font-size: 1.1em;
+	border: 1px solid #FDF1C1;
+   padding: 10px 0px 10px 0px;	
+   border-top: none;
+   text-align: center;
+	border-collapse: collapse;
+	background-color: #FFFFFF;
+	white-space: pre;
+}
+
+.table-ratio tr.selected td {
+	background-color: #FFF6C3;
+}
+
+.table-ratio tr.selected-even td {
+	background-color: #FFF2A9;
+}
+
+.table-ratio tr.active td {
+	background-image: url('../sia-mocca/images/table-common-td-active.gif');
+	background-repeat: repeat-x;
+	border-bottom: 1px solid #F1D434;
+}
+
+.table-ratio tr.selected-active td {
+	background-image: url('../sia-mocca/images/table-common-td-active-sele.gif');
+	border-bottom: 1px solid #F1D434;
+	border-top: 1px solid #F1D434;
+}
+
+.table-ratio-even {
+}
+
+.table-ratio-even td {
+	background-color: #FCFBF3 !important;
+	font-weight: bold;
+	padding: 15px 0px 15px px;
+	text-align: left;
+	letter-spacing: 0.1em;
+	font-size: 1.3em;
+}

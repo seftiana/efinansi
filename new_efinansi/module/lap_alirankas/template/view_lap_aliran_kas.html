@@ -1,0 +1,205 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+   var xpopup;
+   function bukaPopupCetak(xurl) {
+      xpopup = window.open(xurl,'xpopup','width=900,height=600,resizable=yes,scrollbars=yes,right=0;center');
+      xpopup.focus();
+   }
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="laporan_aliran_kas" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox" style="width:600px">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="interval_waktu" / --></th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_awal"  / -->
+            <!-- patTemplate:gtfwgetconfig config="language" name="s_d"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th></th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_akhir"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan" / --> &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+   <br />
+   <div class="pageBar"  style="width:600px">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar">
+         <a href="javascript:void(0)" onclick="bukaPopupCetak('{URL_CETAK}')" title="Cetak" ><img src="images/button-print.gif" alt="Cetak"> <!-- patTemplate:gtfwgetconfig config="language" name="cetak" / --></a>
+         <a href="{URL_EXCEL}" title="<!-- patTemplate:gtfwgetconfig config="language" name="export_excel" / -->" target="_blank"><img src="images/icons/16/export_excel.gif" alt="" ><!-- patTemplate:gtfwgetconfig config="language" name="excel" / --></a>
+		 </div>
+   </div>
+
+   <table class="table-edit" width="600px">
+   <h1><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_dari_aktivitas_operasi" / --></h1>
+   </table>
+   <table class="table-common" width="600px">
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="arus_masuk" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_rp" / --></th>
+      </tr>
+
+         <!-- patTemplate:tmpl name="data_item_operasional_masuk" -->
+         <tr class="{LAP_CLASS_NAME}">
+            <td>{LAP_NAMA_KEL_LAP}</td>
+            <td align="right"><a href="javascript:void(0)" onclick="showPopup('{URL_DETAIL}', '', 500, 300)" title="Lihat Detail" >{LAP_JML}</a></td>
+         </tr>
+         <!-- /patTemplate:tmpl -->
+      <tr>
+            <td><strong><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_masuk_operasional" / --></strong></td>
+            <td align="right"><b>{KAS_BERSIH_OPERASIONAL_MASUK}</b></td>
+      </tr>
+
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="arus_keluar" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_rp" / --></th>
+      </tr>
+
+         <!-- patTemplate:tmpl name="data_item_operasional_keluar" -->
+         <tr class="{LAP_CLASS_NAME}">
+            <td>{LAP_NAMA_KEL_LAP}</td>
+            <td align="right"><a href="javascript:void(0)" onclick="showPopup('{URL_DETAIL}', '', 500, 300)" title="Lihat Detail" >{LAP_JML}</a></td>
+         </tr>
+         <!-- /patTemplate:tmpl -->
+      <tr>
+            <td><strong><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_keluar_operasional" / --></strong></td>
+            <td align="right"><b>{KAS_BERSIH_OPERASIONAL_KELUAR}</b></td>
+      </tr>
+      <tr>
+         <td><h1><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_total_operasional" / --></h1></td>
+         <td align="right"><b>{KAS_BERSIH_OPERASIONAL}</b></td>
+      </tr>
+   </table>
+   <br />
+
+   <table class="table-edit" width="600px">
+   <h1><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_dari_aktivitas_investasi" / --></h1>
+   </table>
+   <table class="table-common" width="600px">
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="arus_masuk" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_rp" / --></th>
+      </tr>
+         <!-- patTemplate:tmpl name="data_item_investasi_masuk" -->
+         <tr class="{LAP_CLASS_NAME}">
+            <td>{LAP_NAMA_KEL_LAP}</td>
+            <td align="right"><a href="javascript:void(0)" onclick="showPopup('{URL_DETAIL}', '', 500, 300)" title="Lihat Detail" >{LAP_JML}</a></td>
+         </tr>
+         <!-- /patTemplate:tmpl -->
+         <tr>
+            <td><strong><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_masuk_investasi" / --></strong></td>
+            <td align="right">{KAS_BERSIH_INVESTASI_MASUK}</td>
+         </tr>
+
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="arus_keluar" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_rp" / --></th>
+      </tr>
+         <!-- patTemplate:tmpl name="data_item_investasi_keluar" -->
+         <tr class="{LAP_CLASS_NAME}">
+            <td>{LAP_NAMA_KEL_LAP}</td>
+            <td align="right"><a href="javascript:void(0)" onclick="showPopup('{URL_DETAIL}', '', 500, 300)" title="Lihat Detail" >{LAP_JML}</a></td>
+      </tr>
+         <!-- /patTemplate:tmpl -->
+      <tr>
+            <td><strong><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_keluar_investasi" / --></strong></td>
+            <td align="right">{KAS_BERSIH_INVESTASI_KELUAR}</td>
+      </tr>
+      <tr>
+         <td><h1><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_total_investasi" / --></h1></td>
+         <td align="right"><b>{KAS_BERSIH_INVESTASI}</b></td>
+      </tr>
+
+   </table>
+   <br />
+
+   <table class="table-edit" width="600px">
+   <h1><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_dari_aktivitas_pendanaan" / --></h1>
+   </table>
+   <table class="table-common" width="600px">
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="arus_masuk" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_rp" / --></th>
+      </tr>
+         <!-- patTemplate:tmpl name="data_item_pendanaan_masuk" -->
+         <tr class="{LAP_CLASS_NAME}">
+            <td>{LAP_NAMA_KEL_LAP}</td>
+            <td align="right"><a href="javascript:void(0)" onclick="showPopup('{URL_DETAIL}', '', 500, 300)" title="Lihat Detail" >{LAP_JML}</a></td>
+         </tr>
+         <!-- /patTemplate:tmpl -->
+         <tr>
+            <td><strong><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_masuk_pendanaan" / --></strong></td>
+            <td align="right">{KAS_BERSIH_PENDANAAN_MASUK}</td>
+         </tr>
+
+         <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="arus_keluar" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_rp" / --></th>
+      </tr>
+         <!-- patTemplate:tmpl name="data_item_pendanaan_keluar" -->
+      <tr class="{LAP_CLASS_NAME}">
+            <td>{LAP_NAMA_KEL_LAP}</td>
+            <td align="right"><a href="javascript:void(0)" onclick="showPopup('{URL_DETAIL}', '', 500, 300)" title="Lihat Detail" >{LAP_JML}</a></td>
+      </tr>
+         <!-- /patTemplate:tmpl -->
+      <tr>
+            <td><strong><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_keluar_pendanaan" / --></strong></td>
+            <td align="right">{KAS_BERSIH_PENDANAAN_KELUAR}</td>
+      </tr>
+      <tr>
+         <td><h1><!-- patTemplate:gtfwgetconfig config="language" name="arus_kas_total_pendanaan" / --></h1></td>
+         <td align="right"><b>{KAS_BERSIH_PENDANAAN}</b></td>
+      </tr>
+   </table>
+   <br />
+
+   <table class="table-edit" width="600px">
+      <tr>
+         <th align="left"><strong><!-- patTemplate:gtfwgetconfig config="language" name="kenaikan_bersih_kas_dan_setara_kas" / --></strong></th>
+         <td align="right"><strong><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {TOTAL_KAS}</strong></td>
+      </tr>
+      <tr>
+         <th align="left"><strong><!-- patTemplate:gtfwgetconfig config="language" name="kas_dan_setara_kas_awal_tahun" / --></strong></th>
+         <th align="right"><strong></strong></th>
+      </tr>
+      <tr>
+         <table class="table-edit" width="600px">
+            <!-- patTemplate:tmpl name="data_item_kas_setarakas_awal_tahun" -->
+               <tr class="{LAP_CLASS_NAME}">
+                  <td></td>
+                  <td>{LAP_NAMA_KEL_LAP}</td>
+                  <td align="right"><a href="javascript:void(0)" onclick="showPopup('{URL_DETAIL}', '', 500, 300)" title="Lihat Detail" >{LAP_JML}</a></td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         </table>
+      </tr>
+   </table>
+   <table class="table-edit" width="600px">
+      <tr>
+         <th align="left"><strong><!-- patTemplate:gtfwgetconfig config="language" name="kas_dan_setara_kas_akhir_tahun" / --></strong></th>
+         <td align="right"><strong><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {SETARA_KAS_AKHIR_THN}</strong></td>
+      </tr>
+   </table>
+
+<!-- /patTemplate:tmpl -->

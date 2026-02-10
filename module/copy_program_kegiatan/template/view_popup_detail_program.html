@@ -1,0 +1,75 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function closePopupDetailProgram(){
+	    popupClose();
+	}
+</script>
+<h1>Detail Program</h1>
+<table class="table-details" width="800px">
+    <tr>
+        <td width="150">Tahun Anggaran</td>
+        <td>{THANGGARAN}</td>
+    </tr>
+    <tr>
+        <td>Kode</td>
+        <td>{KODEPROGRAM}</td>
+    </tr>
+    <tr>
+        <td>Nama Program</td>
+        <td>{NAMAPROGRAM}</td>
+    </tr>
+   
+
+</table>
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      
+   </div>
+<table class="table-common" width="870px">
+    <thead>
+        <tr>
+            <th width="30">No</th>
+            <th width="100">Kode</th>
+            <th>Nama Kegiatan / Sub Kegiatan</th>
+            <th width="100">Level</th>
+        </tr>
+    </thead>
+    <!-- patTemplate:tmpl name="data_program" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+    
+    <tbody>
+        <tr>
+            <td colspan="3" align="center">
+            <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+            </td>
+        </tr>
+    </tbody>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <tbody>
+            <!-- patTemplate:tmpl name="data_program_item" -->
+            
+                <tr>
+                <td align="center">{NOMOR}</td>
+              
+                <td>{KODE}</td>
+                <td>{NAMA}</td>
+                <td>{LEVEL}</td>
+                </tr>
+            <!-- /patTemplate:tmpl -->
+            </tbody>
+        <!-- /patTemplate:sub -->
+    <!-- /patTemplate:tmpl -->
+                    
+    <tfoot>
+    <tr>
+        <td colspan="4">
+        <div class="toolbar">
+        <input id="btnClose" class="inputButton" type="button"
+                 onclick="closePopupDetailProgram()" value="Tutup" name="btnClose" />
+        </div>
+        </td>
+    </tr>
+    </tfoot>
+</table>
+<!-- /patTemplate:tmpl -->

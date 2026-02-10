@@ -1,0 +1,234 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function centangin_semua(varname, start_num, end_num) {
+		var obj = document.getElementById('cek_all');
+		if(obj.checked == false) {
+			for(i=start_num;i<=end_num;i++) {
+				if(document.getElementById(varname + i))
+				document.getElementById(varname + i).checked = false;
+			}
+		} else {
+			for(i=start_num;i<=end_num;i++) {
+				if(document.getElementById(varname + i))
+				document.getElementById(varname + i).checked = true;
+			}
+		}
+	}
+	function show_checkbox (varname, start_num, end_num) {
+		//show check_all checkbox
+		document.getElementById('cek_all').style.display='';
+		//document.getElementById('btnHapus').type="button";
+	}
+	function konfirmasi_delete(varname, start_num, end_num) {
+		//var idDelete = document.getElementById('id_delete').value;
+		for(i=start_num;i<=end_num;i++) {
+			if(document.getElementById(varname + i).checked == true) {
+				//document.getElementById('form_list').submit();
+				document.getElementById('btnHapus').type="submit";
+				document.getElementById('btnHapus').click();
+				return true;
+			}
+		}
+		alert('Silakan beri tanda cek pada minimal 1 data');
+		return false;
+	}
+	document.onload = show_checkbox('approval_id_','{FIRST_NUMBER}','{LAST_NUMBER}');
+	function bukaPopupUnitkerja(xurl) {
+		window.open(xurl,'xpopup','width=400,height=500,resizable=yes,scrollbars=yes,right=0;center');
+		xpopup='xpopup';
+	}
+	function jumlahkan(listNumber) {
+		var nominal = document.getElementById('nominal_' + listNumber).value;
+		var nominalmax = document.getElementById('nominalmax_' + listNumber).value;
+		var satuan = document.getElementById('satuan_' + listNumber).value;
+		var jumlah = parseFloat(nominal) * parseFloat(satuan);
+		var jumlahmax = parseFloat(nominalmax) * parseFloat(satuan);
+		
+		if(jumlah == 'NaN' || !jumlah || jumlah == 'undefined') {
+			document.getElementById('jumlah_' + listNumber).innerHTML=0;
+			document.getElementById('jumlah_hidden_' + listNumber).value=0;
+		} else if(jumlah > jumlahmax){
+		   document.getElementById('jumlah_' + listNumber).innerHTML=setCurrency(jumlahmax);
+			document.getElementById('jumlah_hidden_' + listNumber).value=jumlahmax;
+      }else {
+			document.getElementById('jumlah_' + listNumber).innerHTML=setCurrency(jumlah);
+			document.getElementById('jumlah_hidden_' + listNumber).value=jumlah;
+		}
+		
+		
+	}
+	
+	function cekMax(listNumber) {
+		var nominal = document.getElementById('nominal_' + listNumber).value;
+		var nominalmax = document.getElementById('nominalmax_' + listNumber).value;
+		var nilai = parseFloat(nominal);
+		var nilaimax = parseFloat(nominalmax);
+		
+		if(nilai > nilaimax){
+		  document.getElementById('nominal_' + listNumber).value=nominalmax;
+      }else {
+			document.getElementById('nominal_' + listNumber).value=nominal;
+		}
+	}
+	
+	function setCurrency(valueCurr){
+      valueCurr+='';
+      n_loop = Math.round(valueCurr.length / 3)
+      x = 3
+      
+      for (var inomer = 0;inomer < n_loop; inomer++)
+      {
+         a = valueCurr.substr(valueCurr.length-x)
+         
+         if (a.length > 1){
+            if (a.length != valueCurr.length){
+               b = valueCurr.substr(0,valueCurr.length - a.length)
+               valueCurr = b + "." + a
+               x = x + 4
+            }
+         }
+      }
+       return valueCurr+',00';
+   }
+   
+	function totalkan(end_n){
+      var total = 0;
+      for(i=1;i<=end_n;i++){
+         var jumlah_penyesuaian = document.getElementById('jumlah_hidden_' + i).value;
+         if(jumlah_penyesuaian == 'NaN' || !jumlah_penyesuaian || jumlah_penyesuaian == 'undefined') {
+            jumlah_penyesuaian = 0;
+         } else {
+            jumlah_penyesuaian = document.getElementById('jumlah_hidden_' + i).value;
+         }
+         total = parseFloat(total) + parseFloat(jumlah_penyesuaian) ;        
+      }
+		document.getElementById('total_penyesuaian').innerHTML=setCurrency(total);   
+   }
+	
+</script>
+<!--  onclick="konfirmasi_delete('approval_id_','{FIRST_NUMBER}','{LAST_NUMBER}', '{URL_DELETE}')"  -->
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="adjustment_pengeluaran" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+         <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / --></th>
+            <td>{TAHUN_ANGGARAN_LABEL}</td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+            <td>{UNITKERJA_LABEL}</td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="program" / --></th>
+            <td>{PROGRAM_LABEL}</td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --></th>
+            <td>{KEGIATAN_LABEL}</td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / --></th>
+            <td>{SUBKEGIATAN_LABEL}</td>
+         </tr>
+   </table>
+</form>
+
+<br />
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+   <form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="form_list">
+   <div class="pageBar">
+   
+      <div class="toolbar"> 
+   		<a class="xhr dest_subcontent-element" href="{URL_KEMBALI}" title="View" ><img src="images/button-detail.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="kembali" / --></a><!-- 
+   		<a class="xhr dest_subcontent-element" href="{URL_REFRESH}" title="Refresh" ><img src="images/button-detail.gif" alt=""> Reload</a> -->
+      </div>
+   </div>
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+		 <th width="5"><input type="checkbox" style="display:none" name="cek_all" id="cek_all" value="ALL" onclick="centangin_semua('checkbox_id_','{FIRST_NUMBER}','{LAST_NUMBER}');" /></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nominal_setuju_rp" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="satuan_setuju" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_setuju_rp" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nominal_penyesuaian_rp" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="satuan_penyesuaian" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_penyesuaian_rp" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="9" align="center"><em>-- <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="data_kosong"  / --> --</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_items" -->
+      <tr class="{DATA_CLASS_NAME}" style="{DATA_STYLE}">
+          <td align="center">{DATA_KODE}</td>	
+          <td align="center">
+            <!-- patTemplate:tmpl name="cekbok" visibility="hidden" -->
+            <input type="checkbox" name="checkbox_id[]" id="checkbox_id_{DATA_NUMBER}" value="{DATA_ID}" {DATA_IS_CHECKED} /><input type="hidden" name="name[{DATA_ID}]" value="{DATA_NAMA}" /><input type="hidden" name="id[]" value="{DATA_ID}" />
+            <!-- /patTemplate:tmpl -->
+          </td>			   
+          <td>{DATA_NAMA}<div style="color:#333333;font-size:11px;margin-left:20px;font-style:italic;text-align:right;">{DATA_DESKRIPSI}</div></td>
+          <td align="right">
+          <!-- patTemplate:tmpl name="nominal" type="condition" conditionvar="APPROVAL" -->
+            <!-- patTemplate:sub condition="BELUM" -->
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="SUDAH" -->
+              {DATA_FORMAT_NOMINAL_SETUJU}
+			   <input type="hidden" name="formula[{DATA_ID}]" value="{DATA_FORMULA}" />
+            <!-- /patTemplate:sub -->
+          <!-- /patTemplate:tmpl -->
+          </td>
+          <td align="right">
+            <!-- patTemplate:tmpl name="satuan" type="condition" conditionvar="APPROVAL" -->
+              <!-- patTemplate:sub condition="BELUM" -->
+              <!-- /patTemplate:sub -->
+              <!-- patTemplate:sub condition="SUDAH" -->
+                {DATA_FORMAT_SATUAN_SETUJU}
+              <!-- /patTemplate:sub -->
+            <!-- /patTemplate:tmpl -->
+          </td>
+          <td align="right">{DATA_FORMAT_JUMLAH_SETUJU}</td>
+          <td>
+            <input type="text" id="nominal_{DATA_NUMBER}"  name="nominal[{DATA_ID}]" value="{DATA_NOMINAL_SETUJU}" style="text-align:right" size="10" onkeyup="jumlahkan('{DATA_NUMBER}');totalkan('{BYK_DATA}')" />
+            <input type="hidden" id="nominalmax_{DATA_NUMBER}" name="nominalmax[{DATA_ID}]" value="{DATA_NOMINAL_SETUJU}" />
+          </td>
+          <td>
+            <input type="text" id="satuan_{DATA_NUMBER}" name="satuan[{DATA_ID}]" value="{DATA_SATUAN_SETUJU}" style="text-align:right" size="5" onkeyup="jumlahkan('{DATA_NUMBER}');totalkan('{BYK_DATA}')" />
+          </td>
+          <td align="right" id="jumlah_{DATA_NUMBER}"></td>
+          <input type="hidden" id="jumlah_hidden_{DATA_NUMBER}" name="jumlah_hidden_{DATA_NUMBER}" value="" />
+      </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+      <tr>
+         <td colspan="5" align="right"><h2>Total Disetujui</h2></td>
+         <td align="right">{TOTAL_SETUJU}</td>
+         <td colspan="2" align="right"><h2>Total Penyesuaian</h2></td>
+         <td align="right" id="total_penyesuaian"></td>
+      </tr>
+   </table>
+   <table class="toolbar">
+		<tr>
+			<td></td>
+			<td></td>
+			<td><input type="submit" id="btnSimpan" name="btnSimpan" value="   Sesuaikan   " class="inputButton" /></td>
+		</tr>
+	</table>
+   </form>
+   <br /> 
+   <br /> 
+   <div id="terbilang"></div>
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+	</div>
+<!-- /patTemplate:tmpl -->

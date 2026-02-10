@@ -1,0 +1,365 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+      <!-- patTemplate:gtfwgetconfig config="language" name="transaksi_penerimaan_kas" / -->
+</h1>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<div class="pageBar">
+   <div class="toolbar">
+      <a class="xhr dest_subcontent-element" href="{URL_LIST}" title="Daftar Transaksi" >
+         <img src="images/icons/16/button-clipboard.gif" alt="">
+         Daftar Transaksi
+      </a>
+   </div>
+</div>
+
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" name="frmInput">
+   <input type="hidden" name="data_id" value="{ID}" />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / --> Data
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            Referensi SPPU
+         </th>
+         <td> 
+             <div id="button_komponen" style=" padding: 0;">
+            <input type="hidden" name="sppu_id" id="sppu_id" size="20" value="{SPPU_ID}">
+            <input type="hidden" name="sppu_id_old" id="sppu_id_old" size="20" value="">
+            <input type="hidden" name="bpkb" id="input_bpkb" size="20" value="{BPKB}" readonly="readonly" />
+            
+               <button style="vertical-align: middle; padding: 4px 6px;" id="add-komponen" type="button">
+                  <img src="images/button-search.gif" alt="cari" style="margin-bottom: -4px;" /> <!-- patTemplate:gtfwgetconfig config="language" name="sppu" / -->
+               </button> *
+            </div>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal"  / -->
+         </td>
+      </tr>
+      <tr class="subhead">
+         <th colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="diterima_dari" / -->
+         </th>
+      </tr>
+      <tr>
+         <th>
+             <!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / -->
+         </th>
+         <td>
+            <input type="text" name="nama_penyetor" id="txt_nama_penyetor" value="{NAMA_PENYETOR}" size="30"  readonly="readonly"/>
+            
+             <input type="button" value=" ... " onclick="javascript:showPopup('{POPUP_REFERENSI_COA}&tipe=debet','',600, 500);" /> *
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="no_rekening" / -->
+         </th>
+         <td>
+            <input type="hidden" name="coa_id_penyetor" id="coa_id_penyetor" value="{COA_ID_PENYETOR}" />
+            <input type="text" name="rekening_penyetor" id="txt_rekening_penyetor" value="{REKENING_PENYETOR}" size="30"  readonly="readonly" />
+         </td>
+      </tr>
+      <tr class="subhead">
+         <th colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kepada" / -->
+         </th>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / -->
+         </th>
+         <td>
+            <input type="text" name="nama_penerima" id="txt_nama_penerima" value="{NAMA_PENERIMA}" size="30"  readonly="readonly"/>
+             <input type="button" value=" ... " onclick="javascript:showPopup('{POPUP_REFERENSI_COA}&tipe=kredit','',600, 500);" /> * 
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="no_rekening" / -->
+         </th>
+         <td>
+             <input type="hidden" name="coa_id_penerima" id="coa_id_penerima" value="{COA_ID_PENERIMA}" />
+            <input type="text" name="rekening_penerima" id="txt_rekening_penerima" value="{REKENING_PENERIMA}" size="30"  readonly="readonly"/>
+         </td>
+      </tr>   
+      <tr style="display: none;">
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / -->
+         </th>
+         <td>
+            <textarea name="keterangan" id="txt_keterangan" rows="4" cols='50' style="width: 70%; resize: none;">{KETERANGAN}</textarea>&nbsp;*
+         </td>
+      </tr>
+      <tr class="subhead">
+         <th colspan="2" style="vertical-align: middle;">
+           
+         </th>
+      </tr>
+      <tr>
+         <td colspan="2" style="padding: 0px;">
+            <table class="table-common" style="width: 100%;">
+               <thead>
+                  <tr>
+                     <th>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / -->
+                     </th>
+                     <th style="width: 165px;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="nominal" / -->
+                     </th>
+                     <th style="width: 30px;display:none;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+                     </th>
+                  </tr>
+               </thead>
+               <tbody id="komponen_PlaceHolder">
+                  <tr id="empty-row">
+                     <td colspan="2" style="text-align: center;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </td>
+      </tr>
+      <tr class="buttons">
+         <td colspan="2">
+            <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+<script type="text/javascript">
+var form_elements    = document.forms['frmInput'].elements;
+var btnAddKomponen   = form_elements['add-komponen'];
+var nominalTotal     = 0;
+var place_holder     = document.getElementById('komponen_PlaceHolder');
+btnAddKomponen.onclick  = function(){
+   showPopup('{URL_POPUP_KOMPONEN}', '', 600, 500);
+}
+
+place_holder.addRows    = function(id, pid,nama, nominal) {
+   var childObj   = this.getElementsByTagName('tr');
+   var nominal    = (typeof(nominal) == 'undefined' || nominal == null) ? 0 : parseFloat(nominal);
+   nominalTotal+=nominal;
+   var ids        = [];
+
+   for (var i = childObj.length - 1; i >= 0; i--) {
+      if(typeof(childObj[i].id) != 'undefined' && childObj[i].id != null){
+         if(matches = childObj[i].id.match(/komponen_(\d+)/)){
+            ids.push(matches[1]);
+         }
+      }
+   };
+
+   var max_id  = parseInt(Math.max.apply(null, ids));
+
+  var number     = childObj.length+1;
+  
+   if(typeof(id) == 'undefined' || id == null){
+      if(isNaN(max_id)){
+         id       = 1;
+      }else{
+         id       = (max_id)+1;
+      }
+   }
+   var el_id   = 'komponen_'+ id;
+   if(document.getElementById(el_id)){
+      return true;
+   }
+
+   for (var i = childObj.length - 1; i >= 0; i--) {
+      if(childObj[i].id == 'empty-row' || childObj[i].id == 'row-total'){
+         this.removeChild(childObj[i]);
+      }
+   };
+   var tr      = document.createElement('tr');
+   tr.id       = el_id;
+   var inputId          = document.createElement('input');
+   inputId.name         = 'komponen['+id+'][id]';
+   inputId.value        = id;
+   inputId.type         = 'hidden';
+   var inputPId          = document.createElement('input');
+   inputPId.name         = 'komponen['+id+'][pid]';
+   inputPId.value        = pid;
+   inputPId.type         = 'hidden';
+   var tdKeterangan     = document.createElement('td');
+   var tdNominal        = document.createElement('td');
+   var inputKeterangan   = document.createElement('input');
+   inputKeterangan.name  = 'komponen['+id+'][keterangan]';
+   inputKeterangan.value        = (typeof(nama) == 'undefined' || nama == null) ? '-' : nama;
+   inputKeterangan.type         = 'hidden';
+   /*
+   var inputKeterangan   = document.createElement('textarea');   
+   inputKeterangan.style.resize  = 'none';
+   inputKeterangan.style.width   = '100%';
+  // inputKeterangan.rows          = 2;
+   inputKeterangan.name          = 'komponen['+id+'][keterangan]';
+   inputKeterangan.value         = (typeof(nama) == 'undefined' || nama == null) ? '-' : nama;
+   inputKeterangan.readOnly        = true;
+   inputKeterangan.style.backgrounColor  = 'inherit';
+   inputKeterangan.style.color           = 'inherit';
+   inputKeterangan.style.border    = 'none';
+   */
+   var inputNominal     = document.createElement('input');
+   inputNominal.value   = nominal;
+   inputNominal.name    = 'komponen['+id+'][nominal]';
+   inputNominal.style.width      = '100%';
+   inputNominal.classList.add('gvFloat');
+   inputNominal.setAttribute('onkeyup', 'setChange(this, "'+this.id+'");');
+   inputNominal.readOnly        = true;
+   inputNominal.style.backgrounColor  = 'inherit';
+   inputNominal.style.color           = 'inherit';
+   inputNominal.style.border    = 'none';
+   //var tdAksi           = document.createElement('td');
+   //tdAksi.classList.add('links');
+   //var aksiDelete       = document.createElement('a');
+   //aksiDelete.href      = 'javascript:void(0);';
+   //aksiDelete.setAttribute('onclick', 'deleteRow(this, "'+this.id+'")');
+   //var btnDelete        = document.createElement('img');
+   //btnDelete.src        = 'images/icons/16/button-delete.gif';
+   //aksiDelete.appendChild(btnDelete);
+   //tdAksi.appendChild(aksiDelete);
+
+   //tdKeterangan.appendChild(inputKeterangan);
+   tr.appendChild(inputKeterangan);
+   tdKeterangan.innerHTML = nama;
+   tdNominal.appendChild(inputNominal);
+
+   tr.appendChild(inputId);
+   tr.appendChild(inputPId);
+   tr.appendChild(tdKeterangan);
+   tr.appendChild(tdNominal);
+  //tr.appendChild(tdAksi);
+   this.appendChild(tr);
+
+   var nodeNominal = tdNominal.firstChild;
+   do {
+      if (nodeNominal.tagName && nodeNominal.tagName.toUpperCase() == 'INPUT' && nodeNominal.getAttribute('class') != null && nodeNominal.getAttribute('class').toUpperCase() == 'GVFLOAT'){
+         gValidation20090108['.gvFloat'](nodeNominal);
+      }
+   } while (nodeNominal   = nodeNominal.nextSibling);
+
+   var trTotal       = document.createElement('tr');
+   trTotal.id        = 'row-total';
+   var tInputpId          = document.createElement('input');
+   tInputpId.name         = 'komponen['+id+'][tpid]';
+   tInputpId.value        = pid;
+   tInputpId.id           = 'komponen_sppu_id';
+   tInputpId.type         = 'hidden';
+   var tdLabelTotal  = document.createElement('th');
+   tdLabelTotal.style.fontWeight    = 'bold';
+   tdLabelTotal.style.textAlign     = 'right';
+   tdLabelTotal.style.textTransform = 'uppercase';
+   tdLabelTotal.innerHTML           = 'Total';
+   tdLabelTotal.appendChild(tInputpId);
+   var tdTotal       = document.createElement('th');
+   var inputTotal    = document.createElement('input');
+   inputTotal.classList.add('gvFloat');
+   inputTotal.value  = nominalTotal;
+   inputTotal.style.border    = 'none';
+   inputTotal.readOnly        = true;
+   inputTotal.style.backgrounColor  = 'inherit';
+   inputTotal.style.color           = 'inherit';
+   inputTotal.style.width           = '100%';
+   inputTotal.style.fontWeight      = 'bold';
+   inputTotal.title           = 'Nominal Total Komponen';
+   inputTotal.id              = 'nominal-komponen-total';
+   inputTotal.name            = 'nominal_komponen';
+   tdTotal.appendChild(inputTotal);
+
+   //var tdTotalEmpty  = document.createElement('th');
+   trTotal.appendChild(tdLabelTotal);
+   trTotal.appendChild(tdTotal);
+   //trTotal.appendChild(tdTotalEmpty);
+   this.appendChild(trTotal);
+
+   var nodeNominalTotal    = tdTotal.firstChild;
+   do {
+      if (nodeNominalTotal.tagName && nodeNominalTotal.tagName.toUpperCase() == 'INPUT' && nodeNominalTotal.getAttribute('class') != null && nodeNominalTotal.getAttribute('class').toUpperCase() == 'GVFLOAT'){
+         gValidation20090108['.gvFloat'](nodeNominalTotal);
+      }
+   } while (nodeNominalTotal   = nodeNominalTotal.nextSibling);
+   return false;
+}
+
+var deleteRow  = function(el, obj_id){
+   var object  = document.getElementById(obj_id);
+   if(typeof(object) != 'undefined' && object !== null){
+      var object_row    = el.parentNode.parentNode;
+      var object_node   = object.firstChild.nextSibling;
+      var childObj      = object.getElementsByTagName('tr');
+      if(object_node.id != 'empty-row' || object_node.id != 'row-total'){
+         object.removeChild(object_row);
+         if(childObj.length === 0){
+            object.setEmptyKomponen();
+         }else if (childObj[0].id == 'row-total'){
+            object.setEmptyKomponen();
+         }
+
+         setChange(el, obj_id);
+      }
+   }else{
+      alert('Cannot found Object with id '+obj_id+'!')
+   }
+}
+
+place_holder.setEmptyKomponen    = function(){
+   var childObj   = this.getElementsByTagName('tr');
+   for (var i = childObj.length - 1; i >= 0; i--) {
+      this.removeChild(childObj[i]);
+   };
+
+   var tr         = document.createElement('tr');
+   tr.id          = 'empty-row';
+   var td         = document.createElement('td');
+   td.setAttribute('colspan', 2);
+   td.style.textAlign   = 'center';
+   td.innerHTML   = '<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->';
+   tr.appendChild(td);
+   this.appendChild(tr);
+   nominalTotal = 0;
+   return true;
+}
+var regex         = /komponen\[(\d+)\]\[nominal\]/;
+var setChange     = function(el, obj_id){
+   var object        = document.getElementById(obj_id);
+   var childInput    = object.getElementsByTagName('input');
+   var nominal       = 0;
+   var inputNominal  = document.getElementsByName('nominal_komponen');
+   for (var i = childInput.length - 1; i >= 0; i--) {
+      if(matches = childInput[i].name.match(regex)){
+         nominal+=parseFloat(childInput[i].gvGetValue());
+      }
+   };
+   nominalTotal = nominal;
+   if(inputNominal[0]) {
+      inputNominal[0].gvSetValue(nominal);
+   }
+}
+
+var komponen_data    = {KOMP_DATA};
+for (var i in komponen_data){
+   komponen_PlaceHolder.addRows(
+      komponen_data[i].id,
+      komponen_data[i].pid,
+      komponen_data[i].nama,
+      komponen_data[i].nominal
+   );
+}
+</script>
+<!-- /patTemplate:tmpl -->

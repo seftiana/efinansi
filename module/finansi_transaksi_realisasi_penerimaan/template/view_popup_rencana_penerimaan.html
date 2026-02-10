@@ -1,0 +1,122 @@
+<!-- patTemplate:tmpl name="content" -->
+</script>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+   <table>
+      <tr>
+         <th colspan="2">
+            <h2>
+               <strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / -->
+         </th>
+         <td>
+            <input type="hidden" name="unit_id" id="src_unit_id" value="{UNIT_ID}" />
+            <label style="font-weight: bold;">
+               {UNIT_KODE} &mdash; {UNIT_NAMA}
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama_kegiatan" / -->
+         </th>
+         <td>
+            <input type="text" name="nama" value="{NAMA}" size="30" />
+         </td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan" / --> &raquo;" class="buttonSubmit"/>
+            <input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div class="pageBar">
+<!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<br />
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th width="5">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama_kegiatan" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_disetujui" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_realisasi_rp" / -->
+         </th>
+         <th width="31">
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="6" align="center">
+                  <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+            <tr class="{CLASS_NAME}">
+               <td align="center">
+                  {NUMBER}
+               </td>
+               <td>
+                  {KODE}
+               </td>
+               <td>
+                  {NAMA}<br />
+                  <em>({KETERANGAN})</em>
+               </td>
+               <td align="right">{NOMINAL}</td>
+               <td align="right">{NOMINAL_REALISASI}</td>
+               <td class="links" align="center">
+                  <a href="javascript:void(0)" onclick="javascript:setParent('{ID}')">
+                     <img alt="Pilih" src="images/button-check.gif"/>
+                  </a>
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<script language="javascript" type="text/javascript">
+var data_map   = {MAP_DATA};
+var setParent  = function (xid) {
+   var data          = data_map[xid];
+   var formElements  = document.forms['frmInput'].elements;
+   var saldo         = parseFloat(data['nominal_aprove'])-parseFloat(data['nominal_realisasi']);
+   formElements['map_id'].value     = data['id'];
+   formElements['map_nama'].value   = data['nama'];
+   formElements['nominal_approve'].gvSetValue(parseFloat(data['nominal_aprove']));
+   formElements['nominal_realisasi'].gvSetValue(parseFloat(data['nominal_realisasi']));
+   formElements['nominal'].gvSetValue(parseFloat(saldo));
+
+   popupClose();
+}
+</script>
+<!-- /patTemplate:tmpl -->

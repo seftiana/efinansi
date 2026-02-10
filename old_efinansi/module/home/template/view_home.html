@@ -1,0 +1,54 @@
+<!-- patTemplate:tmpl name="content" -->
+<script>
+$(document).ready(function(){
+   $(".xzoom").mouseover(function(){
+      //img = this.getElementsByTagName('img')[0];
+      $(this).animate({height: 90, width: 90}, 300);
+   });
+
+   $(".xzoom").mouseout(
+      function(){
+         //img = this.getElementsByTagName('img')[0];
+         $(this).animate({height: 75, width: 75}, 300);
+   });
+});
+</script>
+<div class="titlepage">
+   <h1 class="title">
+      Menu
+   </h1>
+</div>
+<br />
+<div class="listview_common" >
+   <!-- patTemplate:tmpl name="icon_menu" type="SimpleCondition" requiredvars="LINK_URL" -->
+   <div style="width:115px; float:left; position:relative;">
+      <a href="{LINK_URL}" class="xhr dest_subcontent-element" {MOUSE_UP}>
+         <img width="75" height="75" alt="" src="images/icons/{ICON_NAME}" class="xzoom" />{LINK_NAME}
+      </a>
+   </div>
+   <!-- /patTemplate:tmpl -->
+<div>
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+function getFirstEarlyWarning(){
+   $.get('{URL_EARLY_WARNING}',function(data,textStatus,XMLHttpRequest){
+      jLocation   = "content";
+      url         = '{URL_EARLY_WARNING}';
+      jTitle      = "Early Warning";
+      jValue      = "Early Warning";
+      jsWindow(jLocation,jTitle,"<div class='subcontent-element'>"+data+'</div>','early_warning');
+   });
+};
+function showModuleInform(){
+   jsWindow("content","Module Information","<div class='subcontent-element' id='module_information_content'> &nbsp; </div>",'module_information');
+}
+
+$(document).ready(function(){
+   /*setTimeout("getFirstEarlyWarning()", 5000);*/
+   // if($('#module_information').html()==null){
+   //    setTimeout("showModuleInform()", 500);
+   // }
+});
+// ]]>
+</script>
+<!-- /patTemplate:tmpl -->

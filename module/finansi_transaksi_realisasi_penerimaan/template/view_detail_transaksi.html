@@ -1,0 +1,248 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css">
+ol.list{
+   margin-left: 1em;
+}
+ul.list{
+   margin-left: 1em;
+   list-style: none;
+   list-style-position: inside;
+}
+
+ul.list li:before{
+   border-radius: 2px;
+   letter-spacing: 1px;
+   margin: .2em .6em 0 0;
+   padding: .45em .35em .35em;
+   font: .7em Helvetica,Arial,sans-serif;
+   font-weight: 700;
+   letter-spacing: 1px;
+}
+ul.list li,
+ol.list li{
+   padding: 8px 4px;
+}
+ul.list li.download:before{
+   content: ' download ';
+   background-color: #cbe6cf;
+   background-color: rgba(48,156,64,.25);
+   border-left: 4px solid #309c40;
+   color: #309c40;
+}
+
+ul.list li.not-exists:before{
+   content: ' not exists ';
+   background-color: #f9dbcc;
+   background-color: rgba(230,110,51,.25);
+   border-left: 4px solid #e66e33;
+   color: #e66e33;
+}
+
+ul.list li.download > a {
+   color: #309c40;
+}
+
+ul.list li.not-exists > a {
+   color: #e66e33;
+   cursor: help;
+}
+</style>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="transaksi_realisasi_penerimaan" / -->
+</h1>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<div class="pageBar">
+   <div class="toolbar">
+      <a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Data" >
+         <img src="images/icons/16/button-add.gif" alt="add">
+         Tambah Data
+      </a>
+      <a class="xhr dest_subcontent-element" href="{URL_LIST}" title="Daftar Tansaksi">
+         <img src="images/icons/16/transkrip_nilai.gif" alt="history" />
+         Daftar Transaksi
+      </a>
+   </div>
+</div>
+
+<table class="table-details" width="100%">
+   <tr class="subhead">
+      <th colspan="2">
+         Detail <!-- patTemplate:gtfwgetconfig config="language" name="transaksi_realisasi_penerimaan" / -->
+      </th>
+   </tr>
+   <tr>
+      <th style="width: 130px;">
+         <!-- patTemplate:gtfwgetconfig config="language" name="nomor_bukti" / -->
+      </th>
+      <td>
+         <label style="font-weight: bold;">
+            {NOMOR_REFERENSI}
+         </label>
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / -->
+      </th>
+      <td>
+         <label style="font-weight: bold;">
+            {UNITKERJA_KODE} &mdash; {UNITKERJA_NAMA}
+         </label>
+      </td>
+   </tr>
+   <tr>
+      <th>
+         MAP
+      </th>
+      <td>
+         {MAP_KODE} &mdash; {MAP_NAMA}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="jenis_transaksi" / -->
+      </th>
+      <td>
+         {TRANSAKSI_JENIS_NAMA}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="tipe_transaksi" / -->
+      </th>
+      <td>
+         {TRANSAKSI_TIPE_NAMA}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="tanggal_transaksi" / -->
+      </th>
+      <td>
+         <!-- patTemplate:var name="TANGGAL_ENTRI" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="due_date" / -->
+      </th>
+      <td>
+         <!-- patTemplate:var name="DUE_DATE" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+      </td>
+   </tr>
+   <tr class="subhead">
+      <th colspan="2">
+         <!-- patTemplate:gtfwgetconfig config="language" name="no_invoice" / -->
+      </th>
+   </tr>
+   <tr>
+      <td style="padding:0px;" colspan="2">
+         <ol class="list">
+            <!-- patTemplate:tmpl name="data_invoices" type="condition" conditionvar="DATA_EMPTY" -->
+               <!-- patTemplate:sub condition="YES" -->
+                  <li style="list-style: none;">
+                     <em>&rarr; <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --></em>
+                  </li>
+               <!-- /patTemplate:sub -->
+               <!-- patTemplate:sub condition="NO" -->
+                  <!-- patTemplate:tmpl name="invoice_list" -->
+                     <li>
+                        {NOMOR}
+                     </li>
+                  <!-- /patTemplate:tmpl -->
+               <!-- /patTemplate:sub -->
+            <!-- /patTemplate:tmpl -->
+         </ol>
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="nominal_disetujui" / -->
+      </th>
+      <td>
+         <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->.
+         {NOMINAL_APPROVE}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="realisasi" / -->
+      </th>
+      <td>
+         <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->.
+         {NOMINAL_REALISASI}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="nominal" / -->
+      </th>
+      <td>
+         <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->.
+         {NOMINAL}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="uraian_transaksi" / -->
+      </th>
+      <td>
+         {KETERANGAN}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="penanggung_jawab" / -->
+      </th>
+      <td>
+         {PENANGGUNG_JAWAB}
+      </td>
+   </tr>
+   <tr class="subhead">
+      <th colspan="2">
+         <!-- patTemplate:gtfwgetconfig config="language" name="attachment" / -->
+      </th>
+   </tr>
+   <tr>
+      <td colspan="2" style="padding: 0px;">
+         <ul class="list">
+            <!-- patTemplate:tmpl name="data_files" type="condition" conditionvar="DATA_EMPTY" -->
+               <!-- patTemplate:sub condition="YES" -->
+                  <li>
+                     <em>&rarr; <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --></em>
+                  </li>
+               <!-- /patTemplate:sub -->
+               <!-- patTemplate:sub condition="NO" -->
+                  <!-- patTemplate:tmpl name="file_list" -->
+                     <li class="{CLASS_NAME}">
+                        <!-- patTemplate:tmpl name="download" type="condition" conditionvar="EXISTS" -->
+                           <!-- patTemplate:sub condition="YES" -->
+                              <a href="{LOCATION}" target="_blank">
+                                 {NAME}
+                              </a>
+                           <!-- /patTemplate:sub -->
+                           <!-- patTemplate:sub condition="NO" -->
+                              <a href="javascript:void(0);">
+                                 {NAME}
+                              </a>
+                           <!-- /patTemplate:sub -->
+                        <!-- /patTemplate:tmpl -->
+                     </li>
+                  <!-- /patTemplate:tmpl -->
+               <!-- /patTemplate:sub -->
+            <!-- /patTemplate:tmpl -->
+         </ul>
+         <table class="table-edit" id="file_attach_table" width="100%">
+            <tbody id="file_attach_tbody">
+            </tbody>
+         </table>
+      </td>
+   </tr>
+</table>
+<!-- /patTemplate:tmpl -->

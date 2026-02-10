@@ -1,0 +1,163 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+
+    function bukaPopupUnitKerja(xurl) 
+    {
+        
+        showPopup(xurl,'',550,550);
+    }
+    
+    function bukaPopupRealisasi(xurl)
+    {
+        var unitId = document.getElementById('unit_kerja_id').value;
+        if(unitId == ''){
+            alert('Silah pilih unit kerja');
+        }else{
+            var queryString   = '&unit_id='+unitId;
+            var xurl          = xurl + queryString;
+            showPopup(xurl, '', 800, 500);
+        }
+            
+    }
+        
+    //document.onmousedown=focusPopup();
+</script>
+<h1>
+  Detail LPPA
+</h1>
+<br />
+
+
+   <table class="table-details" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            Detail
+         </th>
+      </tr>
+         <tr>
+            <th width="120"><!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / --></th>
+            <td>
+                {TAHUN_ANGGARAN_NAMA}
+            </td>
+         </tr>
+          <tr>
+             <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+             <td>
+                    <label><b>{UNIT_KERJA_NAMA}</b></label>
+             </td>
+          </tr>  
+          <tr>
+             <th>
+                <!-- patTemplate:gtfwgetconfig config="language" name="no_lppa" / -->
+             </th>
+             <td>  
+                  {NOMOR_LPPA}
+             </td>
+          </tr>    
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="mak" / -->
+         </th>
+         <td>
+            {REALISASI_NO}
+         </td>
+      </tr>
+     
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="uraian" / -->
+         </th>
+         <td>
+            {URAIAN}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="penanggung_jawab" / -->
+         </th>
+         <td> 
+            {PENANGGUNG_JAWAB}
+         </td>
+      </tr>    
+      <tr>
+         <th>
+            Mengetahui
+         </th>
+         <td>
+            {MENGETAHUI}
+         </td>
+      </tr>  	
+      <tr>
+         <th > <!-- patTemplate:gtfwgetconfig config="language" name="attachment" / --></th>
+         <td> 
+            <a href="{DATA_FILE_DOWNLOAD}" target="_blank" title="LPPA File">
+               {DATA_FILE}
+            </a>
+         </td>         
+      </tr>  
+      <tr>
+         <td colspan="2" style="padding: 0px;">
+            <table class="table-common" width="100%">
+               <thead>
+                  <tr>
+                     <th colspan="2" style="text-align: center; width: 115px; vertical-align: middle; font-weight: bold;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+                     </th>
+                     <th style="text-align: center; vertical-align: middle; font-weight: bold; " rowspan="2">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="kode_coa" / -->
+                     </th>
+                     <th style="text-align: center; vertical-align: middle; font-weight: bold; width: 115px;" rowspan="2">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / -->
+                     </th>
+                     <th style="text-align: center; vertical-align: middle; font-weight: bold; width: 100px;" rowspan="2">
+                         <!-- patTemplate:gtfwgetconfig config="language" name="nominal" / -->
+                     </th>
+                  </tr>
+                  <tr>
+                     <th style="text-align: center; width: 95px; vertical-align: middle; font-weight: bold;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+                     </th>
+                     <th style="text-align: center; vertical-align: middle; font-weight: bold;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+                     </th>
+                   
+                  </tr>
+               </thead>
+               <tbody >
+                <!-- patTemplate:tmpl name="data_komp" type="condition" conditionvar="IS_DATA_EMPTY" -->
+                    <!-- patTemplate:sub condition="YES" -->
+                    <tr>
+                        <td colspan="5" align="center">
+                            <em>
+                                -- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong"  / --> --
+                            </em>
+                        </td>
+                    </tr>
+                    <!-- /patTemplate:sub -->
+                    <!-- patTemplate:sub condition="NO" -->
+                        <!-- patTemplate:tmpl name="data_komp_item" -->
+                  <tr>
+                     <td align="center">{KOMP_KOMPONEN_KODE}</td>
+                     <td>{KOMP_KOMPONEN_NAMA}</td>
+                     <td>{KOMP_KOMPONEN_COA_KODE}</td>
+                     <td>{KOMP_KOMPONEN_DESKRIPSI_LPPA}</td>
+                     <td align="right">{KOMP_NOMINAL_F}</td>               
+                        <!-- /patTemplate:tmpl -->
+                    <!-- /patTemplate:sub -->
+                <!-- /patTemplate:tmpl -->
+               </tbody>
+            </table>
+         </td>
+      </tr>          
+      
+        <tr>
+         <th>
+            Status Approval
+         </th>
+         <td>
+             {STATUS_APPROVAL}
+         </td>
+      </tr>     
+      
+   </table>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,51 @@
+.content{
+   font-family:Arial,cursive;
+   font-size:13px;
+}
+
+.content H1{
+   font-size:15px;
+}
+
+.content th{
+   background:#7D7D7D;
+   font-size:14px;
+   font-weight:bold;
+   text-transform:uppercase;
+   padding:4px;
+} 
+
+table{
+   font-size:12px;
+}
+
+.empty-table td, th{
+   border:0px;
+}
+
+.empty-table{
+   margin:0px;
+   padding:0px;
+}
+
+.content tbody{
+   page-break-after:auto;
+}
+
+.content tr, td, th{
+   page-break-inside:avoid;
+}
+
+.sign{
+   margin-top:20px;
+   width:300px;
+   float:right;
+}
+
+.sign p{
+   text-align:center;
+}
+
+.sign p.date{
+   margin-bottom:100px;
+}

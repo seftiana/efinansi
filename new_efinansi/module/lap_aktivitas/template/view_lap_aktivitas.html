@@ -1,0 +1,129 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+   var xpopup;
+   function bukaPopupCetak(xurl) {
+      xpopup = window.open(xurl,'xpopup','width=900,height=600,resizable=yes,scrollbars=yes,right=0;center');
+      xpopup.focus();
+   }
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="laporan_aktivitas" / --></h1>
+<br />
+
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox" style="width:600px">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+       <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="interval_waktu" / --></th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_awal"  / -->
+            <!-- patTemplate:gtfwgetconfig config="language" name="s_d" / -->
+         </td>
+      </tr>
+      <tr>
+         <th></th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_akhir"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+   <br />
+   <div class="pageBar" style="width:600px">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar">
+         <a href="javascript:void(0)" onclick="bukaPopupCetak('{URL_CETAK}')" title="Cetak" ><img src="images/button-print.gif" alt="Cetak"> <!-- patTemplate:gtfwgetconfig config="language" name="cetak" / --></a>
+         <a href="javascript:void(0)" onclick="bukaPopupCetak('{URL_CETAK_DETIL}')" title="Cetak" ><img src="images/button-print.gif" alt="Cetak"> <!-- patTemplate:gtfwgetconfig config="language" name="cetak" / --> Detil</a>
+         <a href="{URL_EXCEL}" title="Export Excel" target="_blank">
+            <img src="images/icons/16/export_excel.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="excel" / -->
+         </a>
+         <a href="{URL_EXCEL_DETIL}" title="Export Excel Detil" target="_blank">
+            <img src="images/icons/16/export_excel.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="excel" / --> Detil
+         </a>
+         <!-- patTemplate:tmpl name="export_rtf" visibility="hidden" -->
+            <a href="{URL_RTF}" title="Export Rtf" ><img src="images/button-simpan.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="rtf" / --></a>
+         <!-- /patTemplate:tmpl -->
+      </div>
+   </div>
+   <h1><!-- patTemplate:gtfwgetconfig config="language" name="pendapatan" / --></h1>
+   <br />
+
+   <!-- patTemplate:tmpl name="pendapatan" -->
+   <table class="table-common" width="600px">
+      <tr>
+         <th align="left">{KELJNSNAMA}</th>
+         <th width="130"><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_rp" / --></th>
+      </tr>
+         <!-- patTemplate:tmpl name="pendapatan_item" -->
+         <tr class="{LAP_CLASS_NAME}">
+            <td>{NAMA_KEL_LAP}</td>
+            <td align="right"><a href="javascript:void(0)" onclick="showPopup('{URL_DETIL}', '', 500, 300)" title="Lihat Detail" >{NILAI}</a></td>
+         </tr>
+         <!-- /patTemplate:tmpl -->
+
+         <tr class="{LAP_CLASS_NAME}">
+            <td><strong style="font-style:italic">Total {KELJNSNAMA}</strong></td>
+            <td align="right"><strong>{TOTAL_NILAI}</strong></td>
+         </tr>
+   </table>
+   <br />
+    <!-- /patTemplate:tmpl -->
+
+   <table class="table-edit" width="600px">
+         <tr class="{LAP_CLASS_NAME}">
+            <th width="70%"><strong><!-- patTemplate:gtfwgetconfig config="language" name="total_pendapatan" / --></th>
+            <th align="right"><strong>{TOTAL_PENDAPATAN}</th>
+         </tr>
+    </table><br>
+
+   <h1><!-- patTemplate:gtfwgetconfig config="language" name="beban" / --></h1>
+<!-- patTemplate:tmpl name="beban" -->
+   <table class="table-common" width="600px">
+      <tr>
+         <th align="left">{KELJNSNAMA}</th>
+         <th width="130"><!-- patTemplate:gtfwgetconfig config="language" name="jumlah_rp" / --></th>
+      </tr>
+         <!-- patTemplate:tmpl name="beban_item" -->
+         <tr class="{LAP_CLASS_NAME}">
+            <td>{NAMA_KEL_LAP}</td>
+            <td align="right"><a href="javascript:void(0)" onclick="showPopup('{URL_DETIL}', '', 500, 300)" title="Lihat Detail" >{NILAI}</a></td>
+         </tr>
+         <!-- /patTemplate:tmpl -->
+
+         <tr class="{LAP_CLASS_NAME}">
+            <td><strong style="font-style:italic">Total {KELJNSNAMA}</strong></td>
+            <td align="right"><strong>{TOTAL_NILAI}</strong></td>
+         </tr>
+   </table>
+   <br />
+    <!-- /patTemplate:tmpl -->
+
+    <table class="table-edit" width="600px">
+         <tr class="{LAP_CLASS_NAME}">
+            <th width="70%"><strong><!-- patTemplate:gtfwgetconfig config="language" name="total_beban" / --></th>
+            <th align="right"><strong>{TOTAL_BEBAN}</th>
+         </tr>
+    </table><br>
+
+   <table class="table-edit" width="600px">
+         <tr class="{LAP_CLASS_NAME}">
+            <th width="70%"><strong><!-- patTemplate:gtfwgetconfig config="language" name="kenaikan_aktiva_bersih" / --></th>
+            <th align="right"><strong>{JUMLAH_AKTIVA_BERSIH}</th>
+         </tr>
+    </table>
+<!-- /patTemplate:tmpl -->

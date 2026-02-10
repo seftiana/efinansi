@@ -1,0 +1,27 @@
+<!-- patTemplate:tmpl name="content" -->   
+
+   <!-- patTemplate:tmpl name="notebox" visibility="hidden" -->   
+      <!-- patTemplate:tmpl name="notebox_type" type="condition" conditionvar="TYPE" -->
+      
+         <!-- patTemplate:sub condition="warning" -->
+            <div class="notebox-warning">
+               <strong>{ERROR_MAIN_MESSAGE} &raquo;</strong><br/>
+                        {ERROR_DETAIL_MESSAGE}.
+            </div>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="alert" -->
+            <div class="notebox-alert">
+               <strong>{ERROR_MAIN_MESSAGE}</strong><br/>
+                        {ERROR_DETAIL_MESSAGE}.
+            </div>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="done" -->
+            <div class="notebox-done">
+               <strong>{ERROR_DETAIL_MESSAGE} {ERROR_MAIN_MESSAGE}</strong><br/>
+            </div>
+         <!-- /patTemplate:sub -->
+         
+      <!-- /patTemplate:tmpl -->
+   <!-- /patTemplate:tmpl -->
+   
+<!-- /patTemplate:tmpl -->

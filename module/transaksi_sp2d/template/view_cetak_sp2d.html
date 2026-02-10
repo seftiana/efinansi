@@ -1,0 +1,280 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css" media="screen">
+/* <![CDATA[ */
+   @media screen, print{
+      table h3, table h4, table h5, table h2, table h1{
+         padding: 0px 0px 6px 0px !important;
+         margin: 0px !important;
+      }
+      table.no-border{
+         margin: -3px -10px -3px -5px;
+         font-size: 12px;
+      }
+      table.no-border, table.no-border tr td{
+         border: none;
+         padding: 0px;
+         margin: 0px;
+      }
+      table.no-border tr th{
+         width: 115px;
+         background: none;
+         font-weight: normal !important;
+         border: none !important;
+         font-size: 12px !important;
+         text-align: left;
+         text-transform: capitalize;
+      }
+      span.box{
+         border: 1px solid #000000;
+         padding: 3px 5px;
+         margin: 0px 4px;
+      }
+      span.currency{
+         width: 175px;
+         text-align: right;
+         display: inline-block;
+      }
+   }
+/* ]]> */
+</style>
+
+<div class="a4-potrait">
+   <table>
+      <tr>
+         <td width="40%" align="center">
+            <h3>{LEMBAGA}</h3>
+            <h5>{ESELON_NAMA}</h5>
+         </td>
+         <td width="60%" rowspan="2">
+            <table class="no-border">
+               <tr>
+                  <td colspan="2" align="center">
+                     <h4>NSS : {NSS_NOMOR}</h4>
+                     <h3>SURAT PERINTAH PENCAIRAN DANA INTERN</h3>
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                     Dari
+                  </th>
+                  <td>
+                     : Bendahara Penerimaan Bendahara {NAMA_SATKER}
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                     Tanggal
+                  </th>
+                  <td>
+                     : <!-- patTemplate:var name="SPPDTANGGAL" modifier="gtfwindonesiandate" format="short" separator="-" / -->
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                     Nomor
+                  </th>
+                  <td>
+                     : {SPPDNOMOR}
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                     Tahun Anggaran
+                  </th>
+                  <td>
+                     : {THANGGARNAMA}
+                  </td>
+               </tr>
+            </table>
+         </td>
+      </tr>
+      <tr>
+         <td>
+            <table class="no-border">
+               <tr>
+                  <th>
+                     Nomor SPMi
+                  </th>
+                  <td>
+                     : {SPMNOMOR}
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                     Tanggal
+                  </th>
+                  <td>
+                     : <!-- patTemplate:var name="SPMTANGGAL" modifier="gtfwindonesiandate" format="short" separator="-" / -->
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                     Satker
+                  </th>
+                  <td>
+                     : {NOMOR_SATKER}
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                     &nbsp;
+                  </th>
+                  <td>
+                     &nbsp;&nbsp;{NAMA_SATKER}
+                  </td>
+               </tr>
+            </table>
+         </td>
+      </tr>
+      <tr>
+         <td colspan="2">
+            <table class="no-border">
+               <tr>
+                  <th>
+                     Klasifikasi Belanja
+                  </th>
+                  <td>
+                     {BAS_KODE}
+                  </td>
+               </tr>
+            </table>
+         </td>
+      </tr>
+      <tr>
+         <td colspan="2">
+            <table class="no-border">
+               <tr>
+                  <th>
+                     Bank/Post
+                  </th>
+                  <td colspan="3">
+                     {SPMBANK}
+                  </td>
+               </tr>
+               <tr>
+                  <td colspan="4">
+                     Hendaklah mencairkan/memindahbukukan dari {SPMBANK} Rekening Nomor {SPMREKENING} sesuai dengan
+                  </td>
+               </tr>
+               <tr>
+                  <td colspan="4">
+                     &nbsp;
+                  </td>
+               </tr>
+               <tr>
+                  <td width="30%" colspan="2">
+                     <span class="box">
+                        {CARABAYARKODE}
+                     </span> 
+                     {CARABAYARNAMA}
+                  </td>
+                  <td width="95">
+                     Uang Sebesar
+                  </td>
+                  <td>
+                     Rp. <span class="box currency">
+                        {NILAI_SPPD}
+                     </span>
+                  </td>
+               </tr>
+               <tr>
+                  <td colspan="4">
+                     &nbsp;
+                  </td>
+               </tr>
+            </table>
+         </td>
+      </tr>
+      <tr>
+         <td colspan="2">
+            <table class="no-border">
+               <tr>
+                  <td align="center">
+                     *** {NILAI_TERBILANG} RUPIAH ***
+                  </td>
+               </tr>
+            </table>
+         </td>
+      </tr>
+      <tr>
+         <td colspan="2">
+            <table class="no-border">
+               <tr>
+                  <th>
+                     Kepada
+                  </th>
+                  <td colspan="2">
+                     : {SPPDKEPADA}
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                     NPWP
+                  </th>
+                  <td colspan="2">
+                     : {SPPDNPWP}
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                     Nomor Rek.
+                  </th>
+                  <td colspan="2">
+                     : {SPPDNOREKENING}
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                     Bank/Pos
+                  </th>
+                  <td colspan="2">
+                     : {SPPDBANK}
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                     Yaitu
+                  </th>
+                  <td colspan="2">
+                     : {SPPDKETERANGAN}
+                  </td>
+               </tr>
+               <tr>
+                  <td colspan="3">
+                     &nbsp;
+                  </td>
+               </tr>
+               <tr>
+                  <td colspan="2" align="center">
+                     <br /><br /><br />BENDAHARA PENERIMA BLU<br />
+                     <br /><br /><br /><br />
+                     {NAMA_BENDAHARA}<br />
+                     {JABATAN_BENDAHARA}
+                     {NIP_BENDAHARA}
+                  </td>
+                  <td width="50%" align="center">
+                     {KOTA}, tanggal seperti di atas<br />
+                     DIREKTUR {NAMA_SATKER}<br />
+                     Selaku Kuasa Pengguna Anggaran<br />
+                     <br /><br /><br /><br />
+                     {NAMA_KUASA_ANGGARAN}<br />
+                     {JABATAN_KUASA_ANGGARAN}<br />
+                     {NIP_KUASA_ANGGARAN}
+                  </td>
+               </tr>
+               <tr>
+                  <td colspan="3">
+                     &nbsp;
+                  </td>
+               </tr>
+            </table>
+         </td>
+      </tr>
+   </table>
+   
+</div>
+
+<div class="foot-note">
+Dicetak Oleh : {USERNAME} - {TIMESTAMP}
+</div>
+<!-- /patTemplate:tmpl -->

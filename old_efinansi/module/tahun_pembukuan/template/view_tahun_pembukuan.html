@@ -1,0 +1,223 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="tahun_pembukuan" / -->
+</h1>
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         Sebelum sistem digunakan, siapkan saldo awal untuk masing-masing buku besar untuk dimasukkan, kemudian lakukan <strong>Buka Tahun Pembukuan</strong>
+      </li>
+      <li>
+         Tekan <img src="images/detil.gif" alt="Detil"/> untuk melihat detil dan setting saldo awal di masing-masing buku
+      </li>
+      <li>
+         Jika tahun pembukuan sudah berjalan, saldo awal akan langsung diambilkan dari saldo akhir tahun sebelumnya
+      </li>
+   </ul>
+</div>
+<br />
+<form method="POST" name="frmSearch" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" style="display: none;">
+   <table>
+      <tr>
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama_unit_kerja" / -->
+         </th>
+         <td><!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="unitKerja"  / -->
+         </td>
+       </tr>
+       <tr>
+       <td></td><td><input type="submit" class="buttonSubmit" name="cari" value="<!-- patTemplate:gtfwgetconfig config="language" name="tampilkan" / -->" /> </td>
+       </tr>
+   </table>
+</form>
+<form method="POST" name="frmInput" action="{URL_ACTION}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="batas_tahun_pembukuan" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+      <!-- patTemplate:tmpl name="tahun_visible" type="simpleCondition" requiredvars="TAMPIL" -->
+         <tr>
+            <th style="width: 135px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="tanggal_awal" / -->
+            </th>
+            <td>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_awal"  / -->
+            </td>
+         </tr>
+         <tr>
+            <th style="width: 135px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="tanggal_akhir" / -->
+            </th>
+            <td>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_akhir"  / -->
+            </td>
+         </tr>
+      <!-- /patTemplate:tmpl -->
+      <!-- patTemplate:tmpl name="tahun_invisible" type="simpleCondition" requiredvars="TAMPIL" -->
+         <tr>
+            <th style="width: 135px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="tanggal_awal" / -->
+            </th>
+            <td>
+               <strong>
+                  {TANGGAL_AWAL}
+               </strong>
+            </td>
+         </tr>
+         <tr>
+            <th style="width: 135px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="tanggal_akhir" / -->
+            </th>
+            <td>
+               <strong>{TANGGAL_AKHIR}</strong>
+            </td>
+         </tr>
+       <!-- /patTemplate:tmpl -->
+
+      <!-- patTemplate:tmpl name="aksi_buka" type="simpleCondition" requiredvars="TAMPIL" -->
+         <tr>
+            <th>&nbsp;</th>
+            <td>
+               <input name="btnsimpan" value="Set Tahun Pembukuan Baru" class="buttonSubmit" type="submit">
+            </td>
+         </tr>
+      <!-- /patTemplate:tmpl -->
+
+      <!-- patTemplate:tmpl name="aksi_tutup" type="simpleCondition" requiredvars="TAMPIL" -->
+         <tr>
+            <th>&nbsp;</th>
+            <td>
+               <input name="btnsimpan" value="Tutup Tahun Pembukuan" class="buttonSubmit" type="submit">
+            </td>
+         </tr>
+      <!-- /patTemplate:tmpl -->
+   </table>
+</form>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<h2>Summary</h2>
+<table class="table-common" style="width: 100%;">
+        <tr>
+            <th rowspan="2">Total Aktiva (Rp)</th>
+            <th colspan="2">Total Pasiva (Rp)</th>
+        </tr>
+        <tr>
+            <th align="center">Total Kewajiban</th>
+            <th align="center">Total Modal</th>
+        </tr>   
+        <tr>
+            <td align="center"><h3>{TOTAL_AKTIVA}</h3></td>
+            <td align="center"><h3>{TOTAL_KEWAJIBAN}</h3></td>
+            <td align="center"><h3>{TOTAL_MODAL}</h3></td>
+        </tr>
+        <tr>
+            <td align="center"><h1>{TOTAL_AKTIVA}</h1></td>
+            <td colspan="2"  align="center"><h1>{TOTAL_PASIVA}</h1></td>
+        </tr>
+</table>
+<br />
+<h2>Saldo</h2>
+<table class="table-common" style="width: 100%;">
+   <thead>
+      <tr>
+         <th rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / -->
+         </th>
+         <th rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / -->
+         </th>
+         <th rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="saldo_normal" / -->
+         </th>
+         <th rowspan="2" style="display: none;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tipe_akun" / -->
+         </th>
+         <th colspan="4">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+         </th>
+         <th width="35" rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="saldo_akhir_tahun" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="debet" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kredit" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="saldo_awal_tahun" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr>
+            <td colspan="9" align="center">
+               <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+            </td>
+         </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="list_data" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td>
+                  {KODE_AKUN}
+               </td>
+               <td>
+                  {NAMA_AKUN}
+               </td>
+               <td>
+                  {SALDO_NORMAL}
+               </td>
+               <td style="display: none;">
+                  {TIPE_AKUN}
+               </td>
+               <td style="text-align:right;" >
+                  {SALDO_AWAL}
+               </td>
+               <td style="text-align:right;">
+                  {DEBET}
+               </td>
+               <td style="text-align:right;">
+                  {KREDIT}
+               </td>
+               <td style="text-align:right;" >
+                  {SALDO_AKHIR}
+               </td>
+               <td class="links" align="center">
+                  <!-- patTemplate:tmpl name="aksi_ubah" type="simpleCondition" requiredvars="URL_UBAH" -->
+                     <a class="xhr dest_subcontent-element" href="{URL_UBAH}" title="Detil dan Setting Saldo Awal">
+                        <img src="images/detil.gif" alt="Detil">
+                     </a>
+                  <!-- /patTemplate:tmpl -->
+                  <!-- patTemplate:tmpl name="not_ubah" type="simpleCondition" requiredvars="NOT_UBAH" -->
+                     {NOT_UBAH}
+                  <!-- /patTemplate:tmpl -->
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<!-- /patTemplate:tmpl -->

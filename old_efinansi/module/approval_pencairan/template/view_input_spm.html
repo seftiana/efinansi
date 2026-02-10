@@ -1,0 +1,174 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>Surat Perintah Membayar</h1>
+<br />
+	<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+	<div class="{CSS}">
+		{ISI_PESAN}
+	</div>
+	<br/>
+	<!-- /patTemplate:tmpl -->
+
+<form name="frmInput" action="{URL_ACTION}" id="frmInput" class="xhr_form std_form" method="POST">
+    <input type="hidden" name="dataId" value="{DATA_ID}" />
+    <input type="hidden" name="spmId" value="{SPM_ID}" id="spm_id" />
+	<table class="table-edit" width="100%">
+	<tr class="subhead">
+	    <th colspan="2">
+	        {JUDUL} Surat Perintah Membayar
+	    </th>
+	</tr>
+	<tr>
+	    <th width="150">
+	        Cara Pembayaran
+	    </th>
+	    <td>
+	        <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view"
+	        name="cara_bayar"  / --> *
+	    </td>
+	</tr>
+	<tr>
+	    <th>
+	        Jenis Pembayaran
+	    </th>
+	    <td>
+	        <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view"
+	        name="jenis_bayar"  / --> *
+	    </td>
+	</tr>
+	<tr>
+	    <th>
+	        Sifat Pembayaran
+	    </th>
+	    <td>
+	        <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view"
+	        name="sifat_bayar"  / --> *
+	    </td>
+	</tr>
+	<tr style="display:none;">
+	    <th>
+	        Sumber Dana
+	    </th>
+	    <td>
+	        <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view"
+	         name="sumber_dana"  / --> *
+	    </td>
+	</tr>
+	<tr>
+	    <th>
+	        Jumlah Pembayaran
+	    </th>
+	    <td>
+	        <strong>{JUMLAH_UANG}</strong>
+	        <input type="hidden" name="nominal" value="800000" id="txt_nominal" />
+	    </td>
+	</tr>
+	<tr>
+	    <th>
+	        Atas Nama
+	    </th>
+	    <td>
+	        <input type="text" name="nama" value="{NAMA}" id="txt_nama" size="30" /> *
+	    </td>
+	</tr>
+	<tr>
+	    <th>
+	        NPWP
+	    </th>
+	    <td>
+	        <input type="text" name="npwp" value="{NPWP}" id="txt_npwp" size="30" />
+	    </td>
+	</tr>
+	<tr>
+	    <th>
+	        No/Nama Rekening
+	    </th>
+	    <td>
+	        <input type="text" name="rekening" value="{REKENING}" id="txt_rekening" size="30" />
+	    </td>
+	</tr>
+	<tr>
+	    <th>
+	        Nama Bank/Pos
+	    </th>
+	    <td>
+	        <input type="text" name="bank" value="{BANK}" id="txt_bank" size="25" />
+	    </td>
+	</tr>
+	<tr>
+	    <th >
+	        Uraian
+	    </th>
+	    <td>
+	        <textarea name="uraian" rows="4" cols="35" style="resize:none;">{URAIAN}</textarea>
+	    </td>
+	</tr>
+    	<tr>
+	    <th>
+	        Kode Pajak
+	    </th>
+	    <td>
+	        <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view"
+	         name="kode_penerimaan"  / -->
+	    </td>
+	</tr>
+    <tr>
+	    <th>
+	        Nominal Pajak
+	    </th>
+	    <td>
+	        <input type="text" name="nominal_pajak" value="{NOMINAL_PAJAK}" id="nominal_pajak"
+	        class="gvFloat" style="text-align:right;" size="30" />
+	    </td>
+	</tr>
+	<tr class="subhead">
+	    <th colspan="2">
+	        Detail Pengeluaran
+	    </th>
+	</tr>
+	<tr>
+	    <td colspan="2">
+	        <table border="0" cellspacing="0" cellpadding="0" class="table-common" width="100%">
+	            <thead>
+	                <th width="65">
+						<!-- patTemplate:gtfwgetconfig config="language" name="mak_kode" / -->
+					</th>
+					<th>
+					    Jumlah Uang
+					</th>
+	            </thead>
+	            <tbody>
+	                <!-- patTemplate:tmpl name="data_item" -->
+	                <input type="hidden" value="{ID}" name="id_detil[]" />
+	                <input type="hidden" value="{SPP_INI}" name="nominal_detil[]" />
+	                    <tr>
+							<td align="center">
+								{MAK_KODE}
+							</td>
+							<td align="right">
+								{NOMINAL_TEXT}
+							</td>
+						</tr>
+	                <!-- /patTemplate:tmpl -->
+	            </tbody>
+	        </table>
+	    </td>
+	</tr>
+	<tr class="buttons">
+	    <th>
+	        &nbsp;
+	    </th>
+	    <td>
+	        <input type="submit" name="btnSubmit" value="{BTN_VAL}" id="btn_simpan" class="buttonSubmit" />
+	        <input type="submit" name="btnReset" value="Batal" id="btnReset" class="buttonSubmit" />
+	    </td>
+	</tr>
+	</table>
+</form>
+<br />
+<div class="petunjuk-area" id="petunjuk">
+    <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+    <ul>
+        <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --></li>
+    </ul>
+</div>
+<!-- /patTemplate:tmpl -->

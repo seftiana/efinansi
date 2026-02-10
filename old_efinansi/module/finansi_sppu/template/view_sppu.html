@@ -1,0 +1,415 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css">
+.button-approval{
+   background-image: url(data:image/gif;base64,R0lGODlhEAAQAPejAIalu/T293+ft/v8/YmovNTf5oimvIamu9fh5/X294emu9Te5ff4+MzZ4cvY4IqovYinvP///4mnvUmeMNXf5uLp7UWcMdni6ZqyynudtKvSm6S1xIenu1ikNoamusvRyqG2xlSkOIbgS2W+OVB9TIWluvj5+uvv8l6rRtTf5Ym/enDDQeHv2+nu8XKXsZDHg4ilwOHn7IvCdz5/NGuwWFSoPTN4I5axw8fgwZGkpf3+/vr8+Yyqv5Www6K6ypu1yHCwVvz7+2CAV8Lrq0ugM5qxyFipQ1WlNYmovdvk6WivV4Ggt1WmLtzj6dvs1V2oNcrX4LfZsGWNUGCbPWGbPUV+OXqctGSDb2OUVGeOqtvj6UyRK2i7PtPtz+Tq7lGiNc3Z4ff4+YniTpOuwmWMUIqnwVqDX2+TbIrDflOgO2ixSent8ZXLelp9aIjfU7XI1m3IOqizo/z8/UuQLZeprNPa4mewUFB1ZFSqN4Wkur3O25qnllimRpiyxUJ2NFWoNKq1qER+O5+4yZCtxFynMoHaSW20XYS9dlisP/v7+3ONhY6rxJ+3ys7a51uNT3qPctbg66u2qEJ3MZu1x1KkO1l9TEqbLLHE0nS9Y7nK1q28ypq1xuz16FeAWKayo77lqcPKwOXx4d/n7P///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAKMALAAAAAAQABAAAAjwAEcJHEiwoMAsDwAoXAhAwRJBBA8ESRCgYsUEDGJsIviAQgYBIEFa8dFkEkEPJxYUWFkgxQJRF34QJIAgj4GbBgaVAVGHUcQ1UBw4aNCIThszZ658GEgTgAQJixRhOfQCjQpHewQeaNEADKQcMzAZUsInShcboEYR0DLmBoZONYxQIkJDBw4LQkYp8JJJj6ZAiFDYCeEkVJoJfkZxqHDpzYYqeGSw0LADiKUvktQm6dGnCIk/ajhFYMOkw5FKo0okCsMgAqAtIz4NgbOCy5xIo1zwgAABCYw7hNyIEVHoySOBcgYoV24iDpkpVKR4EhgQADs=);
+   width: 24px;
+   width: 24px;
+   background-position: 0 0;
+   background-repeat: no-repeat;
+   display: block;
+}
+
+/**
+ * untuk style button hapus di class toolbar
+ */
+.toolbar input.btnSppu{   
+    background: url("images/icons/16/approval.gif") no-repeat  5px 2px;   
+    color: #A0410D;
+    background-color: #ffffff;
+    border: 1px #ece9d6  solid;
+    font-size: 8pt;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    height: 22px;
+    padding: 2px 7px 4px 23px;
+    margin: 1px 1px 0px 0px;
+    display: block;
+    float: left;
+    overflow: hidden;
+}
+
+.toolbar input.btnSppu:hover { 
+    background: url("images/icons/16/approval.gif") no-repeat  5px 2px,
+                url("images/button_bg.gif") left bottom repeat;        
+    border: #FCE171 1px solid;
+}
+
+.toolbar input.btnSppu:active {
+    padding: 2px 5px 0px 23px;
+    border: #ece9d6 2px solid;
+    border-bottom: #fffef5 2px solid;
+    border-right: #fffef5 2px solid;
+}
+
+
+</style>
+<h1>
+   Surat Pencairan Pengeluaran Uang (SPPU)
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterbox" name="filterbox" class="dataquest xhr_simple_form dest_subcontent-element">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode_tahun" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="tahun_anggaran"  / -->
+         </td>
+      </tr>
+      <!-- patTemplate:tmpl name="data_unit" type="condition" conditionvar="LEVEL" -->
+         <!-- patTemplate:sub condition="PARENT" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> /
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="unit_id" id="txt_unit_id" value="{UNIT_ID}" />
+                  <input type="text" name="unit_nama" id="txt_unit_nama" value="{UNIT_NAMA}" readonly size="35" />
+                  <input type="button" value=" ... " onclick="showPopup('{URL_POPUP_UNIT}', '', 600, 550);" />
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="CHILD" -->
+            <tr>
+               <th>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> /
+                  <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+               </th>
+               <td>
+                  <input type="hidden" name="unit_id" id="txt_unit_id" value="{UNIT_ID}" />
+                  <input type="hidden" name="unit_nama" id="txt_unit_nama" value="{UNIT_NAMA}" />
+                  <label style="font-weight: bold;">
+                     {UNIT_NAMA}
+                  </label>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="program"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="no_pengajuan" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" id="txt_kode" size="35" value="{KODE}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <td>
+            <input type="text" name="nama" id="txt_nama" size="35" value="{NAMA}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Bulan
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="bulan"  / -->
+         </td>
+      </tr>       
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div id="message-box">
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <br />
+   <!-- /patTemplate:tmpl -->
+</div>
+<form method="POST" action="{URL_ADD}" class="xhr_simple_form dest_subcontent-element" id="form_list" name="form_list">
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar">
+         <a href="{URL_LIST_SPPU}" class="xhr dest_subcontent-element">
+            <img src="images/icons/16/button-tindaklanjuti.gif">
+            Daftar SPPU
+         </a>
+         <input style="{DISPLAY_BUTTON}" type="submit" name="btnProcess" class="btnSppu" value="SPPU">
+      </div>
+   </div>
+   <table class="table-common" width="100%">
+      <thead>
+         <tr>
+            <th width="5" rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+            </th>
+            <th rowspan="2" style="width: 20px;">
+               <input type="checkbox" class="CheckBoxFW_parent" />
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+            </th>
+            <th colspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->,
+               <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->,
+               <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> /
+               <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="nominal_usulan_rp" / -->
+            </th>
+            <th rowspan="2">
+               <!-- patTemplate:gtfwgetconfig config="language" name="nominal_setuju_rp" / -->
+            </th>
+            
+         </tr>
+         <tr>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+            </th>
+         </tr>
+      </thead>
+      <tbody>
+         <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+            <!-- patTemplate:sub condition="YES" -->
+               <tr>
+                  <td colspan="8" align="center">
+                     <em>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --</em>
+                  </td>
+               </tr>
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+               <!-- patTemplate:tmpl name="data_list" -->
+                  <tr class="{CLASS_NAME}" style="{ROW_STYLE}">
+                     <td align="center">
+                        {NOMOR}
+                     </td>
+                     <td>
+                        <!-- patTemplate:tmpl name="data_checkbox" visibility="hidden" -->
+                           <input {DISABLED} type="checkbox" name="id[]" value="{ID}" class="CheckBoxFW_child" />
+                        <!-- /patTemplate:tmpl -->
+                     </td>
+                     <td align="right">
+                        <!-- patTemplate:var name="TANGGAL" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+                     </td>
+                     <td>
+                        {KODE}
+                     </td>
+                     <td>
+                        {NAMA} 
+                        <!-- patTemplate:tmpl name="content_deskripsi" visibility="hidden" -->
+                     <label style="font-style: italic; padding-top: 8px; padding-bottom: 6px;">
+                        ({LK})
+                     </label>
+                     <!-- /patTemplate:tmpl -->
+                     </td>
+                      <td>
+                        {UNIT_NAMA}
+                     </td>
+                     <td style="text-align:right;">
+                        {NOMINAL_USULAN}
+                     </td>
+                     <td style="text-align:right;">
+                        {NOMINAL_SETUJU}
+                     </td>
+                  </tr>
+               <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </tbody>
+   </table>
+</form>
+<script type="text/javascript">
+var dataProgram   = {PROGRAM_DATA};
+var form          = document.forms['filterbox'];
+var formElements  = form.elements;
+var cmbTa         = formElements.cmb_tahun_anggaran;
+var frmList       = document.forms['form_list'];
+var msgBox        = document.getElementById('message-box');
+
+cmbTa.onchange    = function(){
+   var value      = this.options[this.selectedIndex].value;
+   var text       = this.options[this.selectedIndex].text;
+   loadProgram(value);
+}
+
+msgBox.createMessage    = function(message, style){
+   this.innerHTML       = '';
+   var messageBox       = document.createElement('div');
+   messageBox.classList.add(style);
+   messageBox.innerHTML = message;
+
+   this.appendChild(messageBox);
+}
+
+/*
+ * mekanisme check sppu diganti dengan cookies
+ * sehingga ajax bisa berjalan
+ * 
+frmList.onsubmit  = function(){
+   var elements   = this.elements;
+   var checked    = 0;
+   for (var i = elements.length - 1; i >= 0; i--) {
+      if(elements[i].tagName.toUpperCase() == 'INPUT' && elements[i].type.toUpperCase() == 'CHECKBOX'){
+         if(elements[i].name.match(/id\[\]/)){
+            if(elements[i].checked){
+               checked+=1;
+            }
+         }
+      }
+   };
+  
+
+#   if(checked == 0){
+#      msgBox.createMessage('Pilih data yang akan di proses menjadi SPPU', 'notebox-warning');
+#      return false;
+#   }else{
+#      return true;
+#   }
+ 
+}
+*/
+
+var loadProgram   = function(id){
+   var taId       = cmbTa.options[cmbTa.selectedIndex].value;
+   var cmbProgram = formElements.cmb_program;
+
+   var childObj   = cmbProgram.options;
+   for (var o = childObj.length - 1; o >= 0; o--) {
+      cmbProgram.remove(childObj[o])
+   };
+   var emptyOption   = document.createElement('option');
+   emptyOption.value = '';
+   emptyOption.text  = '-- SEMUA --';
+   cmbProgram.add(emptyOption);
+
+   var data    = dataProgram[taId];
+   if(typeof(data) != 'undefined' && data != null){
+      for (var i = data.length - 1; i >= 0; i--) {
+         var option  = document.createElement('option');
+         option.value   = data[i].id;
+         option.text    = data[i].name;
+         if(data[i].id == id){
+            option.selected   = true;
+         }
+         cmbProgram.add(option);
+      };
+   }
+}
+
+CheckBoxFW_initiate = function (Obj)
+{
+   if (!Obj || Obj.className.indexOf('CheckBoxFW_parent') < 0 || !Obj.form) return;
+   
+   var CBList     = new Array;
+   var CheckedAll = true;
+   var FormObj    = Obj.form;
+
+   for (var i = 0; i < FormObj.length; i++) if (FormObj[i] == Obj) break;
+   if (i == FormObj.length) return;
+
+   for(i += 1; i < FormObj.length; i++)
+   {
+      var CBObj = FormObj[i];
+      if (CBObj.type.toUpperCase() != 'CHECKBOX') continue;
+      if (CBObj.className.indexOf('CheckBoxFW_child') >= 0)
+      {
+         CBObj.onchange = function () {
+            Obj.checkChild(this); 
+         }
+         CBList[CBList.length] = CBObj;
+         if (!CBObj.checked) CheckedAll = false;
+         //baca cookie
+         cekParent = 0;
+          for (var i = 0; i < CBList.length; i++){
+             if(CBList[i].value == $.cookie("myCBId["+CBList[i].value+"]")){
+                 CBList[i].checked = true;
+                 cekParent += 1;
+             } else {
+                 cekParent -= 1;
+             }
+          }
+          if(cekParent == CBList.length){
+              CheckedAll = true;
+          } else {
+              CheckedAll = false;
+          }
+          this.checked = CheckedAll;
+         ///end
+      }
+      if (CBObj.className.indexOf('CheckBoxFW_parent') >= 0) break;
+   }
+
+   if (CBList.length > 0)
+   {
+      Obj.onchange = function ()
+      {
+         for (var i = 0; i < CBList.length; i++){
+            if(CBList[i].getAttribute('disabled') == null){
+               CBList[i].checked = this.checked;
+               //menulis di coockie
+                if(CBList[i].checked == true) {
+                    $.cookie("myCBId["+CBList[i].value+"]",CBList[i].value);                    
+                } else {
+                    $.removeCookie("myCBId["+CBList[i].value+"]",CBList[i].value);
+                }
+            }
+         }
+      }
+
+      Obj.checkChild = function (myV)
+      {
+        //cookie
+        if(!($.cookie("myCBId["+ myV.value+"]"))) {
+            $.cookie("myCBId["+ myV.value+"]",myV.value);
+        } else {
+            $.removeCookie("myCBId["+myV.value+"]",myV.value);
+        }
+        //end
+         var CheckedAll = true;
+         for (var i = 0; i < CBList.length; i++) if (!CBList[i].checked)
+         {      
+            CheckedAll = false;
+            break;
+         }
+         this.checked = CheckedAll;
+      }
+
+      Obj.checked = CheckedAll;
+   }
+}
+var formObj       = document.getElementById('form_list');
+if(typeof(formObj) != 'undefined' && formObj != null){
+   for (var i = 0; i < formObj.length; i++){
+      CheckBoxFW_initiate(formObj[i]);
+   }
+}
+
+loadProgram('{PROGRAM_ID}');
+</script>
+<!-- /patTemplate:tmpl -->

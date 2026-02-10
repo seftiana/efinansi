@@ -1,0 +1,133 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css">
+.table-common tr td label{
+   background-image: url('css/sia-mocca/images/navigation_bullet.gif');
+   padding-top: 4px;
+   padding-left: 18px;
+   background-position: 4px 50%;
+   background-repeat: no-repeat;
+}
+.table-common tr td label.kegiatan{
+   font-weight: bold;
+}
+.table-common tr td label.output{
+   margin-left: 16px;
+}
+.table-common tr td label.komponen{
+   margin-left: 30px;
+}
+</style>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="manajemen_program" / -->, 
+   <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --> dan 
+   <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+</h1>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form dest_subcontent-element" data-target="{URL_RETURN}" id="frmInput">
+   <input type="hidden" name="data_id" value="{ID}" />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+         </th>
+         <td>
+            <input type="hidden" name="tahun_anggaran" id="tahun_anggaran" value="{TA_ID}" />
+            <label style="font-weight: bold;">
+               {TA_NAMA}
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+         </th>
+         <td>
+            <input type="hidden" name="kegiatan_id" id="kegiatan_id" value="{KEGIATAN_ID}" />
+            <input type="hidden" name="kegiatan_kode" id="kegiatan_kode" value="{KEGIATAN_KODE}" />
+            <input type="text" name="kegiatan" id="txt_kegiatan" size="40" value="{KEGIATAN}" readonly />
+            <input type="button" value=" ... " onclick="var taId = document.getElementById('tahun_anggaran').value; var url = '{URL_POPUP_KEGIATAN}&ta_id='+taId; showPopup(url, 'GTPopup', 600, 550);" /> *
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" id="kode" value="{KODE}" size="40" /> *
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <td>
+            <input type="text" name="nama" id="nama" value="{NAMA}" size="40" /> *
+         </td>
+      </tr>
+      <div style="display: none;">
+         <input type="hidden" name="rkakl_output_id" id="rkakl_output_id" value="{RKAKL_OUTPUT_ID}" />
+         <input type="hidden" name="rkakl_output" id="rkakl_output" value="{RKAKL_OUTPUT}" />
+      </div>
+      <tr class="buttons">
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+            <input type="reset"  name="btnbalik" value=" Batal " class="buttonSubmit"/> 
+         </td>
+      </tr>
+   </table>
+</form>
+<script type="text/javascript">
+var xhr_reset_form = {
+   '.xhr_simple_form': function(element) {
+      element.onreset   = function(){
+         var dest    = /\sdest_(.*?)\s/.exec(' '+this.className+' ');
+         var url     = this.getAttribute('action');
+         var target  = this.getAttribute('data-target');
+         if(typeof(target) != 'undefined' && target != null){
+            urlActions     = target;
+         }else{
+            urlActions     = url;
+         }
+         if(dest){
+            GtfwAjax.replaceContentWithUrl(dest[1], urlActions + '&ascomponent=1');
+         }
+
+         return false;
+      }
+   }, 
+   '.xhr_form': function(element) {
+      element.onreset   = function(){
+         var dest    = /\sdest_(.*?)\s/.exec(' '+this.className+' ');
+         var url     = '?mod=home&sub=Home&act=view&typ=html';
+         var target  = this.getAttribute('data-target');
+         if(typeof(target) != 'undefined' && target != null){
+            urlActions     = target;
+         }else{
+            urlActions     = url;
+         }
+         if(dest){
+            GtfwAjax.replaceContentWithUrl(dest[1], urlActions + '&ascomponent=1');
+         }
+
+         return false;
+      }
+   }
+}
+
+Behaviour.register(xhr_reset_form);
+</script>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,55 @@
+<!-- patTemplate:tmpl name="content" -->
+<h2><!-- patTemplate:gtfwgetconfig config="language" name="jurnal" / --></h2>
+<h2>
+    
+ <!-- patTemplate:tmpl name="content_title" type="condition" conditionvar="PERIODE" -->
+         <!-- patTemplate:sub condition="ALL" -->
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode" / --> {BULAN_AWAL} {TAHUN_AWAL}
+            s/d  {BULAN_AKHIR} {TAHUN_AKHIR}
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="BULAN" -->    
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode" / --> {BULAN}-<!-- patTemplate:gtfwgetconfig config="language" name="tahun" / --> {TAHUN}
+        <!-- /patTemplate:sub -->   
+ <!-- /patTemplate:tmpl -->
+    
+</h2>
+<table class="table-common" width="800px">
+      <tr>
+      <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+      <th><!-- patTemplate:gtfwgetconfig config="language" name="no_referensi" / --></th>
+		 <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / --></th>
+		 <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / --></th>
+		 <th><!-- patTemplate:gtfwgetconfig config="language" name="debet_rp" / --></th>
+		 <th><!-- patTemplate:gtfwgetconfig config="language" name="kredit_rp" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="8" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <!-- patTemplate:tmpl name="space" visibility="hidden" -->
+               <tr>
+                   <td align='center' colspan="8"> &nbsp; </td>
+                </tr>
+               <!-- /patTemplate:tmpl -->
+            <tr class="{DATA_CLASS_NAME}" style="font-weight: {DATA_FONT};">
+                <!-- patTemplate:tmpl name="grup" visibility="hidden" -->
+               <td width="10" align="center">{DATA_NOMOR}</td> 
+               <td width="120" align='center'>{DATA_REFERENSI_VIEW}</td>
+               <td width="100" align='center'><strong>{DATA_REKENING_KODE}</strong></td>
+               <td colspan='3'><strong>{DATA_REKENING_NAMA}</strong></td>
+			   <!-- /patTemplate:tmpl -->
+			    <!-- patTemplate:tmpl name="coa" visibility="hidden" -->
+               <td>&nbsp;</td>
+               <td>&nbsp;</td>
+			         <td align='center'>{DATA_REKENING_KODE}</td>
+               <td>{DATA_REKENING_NAMA}</td>
+               <td  width="160"align="right">{DATA_DEBET}</td>
+               <td  width="160"align="right">{DATA_KREDIT}</td>
+               <!-- /patTemplate:tmpl -->              
+            </tr>              
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+<!-- /patTemplate:tmpl -->

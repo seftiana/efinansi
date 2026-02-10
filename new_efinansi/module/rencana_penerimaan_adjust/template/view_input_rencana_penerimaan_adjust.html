@@ -1,0 +1,517 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    function penerimaanPerBulan(bulan)
+    {
+        var FormObj = document.getElementById("frmInput");
+        //var total;
+        var Tar = document.getElementById("totalpenerimaan").value;
+        var Persen = parseFloat(document.getElementById("persenpenerimaan_"+bulan).value);
+
+        if(document.getElementById("persenpenerimaan_"+bulan).value ==''){
+            document.getElementById("persenpenerimaan_"+bulan).value=0;
+            Persen = 0;
+        }
+        if(Persen > 100){
+            document.getElementById("persenpenerimaan_"+bulan).value=100;
+            Persen = 100;
+        }
+        Tar=Tar.replace(',00','').split('.');
+        Tar=Tar.join('');
+        hasil = (Persen/100) * Tar;
+
+        document.getElementById("jmlpenerimaan_"+bulan).gvSetValue(hasil);
+
+        p=0;
+        t=0;
+        for(var i = 1; i<= 12 ;i++){
+            p += parseFloat(document.getElementById("persenpenerimaan_"+i).value);
+        }
+        if(p > 100){
+            alert('Persentase penerimaan melebihi 100 persen');
+            document.getElementById("persenpenerimaan_"+bulan).value=0;
+            document.getElementById("jmlpenerimaan_"+bulan).gvSetValue(0);
+            Persen = 0;
+            penerimaanPerBulan(bulan);
+        } 
+        update_penerimaan('total');
+    }
+
+    function setPersenValue()
+    {
+        for(var i = 1; i<= 12 ;i++){
+            if(document.getElementById("persenpenerimaan_"+i).value ==''){
+                document.getElementById("persenpenerimaan_"+i).value =0;
+            }
+        }
+        if(document.getElementById("total_persen").value ==''){
+            document.getElementById("total_persen").value =0;
+        }
+    }
+    function setNominalValue(bulan)
+        {
+        document.getElementById("persenpenerimaan_"+bulan).value =0;
+        update_penerimaan('total');
+    }
+
+
+    function updatepagu()
+    {
+        var Tmp=0;
+        var Pagu = parseFloat(document.getElementById("pagu").value);
+        var Trm = document.getElementById("totalterima").value;
+        if(Pagu > 100)
+        {
+            document.getElementById("pagu").value=100;
+            Pagu = 100;
+        }
+        Trm=Trm.replace(',00','').split('.');
+        Trm=Trm.join('');
+        Tmp = (Trm*Pagu)/100;
+        document.getElementById("totalpagu").gvSetValue(Tmp);
+        document.getElementById("totalpenerimaan").gvSetValue(Tmp);
+
+        /**tambahan**/
+        for(var i = 1; i<= 12 ;i++){
+            if(document.getElementById("persenpenerimaan_"+i).value !=0){
+                penerimaanPerBulan(i);
+            }
+        }
+
+        if(parseFloat(document.getElementById("total_nominal").value) > 0){
+            tm =document.getElementById("total_nominal").value;
+            document.getElementById("totalpenerimaan").value=tm
+        } else {
+            document.getElementById("totalpenerimaan").gvSetValue(Tmp);
+        }
+    }
+    
+    anime = new janime;
+    anime.element = 'month-list';
+    anime.speed = 50;
+    anime.minHeight = 0;
+    anime.maxHeight = 475;
+    function showhidemonth(valueName){
+        if(valueName == 'show'){
+            document.getElementById('btn-show-hide').value = 'hide';
+            anime.slideOpen();
+        }else{
+            document.getElementById('btn-show-hide').value = 'show';
+            anime.slideClose();
+        }
+    }
+    
+    $(document).ready(function(){
+        showhidemonth('{BUT_VALUE}');
+    })
+    
+    var update_penerimaan = function (mode)
+    {
+        var FormObj = document.getElementById("frmInput");
+        var Total = 0;
+        for (var i = 0; i < FormObj.length; i++) if (FormObj[i].name == 'jmlpenerimaan[]')
+        {
+            if (mode == 'per_bulan') FormObj[i].gvSetValue(0);
+            else if (mode == 'total') Total += FormObj[i].gvGetValue();
+        }
+        /*tambahan*/
+        if (mode == 'total') {
+        persen =0;
+        for(var i = 1; i<= 12 ;i++){
+            persen += parseFloat(document.getElementById("persenpenerimaan_"+i).value);
+        }
+        document.getElementById("total_persen").value= persen;
+        document.getElementById("total_nominal").gvSetValue(Total);
+       
+     }
+    /*endtambahan*/
+    }
+    
+    setPersenValue();
+// ]]>
+</script>
+<h1>Input Rencana Penerimaan Adjust</h1>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{STYLE}">
+    {ISI_PESAN}
+</div>
+ <br/>
+<!-- /patTemplate:tmpl -->
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput">
+<input type="hidden" name="id_data" value="{DATAID}" />
+<table class="table-edit" width="100%">
+    <tr class="subhead">
+        <th colspan="2">
+            Manajement Adjustment Rencana Penerimaan
+        </th>
+    </tr>
+    <tr>
+        <th width="150">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+        </th>
+        <td>
+            {TAHUN_ANGGARAN_LABEL}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ 
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+        </th>
+        <td>
+            {UNITKERJA_LABEL}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode_penerimaan" / -->
+        </th>
+        <td>
+            {KODE_PENERIMAAN}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama_penerimaan" / -->
+        </th>
+        <td>
+            {NAMA_PENERIMAAN}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Volume
+        </th>
+        <td>
+            {VOLUME}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Tarif (Rp.)
+        </th>
+        <td>
+            {TARIF}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Volume x Tarif
+        </th>
+        <td>
+            <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {TOTALTERIMA}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            % pagu
+        </th>
+        <td>
+            {PAGU}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Jumlah Pagu
+        </th>
+        <td>
+            <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {TOTALPAGU}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Catatan/Keterangan
+        </th>
+        <td>
+            {KETERANGAN}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="total_penerimaan" / -->
+        </th>
+        <td>
+            <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {TOTALTERIMA}
+            <input type="hidden" name="totalpenerimaan" id="totalpenerimaan" value="{TOTALTERIMA}" />
+        </td>
+    </tr>
+    <tr style="display:none;">
+        <th>
+            Nilai Adjustment
+        </th>
+        <td>
+            <input type="text" name="adjust" id="adjust" class="gvFloat" value="{ADJUSTMENT}" />
+        </td>
+    </tr>
+    <tr class="subhead">
+        <th colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="rencana_penerimaan_perbulan" / --> 
+            <input type="button" value="{BUT_VALUE}" onclick="showhidemonth(this.value)" id="btn-show-hide" style="display:none;" />
+        </th>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div id='month-list' style='height:auto;overflow:hidden;'>
+                <table style='width:100%;' id="month-table">
+                    <tr>
+                        <th>
+                            Bulan
+                        </th>
+                        <th>
+                            Persen (%)
+                        </th>
+                        <th>
+                            Nominal (Rp.)
+                        </th>
+                    </th>
+                    <input type="hidden" name="penerimaanbln[]" value="{JANUARI}" />
+                    <input type="hidden" name="penerimaanbln[]" value="{FEBRUARI}" />
+                    <input type="hidden" name="penerimaanbln[]" value="{MARET}" />
+                    <input type="hidden" name="penerimaanbln[]" value="{APRIL}" />
+                    <input type="hidden" name="penerimaanbln[]" value="{MEI}" />
+                    <input type="hidden" name="penerimaanbln[]" value="{JUNI}" />
+                    <input type="hidden" name="penerimaanbln[]" value="{JULI}" />
+                    <input type="hidden" name="penerimaanbln[]" value="{AGUSTUS}" />
+                    <input type="hidden" name="penerimaanbln[]" value="{SEPTEMBER}" />
+                    <input type="hidden" name="penerimaanbln[]" value="{OKTOBER}" />
+                    <input type="hidden" name="penerimaanbln[]" value="{NOVEMBER}" />
+                    <input type="hidden" name="penerimaanbln[]" value="{DESEMBER}" />
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="januari" / -->
+                        </th>
+                        <td >
+                            <input type="text" name="persenpenerimaan[]" class="gvFloat"
+                            id="persenpenerimaan_1" value="{PJANUARIADJUST}" size="5" 
+                            style="text-align:right" onkeyup="penerimaanPerBulan('1')" />&nbsp;= 
+                        </td>
+                        <td>
+                            <input type="text" name="jmlpenerimaan[]" id="jmlpenerimaan_1" 
+                            value="{JANUARIADJUST}" size="30" style="text-align:right" 
+                            onkeyup="setNominalValue(1)" class="gvFloat" />
+                            <input type="hidden" name="jmlpenerimaan_id[]" 
+                            value="{JML_PENERIMAAN_ID_1}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="februari" / -->
+                        </th>
+                        <td >
+                            <input type="text" name="persenpenerimaan[]" class="gvFloat"
+                            id="persenpenerimaan_2" value="{PFEBRUARIADJUST}" size="5" 
+                            style="text-align:right" onkeyup="penerimaanPerBulan('2')" />&nbsp;= 
+                        </td>
+                        <td>
+                            <input type="text" name="jmlpenerimaan[]" id="jmlpenerimaan_2" 
+                            value="{FEBRUARI}" size="30" style="text-align:right" 
+                            onkeyup="setNominalValue(2)" class="gvFloat" />
+                            <input type="hidden" name="jmlpenerimaan_id[]" 
+                            value="{JML_PENERIMAAN_ID_2}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="maret" / -->
+                        </th>
+                        <td >
+                            <input type="text" name="persenpenerimaan[]" class="gvFloat"
+                            id="persenpenerimaan_3" value="{PMARETADJUST}" size="5" 
+                            style="text-align:right" onkeyup="penerimaanPerBulan('3')" />&nbsp;= 
+                        </td>
+                        <td>
+                            <input type="text" name="jmlpenerimaan[]" id="jmlpenerimaan_3" 
+                            value="{MARETADJUST}" size="30" style="text-align:right" 
+                            onkeyup="setNominalValue(3)" class="gvFloat" />
+                            <input type="hidden" name="jmlpenerimaan_id[]" 
+                            value="{JML_PENERIMAAN_ID_3}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="april" / -->
+                        </th>
+                        <td >
+                            <input type="text" name="persenpenerimaan[]" class="gvFloat"
+                            id="persenpenerimaan_4" value="{PAPRILADJUST}" size="5" 
+                            style="text-align:right" onkeyup="penerimaanPerBulan('4')" />&nbsp;= 
+                        </td>
+                        <td>
+                            <input type="text" name="jmlpenerimaan[]" id="jmlpenerimaan_4" 
+                            value="{APRILADJUST}" size="30" style="text-align:right" 
+                            onkeyup="setNominalValue(4)" class="gvFloat" />
+                            <input type="hidden" name="jmlpenerimaan_id[]" 
+                            value="{JML_PENERIMAAN_ID_4}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="mei" / -->
+                        </th>
+                        <td >
+                            <input type="text" name="persenpenerimaan[]" class="gvFloat"
+                            id="persenpenerimaan_5" value="{PMEIADJUST}" size="5" 
+                            style="text-align:right" onkeyup="penerimaanPerBulan('5')" />&nbsp;= 
+                        </td>
+                        <td>
+                            <input type="text" name="jmlpenerimaan[]" id="jmlpenerimaan_5" 
+                            value="{MEIADJUST}" size="30" style="text-align:right" 
+                            onkeyup="setNominalValue(5)" class="gvFloat" />
+                            <input type="hidden" name="jmlpenerimaan_id[]" 
+                            value="{JML_PENERIMAAN_ID_5}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="juni" / -->
+                        </th>
+                        <td >
+                            <input type="text" name="persenpenerimaan[]" class="gvFloat"
+                            id="persenpenerimaan_6" value="{PJUNIADJUST}" size="5" 
+                            style="text-align:right" onkeyup="penerimaanPerBulan('6')" />&nbsp;= 
+                        </td>
+                        <td>
+                            <input type="text" name="jmlpenerimaan[]" id="jmlpenerimaan_6" 
+                            value="{JUNIADJUST}" size="30" style="text-align:right" 
+                            onkeyup="setNominalValue(6)" class="gvFloat" />
+                            <input type="hidden" name="jmlpenerimaan_id[]" 
+                            value="{JML_PENERIMAAN_ID_6}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="juli" / -->
+                        </th>
+                        <td >
+                            <input type="text" name="persenpenerimaan[]" class="gvFloat"
+                            id="persenpenerimaan_7" value="{PJULIADJUST}" size="5" 
+                            style="text-align:right" onkeyup="penerimaanPerBulan('7')" />&nbsp;= 
+                        </td>
+                        <td>
+                            <input type="text" name="jmlpenerimaan[]" id="jmlpenerimaan_7" 
+                            value="{JULIADJUST}" size="30" style="text-align:right" 
+                            onkeyup="setNominalValue(7)" class="gvFloat" />
+                            <input type="hidden" name="jmlpenerimaan_id[]" 
+                            value="{JML_PENERIMAAN_ID_7}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="agustus" / -->
+                        </th>
+                        <td >
+                            <input type="text" name="persenpenerimaan[]" class="gvFloat"
+                            id="persenpenerimaan_8" value="{PAGUSTUSADJUST}" size="5" 
+                            style="text-align:right" onkeyup="penerimaanPerBulan('8')" />&nbsp;= 
+                        </td>
+                        <td>
+                            <input type="text" name="jmlpenerimaan[]" id="jmlpenerimaan_8" 
+                            value="{AGUSTUSADJUST}" size="30" style="text-align:right" 
+                            onkeyup="setNominalValue(8)" class="gvFloat" />
+                            <input type="hidden" name="jmlpenerimaan_id[]" 
+                            value="{JML_PENERIMAAN_ID_8}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="september" / -->
+                        </th>
+                        <td >
+                            <input type="text" name="persenpenerimaan[]" class="gvFloat"
+                            id="persenpenerimaan_9" value="{PSEPTEMBERADJUST}" size="5" 
+                            style="text-align:right" onkeyup="penerimaanPerBulan('9')" />&nbsp;= 
+                        </td>
+                        <td>
+                            
+                            <input type="text" name="jmlpenerimaan[]" id="jmlpenerimaan_9" 
+                            value="{SEPTEMBERADJUST}" size="30" style="text-align:right" 
+                            onkeyup="setNominalValue(9)" class="gvFloat" />
+                            <input type="hidden" name="jmlpenerimaan_id[]" 
+                            value="{JML_PENERIMAAN_ID_9}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="oktober" / -->
+                        </th>
+                        <td >
+                            <input type="text" name="persenpenerimaan[]" class="gvFloat"
+                            id="persenpenerimaan_10" value="{POKTOBERADJUST}" size="5" 
+                            style="text-align:right" onkeyup="penerimaanPerBulan('10')" />&nbsp;= 
+                        </td>
+                        <td>
+                            <input type="text" name="jmlpenerimaan[]" id="jmlpenerimaan_10" 
+                            value="{OKTOBERADJUST}" size="30" style="text-align:right" 
+                            onkeyup="setNominalValue(10)" class="gvFloat" />
+                            <input type="hidden" name="jmlpenerimaan_id[]" 
+                            value="{JML_PENERIMAAN_ID_10}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="november" / -->
+                        </th>
+                        <td >
+                            <input type="text" name="persenpenerimaan[]" class="gvFloat"
+                            id="persenpenerimaan_11" value="{PNOVEMBERADJUST}" size="5" 
+                            style="text-align:right" onkeyup="penerimaanPerBulan('11')" />&nbsp;= 
+                        </td>
+                        <td>
+                            <input type="text" name="jmlpenerimaan[]" id="jmlpenerimaan_11" 
+                            value="{NOVEMBERADJUST}" size="30" style="text-align:right" 
+                            onkeyup="setNominalValue(11)" class="gvFloat" />
+                            <input type="hidden" name="jmlpenerimaan_id[]" 
+                            value="{JML_PENERIMAAN_ID_11}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding-left:15px;">
+                            <!-- patTemplate:gtfwgetconfig config="language" name="desember" / -->
+                        </th>
+                        <td >
+                            <input type="text" name="persenpenerimaan[]" class="gvFloat"
+                            id="persenpenerimaan_12" value="{PDESEMBERADJUST}" size="5" 
+                            style="text-align:right" onkeyup="penerimaanPerBulan('12')" />&nbsp;= 
+                        </td>
+                        <td>
+                            <input type="text" name="jmlpenerimaan[]" id="jmlpenerimaan_12" 
+                            value="{DESEMBERADJUST}" size="30" style="text-align:right" 
+                            onkeyup="setNominalValue(12)" class="gvFloat" />
+                            <input type="hidden" name="jmlpenerimaan_id[]" 
+                            value="{JML_PENERIMAAN_ID_12}" />
+                        </td>
+                    </tr>
+                    <tr>
+                    <th style="padding-left:15px;"><strong>
+                    <!-- patTemplate:gtfwgetconfig config="language" name="jumlah" / --></strong>
+                    </th>
+                        <td>
+                            <input type="text" name="total_persen" id="total_persen" value="{TPERSEN}" 
+                        size="5" style="text-align:right"  readonly="readonly"/>&nbsp;%
+                        </td>
+                        <td>
+                        <input type="text" name="total_nominal" id="total_nominal" value="{TNOMINAL}" 
+                        size="30" style="text-align:right" class="gvFloat"   readonly="readonly"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    <tr class="buttons">
+        <th>
+            &nbsp;
+        </th>
+        <td>
+            <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit" />
+    <input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit" />
+        </td>
+    </tr>
+</table>
+</form>
+<script>
+document.getElementById('month-list').style.height = 0;
+document.getElementById('btn-show-hide').style.display = '';
+</script>
+<!-- /patTemplate:tmpl -->

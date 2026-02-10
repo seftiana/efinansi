@@ -1,0 +1,98 @@
+<!-- patTemplate:tmpl name="content" -->
+<center><h1><h1>Laporan Rincian Belanja Per Unit</h1></h1></center>
+<br>
+<center><h1><!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / --> {TAHUN_PERIODE}</h1></center>
+<br>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / 
+<!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --> : {UNIT_KERJA_LABEL}</h1>   
+
+   <table class="table-common" width="100%">
+   <tr>
+        <th rowspan ="3"><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+        <th rowspan="3">Uraian Unit / Program / Kegiatan / Sub Kegiatan</th>
+        <th colspan="7">TA {TAHUN_SEBELUM_TH_ANGGAR}</th>
+        <th rowspan="2" colspan="3">TA {TAHUN_SEKARANG_TH_ANGGAR}</th>
+    </tr>
+   <tr>
+        <th colspan="3">Volume</th>
+        <th colspan="4">Dana</th>
+    </tr>
+   <tr>
+        <th>Target</th>
+        <th>Prognosa / realisasi</th>
+        <th>%</th>
+        <th>Target</th>
+        <th>Prognosa / realisasi</th>
+        <th>%</th>
+        <th>SD</th>
+        <th>Vol. Satuan</th>
+        <th>Target</th>
+        <th>SD</th>
+    </tr>
+
+    <!-- patTemplate:tmpl name="list_data" type="condition" conditionvar="IS_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="12" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+				<!-- patTemplate:tmpl name="list_data_item" -->
+   
+				<tr class="{CLASS_NAME}" style="{FONT_STYLE}">
+			    <td align="right">{KODE}</td>
+				<td align="left"  style="padding-left: {PADDING}px;">{NAMA}</td>
+				<td align="right">{VOLUME_SEBELUM}</td>
+				<td align="right"></td>
+				<td align="right"></td>
+				<td align="right">{TARGET_SEBELUM}</td>
+				<td align="right"></td>
+				<td align="right"></td>
+				<td >{SUMBER_DANA_SEBELUM}</td>
+				<td align="right">{VOLUME_SEKARANG}</td>
+				<td align="right">{TARGET_SEKARANG}</td>
+				<td >{SUMBER_DANA_SEKARANG}</td>
+				</tr>
+         
+			<!-- /patTemplate:tmpl -->
+			<tr class="{CLASS_NAME}">
+				
+				<td align="center" colspan="2"><strong>TOTAL BELANJA BLU</strong></td>
+				<td align="right"><strong></strong></td>
+				<td align="right"><strong></strong></td>
+				<td align="right"><strong></strong></td>
+				<td align="right"><strong>{TOTAL_NOMINAL_SEBELUM}</strong></td>
+				<td align="right"><strong></strong></td>
+				<td align="right"><strong></strong></td>
+				<td align="right"><strong></strong></td>
+				<td align="right"><strong></strong></td>
+				<td align="right"><strong>{TOTAL_NOMINAL_SEKARANG}</strong></td>
+				<td align="right"><strong></strong></td>
+				</tr>
+		<!-- /patTemplate:sub -->
+     <!-- /patTemplate:tmpl -->
+    </table> 
+    <br />
+  <table class="table-common" width="400">
+    <tr>
+		<th colspan="3">PAGU</th>	
+    </tr>
+    <tr>
+		<th>Sumber Dana</th>	
+		<th width="80">TA {TAHUN_SEBELUM_TH_ANGGAR}</th>	
+		<th width="80">TA {TAHUN_SEKARANG_TH_ANGGAR}</th>	
+    </tr>
+    <!-- patTemplate:tmpl name="list_data_sd" type="condition" conditionvar="IS_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="3" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+				<!-- patTemplate:tmpl name="list_data_sd_item" -->
+				<tr >
+				<td >{SUMBER_DANA}</td>
+				<td align="right">{NOMINAL_A}</td>
+				<td align="right">{NOMINAL_B}</td>
+				</tr>
+			<!-- /patTemplate:tmpl -->
+		<!-- /patTemplate:sub -->
+     <!-- /patTemplate:tmpl -->
+    </table>
+<!-- /patTemplate:tmpl -->

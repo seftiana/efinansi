@@ -1,0 +1,130 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function centangin_semua(varname, start_num, end_num) {
+		var obj = document.getElementById('cek_all');
+		if(obj.checked == false) {
+			for(i=start_num;i<=end_num;i++) {
+				document.getElementById(varname + i).checked = false;
+			}
+		} else {
+			for(i=start_num;i<=end_num;i++) {
+				document.getElementById(varname + i).checked = true;
+			}
+		}
+	}
+	function show_checkbox (varname, start_num, end_num) {
+		//show check_all checkbox
+		document.getElementById('cek_all').style.display='';
+		//document.getElementById('btnHapus').type="button";
+	}
+	function konfirmasi_delete(varname, start_num, end_num) {
+		//var idDelete = document.getElementById('id_delete').value;
+		for(i=start_num;i<=end_num;i++) {
+			if(document.getElementById(varname + i).checked == true) {
+				//document.getElementById('form_list').submit();
+				document.getElementById('btnHapus').type="submit";
+				document.getElementById('btnHapus').click();
+				return true;
+			}
+		}
+		alert('Silakan beri tanda cek pada minimal 1 data');
+		return false;
+	}
+	document.onload = show_checkbox('detilkodejurnal_id_','{FIRST_NUMBER}','{LAST_NUMBER}');
+</script>
+<!--  onclick="konfirmasi_delete('kodejurnal_id_','{FIRST_NUMBER}','{LAST_NUMBER}', '{URL_DELETE}')"  -->
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_kode_jurnal" / --></h1>
+<br />
+<!--
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong>Pencarian</strong></h2></th>
+      </tr>
+      <tr>              
+         <th width="30%">Kode / Nama Kode Jurnal</th>
+         <td><input type="text" name="nama" value="{NAMA}" size="30" /></td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+-->
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="detil_kode_jurnal" / --></strong></h2></th>
+      </tr>
+      <tr>              
+         <th width="30%"><!-- patTemplate:gtfwgetconfig config="language" name="kode_jurnal" / --></th>
+         <td><strong>{KODEJURNAL}</strong></td>
+      </tr>
+      <tr>              
+         <th width="30%"><!-- patTemplate:gtfwgetconfig config="language" name="nama_jurnal" / --></th>
+         <td><strong>{NAMA}</strong></td>
+      </tr>
+   </table>
+   
+<br />
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+   <form method="POST" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar"> <!--
+   		<a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Data Sub Unit kerja" ><img src="images/button-add.gif" alt=""> Tambah</a>
+		<input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="inputButton" onclick="konfirmasi_delete('kodejurnal_id_','{FIRST_NUMBER}','{LAST_NUMBER}')" />
+      -->
+      <a class="xhr dest_subcontent-element" href="{URL_BACK}" title="<!-- patTemplate:gtfwgetconfig config="language" name="kembali" / -->" ><!-- patTemplate:gtfwgetconfig config="language" name="kembali" / --></a>
+      <input type="submit" id="btnHapus" name="btnHapus" value="<!-- patTemplate:gtfwgetconfig config="language" name="hapus" / -->" class="inputButton" onclick="konfirmasi_delete('detilkodejurnal_id_','{FIRST_NUMBER}','{LAST_NUMBER}')" />
+		<!-- style="background-image:url('images/button-delete.gif');background-repeat:no-repeat;padding-left:20px;background-position:3px 2px"  -->
+      </div>
+   </div>
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+		 <th width="5"><input type="checkbox" style="display:none" name="cek_all" id="cek_all" value="ALL" onclick="centangin_semua('detilkodejurnal_id_','{FIRST_NUMBER}','{LAST_NUMBER}');" /></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+		 <th><!-- patTemplate:gtfwgetconfig config="language" name="d_k" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="7" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">{DATA_NUMBER}</td>
+			   <td align="center">
+					<input type="checkbox" name="id[]" id="detilkodejurnal_id_{DATA_NUMBER}" value="{DATA_ID}" /><input type="hidden" name="name[{DATA_ID}]" value="{DATA_NAMA}" /></td>
+               <td>{DATA_KODE}</td>
+               <td>{DATA_NAMA}</td>
+               <td>{DATA_UNITKERJA}</td>
+			   <td>{DATA_ISDEBET}</td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   </form>
+   <!--
+   <br /> 
+   <div class="petunjuk-area">
+      <h4>Petunjuk:</h4>
+      <ul>
+         <li>Sudah jelas</li>
+      </ul>
+   </div>
+   -->
+<!-- /patTemplate:tmpl -->

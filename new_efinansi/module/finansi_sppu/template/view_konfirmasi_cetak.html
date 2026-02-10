@@ -1,0 +1,105 @@
+<!-- patTemplate:tmpl name="content" -->
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<!-- <form method="POST" action="{URL_ACTION}" target="_blank"  id="frmInput" > -->
+<form method="POST" action="{URL_ACTION}" target="_blank" data-target="{URL_RETURN}" id="frmInput">
+   <input type="hidden" name="data_id" value="{ID}" />
+     <div class="alert-box">
+               <div class="alert-box-header">
+                  <h2>
+                     KONFIRMASI | Cetak {TIPE_NAMA}
+                  </h2>
+               </div>
+               <div class="alert-box-content">
+                  <table class="table-edit" width="100%">
+                  <tr class="subhead">
+                     <th colspan="2">
+                        Data SPPU
+                     </th>
+                  </tr>
+                  <tr>
+                     <th style="width: 115px;">
+                        Nomor
+                     </th>
+                     <td>
+                        <input type="hidden" name="nomor" value="{NOMOR}" />
+                        <label style="font-weight: bold;">
+                           {NOMOR}
+                        </label>
+                     </td>
+                  </tr>
+                  <tr>
+                     <th>
+                        Tanggal
+                     </th>
+                     <td>
+                        <label style="font-weight: bold;">
+                           <!-- patTemplate:var name="tanggal_sppu" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+                        </label>
+                     </td>
+                  </tr>
+                  <tr>
+                     <th>
+                        Nominal
+                     </th>
+                     <td>
+                        <input type="hidden" name="nominal" value="{NOMOR}" />
+                        <label style="font-weight: bold;">
+                           {NOMINAL_TAMPIL}
+                        </label>
+                     </td>
+                  </tr>
+                  <tr>
+                     <th>
+                        Tanggal Cetak BP
+                     </th>
+                     <td>
+                        <input type="hidden" name="tanggal_sppu_hide" value="{TANGGAL_SPPU_HIDE}" />
+                        <input type="hidden" name="tanggal_bank" value="{TANGGAL_BANK}" />
+                        <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal"  / -->
+                     </td>
+                  </tr>
+               </table>
+               </br>
+                  <div class="petunjuk">
+                     Apakah Anda Ingin Mencetak Laporan Diatas ?
+                  </div>
+               </div>
+               <div class="alert-box-footer">
+                  <div class="alert-actions">
+                     <input type="submit" name="btnsimpan" value="Ya "  class="btn" />
+                     <input type="reset"  name="btnbalik" value="Tidak" class="btn" onclick="GtfwAjax.replaceContentWithUrl('subcontent-element','{URL_RETURN}&ascomponent=1')" />
+                  </div>
+               </div>
+            </div>
+               <br/>
+                  <input type="hidden" name="id" value="{ID}" />
+                  <input type="hidden" name="nomor_cr" value="{NOMOR_CR}" />
+                  <input type="hidden" name="nomor_bp" id="nomor_bp" value="{NOMOR_BP}" />
+                  <input type="hidden" name="nomor_bank" value="{NOMOR_BANK}" />
+                  <input type="hidden" name="nomor_bukti" value="{NOMOR_BUKTI}" />
+                  <input type="hidden" name="nominal" value="{NOMINAL}" />
+               <br/>
+                  <input type="hidden" name="bank" value="{BANK}" />
+                  <input type="hidden" name="nomor_rekening" value="{NOMOR_REKENING}" />
+                  <input type="hidden" name="nomor_cek_giro" value="{NOMOR_CEK_GIRO}" />
+                  <input type="hidden" name="bank_payment" value="{BANK_PAYMENT}" />
+                  <input type="hidden" name="cash_receipt" value="{CASH_RECEIPT}" />
+   
+</form>
+<script type="text/javascript">
+var nomor_bp = document.getElementById('nomor_bp');
+if(nomor_bp.value != ''){
+   $(document).ready(function() {
+      $("#tanggal_day option").not(":selected").attr("disabled", "disabled"); // disable combo bulan
+      $("#tanggal_mon option").not(":selected").attr("disabled", "disabled"); // disable combo bulan
+      $("#tanggal_year option").not(":selected").attr("disabled", "disabled"); // disable combo tahun
+   });
+}
+</script>
+<!-- /patTemplate:tmpl -->

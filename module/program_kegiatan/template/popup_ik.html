@@ -1,0 +1,99 @@
+<!-- patTemplate:tmpl name="content" -->
+    <script language="javascript" type="text/javascript">
+	function setParent(xid, xlabel) {
+		document.getElementById('ik_id').value=xid;
+		document.getElementById('ik_nama').value=xlabel;
+		popupClose();	
+	}
+</script>
+<h1>Referensi IK</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterboxpopup" 
+class="dataquest xhr_simple_form dest_popup-subcontent">
+<table>
+	<tr>
+		<th colspan="2">
+			<h2>
+				<strong>
+					<!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+				</strong>
+			</h2>
+		</th>
+	</tr>
+	<tr>
+		<th>
+			<!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->/
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+		</th>
+		<td>
+			<input type="text" name="text_search" id="text_search" size="30" value="{TXT_KODE}" />
+		</td>
+	</tr>
+	<tr>
+		<th>&nbsp;</th>
+		<td>
+			<input type="submit" name="btnTampilkan" value=" Tampilkan &raquo; " class="buttonSubmit"/>
+		</td>
+	</tr>
+</table>
+</form>
+<br />
+<div class="pageBar">
+	<!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" 
+	action="view" name="paging_top"  / -->
+</div>
+<table class="table-common" width="100%">
+	<tr>
+		<th width="5">
+			<!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+		</th>
+		<th>
+			<!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+		</th>
+        <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+        </th>
+        <th width="65">
+            IK Value
+        </th>
+		<th width="25">
+			<!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+		</th>
+	</tr>
+<!-- patTemplate:tmpl name="data_list" type="condition" conditionvar="DATA_EMPTY" -->
+<!-- patTemplate:sub condition="YES" -->
+	<tr>
+		<td colspan="5" align="center">
+			<em>
+				--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--
+			</em>
+		</td>
+	</tr>
+<!-- /patTemplate:sub -->
+<!-- patTemplate:sub condition="NO" -->
+<!-- patTemplate:tmpl name="data_grid" -->
+	<tr class="{CLASS_NAME}">
+		<td align="center">
+			{NUMBER}
+		</td>
+		<td align="center" width="115">
+			{KODE}
+		</td>
+        <td>
+            {NAMA}
+        </td>
+        <td align="right">
+            {VALUE}
+        </td>
+		<td class="links" align="center">
+            <a href="javascript:void(0)" onclick="javascript:setParent('{ID}','{NAMA}')">
+                <img alt="Pilih" src="images/button-check.gif"/>
+            </a>
+		</td>
+	</tr>
+<!-- /patTemplate:tmpl -->
+<!-- /patTemplate:sub -->
+<!-- /patTemplate:tmpl -->
+</table>
+
+<!-- /patTemplate:tmpl -->

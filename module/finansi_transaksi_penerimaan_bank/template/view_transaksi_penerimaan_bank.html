@@ -1,0 +1,301 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+   function bukaPopupCetak(xurl) {
+      xpopup = window.open(xurl,'xpopup','width=1000,height=600,resizable=yes,scrollbars=yes,right=0;center');
+      xpopup.focus();
+   }   
+</script>
+
+<style type="text/css">
+table.table-common table{
+   width: 100% !important;
+   display: block;
+   border-spacing: 0;
+   border-spacing: collapse;
+   padding: 0px;
+   margin: 0px;
+   border: none;
+}
+table.table-common table tr,
+table.table-common table tr td
+{
+   border-collapse: collapse;
+   border:none;
+}
+table.table-common table tr td{
+   border: none;
+   border-bottom: 1px solid #FDF1C1;
+   border-right: 1px solid #FDF1C1;
+   color: #333333;
+   padding: 0.2em 0.4em;
+}
+table.table-common table tr:last-child td{
+   border-bottom: none;
+}
+table.table-common table tr td:last-child{
+   border-right: none;
+}
+</style>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="transaksi_penerimaan_bank" / -->
+</h1>
+<br />
+<form method="POST" name="frmInput" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table >
+      <tr>
+         <th colspan="2">
+            <h2>
+               <strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="interval_pencatatan" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_awal"  / -->
+            <label style="font-weight: bold; display: block; width: 100%; padding-top: 4px; padding-bottom: 4px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="s_d" / -->
+            </label>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_akhir"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Nomor Bpkb
+         </th>
+         <td>
+            <input type="text" name="referensi" id="referensi" value="{REFERENSI}" size="30"/>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Status Posting
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="posting"  / -->
+         </td>
+      </tr>
+      <tr>
+         <td>&nbsp;</td>
+         <td>
+            <input name="btnFilter" value=" Filter " class="buttonSubmit" type="submit">
+            <input name="btnTampilkan" value=" <!-- patTemplate:gtfwgetconfig config="language" name="reset" / --> " class="buttonSubmit"  type="reset" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   <div class="toolbar">
+      <a class="xhr dest_subcontent-element" href="{URL_ADD}" title="<!-- patTemplate:gtfwgetconfig config="language" name="tambah_jurnal_umum" / -->" ><img src="images/button-add.gif" alt="^" /><!-- patTemplate:gtfwgetconfig config="language" name="tambah" / --></a>
+   </div>
+</div>
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th style="width: 25px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal_transaksi" / -->
+         </th>
+         <th style="width: 95px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode_bpkb" / -->
+         </th>
+         
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / -->
+         </th>
+         <th style="width: 105px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / --><br />
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_account" / -->
+         </th>
+         <th style="width: 165px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / -->
+         </th>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="debet" / -->
+         </th>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kredit" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="petugas" / -->
+         </th>
+         <th style="width: 30px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="status" / --> Jurnal
+         </th>
+         <th style="width: 30px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="posting" / -->
+         </th>
+         <th style="width: 150px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr>
+            <td colspan="12" align="center">
+               <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+            </td>
+         </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+               <!-- patTemplate:tmpl name="data_jurnal" type="condition" conditionvar="LEVEL" -->
+                  <!-- patTemplate:sub condition="PARENT" -->
+                     <tr class="{CLASS_NAME}">
+                        <td rowspan="{ROW_SPAN}" style="text-align: center;">
+                           {NOMOR}
+                        </td>
+                        </td>
+                        <td rowspan="{ROW_SPAN}" style="text-align: center;">
+                           <!-- patTemplate:var name="TANGGAL" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+                        </td>
+                        <td rowspan="{ROW_SPAN}" style="text-align: center;">
+                           {REFERENSI}
+                        
+                        <td rowspan="{ROW_SPAN}">
+                           {DESKRIPSI}
+                        </td>
+                        <td style="padding: 0px;">
+                           <label style="padding: 0.2em 0.4em;">
+                              {KODE}
+                           </label>
+                           <label style="border: none; border-top: 1px solid #DDD; padding: 0.2em 0.4em; margin: 0.4em 0em 0.6em;">
+                              {SUB_ACCOUNT}
+                           </label>
+                        </td>
+                        <td>
+                           {NAMA}
+                        </td>
+                        <td style="text-align: right;">
+                           {NOMINAL_DEBET}
+                        </td>
+                        <td style="text-align: right;">
+                           {NOMINAL_KREDIT}
+                        </td>
+                        <td rowspan="{ROW_SPAN}">
+                           {PENANGGUNG_JAWAB}
+                        </td>
+                        <td rowspan="{ROW_SPAN}" class="links" style="text-align: center;">
+                           <!-- patTemplate:tmpl name="status_approval" type="condition" conditionvar="APPROVE" -->
+                              <!-- patTemplate:sub condition="YES" -->
+                                 <a href="javascript:void(0);" style="float: none; display: inline-block; width: 16px; height: 16px;">
+                                    <img src="images/icons/16/tick_circle.png" alt="approve" />
+                                 </a>
+                              <!-- /patTemplate:sub -->
+                              <!-- patTemplate:sub condition="NO" -->
+                                 <a href="javascript:void(0);" style="float: none; display: inline-block; width: 16px; height: 16px;">
+                                    <img src="images/icons/16/icon-warning-16x16.gif" alt="warning" />
+                                 </a>
+                              <!-- /patTemplate:sub -->
+                           <!-- /patTemplate:tmpl -->
+                        </td>
+                        <td rowspan="{ROW_SPAN}" class="links" style="text-align: center;">
+                           <!-- patTemplate:tmpl name="status_posting" type="condition" conditionvar="POSTING" -->
+                              <!-- patTemplate:sub condition="YES" -->
+                                 <a href="javascript:void(0);" style="float: none; display: inline-block; width: 16px; height: 16px;">
+                                    <img src="images/icons/16/green.gif" alt="posting" />
+                                 </a>
+                              <!-- /patTemplate:sub -->
+                              <!-- patTemplate:sub condition="NO" -->
+                                 <a href="javascript:void(0);" style="float: none; display: inline-block; width: 16px; height: 16px;">
+                                    <img src="images/icons/16/yellow.gif" alt="posing" />
+                                 </a>
+                              <!-- /patTemplate:sub -->
+                           <!-- /patTemplate:tmpl -->
+                        </td>
+                        <td rowspan="{ROW_SPAN}" class="links">
+                            
+                           <!-- patTemplate:tmpl name="content_links" type="condition" conditionvar="STATUS" -->
+                              <!-- patTemplate:sub condition="UNAPPROVE" -->
+                                 <a href="{URL_EDIT}" class="xhr dest_subcontent-element" title="Ubah Data">
+                                    <img src="images/icons/16/button-edit.gif" alt="edit" />
+                                 </a>
+                                 <a href="{URL_DELETE}" class="xhr dest_subcontent-element" title="Hapus Data">
+                                    <img src="images/icons/16/button-delete.gif" alt="delete" />
+                                 </a>
+                              <!-- /patTemplate:sub -->
+                              <!-- patTemplate:sub condition="APPROVE" -->
+                                 <a style="{DISPLAY_APPROVE}" href="javascript:void(0);">
+                                    <img src="images/icons/16/approval.gif" alt="approve" />
+                                 </a>
+                              <!-- /patTemplate:sub -->                                                           
+                           <!-- /patTemplate:tmpl -->
+                           <a target="_blank" href="{URL_EXPORT}" title="Export">
+                                  <img src="images/icons/16/export_excel.gif" alt="Export" />
+                           </a>
+                           <a href="javascript:void(0)" onclick="bukaPopupCetak('{URL_CETAK}')" title="Cetak" >
+                              <img src="images/button-print.gif" alt="Cetak"> 
+                           </a> 
+                        </td>
+                     </tr>
+                  <!-- /patTemplate:sub -->
+                  <!-- patTemplate:sub condition="DATA" -->
+                     <tr class="{CLASS_NAME}">
+                        <td style="padding: 0px;">
+                           <label style="padding: 0.2em 0.4em;">
+                              {KODE}
+                           </label>
+                           <label style="border: none; border-top: 1px solid #DDD; padding: 0.2em 0.4em; margin: 0.4em 0em 0.6em;">
+                              {SUB_ACCOUNT}
+                           </label>
+                        </td>
+                        <td>
+                           {NAMA}
+                        </td>
+                        <td style="text-align: right;">
+                           {NOMINAL_DEBET}
+                        </td>
+                        <td style="text-align: right;">
+                           {NOMINAL_KREDIT}
+                        </td>
+                     </tr>
+                  <!-- /patTemplate:sub -->
+               <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<br />
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         <img src="images/icons/16/tick_circle.png" alt="approve" style="margin-bottom: -3px;" /> Jurnal sudah di setujui
+      </li>
+      <li>
+         <img src="images/icons/16/icon-warning-16x16.gif" alt="approve" style="margin-bottom: -3px;" /> Jurnal belum di setujui
+      </li>
+      <li>
+         <img src="images/icons/16/green.gif" alt="posting" style="margin-bottom: -3px;" /> Semua Jurnal sudah diposting
+      </li>
+      <li>
+         <img src="images/icons/16/yellow.gif" alt="posting" style="margin-bottom: -3px;" /> Jurnal belum diposting
+      </li>
+      <li>
+         <img src="images/icons/16/button-edit.gif" alt="edit" style="margin-bottom: -3px;" /> Untuk mengubah data jurnal
+      </li>
+      <li>
+         <img src="images/icons/16/button-delete.gif" alt="hapus" style="margin-bottom: -3px;" /> Untuk menghapus data jurnal
+      </li>
+
+   </ul>
+</div>
+
+<!-- /patTemplate:tmpl -->

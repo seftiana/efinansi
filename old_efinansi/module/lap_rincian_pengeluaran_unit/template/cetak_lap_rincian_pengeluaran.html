@@ -1,0 +1,116 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css" media="all">
+   .table-common tbody tr.rkat td{
+      border-bottom-color: #CCCCCC !important;
+   }
+   label.rkakl{
+      display: block;
+      width: 100%;
+      border-top: #D4D4D4 1px solid;
+      margin: 4px 0px;
+      padding-top: 4px;
+   }
+</style>
+<center>
+   <h1>
+      <!-- patTemplate:gtfwgetconfig config="language" name="lap_rinci_pengeluaran" / -->
+   </h1>
+</center>
+<br>
+<center>
+   <h1>
+      <!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / --> {TAHUN_PERIODE}
+   </h1>
+</center>
+<br>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/
+   <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --> : {UNIT_KERJA_LABEL}
+</h1>
+<table class="table-common" width="900px">
+   <thead>
+      <tr>
+         <th width="5px" rowspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th colspan="2" width="350px">
+            <!-- patTemplate:gtfwgetconfig config="language"  name="label_rincian"  / -->
+         </th>
+         <th rowspan="2" >
+            <!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+         </th>
+         <th rowspan="2" width="90px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="ikk" / -->
+         </th>
+         <th rowspan="2" width="90px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="iku" / -->
+         </th>
+         <th rowspan="2" width="90px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="output" / -->
+         </th>
+         <th colspan="3">
+            <!-- patTemplate:gtfwgetconfig config="language" name="perhitungan" / -->
+         </th>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <th width="90px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="volume" / -->
+         </th>
+         <th width="100px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="harga_satuan" / -->
+         </th>
+         <th width="120px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="jumlah_biaya" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr><td colspan="10" align="center"><em>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong"  / --> --</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+               <tr class="{CLASS_NAME}" style="{ROW_STYLE}">
+                  <td align="center">{NOMOR}</td>
+                  <td align="right">{KODE}</td>
+                  <td>
+                     {NAMA}
+                     <!-- patTemplate:tmpl name="rkakl" type="condition" conditionvar="JENIS" -->
+                        <!-- patTemplate:sub condition="KEGIATAN" -->
+                           <label class="rkakl">
+                              [{RKAKL_NAMA}]
+                           </label>
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="OUTPUT" -->
+                           <label class="rkakl">
+                              [{RKAKL_NAMA}]
+                           </label>
+                        <!-- /patTemplate:sub -->
+                        <!-- patTemplate:sub condition="SUB_KEGIATAN" -->
+                           <label class="rkakl">
+                              [{RKAKL_NAMA}]
+                           </label>
+                        <!-- /patTemplate:sub -->
+                     <!-- /patTemplate:tmpl -->
+                  </td>
+                  <td>{UNIT_NAMA}</td>
+                  <td>{IKU_NAMA}</td>
+                  <td>{IKK_NAMA}</td>
+                  <td>{OUTPUT}</td>
+                  <td style="text-align:center;">{VOLUME}</td>
+                  <td style="text-align:right;">{NOMINAL_SATUAN}</td>
+                  <td style="text-align:right;">{NOMINAL_TOTAL}</td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<!-- /patTemplate:tmpl -->

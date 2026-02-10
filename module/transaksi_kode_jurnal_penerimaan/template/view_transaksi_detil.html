@@ -1,0 +1,235 @@
+<!-- patTemplate:tmpl name="content" -->
+
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="transaksi_kode_jurnal_penerimaan" / --></h1>
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+   <br />
+   
+   <br />
+      <table class="table-edit" width="100%">
+         <tr class="subhead">
+            <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="detil_transaksi" / --></th>
+         </tr>
+         
+         <tr>              
+          <th width="145"><!-- patTemplate:gtfwgetconfig config="language" name="nomor_bukti" / --></th>
+          
+          <td>
+				<b>{NO_KKB}</b>
+		  
+		  </td>
+          
+        </tr>
+      <!-- patTemplate:tmpl name="role" type="condition" conditionvar="WHOAMI" -->
+         <!-- patTemplate:sub condition="ADMINISTRATOR" -->
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+          <td>{UNITKERJA_LABEL}</td>
+        </tr>
+       <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="OPERATORUNIT" -->
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+          <td>{UNITKERJA_LABEL}</td>
+        </tr>
+       <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="OPERATORSUBUNIT" -->
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+            <td>{UNITKERJA_LABEL}</td>
+         </tr>
+       <!-- /patTemplate:sub -->
+     <!-- /patTemplate:tmpl -->
+        <tr style="display: none;">
+          <th width="20%"><!-- patTemplate:gtfwgetconfig config="language" name="jenis_transaksi" / --></th>
+          <td><!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="jenis_transaksi"  / -->*</td>
+        </tr>
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="tipe_transaksi" / --></th>
+          <td>{NAME_TIPE_TRANSAKSI}</td>
+        </tr>
+        <tr style="display: none;">
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="mak" / --></th>
+          <td>
+          {MAK_LABEL}
+		  </td>
+        </tr>
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="tanggal_transaksi" / --></th>
+          <td><!-- patTemplate:var name="TANGGAL"	
+					modifier="gtfwindonesiandate" format="long" separator=" " / --></td>
+        </tr>
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="due_date" / --></th>
+          <td>
+		  	<!-- patTemplate:var name="DUE_DATE" 
+						modifier="gtfwindonesiandate" format="long" separator=" " / -->
+		  	</td>
+        </tr>
+        
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="no_invoice" / --></th>
+          <td></td>
+        </tr>
+      <tr>
+         <td colspan="2" style="padding-left:50px">
+            <table class="table-edit" width="500" id="table_invoice_list">
+               <tr class="subhead">
+
+                  <th><!-- patTemplate:gtfwgetconfig config="language" name="invoice" / --></th>
+               </tr>
+               <tbody id="tbody_invoice_list">
+                 <!-- patTemplate:tmpl name="tpl_invoice_list" type="condition"
+				 		 conditionvar="INVOICE_LIST_EMPTY" -->
+                   <!-- patTemplate:sub condition="YES" -->
+                   <tr id="invoice_empty"><td align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+                   <!-- /patTemplate:sub -->
+                   <!-- patTemplate:sub condition="NO" -->
+                     <!-- patTemplate:tmpl name="tpl_invoice_item" -->
+                     <tr class="{DATA_CLASS_NAME}">
+                        <td>
+                           {DATA_NOMOR}
+                        </td>
+                   </tr>
+                   <!-- /patTemplate:tmpl -->
+                   <!-- /patTemplate:sub -->
+                 <!-- /patTemplate:tmpl -->
+               </tbody>
+            </table>
+         </td>
+        </tr>
+        <tr style="display: none;">
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="nominal_disetujui" / --></th>
+          <td>
+            <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {NOMINAL_DISETUJUI}
+          </td>
+        </tr>
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="nominal" / --></th>
+          <td><!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {NOMINAL}</td>
+        </tr>
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="jurnal" / --></th>
+          <td>
+            
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table class="table-common" width="100%">
+               <thead>
+                  <tr>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="debet_rp" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="kredit_rp" / --></th>
+                  </tr>
+               </thead>
+                              <tbody>     
+                     <!-- patTemplate:tmpl name="tpl_jurnal_list" 
+					 	type="condition" conditionvar="JURNAL_LIST_EMPTY" -->
+    		         <!-- patTemplate:sub condition="YES" -->
+                   	<tr id="invoice_empty"><td align="center" colspan="4">
+					   <em>--
+					   <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+					   --</em></td></tr>
+                   <!-- /patTemplate:sub -->
+                   <!-- patTemplate:sub condition="NO" -->
+                     <!-- patTemplate:tmpl name="tpl_jurnal_item" -->
+                     <tr class="{DATA_CLASS_NAME}">
+                        <td  style="padding: 2px; text-align:center">
+                           {DATA_KODE_AKUN}
+                        </td>
+                        <td>
+                           {DATA_NAMA_AKUN}
+                        </td>
+                        <td style="padding: 2px; text-align:right">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->.
+                           {DATA_DEBET}
+                        </td>
+                        <td style="padding: 2px; text-align:right">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->.
+                           {DATA_KREDIT}
+                        </td>
+                  	</tr>
+                  	 <!-- /patTemplate:tmpl -->
+                  	<tr class="table-common-even1">
+                     <td colspan="2" align="right">
+					 	<!-- patTemplate:gtfwgetconfig config="language" name="total" / --></td>
+                     <td style="padding: 2px; text-align: right">
+					 	<!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->.{TOTAL_DEBET}</td>
+                     <td style="padding: 2px; text-align: right">
+					 	<!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->.{TOTAL_KREDIT}</td>
+                  	</tr>
+                   <!-- /patTemplate:sub -->
+                 <!-- /patTemplate:tmpl -->
+                 
+               </tbody>
+
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="uraian_transaksi" / --></th>
+          <td>
+		  {CATATAN_TRANSAKSI}
+		  </td>
+        </tr>
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="penanggung_jawab" / --></th>
+          <td>
+		  {PENANGGUNG_JAWAB}
+		  </td>
+        </tr>
+        <tr>
+          <th><!-- patTemplate:gtfwgetconfig config="language" name="attachment" / --></th>
+          <td></td>
+        </tr>
+      <tr>
+         <td colspan="2" style="padding-left:50px">
+            <table class="table-edit" id="file_attach_table" width="500">
+               <tr class="subhead">
+
+                  <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_file" / --></th>
+               </tr>
+               <tbody id="file_attach_tbody">
+                 <!-- patTemplate:tmpl name="tpl_file_list" type="condition" conditionvar="FILE_LIST_EMPTY" -->
+                   <!-- patTemplate:sub condition="YES" -->
+                   <tr id="file_empty"><td align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+                   <!-- /patTemplate:sub -->
+                   <!-- patTemplate:sub condition="NO" -->
+                     <!-- patTemplate:tmpl name="tpl_file_item" -->
+                     <tr class="{DATA_CLASS_NAME}">
+                        <td>{DATA_NAMA}</td>
+                   </tr>
+                   <!-- /patTemplate:tmpl -->
+                   <!-- /patTemplate:sub -->
+                 <!-- /patTemplate:tmpl -->
+               </tbody>
+            </table>
+            <br />
+         </td>
+      </tr>
+      <tr class="buttons">
+         <th>&nbsp;</th>
+         <td> 
+            <div style="display:none;">
+            <a class="xhr dest_subcontent-element button" href="{URL_EDIT}"
+			title="<!-- patTemplate:gtfwgetconfig config="language" name="ubah" / -->">
+				<!-- patTemplate:gtfwgetconfig config="language" name="ubah" / -->
+			</a>
+			</div>
+			<a class="xhr dest_subcontent-element button" href="{URL_TAMBAH}" 
+			title="<!-- patTemplate:gtfwgetconfig config="language" name="tambah" / -->">
+				<!-- patTemplate:gtfwgetconfig config="language" name="tambah" / -->
+			</a>
+         </td>
+      </tr>
+   </table>
+<br />
+
+<br />
+<!-- /patTemplate:tmpl -->

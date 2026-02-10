@@ -1,0 +1,95 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+   function pilih(id,nama){
+      form = document.frmInput;
+      form.kegiatan.value = nama;
+      form.kegiatan_id.value = id;
+      popupClose();
+   };
+// ]]>
+</script>
+<h1 id="">Kegiatan</h1>
+<br />
+<form method="post" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2">
+            <h2>
+               Pencarian
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 135px;">
+            kode / nama kegiatan
+         </th>
+         <th>
+            <input type="text" name="nama" value="{NAMA}" size="20" maxlength="20" />
+         </th>
+      </tr>
+      <tr>
+         <th></th>
+         <th>
+            <input type="submit" name="action" value="Cari &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Tampilkan Semua" class="buttonSubmit" />
+         </th>
+      </tr>
+   </table>
+</form>
+<br />
+<div class="pageBar">
+<!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<!-- start: Table List -->
+<table class="table-common" width="540">
+   <thead>
+      <tr>
+         <th width="30" align="left">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr>
+            <td colspan="6" align="center">
+               <em>-- Data tidak ditemukan --</em>
+            </td>
+         </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{CLASS_NAME}">
+               <td align="center">
+                  {NO}
+               </td>
+               <td>
+                  {KODE}
+               </td>
+               <td>
+                  {NAMA}
+               </td>
+               <td class="links" align="center">
+                  <a href="javascript: void(0);" onclick="pilih('{ID}','{LINK}')" title="Pilih">
+                     <img src="images/icons/16/button-check.gif">
+                  </a>
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<!-- stop: Table List -->
+<!-- /patTemplate:tmpl -->

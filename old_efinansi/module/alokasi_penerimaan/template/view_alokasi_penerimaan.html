@@ -1,0 +1,161 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function resetFormIni() {
+		GtfwAjax.replaceContentWithUrl("subcontent-element","{URL_RESET}&ascomponent=1");
+	}
+	function bukaPopupKodePenerimaan(xurl) {	
+		showPopup(xurl,'','600','500');
+	}
+ 	function bukaPopupUnitKerja(xurl) {
+	  showPopup(xurl,'','600','500');
+   }
+	function centangin_semua(varname, start_num, end_num) {
+		var obj = document.getElementById('cek_all');
+		if(obj.checked == false) {
+			for(i=start_num;i<=end_num;i++) {
+				document.getElementById(varname + i).checked = false;
+			}
+		} else {
+			for(i=start_num;i<=end_num;i++) {
+				document.getElementById(varname + i).checked = true;
+			}
+		}
+	}
+	function show_checkbox (varname, start_num, end_num) {
+		//show check_all checkbox
+		document.getElementById('cek_all').style.display='';
+		//document.getElementById('btnHapus').type="button";
+	}
+
+	document.onload = show_checkbox('alokasi_id_','{FIRST_NUMBER}','{LAST_NUMBER}');
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_alokasi_penerimaan" / --></h1>
+<br />
+<form method="POST" name="frmKegiatan" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+
+   <table >
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>	           
+		 <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kode_penerimaan" / --></th>
+            <td><input type="text" name="kode" value="{SEARCH_KODE}" size="20" />
+         </tr>  
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_penerimaan" / --></th>
+            <td><input type="text" name="nama" value="{SEARCH_NAMA}" size="50" />
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+            <td>
+            <input type="hidden" id="id_unit" name="id_unit" value="{SEARCH_ID_UNIT}"/>
+			 	<!-- patTemplate:tmpl name="cek_unitkerja_parent" 
+				 	type="condition" conditionvar="IS_PARENT" -->
+   					<!-- patTemplate:sub condition="YES" -->   
+            <textarea name="nama_unit" id="nama_unit" readonly="readonly" 
+				            cols="40" rows="1">{SEARCH_NAMA_UNIT}</textarea>   
+                <input type="button"  name="but_unitkerja" 
+                onclick="bukaPopupUnitKerja('{URL_POPUP_UNIT_KERJA}')" value=" ... " />
+                	<!-- /patTemplate:sub -->
+				 	
+				 	<!-- patTemplate:sub condition="NO" -->
+                    <label><b>{SEARCH_NAMA_UNIT}</b></label>
+				 	<input type="hidden" name="nama_unit" id="nama_unit" value="{SEARCH_NAMA_UNIT}" />
+                    <!-- /patTemplate:sub -->
+				 <!-- /patTemplate:tmpl -->
+              </td> 
+         </tr>                  
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan" / --> &raquo;" class="buttonSubmit" />
+            <input name="btnReset" value="<!-- patTemplate:gtfwgetconfig config="language" name="reset" / --> " 
+			class="buttonSubmit"  type="reset" onclick="resetFormIni()" />
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+   <form method="post" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar"> 
+   		<a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Data Sub Program" tabindex="2"><img src="images/button-add.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / --></a> 	   				
+        <input type="submit" id="btnHapus" name="btnHapus" value="<!-- patTemplate:gtfwgetconfig config="language" name="hapus" / -->"   class="inputButton" />
+      </div>
+   </div>
+   <table class="table-common" width="100%">
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>	 
+         <th width="20"><input type="checkbox" style="display:none" name="cek_all" id="cek_all" value="ALL" onclick="centangin_semua('alokasi_id_','{FIRST_NUMBER}','{LAST_NUMBER}');" /></th >
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_unit" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / 
+         <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --> </th>
+		 <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_penerimaan" / --></th>         
+		 <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_penerimaan" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="alokasi_unit" / --> (%)</th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="alokasi_pusat" / --> (%)</th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="alokasi_operan" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="alokasi_batas" / --></th>
+         <th width="70"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="6" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_alokasi" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">{DATA_NOMOR}</td>	
+               <td align="center">
+				 	<input type="checkbox" name="id[]" id="alokasi_id_{DATA_NOMOR}"
+					 value="{DATA_ALOKASI_ID}" />
+					 <input type="hidden" name="name[{DATA_ALOKASI_ID}]"
+					  value="{DATA_NAMA_UNIT_HIDDEN} - {DATA_NAMA_TERIMA}" />
+					  </td >		   
+		       <td>{DATA_KODE_UNIT}</td>
+               <td>{DATA_NAMA_UNIT}</td>
+               <td>{DATA_KODE_TERIMA}</td>
+			   <td>{DATA_NAMA_TERIMA}</td>
+               <td align="center">{DATA_ALOKASI_UNIT}</td>
+               <td align="center">{DATA_ALOKASI_PUSAT}</td>
+               <td align="center">{DATA_ALOKASI_OPERAN}</td>
+               <td align="center">{DATA_ALOKASI_NILAI_BATAS}</td>
+               <td class="links" align="center">
+               <a class="xhr dest_subcontent-element" href="{DATA_URL_EDIT}" 
+				 	title="<!-- patTemplate:gtfwgetconfig config="language" name="ubah" / -->">
+					 <img src="images/button-edit.gif" alt="Ubah"/></a>
+              <a class="xhr dest_subcontent-element"  
+              href="{DATA_URL_DELETE}" title="Hapus"><img src="images/button-delete.gif" alt="Hapus"/></a>
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+	  
+	 
+   </table>
+   </form>
+   <br /> 
+   
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+      <ul>
+         <li><img src="images/button-edit.gif" alt="Ubah"/>&nbsp;&nbsp;
+         <!-- patTemplate:gtfwgetconfig config="language" name="ubah" / -->&nbsp;
+         <!-- patTemplate:gtfwgetconfig config="language" name="alokasi_penerimaan" / --></li>
+         <li><img src="images/button-delete.gif" alt="Hapus"/>&nbsp;&nbsp;
+         <!-- patTemplate:gtfwgetconfig config="language" name="hapus" / -->&nbsp;
+         <!-- patTemplate:gtfwgetconfig config="language" name="alokasi_penerimaan" / --></li>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

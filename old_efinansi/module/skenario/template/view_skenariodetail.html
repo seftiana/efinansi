@@ -1,0 +1,76 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="detil_skenario" / --></h1>
+<br/>
+    <div class="pageBar">   
+      <div class="toolbar"> 
+   		<a class="xhr dest_subcontent-element" href="{URL_LIST_SKENARIO}" title="Daftar List Skenario" ><img src="images/button-detail.gif" alt="^" /> <!-- patTemplate:gtfwgetconfig config="language" name="list_skenario" / --></a> 	   				
+		<a class="xhr dest_subcontent-element" href="{URL_TAMBAH_AKUN}" title="Tambah Akun ><img src="images/button-add.gif" alt="^" /> <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / --></a> 	   				
+      </div>
+   </div>
+    
+   
+   
+      
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+            <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="detil_skenario" / --></th>
+         </tr>
+      <tr>          
+         <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="nama_skenario" / --></th>
+		 <td><b>{NAMA_SKENARIO}</b></td>
+	  </tr> 	
+   </table>
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}" >
+      {ISI_PESAN}
+   </div>
+   <br/>
+   <!-- /patTemplate:tmpl -->
+   
+   <br /> 
+	
+	
+	<table class="table-common" width="100%" >
+	  <tr>
+	    <th colspan="5"><!-- patTemplate:gtfwgetconfig config="language" name="detil_skenario" / --></th>
+	  </tr>
+	  <tr>
+	    <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="akun" / --></th>
+		<th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="persentase" / --></th>
+		<th rowspan="2" width="20"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>		
+	  </tr>	  
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="debet" / --></th>             
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kredit" / --></th>
+		 <th><!-- patTemplate:gtfwgetconfig config="language" name="debet" / --></th>             
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kredit" / --></th>
+      </tr>
+	  <!-- patTemplate:tmpl name="bool-table" type="condition" conditionvar="HAVE_DATA" -->
+	  <!-- patTemplate:sub condition="YES" -->
+		  <!-- patTemplate:tmpl name="data_item"  -->        
+				<tr >				                  
+				   <td>{DATA_SKENARIODETAIL_DEBET}</td>
+				   <td>{DATA_SKENARIODETAIL_KREDIT}</td> 
+				   <td align="right">{DATA_SKENARIODETAIL_DEBET_PROSENTASE}</td>               	   			   
+				   <td align="right">{DATA_SKENARIODETAIL_KREDIT_PROSENTASE}</td>               	   			   
+				   <td class="links" align="center">			      
+					  <a class="xhr dest_subcontent-element" href="{DATA_URL_DELETE}" title="Hapus"><img src="images/button-delete.gif" alt="Hapus"></a>                            				  
+				   </td>			   
+				</tr> 
+           <!-- /patTemplate:tmpl -->
+		   <tr class="table-common-even2"  >				                  
+				   <td colspan="2" align="right"><b><!-- patTemplate:gtfwgetconfig config="language" name="total_prosentase" / --></b></td>				   
+				   <td align="right">{TOTAL_DEBET}</td>               	   			   
+				   <td align="right">{TOTAL_KREDIT}</td>               	   			   
+				   <td class="links" align="center">			      
+					  		
+				   </td>			   
+				</tr> 
+        <!-- /patTemplate:sub -->				
+      <!-- /patTemplate:tmpl -->	
+	  
+	  
+	  
+   </table> 
+	
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,244 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_form_transaksi" / --></h1>
+<br/>
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+{ISI_PESAN}
+</div>
+<br/>
+<!-- /patTemplate:tmpl -->
+
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">{MODE} <!-- patTemplate:gtfwgetconfig config="language" name="setting_form" / --></th>
+      </tr>
+      <tr>
+         <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kode_form" / --></th>
+         <td>
+         <label id="formCode">{FORMCODE}</label>
+		 <!--input type="text" name="formCode" value="{FORMCODE}" size="7" /-->
+		 </td>
+      </tr>
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_form" / --></th>
+         <td><input type="text" name="formName" value="{FORMNAME}" size="40" /></td>
+      </tr>
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_jurnal" / --></th>
+         <td><input type="text" name="namaJurnal" value="{NAMAJURNAL}" size="20" /></td>
+      </tr>
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="coa" / --></th>
+         <td>
+            <div class="toolbar">
+               <a title="Tambah COA" onclick="showPopup('{URL_POPUP_COA}','COA List',560,420);"><img src="images/button-add.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / --></a>
+            </div>
+         </td>
+      </tr>
+      <tr>
+         <td colspan='2'>
+            <table class="table-common" width="100%">
+               <thead>
+                  <tr>
+                     <th width='5px'><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="debet" / -->/<!-- patTemplate:gtfwgetconfig config="language" name="kredit" / --></th>
+                     <th width='32px'><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+                  </tr>
+               </thead>
+               <tbody id="COA_Place_Holder">
+                  <tr style='display: {COA_EMPTY}'>
+                     <td colspan="4" style='text-align: center; font-style: italic'>-- <!-- patTemplate:gtfwgetconfig config="language" name="belum_ada_yang_dipilih" / --> --</td>
+                  </tr>
+                  <!-- patTemplate:tmpl name="list_coa" visibility="hidden" -->
+                  <TR id="formCoaCoaId_{FORMCOACOAID}" class="{CLASS_NAME}">
+                     <TD style="padding: 2px; text-align: center">{COAKODEAKUN}<INPUT type="hidden" name="COA[{FORMCOACOAID}][coaKodeAkun]" value="{COAKODEAKUN}"></TD>
+                     <TD style="padding: 2px; text-align: left">{COANAMAAKUN}<INPUT type="hidden" name="COA[{FORMCOACOAID}][coaNamaAkun]" value="{COANAMAAKUN}"></TD>
+                     <TD style="padding: 2px; text-align: center">
+                        <LABEL style='display: inline'><!-- patTemplate:gtfwgetconfig config="language" name="debet" / --> <INPUT type="radio" name="COA[{FORMCOACOAID}][formCoaDK]" value="D" {CHECKED_D}></LABEL>
+                        <LABEL style='display: inline'><INPUT type="radio" name="COA[{FORMCOACOAID}][formCoaDK]" value="K" {CHECKED_K}> <!-- patTemplate:gtfwgetconfig config="language" name="kredit" / --></LABEL>
+                     </TD>
+                     <TD class="links" align="center"><A onclick="document.getElementById('COA_Place_Holder').deleteItem('formCoaCoaId_{FORMCOACOAID}');" title="Hapus"><IMG src="images/button-delete.gif" alt="Hapus"></A></TD>
+                  </TR>
+                  <!-- /patTemplate:tmpl -->
+               </tbody>
+            </table>
+         </td>
+      </tr>
+      <!-- tabel signer dihilangkan
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="ttd" / --></th>
+         <td>
+            <div class="toolbar">
+               <a title="Tambah Signer" onclick="showPopup('{URL_POPUP_USER}','User List',560,420);"><img src="images/button-add.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / --></a>
+            </div>
+         </td>
+      </tr>
+      <tr>
+         <td colspan='2'>
+            <table class="table-common" width="100%">
+               <thead>
+                  <tr>
+                     <th width='5px' nowrap><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="nama" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="tipe" / --></th>
+                     <th width='32px'><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+                  </tr>
+               </thead>
+               <tbody id="Signer_Place_Holder">
+                  <tr style='display: {SIGNER_EMPTY}'>
+                     <td colspan="4" style='text-align: center; font-style: italic'>--<!-- patTemplate:gtfwgetconfig config="language" name="belum_ada_yang_dipilih" / --> --</td>
+                  </tr>
+                  <!-- patTemplate:tmpl name="list_signer" visibility="hidden" -->
+                  <TR id="formsignId_{FORMSIGNUSERID}" class="{CLASS_NAME}">
+                     <TD style="padding: 2px; text-align: center">{NOMOR}</TD>
+                     <TD style="padding: 2px">{REALNAME}<INPUT type="hidden" name="Signer[{FORMSIGNUSERID}][RealName]" value="{REALNAME}"></TD>
+                     <TD>
+                        <SELECT name="Signer[{FORMSIGNUSERID}][formsignSignGroupId]">
+                           <!-- patTemplate:tmpl name="combo_signer_group" --><OPTION value="{ID}"{SELECTED}>{NAME}</OPTION><!-- /patTemplate:tmpl -->
+                        </SELECT>
+                     </TD>
+                     <TD class="links" align="center"><A onclick="document.getElementById('Signer_Place_Holder').deleteItem('formsignId_{FORMSIGNUSERID}');" title="Hapus"><IMG src="images/button-delete.gif" alt="Hapus"></A></TD>
+                  </TR>
+                  <!-- /patTemplate:tmpl -->
+               </tbody>
+            </table>
+         </td>
+      </tr >
+       end tabel signer/ dihilangkan -->
+       
+      <tr class="buttons">
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btnsimpan" value=" Save " class="buttonSubmit"/>
+            <input type="submit" name="btnbatal" value=" Cancel " class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+<div style='display: none'>
+<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="ComboSignerGroup" / -->
+</div>
+<script>
+
+document.getElementById('COA_Place_Holder').addItem = function (formCoaCoaId, coaKodeAkun, coaNamaAkun, formCoaDK)
+{
+   var id = 'formCoaCoaId_' + formCoaCoaId;
+   if (document.getElementById(id)) return true;
+   var childObj = this.getElementsByTagName('tr');
+   nomor = childObj.length;
+   
+   var tr = document.createElement('tr');
+   tr.setAttribute("id", id);
+   if (nomor % 2 == 0) tr.setAttribute('class', 'table-common-even');
+   
+   var tdcoaKodeAkun = document.createElement('td');
+   tdcoaKodeAkun.setAttribute("style", 'padding: 2px; text-align: center');
+   tdcoaKodeAkun.innerHTML = coaKodeAkun +"<input type='hidden' name='COA[" + formCoaCoaId + "][coaKodeAkun]' value='" + coaKodeAkun + "'>";
+   
+   var tdcoaNamaAkun = document.createElement('td');
+   tdcoaNamaAkun.setAttribute("style", 'padding: 2px; text-align: left');
+   tdcoaNamaAkun.innerHTML = coaNamaAkun + "<input type='hidden' name='COA[" + formCoaCoaId + "][coaNamaAkun]' value='" + coaNamaAkun + "'>";
+   
+   var tdDebetKredit = document.createElement('td');
+   tdDebetKredit.setAttribute("style", 'padding: 2px; text-align: center');
+   tdDebetKredit.innerHTML = "<LABEL style='display: inline'>Debet <input type='radio' name='COA[" + formCoaCoaId + "][formCoaDK]' value='D'"+(formCoaDK != 'K' ? ' checked' : '')+"></LABEL> <LABEL style='display: inline'><input type='radio' name='COA[" + formCoaCoaId + "][formCoaDK]' value='K'"+(formCoaDK == 'K' ? ' checked' : '')+"> Kredit</LABEL>";
+   
+   var tdDelete = document.createElement('td');
+   tdDelete.setAttribute("class", "links");
+   tdDelete.setAttribute("align", 'center');
+   tdDelete.innerHTML = "<a onClick=\"document.getElementById('"+this.id+"').deleteItem('" + id + "');\" title='Hapus'><img src=\"images/button-delete.gif\" alt=\"Hapus\"/></a>";
+   
+   tr.appendChild(tdcoaKodeAkun);
+   tr.appendChild(tdcoaNamaAkun);
+   tr.appendChild(tdDebetKredit);
+   tr.appendChild(tdDelete);
+   this.appendChild(tr);
+   
+   childObj[0].style.display = 'none';
+   return true;
+}
+
+document.getElementById('COA_Place_Holder').deleteItem = function (id)
+{
+   this.removeChild(document.getElementById(id));
+   var Obj = this.getElementsByTagName('tr');
+   if (Obj.length == 1) Obj[0].style.display = '';
+   else for (var i = 1; i < Obj.length; i++)
+      Obj[i].setAttribute('class',(i % 2)?'':'table-common-even');
+}
+
+document.getElementById('COA_Place_Holder').deleteAllItem = function ()
+{
+   var Obj = this.getElementsByTagName('tr');
+   for (i = Obj.length - 1; i > 0; i--)
+      if (Obj[i].id) this.removeChild(Obj[i]);
+   Obj[i].style.display = '';
+}
+
+/*
+document.getElementById('Signer_Place_Holder').addItem = function (formsignUserId, RealName, formsignSignGroupId)
+{
+   var id = 'formsignId_' + formsignUserId;
+   if (document.getElementById(id)) return true;
+   var childObj = this.getElementsByTagName('tr');
+   var nomor = childObj.length;
+   
+   var tr = document.createElement('tr');
+   tr.setAttribute("id", id);
+   if (nomor % 2 == 0) tr.setAttribute('class', 'table-common-even');
+   
+   var tdNomor = document.createElement('td');
+   tdNomor.setAttribute("style", 'padding: 2px; text-align: center');
+   tdNomor.innerHTML = nomor;
+   
+   var tdRealName = document.createElement('td');
+   tdRealName.setAttribute("style", 'padding: 2px');
+   tdRealName.innerHTML = RealName + "<input type='hidden' name='Signer[" + formsignUserId + "][RealName]' value='" + RealName + "'>";
+   
+   var tdSignerGroup = document.createElement('td');
+   var ComboSignerGroup = document.createElement('select');
+   ComboSignerGroup.setAttribute('name', 'Signer[' + formsignUserId +'][formsignSignGroupId]');
+   ComboSignerGroup.innerHTML = document.getElementById('ComboSignerGroup').innerHTML;
+   ComboSignerGroup.value = formsignSignGroupId;
+   tdSignerGroup.appendChild(ComboSignerGroup);
+   
+   var tdDelete = document.createElement('td');
+   tdDelete.setAttribute("class", "links");
+   tdDelete.setAttribute("align", "center");
+   tdDelete.innerHTML = "<a onClick=\"document.getElementById('"+this.id+"').deleteItem('" + id + "');\" title='Hapus'><img src=\"images/button-delete.gif\" alt=\"Hapus\"/></a>";
+   
+   tr.appendChild(tdNomor);
+   tr.appendChild(tdRealName);
+   tr.appendChild(tdSignerGroup);
+   tr.appendChild(tdDelete);
+   this.appendChild(tr);
+   
+   childObj[0].style.display = 'none';
+   return true;
+}
+
+document.getElementById('Signer_Place_Holder').deleteItem = function (id)
+{
+   this.removeChild(document.getElementById(id));
+   var Obj = this.getElementsByTagName('tr');
+   if (Obj.length == 1) Obj[0].style.display = '';
+   else for (var i = 1; i < Obj.length; i++)
+   {
+      Obj[i].setAttribute('class',(i % 2)?'':'table-common-even');
+      Obj[i].firstChild.innerHTML = i;
+   }
+}
+
+document.getElementById('Signer_Place_Holder').deleteAllItem = function ()
+{
+   var Obj = this.getElementsByTagName('tr');
+   for (i = Obj.length - 1; i > 0; i--)
+      if (Obj[i].id) this.removeChild(Obj[i]);
+   Obj[i].style.display = '';
+}
+*/
+</script>
+<!-- /patTemplate:tmpl -->

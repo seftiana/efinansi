@@ -1,0 +1,338 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css">
+table.table-details table.table-common input[type="submit"],
+table.table-details table.table-common input[type="button"]{
+   border-style: solid;
+   border-width: 0px;
+   cursor: pointer;
+   font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+   font-weight: normal;
+   line-height: normal;
+   margin: 0 0 1.25rem;
+   position: relative;
+   text-decoration: none;
+   text-align: center;
+   -webkit-appearance: none;
+   -webkit-border-radius: 0;
+   display: inline-block;
+   padding-top: 0.625rem;
+   padding-right: 1.25rem;
+   padding-bottom: 0.6875rem;
+   padding-left: 1.25rem;
+   font-size: 0.6875rem;
+   background-color: #e7e7e7;
+   border-color: #b9b9b9;
+   color: #333333;
+   text-shadow: rgba(0, 0, 0, 0.5) 0px -1px 0px;
+   transition: background-color 300ms ease-out;
+   border-radius: 3px;
+}
+
+table.table-details table.table-common input[type="button"].btnAlert{
+   background-color: #f04124;
+   border-color: #cf2a0e;
+   color: white;
+   font-weight: bold;
+}
+table.table-details table.table-common tbody.success tr td{
+   background-color: rgba(67,173,106, 0.3);
+   border-bottom: solid 1px #368a55;
+}
+table.table-details table.table-common tbody.success tr td:not(:last-child){
+   border-right: solid 1px #368a55;
+}
+
+table.table-details table.table-common tbody.success tr td{
+   background-color: rgba(67,173,106, 0.3);
+   border-bottom: solid 1px #368a55;
+}
+table.table-details table.table-common tbody.success tr td:not(:last-child){
+   border-right: solid 1px #368a55;
+}
+
+table.table-details table.table-common tbody.onprocess tr td{
+   background-color: rgba(240,168,36, 0.3);
+   border-bottom: solid 1px #F4BF5D;
+}
+table.table-details table.table-common tbody.onprocess tr td:not(:last-child){
+   border-right: solid 1px #F4BF5D;
+}
+
+table.table-details table.table-common tbody.fail tr td{
+   background-color: rgba(240,138,36, 0.3);
+   border-bottom: solid 1px #cf6e0e;
+}
+table.table-details table.table-common tbody.fail tr td:not(:last-child){
+   border-right: solid 1px #cf6e0e;
+}
+</style>
+<script language="javascript" type="text/javascript">
+
+</script>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="view_detil_ma" / -->
+</h1>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+{ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form dest_popup-subcontent" id="frmInput" name="frmInput">
+<table class="table-details" width="100%">
+   <!-- patTemplate:tmpl name="data_kegiatan" -->
+   <input type="hidden" name="data_id" value="{ID}" />
+   <tr class="subhead">
+      <th colspan="2">
+         <!-- patTemplate:gtfwgetconfig config="language" name="manajemen_rencana_pengeluaran" / -->
+      </th>
+   </tr>
+   <tr>
+      <th style="width: 95px;">
+         <strong>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / -->
+         </strong>
+      </th>
+      <td>
+         {THANGGAR_NAMA}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <strong>
+            <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+         </strong>
+      </th>
+      <td>
+         {UNITKERJA_KODE} &mdash; {UNITKERJA_NAMA}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <strong>
+            <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+         </strong>
+      </th>
+      <td>
+         {PROGRAM_KODE} &mdash; {PROGRAM_NAMA}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <strong>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->
+         </strong>
+      </th>
+      <td>
+         {KEGIATAN_KODE} &mdash; {KEGIATAN_NAMA}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <strong>
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+         </strong>
+      </th>
+      <td>
+         {SUBKEGIATAN_KODE} &mdash; {SUBKEGIATAN_NAMA}
+      </td>
+   </tr>
+   <!-- /patTemplate:tmpl -->
+   <tr class="subhead">
+      <th colspan="2">
+         <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+      </th>
+   </tr>
+   <tr>
+      <td colspan="2" style="padding: 0px;">
+         <table class="table-common" width="100%">
+            <thead>
+               <tr>
+                  <th rowspan="2" style="width: 45px;">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+                  </th>
+                  <th rowspan="2" style="width: 95px;">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+                  </th>
+                  <th colspan="2">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="usulan" / -->
+                  </th>
+                  <th colspan="3">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="nominal_disetujui" / -->
+                  </th>
+                  <th rowspan="2">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="status" / -->
+                  </th>
+               </tr>
+               <tr>
+                  <th>
+                     <!-- patTemplate:gtfwgetconfig config="language" name="satuan_usulan" / -->
+                  </th>
+                  <th>
+                     <!-- patTemplate:gtfwgetconfig config="language" name="nominal_usulan_rp" / -->
+                  </th>
+                  <th>
+                     <!-- patTemplate:gtfwgetconfig config="language" name="satuan_setuju" / -->
+                  </th>
+                  <th>
+                     <!-- patTemplate:gtfwgetconfig config="language" name="nominal_setuju_rp" / -->
+                  </th>
+                  <th>
+                     <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+                  </th>
+               </tr>
+            </thead>
+            <!-- patTemplate:tmpl name="data_list" type="condition" conditionvar="DATA_EMPTY" -->
+               <!-- patTemplate:sub condition="YES" -->
+               <tbody id="empty_row">
+                  <tr>
+                     <td colspan="8">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                     </td>
+                  </tr>
+               </tbody>
+               <!-- /patTemplate:sub -->
+               <!-- patTemplate:sub condition="NO" -->
+                  <!-- patTemplate:tmpl name="items" -->
+                  <tbody id="komponen_{ID}" class="{CLASS_ROW}">
+                     <input type="hidden" name="data[{ID}][id]" value="{ID}" />
+                     <input type="hidden" name="data[{ID}][kegiatan_id]" value="{KEGDET_ID}" />
+                     <input type="hidden" name="data[{ID}][komponen_kode]" value="{KOMPONEN_KODE}" />
+                     <input type="hidden" name="data[{ID}][status_awal]" value="{STATUS}" />
+                     <tr>
+                        <td align="center" rowspan="2">
+                           {KOMPONEN_KODE}
+                        </td>
+                        <td rowspan="2">
+                           {KOMPONEN_NAMA}
+                        </td>
+                        <td rowspan="2">
+                           <input type="text" name="data[{ID}][satuan]" value="{SATUAN}" class="gvNum" size="5" readonly style="font-weight: bold; color: #000;" />
+                        </td>
+                        <td rowspan="2">
+                           <input type="text" name="data[{ID}][nominal_satuan]" value="{SATUAN_NOMINAL}" class="gvNum" size="15" readonly value="{SATUAN_NOMINAL}" style="font-weight: bold; color: #000;" />
+                        </td>
+                        <td>
+                           <input type="text" name="data[{ID}][satuan_approve]" value="{SATUAN_APPROVE}" class="gvNum" size="5" {READONLY} onkeyup="setChange(this);" />
+                        </td>
+                        <td>
+                           <input type="text" name="data[{ID}][nominal_satuan_approve]" value="{SATUAN_NOMINAL_APPROVE}" class="gvFloat" size="18" {READONLY} onkeyup="setChange(this);" />
+                        </td>
+                        <td>
+                           <input type="text" name="data[{ID}][nominal_approve]" value="{NOMINAL_TOTAL_APPROVE}" size="18" class="gvFloat" readonly style="font-weight: bold;" />
+                        </td>
+                        <td style="{DISPLAY_APPROVE}" align="center">
+                           <label name="data[{ID}]['status']" style="font-weight: bold;">{STATUS}</label>
+                        </td>
+                        <td style="{DISPLAY_UNAPPROVE}" align="center">
+                           <select name="data[{ID}][status]" onchange="setStatus(this);">
+                              <!-- patTemplate:tmpl name="list_status" -->
+                                 <option value="{ID}" {SELECTED}>
+                                    {NAME}
+                                 </option>
+                              <!-- /patTemplate:tmpl -->
+                           </select>
+                        </td>
+
+                     </tr>
+                     <tr>
+                        <td colspan="4">
+                           <textarea name="data[{ID}][deskripsi]" value="{DESKRIPSI}" rows="3" {READONLY} style="width: 100%; resize: none;">{DESKRIPSI}</textarea>
+                        </td>
+                     </tr>
+                  </tbody>
+                  <!-- /patTemplate:tmpl -->
+               <!-- /patTemplate:sub -->
+            <!-- /patTemplate:tmpl -->
+            <tfoot>
+               <tr>
+                  <td colspan="8" style="text-align: right;">
+                     <!-- patTemplate:tmpl name="btn_action" visibility="hidden" -->
+                        <input type="submit" class="buttonSubmit" value="Proses" />
+                     <!-- /patTemplate:tmpl -->
+                     <input type="button" id="btnClose" name="btnClose" value="Tutup" class="btnAlert" onclick="closePopup()" />
+                  </td>
+               </tr>
+            </tfoot>
+         </table>
+      </td>
+   </tr>
+</table>
+</form>
+<div id="terbilang"></div>
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <div style="margin:10px 0px 0px 10px;">
+      <div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFDEF; border:#D1C698 1px solid; float: left;">    </div>
+      = <!-- patTemplate:gtfwgetconfig config="language" name="disetujui" / -->
+   </div>
+   <div style="margin:10px 0px 0px 10px;">
+      <div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFFFF; border:#D1C698 1px solid; float: left;">    </div> = <!-- patTemplate:gtfwgetconfig config="language" name="ditolak" / -->
+   </div>
+</div>
+<script type="text/javascript">
+var patern     = /(\w+)\[(\d+)\]\[(\w+)\]/;
+var setChange  = function (elemen){
+   var name    = elemen.name;
+   var matches = name.match(patern);
+   var elIndex          = matches[2];
+   var elName           = matches[3];
+   var satuan           = document.getElementsByName('data['+elIndex+'][satuan]')[0];
+   var nominal_satuan   = document.getElementsByName('data['+elIndex+'][nominal_satuan]')[0];
+   var satuan_approve   = document.getElementsByName('data['+elIndex+'][satuan_approve]')[0];
+   var nominal_satuan_approve    = document.getElementsByName('data['+elIndex+'][nominal_satuan_approve]')[0];
+   var nominal_approve  = document.getElementsByName('data['+elIndex+'][nominal_approve]')[0];
+   var status           = document.getElementsByName('data['+elIndex+'][status]')[0];
+
+   var satuanValue      = satuan_approve.gvGetValue();
+   var nominalSatuanVal = nominal_satuan.gvGetValue();
+   var satuanApproveVal = satuan_approve.gvGetValue();
+   var nominalSatuanApproveVal   = nominal_satuan_approve.gvGetValue();
+   var nominalApproveVal         = nominal_approve.gvGetValue();
+
+   if(elName == 'nominal_satuan_approve'){
+      if(nominalSatuanApproveVal > nominalSatuanVal){
+         alert('Nominal Satuan melebihi nominal satuan usulan '+nominal_satuan.value);
+         nominal_satuan_approve.gvSetValue(nominalSatuanVal);
+      }
+   }
+
+   var nominalTotal  = parseFloat(satuanApproveVal)*parseFloat(nominalSatuanApproveVal);
+   nominal_approve.gvSetValue(nominalTotal);
+}
+
+var setStatus  = function(elemen){
+   var name    = elemen.name;
+   var matches = name.match(patern);
+   var elIndex          = matches[2];
+   var elName           = matches[3];
+   var row     = document.getElementById('komponen_'+elIndex);
+   var status  = elemen.options[elemen.selectedIndex].value;
+   if(row != null){
+      row.classList.remove('success', 'onprocess', 'fail');
+      if(status.toUpperCase() == 'YA'){
+         row.classList.add('success');
+      }else if (status.toUpperCase() == 'BELUM'){
+         row.classList.add('onprocess');
+      }else if(status.toUpperCase() == 'TIDAK'){
+         row.classList.add('fail');
+      }
+   }
+   // console.log(row);
+}
+
+function closePopup(){
+   var xurl    = '{URL_RETURN}';
+   console.log(xurl);
+   GtfwAjax.replaceContentWithUrl("subcontent-element","{URL_RETURN}&ascomponent=1");
+   popupClose();
+}
+
+document.getElementById('popup-close').onclick = function(e){
+   closePopup();
+}
+</script>
+<!-- /patTemplate:tmpl -->

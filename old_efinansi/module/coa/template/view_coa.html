@@ -1,0 +1,75 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="coa" / --> </h1>
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+
+<div class="pageBar">
+   <div class="toolbar">
+     <a href="{URL_EXCEL}" title="Export Excel" ><img src="images/button-tindaklanjuti.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="excel" / --> </a>
+      <a class="xhr dest_subcontent-element" href="{URL_RESET}" title="Reset Coa Kode Sistem" tabindex="2" style="display:{URL_RESET_DISPLAY}"> Reset COA Kode Sistem</a>
+      <a class="xhr dest_subcontent-element " href="{URL_ADD}" title="Tambah Chart Of Account" tabindex="2">
+      <img src="images/button-add.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / --> </a>
+      <a class="xhr dest_subcontent-element" href="{URL_CARI}" title="Cari Chart Of Account" tabindex="2"><!-- patTemplate:gtfwgetconfig config="language" name="cari" / --> </a>
+   </div>
+</div>
+
+<!-- patTemplate:tmpl name="coa_detail" visibility="hidden" -->
+<table class="table-details">
+	<tr>
+		<th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / --> </th>
+		<td><b>{KODE_AKUN}</b></td>
+	</tr>
+	<tr>
+		<th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / --> </th>
+		<td><b>{NAMA_AKUN}<b></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td class="buttons">
+				<a class="xhr dest_subcontent-element" style="float: left" title="ubah Cahrt Of Account {NAMA_AKUN}"  href="{URL_UBAH}" tabindex="3">Ubah</a>
+		</td>
+
+	</tr>
+</table>
+<br />
+<!-- /patTemplate:tmpl -->
+
+<h2><!-- patTemplate:gtfwgetconfig config="language" name="bagan_perkiraan_akutansi" / --> </h2>
+
+   <!-- patTemplate:tmpl name="coa" type="condition" conditionvar="COA" -->
+      <!-- patTemplate:sub condition="YES" -->
+
+      <!-- /patTemplate:sub -->
+      <!-- patTemplate:sub condition="NO" -->
+         <!-- patTemplate:tmpl name="coa_tree" -->
+			<div id='div_coa' name='div_coa' style="width:800px"></div>
+         {COA_TREE_STR}
+         <!-- /patTemplate:tmpl -->
+      <!-- /patTemplate:sub -->
+   <!-- /patTemplate:tmpl -->
+
+<script>
+var nodeList = document.getElementsBySelector('.dTreeNode a');
+for (var i = 0; i < nodeList.length; i++)
+{
+   if (nodeList[i].className)
+   {
+      nodeList[i].onclick1 = nodeList[i].onclick;
+      xhr_content['.xhr'](nodeList[i]);
+      nodeList[i].onclick2 = nodeList[i].onclick;
+      nodeList[i].onclick = function (e)
+      {
+         if (this.className.indexOf('nodeSel') >= 0) return false;
+         this.onclick1();
+         $(this).addClass('dest_subcontent-element');
+         return this.onclick2();
+      }
+   }
+   else continue;
+}
+</script>
+<!-- /patTemplate:tmpl -->

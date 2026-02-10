@@ -1,0 +1,153 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+
+
+function cekKompId(maks,komp_id)
+{ 
+    var komp_arrary = new Array();
+    for(j = 0; j < maks; j++){
+		if(document.getElementById('unit_kerja_'+j)){
+			komp_arrary[j] = document.getElementById('unit_kerja_'+j).value;
+		} 
+    
+   }
+   
+   var cek = komp_arrary.indexOf(komp_id);
+   if( cek != -1){
+        return true;
+   } else {
+        return false;
+   }
+}
+function setParent(obj,kode,nama,unit_id,parent_id) 
+{ 
+   var nomor =  document.getElementById("nomor");
+   var maks =  document.getElementById('maks');
+   var maks_nomor = document.getElementById("maks_nomor");
+   var tr = document.createElement('tr');
+   var td_no = document.createElement('td');
+   var td_kode = document.createElement('td');
+   var td_nama= document.createElement('td');
+   var td_nilai = document.createElement('td');
+   var td_aksi = document.createElement('td');
+   var tbodi = document.getElementById("table-unit");
+   var tr_kosong = document.getElementById("table-kosong");
+  
+   i = parseInt(maks.value);
+   nm = parseInt(maks_nomor.value);
+   id = i +1;
+   
+   
+    if(cekKompId(id,unit_id) == true){
+        alert('Unit sudah ada');
+        
+    } else {
+   maks.value = id;
+   maks_nomor.value = nm + 1;
+   no = nm + 1;
+   td_no.innerHTML = '<input type="hidden" name="nomor" id="h_no_urut_'+id+'" value="'+no+'" />'+
+					 '<label id="no_urut_'+id+'">'+no+'</label>';   
+   td_no.style.textAlign='center';
+   td_kode.innerHTML ='<input type="hidden" id="unit_kerja_'+id+'" value="'+unit_id+'" />'+
+                    '<input type="hidden" name="unit['+id+'][unit_parent_id]" value="'+parent_id+'" />'+
+                    '<input type="hidden" name="unit['+id+'][unit_kerja_id]" value="'+unit_id+'" />'+
+                    '<input type="hidden" name="unit['+id+'][unit_kerja_kode]" value="'+kode+'"/>'+kode;
+   td_nama.innerHTML = '<input type="hidden" name="unit['+id+'][unit_kerja_nama]" value="'+nama+'"/>'+nama;
+   td_nilai.innerHTML ='<input type="text" name="unit['+id+'][nilai]" size="5" class="gvFloat4" id="unit_nilai_alokasi_'+id+'" onkeyup="hitungTotalAlokasiPenerima()" />';
+   td_nilai.style.textAlign='right';
+   
+   
+   td_aksi.innerHTML =  '<a href="javascript:void(null)" title="Hapus" onclick="hapusUnitKerja(this)">'+
+                      '<img src="images/button-delete.gif" alt="Hapus" /></a>';
+   td_aksi.style.textAlign='right';
+   	
+   tr.appendChild(td_no);
+   tr.appendChild(td_kode);
+   tr.appendChild(td_nama);
+   tr.appendChild(td_nilai);
+   tr.appendChild(td_aksi);
+   
+   if(tr_kosong){
+	   tbodi.replaceChild(tr,tr_kosong);
+   } else{
+	tbodi.appendChild(tr);
+   }	
+   obj.style.display='none';
+   Behaviour.apply();  
+   
+   }
+}	
+
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="list_sub_unit_kerja" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+         <tr>
+            <th width="30%"><!-- patTemplate:gtfwgetconfig config="language" name="kode_unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></label></th>
+            <td><input type="text" name="unitkerja_kode" value="{UNITKERJA_KODE}" size="20" />
+         </tr>
+      <tr>              
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></label></th>
+         <td><input type="text" name="unitkerja" value="{UNITKERJA}" size="30" /></td>
+      </tr>
+         <tr style = "display:none">
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="tipe_unit" / --></label></th>
+            <td>
+         <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tipeunit"  / -->
+            </td>
+         </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   </div>
+   <br />
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="tipe" / --></th>
+         <th width="31"><!-- patTemplate:gtfwgetconfig config="language" name="pilih" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_unitkerja" type="condition" conditionvar="UNITKERJA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="6" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_unitkerja_item" -->
+            <tr class="{UNITKERJA_CLASS_NAME}">
+               <td align="center">{UNITKERJA_NUMBER}</td>
+               <td>{UNITKERJA_KODEUNIT}</td>
+               <td>{UNITKERJA_UNIT}</td>
+               <td>{UNITKERJA_TIPEUNIT}</td>
+			   <td class="links" align="center">
+					<a href="javascript:void(0)" onclick="javascript:setParent(this,'{UNITKERJA_KODEUNIT}','{UNITKERJA_LINK}','{UNITKERJA_ID}','{UNITKERJA_PARENT_ID}')"><img alt="Pilih" src="images/button-check.gif"/></a>
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   <br /> 
+<div>
+<!-- /patTemplate:tmpl -->

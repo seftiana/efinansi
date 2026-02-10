@@ -1,0 +1,75 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+   function popup(url,label){
+      showPopup(url,label,550, 550);
+   }
+// ]]>
+</script>
+
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="indikator_kinerja_kegiatan" / --></h1>
+<br/>
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="notebox-alert">
+    {ISI_PESAN}
+</div>
+<br/>
+
+<!-- /patTemplate:tmpl -->
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form" 
+id="frmInput" name="frmInput" >
+<input type="hidden" name="dataId" value="{ID}"  />
+<table class="table-edit" width="100%">
+<tr class="subhead">
+	<th colspan="2">
+	{JUDUL} <!-- patTemplate:gtfwgetconfig config="language" name="indikator_kinerja_kegiatan" / -->
+	</th>
+</tr>
+<tr>
+	<th width="150">
+	<!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+	</th>
+	<td>
+	<input type="text" name="kode" value="{KODE}" size="20" />&nbsp;*
+	</td>
+</tr>
+<tr>
+	<th width="150">
+	<!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+	</th>
+	<td>
+	<input type="text" name="nama" value="{NAMA}" size="50" />&nbsp;*
+	</td>
+</tr>
+<tr>
+	<th width="150">
+	<!-- patTemplate:gtfwgetconfig config="language" name="kode_kegiatan" / -->
+	</th>
+	<td>
+	<input type="text" name="kode_kegiatan" size="15" value="{KODE_KEGIATAN}" id="txt_kode_keg">
+	<input type="hidden" name="id_kegiatan" value="{ID_KEGIATAN}" id="txt_id_keg" />
+	<input type="button" id="popup_kegiatan" name="popup_kegiatan" 
+	value=" ... " title="Popup Kegiatan" class="inputButton" 
+	onclick="popup('{URL_POPUP_KEGIATAN}','Popup Kegiatan')" />
+	</td>
+</tr>
+<tr class="buttons">
+	<th>&nbsp;</th>
+	<td>
+	<input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+	<input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+	</td>
+</tr>
+</table>
+<div id="calc" style="margin:20px; margin-bottom:50px; position:absolute; z-index:999999">
+&nbsp;
+</div>
+</form>
+   
+   <div class="petunjuk-area" id="petunjuk">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+      <ul>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --></li>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

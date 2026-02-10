@@ -1,0 +1,162 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   Surat Perintah Pencairan Dana intern
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterbox" name="filterbox" 
+class="dataquest xhr_simple_form dest_subcontent-element">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th>
+            Periode
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="periode_awal"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            s/d
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="periode_akhir"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Nomor Bukti
+         </th>
+         <td>
+            <input type="text" name="no_referensi" id="no_referensi" size="35" value="{SEARCH_NO_REFERENSI}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<br />
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   <div class="toolbar"> 
+      <a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Data" style="display: none;">
+         <img src="images/button-add.gif" alt="cetak">
+         Tambah Data
+      </a>
+   </div>
+</div>
+<!-- start: Table List -->
+<table class="table-common" width="800px">
+   <tr>
+      <th style="width: 25px;">
+         No
+      </th>
+      <th style="width: 125px;">
+         Tanggal
+      </th>
+      <th style="width: 135px;">
+         Nomor Bukti
+      </th>
+      <th>
+         Penanggung Jawab
+      </th>
+      <th style="width: 115px;">
+         Total (Rp.)
+      </th>
+      <th style="width: 35px;">
+         Aksi
+      </th>
+   </tr>
+   <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+      <!-- patTemplate:sub condition="YES" -->
+         <tr>
+            <td colspan="6">
+               <center>
+                  <em>
+                     <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                  </em>
+               </center>
+            </td>
+         </tr>
+      <!-- /patTemplate:sub -->
+      <!-- patTemplate:sub condition="NO" -->
+         <!-- patTemplate:tmpl name="data_list" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">
+                  {DATA_NOMOR}
+               </td>
+               <td>
+                  <!-- patTemplate:var name="DATA_TRANSTANGGAL" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+               </td>
+               <td align="center">
+                  {DATA_TRANSREFERENSI}
+               </td>
+               <td>
+                  {DATA_TRANSPENANGGUNGJAWABNAMA}
+               </td>
+               <td align="right">
+                  {DATA_TRANSNILAI}
+               </td>
+               <td class="links">
+                  <a class="xhr dest_subcontent-element" href="{DATA_URL_CETAK}" title="Ubah">
+                     <img src="images/button-print.gif" alt="Ubah" />
+                  </a>
+               </td>
+            </tr>
+         <!-- /patTemplate:tmpl -->
+         <tr class="table-common-even1" style="font-weight: bold;">
+            <td colspan="4" align="center">
+               Total
+            </td>
+            <td align="right">
+               {TOTAL_NILAI}
+            </td>
+            <td>
+               &nbsp;
+            </td>
+         </tr>
+      <!-- /patTemplate:sub -->
+   <!-- /patTemplate:tmpl -->
+</table>
+<!-- end: Table List -->
+<br />
+<div class="petunjuk-area" id="petunjuk">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         Klik  <img src="images/button-print.gif" alt="cetak">  untuk cetak
+      </li>
+   </ul>
+</div>
+<!-- /patTemplate:tmpl -->

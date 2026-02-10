@@ -1,0 +1,270 @@
+<!-- patTemplate:tmpl name="content" -->
+<style>
+
+
+    .mytable tr td {
+        padding: 5px;
+        margin: 0;
+        color: #000;
+    }
+
+    .mytable .group_label {
+        padding: 0px;
+        margin: 0;
+    }
+    .mytable .group_label input {
+        float: left;
+        padding:0;
+        margin: 0;
+    }
+    .mytable .group_label label {
+        padding: 0 0 0 20px;
+    }
+
+    .tbl-buttons {
+        padding: 8px !important;
+    }
+    .table-edit td {
+        border-top: 0;
+        padding: 4px 5px 4px 5px;
+    }
+
+    .mytable th {
+        color: #603913;
+        font-weight: bold;
+        text-align: center;
+        vertical-align: middle;
+        padding: 6px 10px 6px 15px;
+        border-top: 1px solid #CEEEBE;
+    }
+
+    .dataquest table th {
+        color: #000;
+        text-align: left;
+        font-weight: normal;
+        vertical-align: top;
+        padding: 10px 0px 6px 0px;
+        border:0;
+    }
+    .zerro-padding {
+        padding: 0 !important;
+        margin: 0;
+    }
+    .table-edit {
+        border: 0;
+    }
+
+    a.tab-menu {
+        background-color: #ceeebe;
+        border-radius: 7px 7px 0 0;
+        width: 100px;
+        text-align: center;
+        float: left;
+        padding: 7px;
+        margin: 0 0 0 5px;
+        text-decoration: none;
+        display: block;
+        color: #005e20;
+        font-weight: bold;
+    }
+
+    a.tab-menu:hover {
+        background-color: #e0f0da;
+    }
+
+    a.inactive{
+        background-color: #edf5ea;
+        color: #c3c3c3;
+    }
+
+    .table-tab td {
+        margin: 0 0 0 20px;
+        padding: 0;
+        height: 30px;
+    }
+
+    .table-edit .subhead th {
+        padding: 7px 0 7px 9px;
+    }
+
+    .border-green {
+        border-left: 1px solid #ceeebe;
+        border-right: 1px solid #ceeebe;
+    }
+    .border-green-bottom {
+        border-bottom: 1px solid #ceeebe;
+    }
+    
+    .status_label {
+        padding: 3px;
+        font-size: 10px;
+        font-weight: bold;
+        text-align: center;
+        min-width: 40px;
+        display: inline-block;
+
+    }
+    .green{
+        border: 1px solid #9ce183;
+        background-color: #9ce183;
+        color: #1b4a0a;
+    }
+    .pink{
+        border: 1px solid #f680b6;
+        background-color: #f680b6;
+        color: #a4024c;
+    }
+    .grey{
+        border: 1px solid #dbe4d7;
+        background-color: #dbe4d7;
+        color: #6f6e6a;
+    }
+    
+    .dataquest {
+        width: auto;
+        margin: 0px 0px 5px 3px;
+    }
+    .padding-notebox {
+        margin: 7px;
+        padding: 15px 15px 15px 50px;
+    }
+</style>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_jenis_biaya" / --></h1>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+    {ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+<table class="table-edit" width="100%">
+    <tr class="table-tab">
+        <td >
+            <a class="xhr dest_subcontent-element tab-menu {CLASS_URL_ACTIVE_R}" href="{URL_REGULER}">Reguler</a>
+            <a class="xhr dest_subcontent-element tab-menu {CLASS_URL_ACTIVE_P}" href="{URL_PASCA}">Pasca</a>
+        </td>
+    </tr>
+    <tr class="subhead">
+        <th class="border-green">Daftar Jenis Biaya untuk Program {JENISBIAYA_PRODI_KET}</th>
+    </tr>
+    <tr>
+        <td class="border-green">
+
+            <form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+                <table>
+                    <tr>
+                        <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+                    </tr>
+                    <tr>
+                        <th width="180"><!-- patTemplate:gtfwgetconfig config="language" name="nama_kelompok_jenis_biaya" / --></th>
+                        <td><!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="jeniskeljns_nama"  / -->
+                    </tr>
+                    <tr>              
+                        <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_jenis_biaya" / --></th>
+                        <td><input type="text" name="jenisbiaya" value="{JENISBIAYA}" size="30" /></td>
+                    </tr>
+                    <tr>
+                        <th width="180">Tipe Pencatatan</th>
+                        <td><!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="jeniskeljns_tipe_catat"  / -->
+                    </tr>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <td>
+                            <input type="submit" name="btncari" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan" / --> &raquo;" class="buttonSubmit"/>
+                            <input type="submit" name="btnreset" value=" <!-- patTemplate:gtfwgetconfig config="language" name="reset" / --> &raquo;" class="buttonSubmit"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+
+        </td>
+    </tr>
+
+
+    <tr>
+        <td class="zerro-padding  border-green border-green-bottom">
+            <!-- patTemplate:tmpl name="information_box" visibility="hidden" -->
+            <div class="notebox-alert padding-notebox">
+                Masih ada <strong>{JB_TOTAL_BS}</strong> Jenis Biaya yang belum disetting tipe pencatatannya.
+            </div>
+            <!-- /patTemplate:tmpl -->
+            <div class="pageBar">
+                <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+            </div>
+            <form method="POST" action="{URL_SET_JB}" class="xhr_form std_form" id="form_list">
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <table class="table-common mytable" width="100%">
+                                <tr>
+                                    <th width="30" rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>		 
+                                    <th  width="140" colspan="2">Pilih Tipe Pencatatan</th>         
+                                    <th width="80" rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="kode_jenis_biaya" / --></th>
+                                    <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="nama_jenis_biaya" / --></th>
+                                    <th width="100" rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="nama_kelompok_jenis_biaya" / --></th>
+                                    <th width="30" rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="status" / --></th>
+
+
+                                </tr>
+                                <tr>
+                                    <th width="70">Acrual</th>
+                                    <th width="70">Cash</th>
+                                </tr>
+                                <!-- patTemplate:tmpl name="data_jenisbiaya" type="condition" conditionvar="JENISBIAYA_EMPTY" -->
+                                <!-- patTemplate:sub condition="YES" -->
+                                <tr><td colspan="7" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+                                <!-- /patTemplate:sub -->
+                                <!-- patTemplate:sub condition="NO" -->
+                                <!-- patTemplate:tmpl name="data_jenisbiaya_item" -->
+                                <tr class="{JENISBIAYA_CLASS_NAME}">
+                                    <td align="center">
+                                        {JENISBIAYA_NUMBER}
+                                        <input name="jb[{JENISBIAYA_NUMBER}][id]" value="{JENISBIAYA_JENISBIAYA_ID}" type="hidden" />
+                                    </td>
+                                    <td>
+                                        <div class="group_label">
+                                            <input type="radio" name="jb[{JENISBIAYA_NUMBER}][tipe_catat]" value="1" id="acrual_{JENISBIAYA_NUMBER}" {JENISBIAYA_ACRUAL_DIPILIH} /><label>Acrual</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="group_label">
+                                            <input type="radio" name="jb[{JENISBIAYA_NUMBER}][tipe_catat]" value="0" id="cash_{JENISBIAYA_NUMBER}" {JENISBIAYA_CASH_DIPILIH} /><label>Cash</label>
+                                        </div>                   
+                                    </td>
+                                    <td>{JENISBIAYA_JENISBIAYA_KODE}</td>
+                                    <td>{JENISBIAYA_JENISBIAYA_NAMA}</td>
+                                    <td>{JENISBIAYA_JENISKELJNS_NAMA}</td>
+                                    <td class="links" align="center">                                        
+                                        <label class="status_label {JENISBIAYA_STATUS_COLOR}">{JENISBIAYA_STATUS_LABEL}</label>
+                                    </td>               
+                                </tr>
+                                <!-- /patTemplate:tmpl -->
+                                <!-- /patTemplate:sub -->
+                                <!-- /patTemplate:tmpl -->
+
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="buttons">
+                        <th>
+                            <input type="submit" name="btnsimpan" value=" <!-- patTemplate:gtfwgetconfig config="language" name="simpan" / --> " class="buttonSubmit"/>
+                            <input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+                        </th>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+
+</table>
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+      <ul>
+          <li>Klik Tombol <b>Simpan</b> untuk menyimpan perubahan status tipe pencatatan <i>(Proses penyimpanan dilakukan per-halaman yang tertampil)</i></li>
+          <li>Klik Tombol <b>Batal</b> untuk membatalkkan proses perubahan status tipe pencatatan</li>
+         <li>Label <label class="status_label pink">accrual</label> Menandakan jenis biaya bertipe accrual base</li>
+         <li>Label <label class="status_label green">cash</label> Menandakan jenis biaya bertipe cash base</li>
+         <li>Label <label class="status_label grey">none</label> Menandakan jenis biaya belum disetting tipe pencatatanya</li>
+      </ul>
+   </div>
+
+<!-- /patTemplate:tmpl -->

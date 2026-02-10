@@ -1,0 +1,219 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+   var xpopup;
+   function bukaPopupCetak(xurl) {
+      xpopup = window.open(xurl,'xpopup','width=900,height=600,resizable=yes,scrollbars=yes,right=0;center');
+      xpopup.focus();
+   }
+   function bukaPopupUnitKerja(xurl) {
+		showPopup(xurl,'',550, 550);
+	}
+	function resetFormIni() {
+	    GtfwAjax.replaceContentWithUrl("subcontent-element","{URL_RESET}&ascomponent=1");
+	   /*
+		if(document.getElementById('program')) document.getElementById('program').value='';
+		if(document.getElementById('program_label')) document.getElementById('program_label').innerHTML='';
+		*/
+	}
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="lap_rencana_penerimaan_alokasi_pusat" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+
+         <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / --></th>
+            <td>
+				<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tahun_anggaran"  / -->
+			</td>
+         </tr>
+          <tr>
+			 <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+			 <td>
+			 	<input type="hidden" name="unitkerja" id="unitkerja" value="{UNITKERJA}" />
+			 	<!-- patTemplate:tmpl name="cek_unitkerja_parent"
+				 	type="condition" conditionvar="IS_PARENT" -->
+   					<!-- patTemplate:sub condition="YES" -->
+				 <textarea name="unitkerja_label" id="unitkerja_label" readonly="readonly"
+				 cols="40" rows="1">{UNITKERJA_LABEL}</textarea>
+				 <input type="button"  name="but_program"
+				 onclick="javascript:bukaPopupUnitKerja('{URL_POPUP_UNITKERJA}')" value=" ... " />
+				 	<!-- /patTemplate:sub -->
+
+				 	<!-- patTemplate:sub condition="NO" -->
+				 	<label><b>{UNITKERJA_LABEL}</b></label>
+				 	<input type="hidden" name="unitkerja_label"
+				 		id="unitkerja_label" value="{UNITKERJA_LABEL}" />
+				 	<!-- /patTemplate:sub -->
+				 <!-- /patTemplate:tmpl -->
+			 </td>
+
+		  </tr>
+	 <tr>
+		<th><!-- patTemplate:gtfwgetconfig config="language" name="jenis_penerimaan" / --></th>
+		<td>
+		<input type="hidden" name="kode_penerimaan_id" id="kode_penerimaan_id" value="{KODE_PENERIMAAN_ID}" />
+		 <textarea name="kode_penerimaan_nama" id="kode_penerimaan_nama"
+					readonly="readonly"
+					cols="40" rows="1">{KODE_PENERIMAAN_NAMA}</textarea>
+		<input type="button"  name="but_penerimaan"
+				   onclick="bukaPopupUnitKerja('{URL_POPUP_KODE_PENERIMAAN}')" value=" ... " />
+		</td>
+	 </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+            <input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" onclick="resetFormIni();" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+   <form method="POST" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar">
+<!--   		<a href="{URL_RTF}" title="Export Rtf" ><img src="images/button-simpan.gif" alt=""><!-- patTemplate:gtfwgetconfig config="language" name="rtf" / --></a>-->
+		<a href="{URL_EXCEL}" title="Export Excel" target="_blank"><img src="images/icons/export_excel.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="excel" / --></a>
+   		<a href="javascript:void(0)" onclick="bukaPopupCetak('{URL_CETAK}')" title="Cetak" ><img src="images/button-print.gif" alt="Cetak"> <!-- patTemplate:gtfwgetconfig config="language" name="cetak" / --></a>
+		<!-- <input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="inputButton" /> -->
+      </div>
+   </div>
+   <table class="table-common" width="100%">
+		<tr>
+         <th rowspan="2" width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+          <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="kode_penerimaan" / --></th>
+          <th rowspan="2" ><!-- patTemplate:gtfwgetconfig config="language" name="jenis_penerimaan" / --></th>
+          <th rowspan="2" ><!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / --></th>
+          <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="total_penerimaan" / --></th>
+          <th colspan="24"><!-- patTemplate:gtfwgetconfig config="language" name="distribusi_penerimaan" / --></th>
+
+		</tr>
+      <tr>
+      		<th>%</th>
+         	<th ><!-- patTemplate:gtfwgetconfig config="language" name="januari" / --></th>
+         	<th>%</th>
+			<th ><!-- patTemplate:gtfwgetconfig config="language" name="februari" / --></th>
+			<th>%</th>
+			<th ><!-- patTemplate:gtfwgetconfig config="language" name="maret" / --></th>
+			<th>%</th>
+			<th ><!-- patTemplate:gtfwgetconfig config="language" name="april" / --></th>
+			<th>%</th>
+			<th ><!-- patTemplate:gtfwgetconfig config="language" name="mei" / --></th>
+			<th>%</th>
+			<th ><!-- patTemplate:gtfwgetconfig config="language" name="juni" / --></th>
+			<th>%</th>
+			<th ><!-- patTemplate:gtfwgetconfig config="language" name="juli" / --></th>
+			<th>%</th>
+			<th ><!-- patTemplate:gtfwgetconfig config="language" name="agustus" / --></th>
+			<th>%</th>
+			<th ><!-- patTemplate:gtfwgetconfig config="language" name="september" / --></th>
+			<th>%</th>
+			<th ><!-- patTemplate:gtfwgetconfig config="language" name="oktober" / --></th>
+			<th>%</th>
+			<th ><!-- patTemplate:gtfwgetconfig config="language" name="november" / --></th>
+			<th>%</th>
+			<th ><!-- patTemplate:gtfwgetconfig config="language" name="desember" / --></th>
+		</tr>
+
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="28" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}" >
+               <td align="center">{DATA_NOMOR}</td>
+					<td>{DATA_KODE}</td>
+					<td>{DATA_NAMA}</td>
+					<td>{DATA_NAMA_UNIT}</td>
+    				<td style="text-align:right;">{DATA_TOTAL_TERIMA}</td>
+					<td style="text-align:right;">{DATA_PJANUARI}</td>
+					<td style="text-align:right;" >{DATA_JANUARI}</td>
+					<td style="text-align:right;">{DATA_PFEBRUARI}</td>
+					<td style="text-align:right;">{DATA_FEBRUARI}</td>
+					<td style="text-align:right;">{DATA_PMARET}</td>
+					<td style="text-align:right;">{DATA_MARET}</td>
+					<td style="text-align:right;">{DATA_PAPRIL}</td>
+					<td style="text-align:right;">{DATA_APRIL}</td>
+					<td style="text-align:right;">{DATA_PMEI}</td>
+					<td style="text-align:right;">{DATA_MEI}</td>
+               		<td style="text-align:right;">{DATA_PJUNI}</td>
+		   			<td style="text-align:right;">{DATA_JUNI}</td>
+		   			<td style="text-align:right;">{DATA_PJULI}</td>
+					<td style="text-align:right;">{DATA_JULI}</td>
+					<td style="text-align:right;">{DATA_PAGUSTUS}</td>
+					<td style="text-align:right;">{DATA_AGUSTUS}</td>
+					<td style="text-align:right;">{DATA_PSEPTEMBER}</td>
+					<td style="text-align:right;">{DATA_SEPTEMBER}</td>
+					<td style="text-align:right;">{DATA_POKTOBER}</td>
+					<td style="text-align:right;">{DATA_OKTOBER}</td>
+					<td style="text-align:right;">{DATA_PNOVEMBER}</td>
+					<td style="text-align:right;">{DATA_NOVEMBER}</td>
+					<td style="text-align:right;">{DATA_PDESEMBER}</td>
+					<td style="text-align:right;">{DATA_DESEMBER}</td>
+
+            </tr>
+
+            <!-- /patTemplate:tmpl -->
+            <!-- patTemplate:tmpl name="data_total" -->
+          	 <tr class="table-common-even" style="text-align:right; font-weight:bold;">
+
+               <td colspan="4"><!-- patTemplate:gtfwgetconfig config="language" name="total" / --></td>
+    				<td style="text-align:right;">{T_TOTAL_TERIMA}</td>
+					<td style="text-align:right;">&nbsp;</td>
+					<td style="text-align:right;" >{T_JANUARI}</td>
+					<td style="text-align:right;">&nbsp;</td>
+					<td style="text-align:right;">{T_FEBRUARI}</td>
+					<td style="text-align:right;">&nbsp;</td>
+					<td style="text-align:right;">{T_MARET}</td>
+					<td style="text-align:right;">&nbsp;</td>
+					<td style="text-align:right;">{T_APRIL}</td>
+					<td style="text-align:right;">&nbsp;</td>
+					<td style="text-align:right;">{T_MEI}</td>
+               		<td style="text-align:right;">&nbsp;</td>
+		   			<td style="text-align:right;">{T_JUNI}</td>
+		   			<td style="text-align:right;">&nbsp;</td>
+					<td style="text-align:right;">{T_JULI}</td>
+					<td style="text-align:right;">&nbsp;</td>
+					<td style="text-align:right;">{T_AGUSTUS}</td>
+					<td style="text-align:right;">&nbsp;</td>
+					<td style="text-align:right;">{T_SEPTEMBER}</td>
+					<td style="text-align:right;">&nbsp;</td>
+					<td style="text-align:right;">{T_OKTOBER}</td>
+					<td style="text-align:right;">&nbsp;</td>
+					<td style="text-align:right;">{T_NOVEMBER}</td>
+					<td style="text-align:right;">&nbsp;</td>
+					<td style="text-align:right;">{T_DESEMBER}</td>
+
+            	</tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   </form>
+   <br />
+
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+	<br />
+   <ul>
+         <li>Klik <img src="images/icons/export_excel.gif"> untuk eksport data ke dalam format .xls</li>
+         <li>Klik <img src="images/button-print.gif"> untuk mencetak ke printer</li>
+
+	</ul>
+   </div>
+   </div>
+<!-- /patTemplate:tmpl -->

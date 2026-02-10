@@ -1,0 +1,251 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    function detail(id){
+        showPopup('{URL_DETAIL}&id='+id,'gtPopup',550,550);
+    }
+// ]]>
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="approval_revisi_intern" / --></h1>
+<br />
+
+   <form method="post" action="{URL_SEARCH}" 
+   class="dataquest xhr_simple_form dest_subcontent-element" 
+   id="filterbox" name="frmfilter">
+      <table>
+         <tr>
+            <th colspan="2">
+                <h2>
+                    <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+                </h2>
+            </th>
+         </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tahun_anggaran"  / -->
+         </td>
+      </tr>           
+         <tr>
+            <th width="135">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode_nama_kegiatan" / -->
+            </th>
+            <td>
+                <input type="text" name="kode" 
+                value="{KODE_SEARCH}" size="35" maxlength="35" 
+                tabindex="0" />
+            </td>
+         </tr>
+         <tr>
+            <th>&nbsp;</th>
+            <td>
+                <label> <input type="radio" name="type" value="asal" id="asal" {CHECK_ASAL} /> <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan_asal" / --></label>
+                <label> <input type="radio" name="type" value="tujuan" id="tujuan" {CHECK_TUJUAN} /> <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan_tujuan" / --></label>
+            </td>
+         </tr>      
+      <tr>
+         <th>
+           <!-- patTemplate:gtfwgetconfig config="language" name="bulan" / -->
+           <!-- patTemplate:gtfwgetconfig config="language" name="anggaran_asal" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="bulan_asal"  / -->
+         </td>
+      </tr>          
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="bulan" / -->
+           <!-- patTemplate:gtfwgetconfig config="language" name="anggaran_tujuan" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="bulan_tujuan"  / -->
+         </td>
+      </tr>          
+      <tr>
+            <th>&nbsp;</th>
+            <td colspan="2">                
+                <input type="submit" name="btnCari" value=" Tampilkan &raquo;" class="buttonSubmit" />
+                <input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" />
+            </td>
+         </tr>
+      </table>
+   </form>
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+    <div class="{CLASS_PESAN}" id="notebox-alert" style="margin:15px 0px 15px 0px;">
+    {ISI_PESAN}
+    </div>
+   <!-- /patTemplate:tmpl -->
+   <br />
+   
+   <div class="pageBar">
+      <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" 
+      action="view" name="paging_top"  / -->
+      <div class="toolbar">
+        &nbsp;
+      </div>
+   </div>
+   
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+<tr>
+    <th rowspan="2">
+        <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+    </th>
+    <th rowspan="2">
+        <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / --> Revisi
+    </th>
+    <th colspan="4">
+        Kegiatan Asal
+    </th>
+    <th colspan="4">
+        Kegiatan Tujuan
+    </th>
+    <th rowspan="2" width="120">
+        Nominal Sekarang
+    </th>
+    <th rowspan="2" width="20">
+        Status Approval
+    </th>    
+    <th rowspan="2" width="20">
+        Aksi
+    </th>
+</tr>
+<tr>
+
+    <th>
+        Unit Kerja
+    </th>
+    <th>
+        Kode
+    </th>
+    <th>
+        Nama
+    </th>   
+     <th>
+        Bulan
+    </th>
+     <th>
+        Unit Kerja
+    </th>
+    <th>
+        Kode
+    </th>
+    <th>
+        Nama
+    </th>
+    <th>
+        Bulan
+    </th> 
+    
+</tr>
+<!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+<!-- patTemplate:sub condition="YES" -->
+    <tr>
+        <td colspan="13" align="center">
+            <em> -- Data tidak ditemukan -- </em>
+        </td>
+    </tr>
+<!-- /patTemplate:sub -->
+<!-- patTemplate:sub condition="NO" -->
+<!-- patTemplate:tmpl name="data_list" -->
+    <tr class="{CLASS_NAME}">
+        <td align="center">{NOMOR}</td>
+         <td>
+            {TANGGAL}
+        </td>       
+        <td>
+            {UNIT_KERJA_NAMA_ASAL}
+        </td>
+        <td align="center">
+            {NOMOR_KEGIATAN_ASAL}
+        </td>
+        <td>
+            {KEGIATAN_ASAL}
+        </td>
+         <td>
+            {NAMA_BULAN_ASAL}
+        </td>
+        <td>
+            {UNIT_KERJA_NAMA_TUJUAN}
+        </td>
+        <td align="center">
+            {NOMOR_KEGIATAN_TUJUAN}
+        </td>
+        <td>
+            {KEGIATAN_TUJUAN}
+        </td>
+        <td>
+            {NAMA_BULAN_TUJUAN}
+        </td>
+        <td align="right">
+            {NILAI}
+        </td>
+         <td align="center">
+                        <!-- patTemplate:tmpl name="status_approval" type="condition" conditionvar="STATUS" -->                          
+                           <!-- patTemplate:sub condition="YA" -->
+                              <img src="images/lamp-green.gif" />
+                           <!-- /patTemplate:sub -->
+                           <!-- patTemplate:sub condition="BELUM" -->
+                              <img src="images/lamp-yellow.gif" />
+                           <!-- /patTemplate:sub -->
+                           <!-- patTemplate:sub condition="TIDAK" -->
+                              <img src="images/lamp-red.gif" />
+                           <!-- /patTemplate:sub -->
+                        <!-- /patTemplate:tmpl -->
+        </td>
+        <td class="links" >
+                        <!-- patTemplate:tmpl name="status_approval_button" type="condition" conditionvar="STATUS" -->                          
+                           <!-- patTemplate:sub condition="YA" -->
+                               <a href="javascript:void(0);" onclick="javascript:detail('{ID}');" class="">
+                                    <img src="images/detil.gif" />
+                               </a>
+                           <!-- /patTemplate:sub -->
+                           <!-- patTemplate:sub condition="BELUM" -->
+                           
+                            <a class="xhr dest_subcontent-element" href="{URL_APPROVAL}">
+                                <img src="images/icons/16/approval.gif" />
+                             </a>
+                           <!-- /patTemplate:sub -->
+                           <!-- patTemplate:sub condition="TIDAK" -->
+                             <a href="javascript:void(0);" onclick="javascript:detail('{ID}');" class="">
+                                <img src="images/detil.gif" />
+                            </a>
+                           <!-- /patTemplate:sub -->
+                        <!-- /patTemplate:tmpl -->            
+           
+            
+            
+            
+        </td>
+    </tr>
+<!-- /patTemplate:tmpl -->
+<!-- /patTemplate:sub -->
+<!-- /patTemplate:tmpl -->
+</table>
+<br />
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   
+   <ul>
+      <li>
+         <img src="images/lamp-green.gif" style="margin-bottom: -4px;"/> Menandakan status <!-- patTemplate:gtfwgetconfig config="language" name="revisi_intern" / --> Sudah disetujui
+      </li>
+      <li>
+         <img src="images/lamp-yellow.gif" style="margin-bottom: -4px;"/> Menandakan status <!-- patTemplate:gtfwgetconfig config="language" name="revisi_intern" / --> Belum disetujui
+      </li>
+      <li>
+         <img src="images/lamp-red.gif" style="margin-bottom: -4px;"/> Menandakan status <!-- patTemplate:gtfwgetconfig config="language" name="revisi_intern" / --> Ditolak
+      </li>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="klik" / --> <img src="images/icons/16/approval.gif" style="margin-bottom: -4px;"/> Untuk melakukan <!-- patTemplate:gtfwgetconfig config="language" name="approval_revisi_intern" / -->
+      </li>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="klik" / --> <img src="images/detil.gif" style="margin-bottom: -4px;"/> Untuk melihat detail <!-- patTemplate:gtfwgetconfig config="language" name="approval_revisi_intern" / -->
+      </li>
+   </ul>
+</div>
+<!-- /patTemplate:tmpl -->

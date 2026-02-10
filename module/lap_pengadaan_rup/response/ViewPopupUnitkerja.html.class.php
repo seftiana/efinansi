@@ -1,0 +1,183 @@
+<?php
+
+require_once GTFWConfiguration::GetValue( 'application', 'docroot') . 
+		'module/lap_pengadaan_rup/business/AppPopupUnitkerja.class.php';
+		
+require_once GTFWConfiguration::GetValue( 'application', 'docroot') . 
+		'module/user_unit_kerja/business/UserUnitKerja.class.php';
+
+class ViewPopupUnitkerja extends HtmlResponse 
+{
+
+	protected $unitkerjaObj;
+	protected $mModulName;
+	
+	public function __construct()
+	{
+		$this->mModulName = 'lap_pengadaan_rup';
+	}
+	public function TemplateModule() 
+	{
+		$this->SetTemplateBasedir(GTFWConfiguration::GetValue('application','docroot').
+				'module/'.$this->mModulName.'/template');
+		$this->SetTemplateFile('view_popup_unitkerja.html');
+	}
+   
+    public function TemplateBase() 
+    {
+		$this->SetTemplateBasedir(GTFWConfiguration::GetValue('application', 'docroot') . 
+	  			'main/template/');
+		$this->SetTemplateFile('document-common-popup.html');
+		$this->SetTemplateFile('layout-common-popup.html');
+	}
+	
+	public function ProcessRequest() 
+	{
+		$this->unitkerjaObj = new AppPopupUnitkerja();
+		$userUnitKerjaObj = new UserUnitKerja();
+		$userId = trim(Security::Instance()->mAuthentication->GetCurrentUser()->GetUserId());
+		$role = $userUnitKerjaObj->GetRoleUser($userId);
+		$unitkerjaUserId = $userUnitKerjaObj->GetUnitKerjaUser($userId);
+		if($_POST || isset($_GET['cari'])) {
+			if(isset($_POST['unitkerja_kode'])) {
+				$kode = $_POST['unitkerja_kode'];
+			} elseif(isset($_GET['kode'])) {
+				$kode = Dispatcher::Instance()->Decrypt($_GET['kode']);
+			} else {
+				$kode = '';
+			}
+		  
+			if(isset($_POST['unitkerja'])) {
+				$unitkerja = $_POST['unitkerja'];
+			} elseif(isset($_GET['unitkerja'])) {
+				$unitkerja = Dispatcher::Instance()->Decrypt($_GET['unitkerja']);
+			} else {
+				$unitkerja = '';
+			}
+
+			if($_POST['tipeunit'] != "all") {
+				$tipeunit = $_POST['tipeunit'];
+			} elseif(isset($_GET['tipeunit'])) {
+				$tipeunit = Dispatcher::Instance()->Decrypt($_GET['tipeunit']);
+			} else {
+				$tipeunit = '';
+			}
+		}
+		
+	//view
+		$totalData = $this->unitkerjaObj->GetCountDataUnitkerja(
+											$kode, 
+											$unitkerja, 
+											$tipeunit,$unitkerjaUserId['unit_kerja_id']);
+		$itemViewed = 20;
+		$currPage = 1;
+		$startRec = 0 ;
+		if(isset($_GET['page'])) {
+			$currPage = (string)$_GET['page']->StripHtmlTags()->SqlString()->Raw();
+			$startRec =($currPage-1) * $itemViewed;
+		}
+		
+		$dataUnitkerja = $this->unitkerjaObj->getDataUnitkerja(
+									$startRec, 
+									$itemViewed, 
+									$kode, 
+									$unitkerja, 
+									$tipeunit, 
+									$unitkerjaUserId['unit_kerja_id']);
+									
+		$url = Dispatcher::Instance()->GetUrl(
+								Dispatcher::Instance()->mModule, 
+								Dispatcher::Instance()->mSubModule, 
+								Dispatcher::Instance()->mAction, 
+								Dispatcher::Instance()->mType . 
+								'&kode=' . Dispatcher::Instance()->Encrypt($kode) . 
+								'&unitkerja=' . Dispatcher::Instance()->Encrypt($unitkerja) . 
+								'&tipeunit=' . Dispatcher::Instance()->Encrypt($tipeunit) . 
+								'&cari=' . Dispatcher::Instance()->Encrypt(1));
+
+		$dest = "popup-subcontent";
+
+		Messenger::Instance()->SendToComponent(
+								'paging', 
+								'Paging', 
+								'view', 
+								'html', 
+								'paging_top', 
+								array(
+										$itemViewed,
+										$totalData, 
+										$url, 
+										$currPage, 
+										$dest), 
+								Messenger::CurrentRequest);
+
+		$arr_tipeunit = $this->unitkerjaObj->GetDataTipeunit();
+
+		Messenger::Instance()->SendToComponent(
+								'combobox', 
+								'Combobox', 
+								'view', 
+								'html', 
+								'tipeunit', 
+								array(
+										'tipeunit', 
+										$arr_tipeunit, 
+										$tipeunit, 
+										'true', 
+										' style="width:200px;" '), 
+								Messenger::CurrentRequest);
+
+		$msg = Messenger::Instance()->Receive(__FILE__);
+
+
+				
+		$return['dataUnitkerja'] = $dataUnitkerja;
+		$return['start'] = $startRec+1;
+
+		$return['search']['kode'] = $kode;
+		$return['search']['unitkerja'] = $unitkerja;
+		$return['search']['tipeunit'] = $tipeunit;
+
+		return $return;
+	}
+	
+	public function ParseTemplate($data = NULL) 
+	{
+		$search = $data['search'];
+		$this->mrTemplate->AddVar('content', 'UNITKERJA_KODE', $search['kode']);
+		$this->mrTemplate->AddVar('content', 'UNITKERJA', $search['unitkerja']);
+		$this->mrTemplate->AddVar('content', 'URL_SEARCH', 
+				Dispatcher::Instance()->GetUrl(
+						$this->mModulName, 
+						'popupUnitkerja', 
+						'view', 
+						'html') . 
+						"&satker=" . 
+				Dispatcher::Instance()->Encrypt($search['satker']));
+		
+		if (empty($data['dataUnitkerja'])) {
+			$this->mrTemplate->AddVar('data_unitkerja', 'UNITKERJA_EMPTY', 'YES');
+		} else {
+			$this->mrTemplate->AddVar('data_unitkerja', 'UNITKERJA_EMPTY', 'NO');
+			$dataUnitkerja = $data['dataUnitkerja'];
+
+			for ($i=0; $i<sizeof($dataUnitkerja); $i++) {
+				$dataUnitkerja[$i]['enc_unitkerja_id'] = Dispatcher::Instance()->Encrypt(
+															$dataUnitkerja[$i]['unitkerja_id']);
+				$dataUnitkerja[$i]['enc_unitkerja_nama'] = Dispatcher::Instance()->Encrypt(
+															$dataUnitkerja[$i]['unitkerja_nama']);
+			}
+			for ($i=0; $i<sizeof($dataUnitkerja); $i++) {
+				$no = $i+$data['start'];
+				$dataUnitkerja[$i]['number'] = $no;
+				$dataUnitkerja[$i]['link'] = str_replace("'","\'",$dataUnitkerja[$i]['unit']);
+				if($this->unitkerjaObj->GetTotalSubUnitKerja($dataUnitkerja[$i]['id']) > 0) {
+					$dataUnitkerja[$i]['class_name'] = 'table-common-even1';
+				}
+
+				$this->mrTemplate->AddVars('data_unitkerja_item', $dataUnitkerja[$i], 'UNITKERJA_');
+				$this->mrTemplate->parseTemplate('data_unitkerja_item', 'a');	 
+			}
+		}		
+	}
+}

@@ -1,0 +1,162 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript">
+
+</script>
+
+<script type="text/javascript">
+
+    function hapus_akun(obj) {
+        obj.parentNode.parentNode.parentNode.removeChild(obj.parentNode.parentNode);
+    }
+
+    function popup_coa(url) {
+        showPopup(url, 'Coa Window', 500);
+    }
+
+    function popupJB() {
+        //alert('ok');
+        showPopup('{URL_POPUP_JB}', 'Jenis Biaya', 500);        
+    }
+    var flyin_value;
+    function hanyaHurufDanBesar(evt, obj) {
+        evt = (evt) ? evt : event;
+        var charCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode : ((evt.which) ? evt.which : 0));
+        /* if (charCode > 31 && (charCode < 65 || charCode > 90) &&  (charCode < 97 || charCode > 122)) { */
+        if (charCode > 31 && (charCode < 48 || charCode > 105)) {
+            if (typeof (flyin_value) == 'undefined')
+                obj.value = '';
+            else
+                obj.value = flyin_value;
+        } else {
+            if (typeof (obj.value) == 'undefined')
+                obj.value = '';
+            else {
+                obj.value = obj.value.toUpperCase();
+                flyin_value = obj.value.toUpperCase();
+            }
+        }
+    }
+</script>
+
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_kode_jurnal" / --></h1>
+<br/>
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="notebox-alert">
+    {ISI_PESAN}
+</div>
+<br/>
+<!-- /patTemplate:tmpl -->
+
+
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
+    <input type="hidden" name="dataId" value="{DATAID}"  />
+    <input type="hidden" name="page" value="{PAGE}"  />
+
+    <table class="table-edit" width="100%">
+        <tr class="subhead">
+            <th colspan="2">{JUDUL} <!-- patTemplate:gtfwgetconfig config="language" name="kode_jurnal" / --><input type="hidden" name="refresh_coa" id="refresh_coa" value="1" /></th>
+        </tr>
+        <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+            <td><input type="text" name="kode" value="{KODE}" size="7" maxlength="7" onkeyup="hanyaHurufDanBesar(event, this)" />&nbsp;*</td>
+        </tr>
+        <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="nama" / --></th>
+            <td><input type="text" name="nama" value="{NAMA}" size="40" />&nbsp;*</td>
+        </tr>
+        
+        <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="jenis_biaya" / --></th>
+            <td>
+                <input type="hidden" name="jenis_biaya_id" id="jenis_biaya_id" value="{JENIS_BIAYA_ID}"/>
+                <input type="text" name="jenis_biaya_nama" id="jenis_biaya_nama" value="{JENIS_BIAYA_NAMA}" size="35" readonly="readonly"/>
+                <input type="button"  name="but_jenis_biaya" onclick="popupJB()" value=" ... " />&nbsp;*
+            </td>
+        </tr>
+        <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="metode_pencatatan" / --></th>
+            <td>
+                <input type="radio" name="metode_catat" value="accrual" {AB} /><!-- patTemplate:gtfwgetconfig config="language" name="basis_akrual" / -->
+                <input type="radio" name="metode_catat" value="cash" {CB} /><!-- patTemplate:gtfwgetconfig config="language" name="basis_kas" / -->
+
+            </td>
+        </tr>         
+        <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="set_aktif" / --></th>
+            <td>
+                <input type="radio" name="status_aktif" value="Y" {AKTIF_YA} />Ya
+                <input type="radio" name="status_aktif" value="N" {AKTIF_TIDAK} />Tidak
+
+            </td>
+        </tr>
+    </table>
+
+    <br />
+    <table cellpadding="1" cellspacing="2" width="205" class="table-common" >
+        <tbody>
+            <tr>
+                <td width="30" style="border:none"><strong><!-- patTemplate:gtfwgetconfig config="language" name="coa" / --></strong></td>
+                <td width="5" style="border:none">:</td>			
+                <td class="links" align="center" style="border:none">
+                    <a class="dest_subcontent-element" href="javascript:void(0)" onclick="popup_coa('{URL_SEARCH}');" title="Tambah Akun">
+                        <b><!-- patTemplate:gtfwgetconfig config="language" name="tambah_akun" / --></b>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+
+    <table class="table-common" width="100%" id="table-coa" >
+        <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / --></th>             
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / --></th>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="d_k" / --></th>
+            <th>&nbsp;</th>	 
+        </tr>
+        <tbody id="table-tambah" class="ddd">
+        </tbody>
+        <tbody id="table_tbody" class="ddd">
+
+            <!-- patTemplate:tmpl name="data" type="condition" conditionvar="DATA_EMPTY" -->
+            <!-- patTemplate:sub condition="YES" -->
+            <!-- <tr><td colspan="7" align="center"><em>-- Data tidak ditemukan --</em></td></tr> -->
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+                <td>{DATA_KODE}</td>
+                <td>{DATA_NAMA}</td>
+                <td>{DATA_ISDEBET}</td>
+                <td>-</td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+            <!-- /patTemplate:tmpl -->
+
+
+        </tbody>
+    </table>
+
+    <br />
+    <table width="100%" >
+        <tr>
+            <td align="center" width="100%"> <hr />
+                <input type="submit" name="btnsimpan" value=" <!-- patTemplate:gtfwgetconfig config="language" name="simpan" / --> " class="buttonSubmit"/>
+                       <input type="submit"  name="btnbalik" value=" <!-- patTemplate:gtfwgetconfig config="language" name="batal" / --> " class="buttonSubmit"/>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<br/>
+
+<div class="petunjuk-area">
+    <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+    <ul>
+        <li>Isikan Kode hanya dengan huruf besar</li>
+        <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --> </li>
+    </ul>
+</div>
+<!-- /patTemplate:tmpl -->

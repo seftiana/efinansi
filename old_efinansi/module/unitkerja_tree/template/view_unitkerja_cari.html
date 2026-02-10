@@ -1,0 +1,192 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	
+	function centangin_semua(varname, start_num, end_num) {
+		var obj = document.getElementById('cek_all');
+		var ceks;
+		if(obj.checked == false) {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+				if(ceks) ceks.checked = false;
+			}
+		} else {
+			for(i=start_num;i<=end_num;i++) {
+				ceks        = document.getElementById(varname + i);
+				disable     = ceks.getAttribute('disabled');
+				if(ceks && disable == null) {
+					ceks.checked = true;
+				}
+			}
+		}
+	}
+	function show_checkbox () {
+		if(document.getElementById('cek_all'))
+			document.getElementById('cek_all').style.display='';
+	}
+	document.onload = show_checkbox();
+	
+	
+CheckBoxFW_initiate = function (Obj)
+{
+   if (!Obj || Obj.className.indexOf('CheckBoxFW_parent') < 0 || !Obj.form) return;
+
+   var CBList = new Array;
+   var CheckedAll = true;
+   var FormObj = Obj.form;
+
+   for (var i = 0; i < FormObj.length; i++) if (FormObj[i] == Obj) break;
+   if (i == FormObj.length) return;
+
+   for(i += 1; i < FormObj.length; i++)
+   {
+      var CBObj = FormObj[i];
+      if (CBObj.type.toUpperCase() != 'CHECKBOX') continue;
+      if (CBObj.className.indexOf('CheckBoxFW_child') >= 0)
+      {
+         CBObj.onchange = function () {Obj.checkChild();}
+         CBList[CBList.length] = CBObj;
+         if (!CBObj.checked) CheckedAll = false;
+      }
+      if (CBObj.className.indexOf('CheckBoxFW_parent') >= 0) break;
+   }
+
+   if (CBList.length > 0)
+   {
+      Obj.onchange = function ()
+      {
+         for (var i = 0; i < CBList.length; i++)
+            CBList[i].checked = this.checked;
+      }
+
+      Obj.checkChild = function ()
+      {
+         var CheckedAll = true;
+         for (var i = 0; i < CBList.length; i++) if (!CBList[i].checked)
+         {
+            CheckedAll = false;
+            break;
+         }
+         this.checked = CheckedAll;
+      }
+
+      Obj.checked = CheckedAll;
+   }
+}
+
+for (var i = 0; i < document.getElementById('form_list').length; i++)
+   CheckBoxFW_initiate(document.getElementById('form_list')[i]);
+//end list unit kerja ref
+
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_unit" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+         <tr>
+            <th width="30%"><!-- patTemplate:gtfwgetconfig config="language" name="kode_unit" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+            <td><input type="text" name="kode" value="{UNITKERJA_KODE}" />
+            </td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_unit" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+            <td><input type="text" name="nama" value="{UNITKERJA}" size="40" />
+         </tr>
+
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="tipe_unit" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / --></th>
+            <td>
+         <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tipeunit"  / -->
+            </td>
+         </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+
+   <form method="POST" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <!-- <input type="hidden" name="message" value="{MESSAGE}" /> -->
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+    
+      <div class="toolbar">
+      <a class="xhr dest_subcontent-element"  href="{URL_TREE}" title="Tree Unit/Sub Unit" >Tree <!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / --></a> 
+		<a href="{URL_EXCEL}" title="Export Excel" ><img src="images/button-tindaklanjuti.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="excel" / --></a>
+       
+      <!-- a class="xhr dest_subcontent-element" href="{URL_ADD_UNIT}" title="Tambah Data Unit kerja"><img src="images/button-add.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="tambah_unit" / --></a -->
+   		<!--a class="xhr dest_subcontent-element" href="{URL_ADD_SUBUNIT}" title="Tambah Data Sub Unit kerja"><img src="images/button-add.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="tambah_sub_unit" / --></a -->
+		<input type="submit" id="btnHapus" name="btnHapus" value="<!-- patTemplate:gtfwgetconfig config="language" name="hapus" / -->" class="inputButton" />
+      </div>
+   </div>
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+		 <th width="5"><input type="checkbox" style="display:none" name="cek_all" id="cek_all" value="ALL" onclick="centangin_semua('unitkerja_id_','{FIRST_NUMBER}','{LAST_NUMBER}');" /></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="tipe" / --></th>
+         <th width="65"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_unitkerja" type="condition" conditionvar="UNITKERJA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="6" align="center">
+		 	<em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_unitkerja_item" -->
+            <tr class="{UNITKERJA_CLASS_NAME}">
+               <td align="left">{UNITKERJA_NUMBER}</td>
+			   <td align="center">
+					<input type="checkbox" name="id[]" id="unitkerja_id_{UNITKERJA_NUMBER}" value="{UNITKERJA_ID}" class="{UNITKERJA_CLASS_PARENT_CHILD}" {UNITKERJA_IS_DISABLED}/>
+					<input type="hidden" name="name[{UNITKERJA_ID}]" value="{UNITKERJA_UNIT}" />
+					<!-- patTemplate:tmpl name="is_satker" visibility="hidden" -->
+					<input type="hidden" name="is_parent[{UNITKERJA_ID}]" value="1" />
+					<!-- /patTemplate:tmpl -->
+			   </td>
+               <td>{UNITKERJA_KODEUNIT}</td>
+               <td>{UNITKERJA_UNIT}</td>
+               <td>{UNITKERJA_TIPEUNIT}</td>
+               <td class="links" align="center">
+                  <a class="xhr dest_subcontent-element" 
+				  	href="{UNITKERJA_URL_EDIT}" title="Ubah"><img src="images/button-edit.gif" alt="Ubah"/>  
+				  </a>
+			 
+			  	<a class="xhr dest_subcontent-element" href="{UNITKERJA_URL_ADD_SUBUNIT}" 
+		  		title="<!-- patTemplate:gtfwgetconfig config="language" name="tambah_sub_unit" / -->">
+				  <img src="images/button-add.gif" alt="" /> 
+			    </a>
+					  
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   </form>
+   <br /> 
+
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+     <br />
+		<div style="margin:10px 0px 0px 10px;"><div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFBDD; border:#D1C698 1px solid; float: left;">    </div> = <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / --> </div>
+	<div style="margin:10px 0px 0px 10px;"><div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFFFF; border:#D1C698 1px solid; float: left;">    </div> = <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / --> </div>
+   </div>
+   </div>
+
+<!-- /patTemplate:tmpl -->

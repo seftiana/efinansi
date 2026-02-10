@@ -1,0 +1,79 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	var xpopup = false;
+	function fokus(elemId) {
+		document.getElementById(elemId).focus();
+		document.getElementById(elemId).select;
+	}
+	function bukaPopupKodePenerimaan(xurl) {	
+		showPopup(xurl,'','700','500');
+	}
+ 	function bukaPopupCoa(xurl) {
+	  showPopup(xurl,'Coa',700,550);
+   }
+	
+</script>
+
+<h1>Mapping Data Jenis Pembayaran dengan COA</h1>
+<br/>
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="notebox-alert">
+      {ISI_PESAN}
+   </div>
+   <br/>
+   <!-- /patTemplate:tmpl -->
+   
+   
+   <form method="POST" name="frmKegiatan" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
+   <input type="hidden" name="data[kodepenerimaan][id]" value="{DATA_KODEPENERIMAAN_ID}"  />
+      <table class="table-edit" width="100%">  		 		 
+		 <tr>
+            <th width="150">ID Pembayaran</th>
+            <td>
+				<input type="text" name="data[kodepenerimaan][jenis_pembayaran_id]" id="jenis_pembayaran_id" value="{DATA_JENIS_PEMBAYARAN_ID}" readonly="readonly" />
+			</td>
+         </tr>
+		 <tr>
+            <th width="150">Kode Pembayaran</th>
+            <td>
+				<input type="text" name="data[kodepenerimaan][jenis_pembayaran_kode]" id="jenis_pembayaran_kode" value="{DATA_JENIS_PEMBAYARAN_KODE}" readonly="readonly" />
+			</td>
+         </tr>
+		 <tr>
+            <th width="150">Nama Pembayaran</th>
+            <td>
+				<input type="text" name="data[kodepenerimaan][jenis_pembayaran_nama]" id="jenis_pembayaran_nama" size="35" value="{DATA_JENIS_PEMBAYARAN_NAMA}" readonly="readonly">
+			</td>
+         </tr>
+
+		 <tr>
+            <th>Mapping Penerimaan</th>
+            <td>
+				<input type="hidden" name="data[kodepenerimaan][penerimaan_id]" id="penerimaan_id" value="{DATA_KODEPENERIMAAN_ID}" readonly="readonly" />
+				<input type="text" name="data[kodepenerimaan][penerimaan_kode]" id="penerimaan_kode" value="{DATA_KODEPENERIMAAN_KODE}" readonly="readonly"/>
+				<input type="text" name="data[kodepenerimaan][nama]" id="penerimaan_nama" size="35" value="{DATA_KODEPENERIMAAN_NAMA}" readonly="readonly">
+				&nbsp;<input type="button" name="but_jenis_pembayaran" id="but_jenis_pembayaran" onclick="bukaPopupKodePenerimaan('{URL_POPUP_PEMBAYARAN}')" value=" ... " />&nbsp;</td>
+         </tr>
+                  
+         <tr class="buttons">
+            <th>&nbsp;
+            </th>
+            <td>
+               <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+				&nbsp;
+			   <a class="xhr dest_subcontent-element" href="{URL_BACK}" title="Kembali" tabindex="2"><img src="images/button-back.gif" alt=""> Kembali</a> 	   		
+            </td>
+         </tr>
+      </table>
+   </form>
+   
+   <br/>
+   
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+      <ul>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --></li>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

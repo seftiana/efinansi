@@ -1,0 +1,223 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript">
+
+function setExportExcel(){
+    var getBp = document.getElementById('check_bp');
+    var getCr = document.getElementById('check_cr');
+    
+    if(getBp.checked == true && getCr.checked == false ){
+        document.getElementById('export_bp').style.display = '';
+        document.getElementById('export_cr').style.display = 'none';
+        document.getElementById('export_all').style.display = 'none';
+    }else if(getBp.checked == false && getCr.checked == true ){
+        document.getElementById('export_bp').style.display = 'none';
+        document.getElementById('export_cr').style.display = '';
+        document.getElementById('export_all').style.display = 'none';
+    }else if(getBp.checked == true && getCr.checked == true ) {
+        document.getElementById('export_bp').style.display = 'none';
+        document.getElementById('export_cr').style.display = 'none';
+        document.getElementById('export_all').style.display = '';        
+    } else {
+        document.getElementById('export_bp').style.display = 'none';
+        document.getElementById('export_cr').style.display = 'none';
+        document.getElementById('export_all').style.display = 'none';  
+    }
+}
+
+//document.onload = setExportExcel();
+</script>
+<h1>
+   Surat Pencairan Pengeluaran Uang (SPPU)
+</h1>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<div class="pageBar">
+   <div class="toolbar">
+      <a href="{URL_SPPU}" class="xhr dest_subcontent-element">
+         <img src="images/icons/16/button-add.gif">
+         SPPU Baru
+      </a>
+      <a href="{URL_LIST_SPPU}" class="xhr dest_subcontent-element">
+         <img src="images/icons/16/button-tindaklanjuti.gif">
+         Daftar SPPU
+      </a>
+      <a href="{URL_EXPORT}" title="Export Data" target="_BLANK" id="export_all">
+         <img src="images/icons/16/export_excel.gif" alt="export">
+         Export SPPU
+      </a>
+      <a style="display: none;" href="{EXPORT_BP}" target="blank" title="Export Bank Payment" id="export_bp">
+       <img src="images/icons/16/export_excel.gif" alt="export BP">
+        Export Bank Payment
+     </a>
+     <!-- a href="{EXPORT_CR}" target="blank" title="Export Cash Receive" id="export_cr">
+        <img src="images/icons/16/export_excel.gif" alt="export CR">
+        Export Cash Receive
+     </a -->      
+   </div>
+</div>
+
+<table class="table-details" width="100%">
+   <tr class="subhead">
+      <th colspan="2">
+         Data
+      </th>
+   </tr>
+   <!-- patTemplate:tmpl name="content_data" -->
+      <tr>
+         <th style="width: 115px;">
+            Bank Payment
+         </th>
+         <td>
+            <!-- patTemplate:tmpl name="bank_payment" type="condition" conditionvar="STATUS" -->
+               <!-- patTemplate:sub condition="YES" -->
+                  <!-- img src="images/icons/24/checkbox-checked.png" style="width: 16px;" / -->
+                  <!-- input type="checkbox" checked="checked" onchange="setExportExcel();" value="bp" name="check_bp" id="check_bp" -->
+                  <img src="images/icons/16/icon-done-16x16.png" alt="export">
+               <!-- /patTemplate:sub -->
+               <!-- patTemplate:sub condition="NO" -->
+                  <!-- img src="images/icons/24/Unchecked-Checkbox.png" style="width: 16px;" / -->
+                  <img src="images/icons/16/icon-warning-16x16.gif" alt="export"> 
+                  <!-- input type="checkbox" value="bp" onchange="setExportExcel();"  name="check_bp" id="check_bp" -->
+               <!-- /patTemplate:sub -->
+            <!-- /patTemplate:tmpl -->
+         </td>
+      </tr>
+      <tr>
+         <th style="width: 115px;">            
+               Cash Receipt
+         </th>
+         <td>
+            <!-- patTemplate:tmpl name="cash_receipt" type="condition" conditionvar="STATUS" -->
+               <!-- patTemplate:sub condition="YES" -->
+                  <img src="images/icons/16/icon-done-16x16.png" alt="export">
+                  <!-- input type="checkbox" checked="checked" value="cp"  onchange="setExportExcel();" name="check_cp" id="check_cr" -->
+               <!-- /patTemplate:sub -->
+               <!-- patTemplate:sub condition="NO" -->
+                  <img src="images/icons/16/icon-warning-16x16.gif" alt="export"> 
+                  <!-- input type="checkbox" value="cp" name="check_cp" id="check_cr"   onchange="setExportExcel();" -->
+               <!-- /patTemplate:sub -->
+            <!-- /patTemplate:tmpl --> 
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <td>
+            {NOMOR}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <td>
+            <!-- patTemplate:var name="tanggal" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nomor_bukti" / -->
+         </th>
+         <td>
+            {NOMOR_BUKTI}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwgetconfig config="language" name="rp" / --> {NOMINAL_LABEL}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="terbilang" / -->
+         </th>
+         <td>
+            {TERBILANG}
+         </td>
+      </tr>
+   <!-- /patTemplate:tmpl -->
+   <tr class="subhead">
+      <th colspan="2">
+         Daftar FPA
+      </th>
+   </tr>
+   <tr>
+      <td colspan="2" style="padding: 0px;">
+         <!-- start: Table List -->
+         <table class="table-common" width="100%">
+            <thead>
+               <tr>
+                  <th style="width: 30px;">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+                  </th>
+                  <th style="width: 115px;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="no_pengajuan" / -->
+                  </th>
+                  <th>
+                     <!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / -->
+                  </th>
+                  <th style="width: 135px;">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="jumlah_rp" / -->
+                  </th>
+               </tr>
+            </thead>
+            <tbody>
+            <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+               <!-- patTemplate:sub condition="YES" -->
+                  <tr>
+                     <td colspan="4">
+                        <center>
+                           <em>
+                              <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                           </em>
+                        </center>
+                     </td>
+                  </tr>
+               <!-- /patTemplate:sub -->
+               <!-- patTemplate:sub condition="NO" -->
+                  <!-- patTemplate:tmpl name="data_list" -->
+                     <tr class="{DATA_CLASS_NAME}">
+                        <td align="center">
+                           {NOMOR}
+                        </td>
+                        <td align="center">
+                           {NO_FPA}
+                        </td>
+                        <td>
+                           {LINGKUP_KOMPONEN}
+                        </td>
+                        <td style="text-align: right;">
+                           {NOMINAL_LABEL}
+                        </td>
+                     </tr>
+                  <!-- /patTemplate:tmpl -->
+               <!-- /patTemplate:sub -->
+            <!-- /patTemplate:tmpl -->
+            </tbody>
+            <!-- patTemplate:tmpl name="tfoot" -->
+               <tfoot>
+                  <tr class="subhead">
+                     <td colspan="3" style="text-align: right; font-weight: bold;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="total" / -->
+                     </td>
+                     <td style="text-align: right; font-weight: bold;">
+                        {NOMINAL_TOTAL}
+                     </td>
+                  </tr>
+               </tfoot>
+            <!-- /patTemplate:tmpl -->
+         </table>
+         <!-- end: Table List -->
+      </td>
+   </tr>
+</table>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,176 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="manajemen_detil_kelompok_laporan" / -->
+</h1>
+<br />
+<!-- start: Table Detil -->
+<table class="table-details" width="800px">
+   <tr class="subhead">
+      <th colspan="2">
+         Kelompok Laporan
+      </th>
+   </tr>
+   <tr>
+      <th style="width: 135px;" align="left">
+         Kelompok Laporan
+      </th>
+      <td>
+         {KELLAPNAMA}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         Bentuk Transaksi
+      </th>
+      <td>
+         {KELJNSNAMA}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         Jenis Laporan
+      </th>
+      <td>
+         {JENISLAPORAN}
+      </td>
+   </tr>
+</table>
+<!-- stop: Table Detil -->
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+
+<br />
+<form method="POST" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list" name="form_list">
+   <div class="pageBar">
+      <div class="toolbar">
+         <a class="xhr dest_subcontent-element" href="{URL_BACK}" title="<!-- patTemplate:gtfwgetconfig config="language" name="kembali" / -->" >
+            <img src="images/arrow_ltr.png" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="kembali" / -->
+         </a>
+         <a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Data Coa Kelompok Laporan" >
+            <img src="images/button-add.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / -->
+         </a>
+         <input type="submit" id="btnHapus" name="btnHapus" value="<!-- patTemplate:gtfwgetconfig config="language" name="hapus" / -->" class="inputButton" />
+      </div>
+   </div>
+   <table class="table-common" width="100%">
+      <thead>
+         <tr>
+            <th width="5">
+               <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+            </th>
+            <th width="5">
+               <input type="checkbox" name="cek_all" id="cek_all" value="ALL" class="CheckBoxFW_parent" />
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="rekening" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="nama_coa" / -->
+            </th>
+            <th>
+               Type Coa
+            </th>
+         </tr>
+      </thead>
+      <tbody>
+         <!-- patTemplate:tmpl name="data" type="condition" conditionvar="DATA_EMPTY" -->
+            <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="5" align="center">
+                  <em>
+                     --<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--
+                  </em>
+               </td>
+            </tr>
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+               <!-- patTemplate:tmpl name="data_item" -->
+                  <tr class="{DATA_CLASS_NAME}">
+                     <td align="center">
+                        {DATA_NUMBER}
+                     </td>
+                     <td align="center">
+                        <input type="checkbox" name="id[]" class="CheckBoxFW_child" id="coa_kel_lap_{DATA_NUMBER}" value="{DATA_ID}" />
+                        <input type="hidden" name="name[{DATA_ID}]" value="{DATA_COA_NAMA}" />
+                        <input type="hidden" name="type[{DATA_ID}]" value="{DATA_COA_TYPE}" />
+                     </td>
+                     <td>
+                        {DATA_COA_KODE}
+                     </td>
+                     <td>
+                        {DATA_COA_NAMA}
+                     </td>
+                     <td>
+                        {DATA_COA_TIPE}
+                     </td>
+                  </tr>
+               <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </tbody>
+   </table>
+</form>
+<script type="text/javascript">
+CheckBoxFW_initiate = function (Obj)
+{
+   if (!Obj || Obj.className.indexOf('CheckBoxFW_parent') < 0 || !Obj.form) return;
+
+   var CBList     = new Array;
+   var CheckedAll = true;
+   var FormObj    = Obj.form;
+
+   for (var i = 0; i < FormObj.length; i++) if (FormObj[i] == Obj) break;
+   if (i == FormObj.length) return;
+
+   for(i += 1; i < FormObj.length; i++)
+   {
+      var CBObj = FormObj[i];
+      if (CBObj.type.toUpperCase() != 'CHECKBOX') continue;
+      if (CBObj.className.indexOf('CheckBoxFW_child') >= 0)
+      {
+         CBObj.onchange = function () {
+            Obj.checkChild();
+         }
+         CBList[CBList.length] = CBObj;
+         if (!CBObj.checked) CheckedAll = false;
+      }
+      if (CBObj.className.indexOf('CheckBoxFW_parent') >= 0) break;
+   }
+
+   if (CBList.length > 0)
+   {
+      Obj.onchange = function ()
+      {
+         for (var i = 0; i < CBList.length; i++){
+            if(CBList[i].getAttribute('disabled') == null){
+               CBList[i].checked = this.checked;
+            }
+         }
+      }
+
+      Obj.checkChild = function ()
+      {
+         var CheckedAll = true;
+         for (var i = 0; i < CBList.length; i++) if (!CBList[i].checked)
+         {
+            CheckedAll = false;
+            break;
+         }
+         this.checked = CheckedAll;
+      }
+
+      Obj.checked = CheckedAll;
+   }
+}
+var formObj       = document.getElementById('form_list');
+if(typeof(formObj) != 'undefined' && formObj != null){
+   for (var i = 0; i < formObj.length; i++){
+      CheckBoxFW_initiate(formObj[i]);
+   }
+}
+</script>
+<!-- /patTemplate:tmpl -->

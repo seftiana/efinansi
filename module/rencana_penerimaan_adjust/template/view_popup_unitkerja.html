@@ -1,0 +1,82 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function setParent(xid, xlabel) {
+		var form = document.forms['filterbox'];
+		document.getElementById('unit_id').value=xid;
+		document.getElementById('unit').value=xlabel;
+		// form.onsubmit();
+		popupClose();
+	}
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="list_sub_unit_kerja" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+         <tr>
+            <th width="30%"><!-- patTemplate:gtfwgetconfig config="language" name="kode_unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></label></th>
+            <td><input type="text" name="unitkerja_kode" value="{UNITKERJA_KODE}" size="20" />
+         </tr>
+      <tr>              
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></label></th>
+         <td><input type="text" name="unitkerja" value="{UNITKERJA}" size="30" /></td>
+      </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="tipe_unit" / --></label></th>
+            <td>
+         <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tipeunit"  / -->
+            </td>
+         </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   </div>
+   <br />
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="tipe" / --></th>
+         <th width="31"><!-- patTemplate:gtfwgetconfig config="language" name="pilih" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_unitkerja" type="condition" conditionvar="UNITKERJA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="6" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_unitkerja_item" -->
+            <tr class="{UNITKERJA_CLASS_NAME}">
+               <td align="center">{UNITKERJA_NUMBER}</td>
+               <td>{UNITKERJA_KODEUNIT}</td>
+               <td>{UNITKERJA_UNIT}</td>
+               <td>{UNITKERJA_TIPEUNIT}</td>
+			   <td class="links" align="center">
+					<a href="javascript:setParent('{UNITKERJA_ID}','{UNITKERJA_LINK}')"><img alt="Pilih" src="images/button-check.gif"/></a>
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   <br /> 
+<div>
+<!-- /patTemplate:tmpl -->

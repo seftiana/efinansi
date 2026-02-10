@@ -1,0 +1,246 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	/*function centangin_semua(varname, start_num, end_num) {
+		var obj = document.getElementById('cek_all');
+		if(obj.checked == false) {
+			for(i=start_num;i<=end_num;i++) {
+				if (document.getElementById(varname + i)) {
+					document.getElementById(varname + i).checked = false;
+				}
+
+			}
+		} else {
+			for(i=start_num;i<=end_num;i++) {
+				if (document.getElementById(varname + i)) {
+					document.getElementById(varname + i).checked = true;
+				}
+			}
+		}
+	}
+	function show_checkbox (varname, start_num, end_num) {
+		//show check_all checkbox
+		document.getElementById('cek_all').style.display='';
+		//document.getElementById('btnHapus').type="button";
+	}*/
+
+	function resetFormIni() {
+	   	GtfwAjax.replaceContentWithUrl("subcontent-element","{URL_RESET}&ascomponent=1");
+		//if(document.getElementById('unitkerja')) document.getElementById('unitkerja').value='';
+		//if(document.getElementById('unitkerja_label')) document.getElementById('unitkerja_label').innerHTML='';
+
+
+	}
+	/*
+	function konfirmasi_delete(varname, start_num, end_num) {
+		//var idDelete = document.getElementById('id_delete').value;
+		for(i=start_num;i<=end_num;i++) {
+			if(document.getElementById(varname + i).checked == true) {
+				//document.getElementById('form_list').submit();
+				document.getElementById('btnHapus').type="submit";
+				document.getElementById('btnHapus').click();
+				return true;
+			}
+		}
+		alert('Silakan beri tanda cek pada minimal 1 data');
+		return false;
+	}
+	document.onload = show_checkbox('rencana_id_','{FIRST_NUMBER}','{LAST_NUMBER}');*/
+
+	function showPopupDetailRencanaPenerimaan(xurl)
+	{
+		showPopup(xurl, '', 700, 500);
+	}
+
+</script>
+<!--  onclick="konfirmasi_delete('rencana_penerimaan_id_','{FIRST_NUMBER}','{LAST_NUMBER}', '{URL_DELETE}')"  -->
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="approval_rencana_penerimaan" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+
+	   <tr>
+			 <th width="150">Kode / Nama </th>
+			 <td><input type="text" name="kodenama" value="{KODENAMA}" size="30" /></td>
+        </tr>
+
+      <!-- non aktif
+	  	patTemplate:tmpl name="role" type="condition" conditionvar="WHOAMI"
+   		patTemplate:sub condition="ADMINISTRATOR"
+	   -->
+
+         <tr>
+            <th>
+				<!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / -->
+			</th>
+            <td>
+				<!-- patTemplate:gtfwrendermodule module="combobox"
+				 submodule="combobox" action="view" name="tahun_anggaran"  / -->
+			</td>
+         </tr>
+		  <tr>
+			 <th>
+			 	<!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> /
+			    <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+			</th>
+			 <td>
+			 	<input type="hidden" name="unitkerja" id="unitkerja" value="{UNITKERJA}" />
+			 	<!-- patTemplate:tmpl name="is_parent"
+				 	type="condition" conditionvar="IS_PARENT" -->
+   					<!-- patTemplate:sub condition="YES" -->
+			    	<textarea name="unitkerja_label" id="unitkerja_label" readonly="readonly"
+						cols="40" rows="1">{UNITKERJA_LABEL}</textarea>
+					<input type="button"  name="but_program"
+					onclick="showPopup('{URL_POPUP_UNITKERJA}','','600','500')" value=" ... " />
+					<!-- /patTemplate:sub -->
+				 	<!-- patTemplate:sub condition="NO" -->
+				 		<label><b>{UNITKERJA_LABEL}</b></label>
+				 		<input type="hidden" name="unitkerja_label"
+					 	id="unitkerja_label" value="{UNITKERJA_LABEL}" />
+				 	<!-- /patTemplate:sub -->
+				 <!-- /patTemplate:tmpl -->
+
+			</td>
+			 <!--
+			 	<td>
+				 	<input type="hidden" name="unitkerja" id="unitkerja" value="{UNITKERJA}" />
+				 	<input type="text" name="unitkerja_label" id="unitkerja_label" value="{UNITKERJA_LABEL}"
+					 	 size="40" readonly="readonly" />
+				  <input type="button"  name="but_unitkerja"
+				  onclick="showPopup('{URL_POPUP_UNITKERJA}','','600','600')" value=" ... " /></td>
+			  -->
+		  </tr>
+		  <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="status_approval" / --></th>
+            <td>
+				<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="approval"  / -->
+			</td>
+         </tr>
+		 <!--  non aktif
+		 patTemplate:sub
+         patTemplate:sub condition="OPERATORUNIT"
+
+         <tr>
+            <th width="30%">patTemplate:gtfwgetconfig config="language" name="tahun_anggaran"</th>
+            <td>{TAHUN_ANGGARAN_LABEL}</td>
+         </tr>
+		  <tr>
+			 <th>patTemplate:gtfwgetconfig config="language" name="unit" / patTemplate:gtfwgetconfig
+			  config="language" name="sub_unit"</th>
+			 <td><input type="hidden" name="unitkerja" id="unitkerja" value="{UNITKERJA}" /><input type="text" name="unitkerja_label" id="unitkerja_label" value="{UNITKERJA_LABEL}" size="40" readonly="readonly" /><input type="button"  name="but_unitkerja" onclick="showPopup('{URL_POPUP_UNITKERJA}','','500',600')" value=" ... " /></td>
+		  </tr>
+		 patTemplate:sub
+         patTemplate:sub condition="OPERATORSUBUNIT"
+         <tr>
+            <th width="30%">patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" </th>
+            <td>{TAHUN_ANGGARAN_LABEL}</td>
+         </tr>
+         <tr>
+            <th> patTemplate:gtfwgetconfig config="language" name="unit" / patTemplate:gtfwgetconfig
+			 config="language" name="sub_unit" </th>
+            <td>{UNITKERJA_LABEL}</td>
+         </tr>
+		 patTemplate:sub
+	     patTemplate:tmpl
+		 -->
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/><input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" onclick="resetFormIni();" />
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+   <form method="POST" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar">
+   		<!-- <a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Data Sub Unit kerja" tabindex="2"><img src="images/button-add.gif" alt=""> Approve</a>
+		<input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="inputButton" />-->
+      </div>
+   </div>
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+		 <!--<th width="5"><input type="checkbox" style="display:none" name="cek_all" id="cek_all" value="ALL" onclick="centangin_semua('rencana_id_','{FIRST_NUMBER}','{LAST_NUMBER}');" /></th>-->
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="total_penerimaan_rp" / --></th>
+			<th><!-- patTemplate:gtfwgetconfig config="language" name="status" / --></th>
+         <th width="62"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="6" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">{DATA_NOMOR}</td>
+			   <!--<td align="center">
+					<!-- patTemplate:tmpl name="cekbox" type="condition" conditionvar="IS_SHOW" -->
+				         <!-- patTemplate:sub condition="YES" -->
+							<input type="checkbox" name="id[]" id="rencana_id_{DATA_NUMBER}" value="{DATA_IDRENCANA}" /><input type="hidden" name="name[{DATA_IDRENCANA}]" value="{DATA_NAMA}" />
+						 <!-- /patTemplate:sub -->
+					<!-- /patTemplate:tmpl -->
+			   </td>-->
+		       <td>{DATA_KODE}</td>
+               <td>{DATA_NAMA}</td>
+			   <td style="text-align:right;">{DATA_TOTAL_PENERIMAAN}</td>
+				<td style="text-align:center;">{DATA_STATUS}</td>
+               <td class="links" align="center">
+                  {DATA_URL_ADD_EDIT}
+                  <!-- patTemplate:tmpl name="show_detail" type="condition" conditionvar="IS_SHOW_DETAIL" -->
+				         <!-- patTemplate:sub condition="YES" -->
+
+				  <a onclick="showPopupDetailRencanaPenerimaan('{URL_POPUP_DETAIL}')"
+      				title="Detail Rencana Penerimaan"><img src="images/button-detail.gif" alt="Detail"/></a>
+				   		<!-- /patTemplate:sub -->
+					<!-- /patTemplate:tmpl -->
+
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   </form>
+   <br />
+
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+	<br />
+   <div style="margin:10px 0px 0px 10px;"><div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFBDD; border:#D1C698 1px solid; float: left;">    </div> = <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / --> </div>
+	<div style="margin:10px 0px 0px 10px;"><div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFDEF; border:#D1C698 1px solid; float: left;">    </div> = <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / --> </div>
+	<div style="margin:10px 0px 0px 10px;"><div style="padding:0px; margin:1px 5px 0px 0px; width:10px; height:10px; background-color:#FFFFFF; border:#D1C698 1px solid; float: left;">    </div> = <!-- patTemplate:gtfwgetconfig config="language" name="daftar_penerimaan_unit" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --> </div>
+	<div style="margin:10px 0px 0px 10px;"><img src="images/icons/16/approval.gif" alt="Approve Rencana Penerimaan"/> = Approve Rencana Penerimaan </div>
+	<div style="margin:10px 0px 0px 10px;"><img src="images/button-detail.gif" alt="Detail Rencana Penerimaan"/> = Detail Rencana Penerimaan </div>
+
+	<div style="margin:10px 0px 0px 10px;">
+	<b><!-- patTemplate:gtfwgetconfig config="language" name="status_approval" / --></b>
+	</div>
+	<div style="margin:10px 0px 0px 10px;">
+	- <!-- patTemplate:gtfwgetconfig config="language" name="request" / --> = <!-- patTemplate:gtfwgetconfig config="language" name="request_status" / -->
+	</div>
+	<div style="margin:10px 0px 0px 10px;">
+	- <!-- patTemplate:gtfwgetconfig config="language" name="approved" / --> = <!-- patTemplate:gtfwgetconfig config="language" name="approved_status" / -->
+	</div>
+	<div style="margin:10px 0px 0px 10px;">
+	- <!-- patTemplate:gtfwgetconfig config="language" name="reject" / --> =  <!-- patTemplate:gtfwgetconfig config="language" name="reject_status" / -->
+	</div>
+
+   </div>
+   </div>
+<!-- /patTemplate:tmpl -->

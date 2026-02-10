@@ -1,0 +1,73 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function setParent(xid, xlabel, xnama) {
+		document.getElementById('id_coa').value=xid;
+		document.getElementById('kode_coa').value=xlabel;
+		document.getElementById('nama_coa').value=xnama;
+		popupClose();
+	}
+</script>
+
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="popup_coa" / --></h1>
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" name="popup-filterbox">
+
+   <table >
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>	           
+		 <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_coa" / --></th>
+            <td><input type="text" name="kode" value="{KODE}" size="20" />
+         </tr>  
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_coa" / --></th>
+            <td><input type="text" name="nama" value="{NAMA}" size="20" />
+         </tr>         
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   </div>
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>		 
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_coa" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_coa" / --></th>         
+         <th width="65"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="6" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">{DATA_NUMBER}</td>			   
+		       <td>{DATA_KODE}</td>
+               <td>{DATA_NAMA}</td>
+               <td class="links" align="center">
+               <a href="javascript:void(0)" onclick="javascript:setParent('{DATA_ID}','{DATA_KODE}','{DATA_LINK}')"><img alt="Pilih" src="images/button-check.gif"/></a>
+			   </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+	  
+	 
+   </table>
+   </form>
+   <br /> 
+<!-- /patTemplate:tmpl -->

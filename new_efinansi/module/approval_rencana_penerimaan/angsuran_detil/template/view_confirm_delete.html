@@ -1,0 +1,26 @@
+<!-- patTemplate:tmpl name="content" --> 
+   <h1>{LABEL}</h1>
+   <h2><!-- patTemplate:gtfwgetconfig config="language" name="konfirmasi_hapus" / --> {LABEL}</h2>
+   
+   <form name="form_distribusi" id="form_distribusi" action="{FORM_ACTION_URL}" method="POST" class="xhr_form std_form">		
+      <div class="dialogbox" id="dialog_delete">
+         <img src="image/alert.gif" alt="">
+         <h2><!-- patTemplate:gtfwgetconfig config="language" name="menghapus" / --> {LABEL}</h2>
+
+         <p<!-- patTemplate:gtfwgetconfig config="language" name="anda_akan_menghapus" / --> {LABEL} <!-- patTemplate:gtfwgetconfig config="language" name="dengan_nama" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->:
+            <b>{CODE}</b>
+         </p>
+         <ul class="taskdialog">				                     
+            <input type="hidden" value="{ID}" name="idDelete" />
+            <li><input type="submit" name="btnDel" class="button" value="Hapus" />
+            <p><!-- patTemplate:gtfwgetconfig config="language" name="info_delete" / --></p></li>
+
+            <li><a class="xhr dest_subcontent-element button" href="{URL_KEMBALI}" title="Batal"><!-- patTemplate:gtfwgetconfig config="language" name="batal" / --></a>
+            <p><!-- patTemplate:gtfwgetconfig config="language" name="info_batal_hapus" / --></p></li>
+         </ul>
+		</div>
+	</form>  
+   
+<!-- /patTemplate:tmpl -->
+
+

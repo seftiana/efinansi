@@ -1,0 +1,73 @@
+<!-- patTemplate:tmpl name="content" -->
+
+<h2><!-- patTemplate:gtfwgetconfig config="language" name="detil_laporan_aktivitas" / --></h2>
+
+<b><!-- patTemplate:gtfwgetconfig config="language" name="nama_kelompok" / --> : {NAMA_KELOMPOK}</b>
+<br />
+<br />
+<b>Daftar Coa</b>
+<br />
+<table class="table-common" width="100%">
+    <tr>
+        <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+        <th style="width : 90px;"><!-- patTemplate:gtfwgetconfig config="language" name="rekening" / --></th>
+        <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_coa" / --></th>
+        <th style="width : 140px;"><!-- patTemplate:gtfwgetconfig config="language" name="nominal" / --></th>
+    </tr>
+    <!-- patTemplate:tmpl name="data" type="condition" conditionvar="DATA_EMPTY" -->
+    <!-- patTemplate:sub condition="YES" -->
+    <tr><td colspan="4" align="center"><em> <!-- patTemplate:gtfwgetconfig config="language" name="nama_kosong" / --> </em></td></tr>
+    <!-- /patTemplate:sub -->
+    <!-- patTemplate:sub condition="NO" -->
+
+    <!-- patTemplate:tmpl name="data_item" -->
+    <tr class="{DATA_CLASS_NAME}">
+        <td align="center">{DATA_NUMBER}</td>
+        <td align="center">        
+            <label class="kode-akun">{DATA_KELLAP_COA_KODE}</label>
+            <label class="sub-akun">{DATA_KELLAP_SUB_ACC}</label>
+        </td>
+        <td>{DATA_KELLAP_COA_NAMA}</td>
+        <td align="right">{DATA_KELLAP_NOMINAL_SALDO}</td>
+    </tr>
+    <!-- /patTemplate:tmpl -->
+    <tr>
+        <td colspan="3"  style="text-align: center"><strong><!-- patTemplate:gtfwgetconfig config="language" name="total" / --></strong></td>
+        <td align="right"><strong>{TOTAL_NOMINAL}</strong></td>
+    </tr>
+    <!-- /patTemplate:sub -->
+    <!-- /patTemplate:tmpl -->
+</table>
+<br />
+<br />
+<b>Referensi Dari Kelompok Laporan Lain</b><br />
+<table class="table-common" width="100%">
+    <tr>
+        <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>        
+        <th><!-- patTemplate:gtfwgetconfig config="language" name="nama" / --></th>
+        <th style="width : 140px;"><!-- patTemplate:gtfwgetconfig config="language" name="nominal" / --></th>
+    </tr>
+    <!-- patTemplate:tmpl name="data_ref" type="condition" conditionvar="DATA_EMPTY" -->
+        <!-- patTemplate:sub condition="YES" -->
+        <tr>
+            <td colspan="4" align="center">
+                <em> <!-- patTemplate:gtfwgetconfig config="language" name="nama_kosong" / --> </em>
+            </td>
+        </tr>
+        <!-- /patTemplate:sub -->
+        <!-- patTemplate:sub condition="NO" -->
+                <!-- patTemplate:tmpl name="data_item_ref" -->
+                <tr class="{DATA_CLASS_NAME}">
+                    <td align="center">{DATA_NUMBER}</td>
+                    <td>{DATA_KELLAP_NAMA}</td>
+                    <td align="right">{DATA_KELLAP_NOMINAL_SALDO}</td>
+                </tr>
+                <!-- /patTemplate:tmpl -->
+            <tr>
+                <td colspan="2"  style="text-align: center"><strong><!-- patTemplate:gtfwgetconfig config="language" name="total" / --></strong></td>
+                <td align="right"><strong>{TOTAL_REF_NOMINAL}</strong></td>
+            </tr>
+        <!-- /patTemplate:sub -->
+    <!-- /patTemplate:tmpl -->
+</table>
+<!-- /patTemplate:tmpl -->

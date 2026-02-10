@@ -1,0 +1,133 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function ChekAll(varname, start_num, end_num) {
+		var obj = document.getElementById('cek_all');
+        
+		if(obj.checked == false) {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+                if(ceks)
+				    ceks.checked = false;
+			}
+		} else {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+                if(ceks)
+				    ceks.checked = true;
+			}
+		}		
+	}
+    
+	function showDetailProgram(url){
+		showPopup(url,'',900,560);
+		//alert(url);
+	}
+    
+</script>
+<h1>Copy Program Kegiatan</h1>
+<br />
+<form method="POST" action="{URL_ACTION}" class="xhr_simple_form dest_subcontent-element std_form" id="frmInput">
+
+   <table class="table-edit" width="800px">
+      <tr class="subhead">
+         <th colspan="2">Calculate Program Kegiatan</th>
+      </tr>
+	<tr>
+		<th width="200"><!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / --> Sumber
+		</th>
+		<td>
+		<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="th_anggar_awal"  / -->
+		</td>
+	</tr>
+
+	<tr>
+		<th><!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / --> Tujuan
+		</th>
+		<td>
+		<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="th_anggar_akhir"  / -->
+		</td>
+	</tr>
+     
+      <tr class="buttons">
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncalculate" value="Calculate" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+<h2>Daftar Program Yang Tersedia</h2>
+<h3>Pilih (cek) program kegiatan yang akan di copy</h3>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}" id="notebox-alert" style="margin:15px 0px 15px 0px;">
+{ISI_PESAN}
+</div>
+<!-- /patTemplate:tmpl -->
+<form method="POST" action="{URL_ACTION_COPY}" class="xhr_form std_form" name="frmCopy" >
+<table class="table-edit" width="800px">
+<tr class="buttons">
+    <td>
+            <input type="submit" name="btnCopy" value="Process Copy" class="buttonSubmit" />
+            <input type="hidden" name="th_anggaran_sumber" id="th_anggaran_sumber" value="{TH_SUMBER}" />
+            <input type="hidden" name="th_anggaran_tujuan" id="th_anggaran_tujuan" value="{TH_TUJUAN}" />
+         </td>
+</tr>
+</table>
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      
+   </div>
+<table class="table-common" width="800px">
+    <thead>
+        <tr>
+            <th width="30">No</th>
+            <th width="20">
+            
+            <input type="checkbox" name="cek_all" id="cek_all" value="ALL"
+                 onclick="ChekAll('program_id_','{FIRST_NUMBER}','{LAST_NUMBER}');" />
+            </th>
+                    
+            <th width="100" align="center">Kode</th>
+            <th>Nama Program</th>
+            <th width="30">Detail</th>
+        </tr>
+    </thead>
+    <!-- patTemplate:tmpl name="data_program" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+    
+    <tbody>
+        <tr>
+            <td colspan="5" align="center">
+            <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+            </td>
+        </tr>
+    </tbody>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <tbody>
+            <!-- patTemplate:tmpl name="data_program_item" -->
+            
+                <tr>
+                <td align="center">{NOMOR}</td>
+                <td>{CEK_BOX}</td>
+                <td align="center">{KODEPROGRAM}</td>
+                <td>{NAMAPROGRAM}</td>
+                <td align="center">
+                        <a onclick="javascript:showDetailProgram('{URL_DETAIL}')"
+                                     href="javascript:void(0);" 
+                                     title="Detil"><img src="images/button-detail.gif" alt="Detil"/></a>
+                                     
+                </td>                                                       
+                </tr>
+            <!-- /patTemplate:tmpl -->
+            </tbody>
+        <!-- /patTemplate:sub -->
+    <!-- /patTemplate:tmpl -->
+                    
+    <tfoot></tfoot>
+</table>
+</form>
+<!-- /patTemplate:tmpl -->

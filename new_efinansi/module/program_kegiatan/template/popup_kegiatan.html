@@ -1,0 +1,75 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type='text/javascript'>
+function setParent(id,nama,program_label)
+{
+   var form = document.forms['frmSubKegiatan'];
+   form.data_kegiatan_id.value = id;
+   form.data_kegiatan_nama.value= nama;
+   form.data_kegiatan_nama_hidden.value= nama;
+   //var x = window.opener;
+   //x.document.getElementById('tr_program_label').style.visibility='visible';
+   //x.document.getElementById('td_program_label').innerHTML=program_label;
+   //x.document.getElementById('program_label').value=program_label;
+   //form.btnNomorSelanjutnya.click();
+   popupClose();
+}
+
+
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="list_kegiatan" / --></h1>
+<br />
+<form name="frmInput" method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+<input type="hidden" name="data[kegiatan][idProgram]" value="{ID_PROGRAM}" />
+<input type="hidden" name="data[kegiatan][idTahun]" value="{ID_TAHUN}" />
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      <tr>
+         <th width="20%"><!-- patTemplate:gtfwgetconfig config="language" name="kata_kunci" / --></th>
+         <td><input type="text" name="data[kegiatan][nama]" value="{SEARCH_KEGIATAN_NAMA}" size="40" /></td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Cari Kegiatan &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+
+<table class="table-common" width="100%">
+   <tr>
+      <th width="10"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+		<th><!-- patTemplate:gtfwgetconfig config="language" name="kode_kegiatan" / --></th>
+      <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_kegiatan" / --></th>
+      <th width="70"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+   </tr>
+   <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_EMPTY" -->
+      <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="4" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+      <!-- /patTemplate:sub -->
+      <!-- patTemplate:sub condition="NO" -->
+         <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">{DATA_NO}</td>
+					<td>{DATA_KODE}</td>
+               <td>{DATA_NAMA}</td>
+               <td align="center" class="links">
+					<!-- patTemplate:tmpl name="url_choose" -->
+                  <a href="javascript:setParent('{DATA_ID}','{DATA_LINKNAMA}','{DATA_LINK}')">
+				  <img src="images/button-check.gif" alt="Pilih"/><!-- patTemplate:gtfwgetconfig config="language" name="pilih" / --></a>
+						<!-- /patTemplate:tmpl -->
+               </td>
+            </tr>
+         <!-- /patTemplate:tmpl -->
+      <!-- /patTemplate:sub -->
+   <!-- /patTemplate:tmpl -->
+</table>
+<div class="pageBar">
+</div>
+
+<!-- /patTemplate:tmpl -->

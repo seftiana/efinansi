@@ -1,0 +1,76 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>Chart Of Account</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong>Pencarian</strong></h2></th>
+      </tr>
+      <tr>
+         <th width="25%">Unit Pengelolaan Dana</th>
+         <td><!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="upd"  / --></td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Proses &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+
+<div class="pageBar">
+   <div class="toolbar"> 
+		<a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Chart Of Account" tabindex="2">
+	  <img src="images/button-add.gif" alt=""> Tambah</a> 	
+	  <a class="xhr dest_subcontent-element" href="{URL_CARI}" title="Cari Chart Of Account" tabindex="2">
+	  Cari</a>
+   </div>
+</div>
+
+<!-- patTemplate:tmpl name="coa_detail" visibility="hidden" -->
+<table class="table-details">
+	<tr>
+		<th width="150">Kode Rekening</th>
+		<td><b>{KODE_AKUN}</b></td>
+	</tr>
+	<tr>
+		<th width="150">Nama Rekening</th>
+		<td><b>{NAMA_AKUN}<b></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td class="buttonSubmit">
+				<input class="xhr dest_subcontent-element" type="button" name="ubah" value="Ubah"  onclick=location.href="'{URL_UBAH}'">
+		</td>
+
+	</tr>
+</table>
+<br />
+<!-- /patTemplate:tmpl -->
+
+<h2>Bagan Perkiraan Akuntansi</h2>
+   <!-- patTemplate:tmpl name="coa" type="condition" conditionvar="COA" -->
+      <!-- patTemplate:sub condition="YES" -->
+        
+      <!-- /patTemplate:sub -->
+      <!-- patTemplate:sub condition="NO" -->
+         <!-- patTemplate:tmpl name="coa_tree" -->
+			<div id='div_coa' name='div_coa'>
+				{COA_TREE_STR}
+			</div>
+         <!-- /patTemplate:tmpl -->
+		 
+      <!-- /patTemplate:sub -->
+   <!-- /patTemplate:tmpl -->
+</table>
+<div class="pageBar">
+</div>
+<!-- /patTemplate:tmpl -->

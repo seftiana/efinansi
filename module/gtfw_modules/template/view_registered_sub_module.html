@@ -1,0 +1,118 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css">
+code{
+
+}
+</style>
+<h1>
+   Detail Module
+</h1>
+<br />
+<div class="pageBar">
+   <div class="toolbar">
+      <a class="xhr dest_subcontent-element" href="{URL_RETURN}" title="Redirect" >
+         Return
+         <img src="images/icons/16/redirect.gif" alt="" style="float: right; margin-left: 0.3635rem; padding-top: 0.09735rem;">
+      </a>
+   </div>
+</div>
+<table class="table-details" width="100%">
+   <tr class="subhead">
+      <th colspan="2">
+         <strong>
+            Detail Module
+         </strong>
+      </th>
+   </tr>
+   <tr>
+      <th style="width: 135px;">
+         Module Name
+      </th>
+      <td>
+         {NAME}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         Path
+      </th>
+      <td>
+         {PATH}
+      </td>
+   </tr>
+   <tr class="subhead">
+      <th colspan="2">
+         Sub Module [terdaftar]
+      </th>
+   </tr>
+   <tr>
+      <td colspan="2" style="padding: 0px;">
+         <!-- patTemplate:tmpl name="sub_module_registered" type="condition" conditionvar="DATA_EMPTY" -->
+            <!-- patTemplate:sub condition="YES" -->
+               <center>
+                  <strong>
+                     <em>
+                        Belum Ada sub module yang terdaftar
+                     </em>
+                  </strong>
+               </center>
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+               <table class="table-common" width="100%">
+                  <thead>
+                     <tr>
+                        <th>
+                           NAME
+                        </th>
+                        <th style="width: 45px;">
+                           ACTION
+                        </th>
+                        <th style="width: 45px;">
+                           TYPE
+                        </th>
+                        <th style="width: 95px;">
+                           ACCESS
+                        </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <!-- patTemplate:tmpl name="list_registered_module" -->
+                        <tr class="{CLASS_NAME}">
+                           <td>
+                              {SUB_MODULE}
+                           </td>
+                           <td style="text-align: center;">
+                              {ACTION}
+                           </td>
+                           <td style="text-align: center;">
+                              {TYPE}
+                           </td>
+                           <td style="text-align: center;">
+                              {ACCESS}
+                           </td>
+                        </tr>
+                     <!-- /patTemplate:tmpl -->
+                  </tbody>
+               </table>
+               <!-- end: Table List -->
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </td>
+   </tr>
+   <tr class="subhead">
+      <th colspan="2">
+         SQL-Code
+      </th>
+   </tr>
+   <tr>
+      <td colspan="2">
+<!-- patTemplate:tmpl name="code" -->
+<div style="font-family: monospace; border: 1px solid #CCC; padding: 0.9375rem; background-color: #FFF;">
+   {CODE}
+</div>
+<!-- /patTemplate:tmpl -->
+
+      </td>
+   </tr>
+</table>
+<!-- /patTemplate:tmpl -->

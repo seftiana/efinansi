@@ -1,0 +1,202 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="detail_realisasi_pencairan_anggaran" / -->
+</h1>
+<table class="table-details" width="100%">
+   <tr>
+      <th style="width: 130px;">
+         <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+      </th>
+      <td>
+         <strong>
+            {THANGGAR_NAMA}
+         </strong>
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / -->
+      </th>
+      <td>
+         <strong>
+            {SATKER_NAMA}
+         </strong>
+      </td>
+   </tr>
+   <!-- patTemplate:tmpl name="tipe_unit" visibility="hidden" -->
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / -->
+         </th>
+         <td>
+            <strong>
+               {UNIT_NAMA}
+            </strong>
+         </td>
+      </tr>
+   <!-- /patTemplate:tmpl -->
+   <!-- patTemplate:tmpl name="tipe_fakultas" visibility="hidden" -->
+      <tr>
+         <th>
+            Fakultas
+         </th>
+         <td>
+            <strong>
+               {FAKULTAS_NAMA}
+            </strong>
+         </td>
+      </tr>
+   <!-- /patTemplate:tmpl -->
+   <!-- patTemplate:tmpl name="tipe_jurusan" visibility="hidden" -->
+      <tr>
+         <th>
+            Jurusan
+         </th>
+         <td>
+            <strong>
+               {JURUSAN_NAMA}
+            </strong>
+         </td>
+      </tr>
+   <!-- /patTemplate:tmpl -->
+   <!-- patTemplate:tmpl name="tipe_prodi" visibility="hidden" -->
+      <tr>
+         <th>
+            Program Studi
+         </th>
+         <td>
+            <strong>
+               {PRODI_NAMA}
+            </strong>
+         </td>
+      </tr>
+   <!-- /patTemplate:tmpl -->
+   <tr>
+      <th valign='top'>
+         <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+      </th>
+      <td>
+         <strong>
+            {PROGRAM_NAMA}
+         </strong>
+      </td>
+   </tr>
+   <tr>
+      <th valign='top'>
+         <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->
+      </th>
+      <td>
+         <strong>
+            {KEGIATAN_NAMA}
+         </strong>
+      </td>
+   </tr>
+   <tr>
+      <th valign='top'>
+         <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+      </th>
+      <td>
+         <strong>
+            {SUB_KEGIATAN_NAMA}
+         </strong>
+      </td>
+   </tr>
+   <tr class="subhead">
+      <th colspan="2">
+         Details
+      </th>
+   </tr>
+   <tr>
+      <td colspan="2" style="padding:0px;">
+         <table class="table-common" style="width: 100%;">
+            <thead>
+               <tr>
+                  <th>
+                     <!-- patTemplate:gtfwgetconfig config="language" name="nomor_pengajuan" / -->
+                  </th>
+                  <th>
+                     <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / --> 
+                     <!-- patTemplate:gtfwgetconfig config="language" name="pengajuan_fpa" / -->
+                  </th>
+                  <th>
+                     <!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / -->
+                  </th>
+                  <th style="width: 115px;">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="nominal_disetujui_rp" / -->
+                  </th>
+                  <th style="width: 115px;">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="nominal_realisasi_rp" / -->
+                  </th> 
+                  <th style="width: 95px;">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="tanggal_transaksi" / -->
+                  </th>
+                  <th style="width: 135px;">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="referensi_transaksi" / -->
+                  </th>
+                  <th>
+                     <!-- patTemplate:gtfwgetconfig config="language" name="no_lppa" / -->
+                  </th> 
+                  <th style="width: 115px;">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="nominal_lppa_rp" / -->
+                  </th> 
+               </tr>
+            </thead>
+            <tbody>
+               <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+                  <!-- patTemplate:sub condition="YES" -->
+                     <tr>
+                        <td colspan="8" align="center">
+                           <em>
+                              <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                           </em>
+                        </td>
+                     </tr>
+                  <!-- /patTemplate:sub -->
+                  <!-- patTemplate:sub condition="NO" -->
+                     <!-- patTemplate:tmpl name="data_list" -->
+                        <tr>
+                           <td align="center">
+                              {NOMOR_PENGAJUAN}
+                           </td>
+                           <td align="center">
+                              {TANGGAL}
+                           </td>
+                           <td>
+                              {KETERANGAN}
+                           </td>
+                           <td align="right">
+                              {NOMINAL}
+                           </td>   
+                           <td colspan="3" style="padding: 0px;">
+                              <table class="table-common" style="padding: 0px; margin:0px;" width="100%">
+                                 <!-- patTemplate:tmpl name="realisasi_item" -->
+                                    <tr>
+                                       <td style="width: 115px; padding-left: 10px; text-align: right;">
+                                          {NOMINAL}
+                                       </td>
+                                       <td style="width: 96px; padding-left: 10px; text-align: center;">
+                                          {TANGGAL}
+                                       </td>
+                                       <td style="width: 135px; padding-left: 10px; text-align: center;">
+                                          {NOMOR}
+                                       </td>
+                                    </tr>
+                                 <!-- /patTemplate:tmpl -->
+                              </table>
+                           </td>
+                           <td>
+                              {NO_LPPA}
+                           </td>
+                           <td align="right">
+                              {NOMINAL_LPPA}
+                           </td>
+                        </tr>
+                     <!-- /patTemplate:tmpl -->
+                  <!-- /patTemplate:sub -->
+               <!-- /patTemplate:tmpl -->
+            </tbody>
+         </table>
+      </td>
+   </tr>
+</table>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,124 @@
+<!-- patTemplate:tmpl name="content" -->
+<script>
+function TutupDetail(){
+	popupClose();
+}
+</script>
+<h1>
+   Detail SPPT
+</h1>
+<br/> 
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">			
+            Detail SPPT
+         </th>
+      </tr>
+      <tr>          
+         <th width="150">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+         </th>     
+         <td>{TAHUN_ANGGARAN_NAMA}</td>
+      </tr> 
+      <tr>
+         <th width="30%">
+            <!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> /
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / -->
+         </th>
+         <td>{UNIT_KERJA_NAMA}</td>
+      </tr>
+      <tr>
+         <th>
+           Program
+         </th>
+         <td>{PROGRAM_NAMA}</td>
+      </tr>
+      <tr>
+         <th>
+           Nomor
+         </th>
+         <td>{NOMOR_SPP_NO_PENGAJUAN}</td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <td>{TANGGAL_PENGAJUAN_LABEL}</td>
+      </tr>
+
+      <tr class="subhead">
+         <th>
+            Nomor Pengajuan
+         </th>
+         <td></td>
+      </tr>
+      <tr>
+         <td colspan="2" style="padding: 0px;">
+            <table class="table-common" width="100%">
+               
+               <thead>
+                  <tr>
+                     <th style="text-align: center;" width="10">No</th>
+                     <th style="text-align: center;">Nomor Pengajuan
+                        <input type="hidden" name="maks" id="maks" value="{MAKS}" />
+                        <input type="hidden" name="maks_nomor" id="maks_nomor" value="{MAKS_NOMOR}" />
+                     </th>                     
+                     <th style="text-align: center"  width="100">Tanggal</th>
+                     <th>Kode MA</th>
+                     <th>Nama Index</th>                     
+                     <th style="text-align: center"><!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / --></th>
+                  </tr>
+               </thead>
+               
+               <tbody id="table-pengajuan">
+				<!-- patTemplate:tmpl name="data_pengajuan" type="condition" conditionvar="IS_DATA_EMPTY" -->
+					<!-- patTemplate:sub condition="YES" -->
+					<tr id="table-kosong">
+						<td colspan="9" align="center">
+							<em>
+                            --<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--
+							</em>
+						</td>
+					</tr>
+					<!-- /patTemplate:sub -->
+					<!-- patTemplate:sub condition="NO" -->					
+						<!-- patTemplate:tmpl name="data_item" -->
+						<tr class="{DATA_CLASS_NAME}">		
+							<td align="center"><label>{NO}</label></td>		 			   
+							<td>{PENGAJUAN_NO}</td>
+							<td><label>{PENGAJUAN_TANGGAL}</label></td>
+							<td><label>{KODE_MA}</label></td>
+							<td><label>{NAMA_INDEX}</label></td>
+							<td align="right"><label>{NOMINAL_LABEL}</label></td> 							
+						</tr>						
+						<!-- /patTemplate:tmpl -->
+					<!-- /patTemplate:sub -->
+				<!-- /patTemplate:tmpl -->
+				</tbody>               
+            </table>
+         </td>
+      </tr>
+
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+         </th>
+         <td>
+            <label>{JUMLAH_TOTAL_LABEL}</label>
+         </td>
+      </tr>
+
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / -->
+         </th>  
+         <td>{KETERANGAN}</td>
+      </tr>      
+      <tr class="buttons">
+         <td></td>
+         <td>
+            <input name="btnTutup" value=" Tutup " class="buttonSubmit" type="button" onclick="TutupDetail()">
+         </td>
+      </tr>
+   </table>
+<!-- /patTemplate:tmpl -->

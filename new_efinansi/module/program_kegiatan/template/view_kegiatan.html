@@ -1,0 +1,96 @@
+<!-- patTemplate:tmpl name="content" -->
+
+<script language="javascript" type="text/javascript">
+	var xpopup;
+	function bukaPopupProgram(xurl) {
+		xpopup = window.open(xurl,'xpopup','width=750,height=600,resizable=yes,scrollbars=yes,right=0;center');
+		xpopup.focus();
+	}
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_kegiatan" / --></h1>
+<br />
+<form method="POST" name="frmKegiatan" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+
+   <table >
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>	  
+         <tr>
+            <th width="30%"><!-- patTemplate:gtfwgetconfig config="language" name="program" / --></th>
+            <td><input type="text" name="data[program][nama][readonly]" id="data_program_nama" value="{SEARCH_PROGRAM_NAMA}" size="50" readonly="readonly" / > 			    
+                <input type="button" name="btnshift" value="..."  onClick="bukaPopupProgram('{POPUP_PROGRAM}')" />
+				<input type="hidden" name="data[program][nama]" id="data_program_nama_hidden" value="{SEARCH_PROGRAM_NAMA}" size="25"  / >
+                <input type="hidden" name="data[kegiatan][program_id]" id="data_kegiatan_program_id" value="{SEARCH_PROGRAM_ID}" size="25" />
+            </td>
+         </tr>
+		 <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="kode_kegiatan" / --></th>
+            <td><input type="text" name="data[kegiatan][kode]" value="{SEARCH_KEGIATAN_KODE}" size="20" />
+         </tr>  
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_kegiatan" / --></th>
+            <td><input type="text" name="data[kegiatan][nama]" value="{SEARCH_KEGIATAN_NAMA}" size="20" />
+         </tr>         
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+   <form method="post" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar"> <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / --></a> 	   				
+      </div>
+   </div>
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>		 
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama" / --></th>         
+         <th width="65"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="6" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --> --</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">{DATA_NOMOR}</td>			   
+		       <td>{DATA_KEGIATAN_KODE}</td>
+               <td>{DATA_KEGIATAN_NAMA}		   
+			   </td>               
+               <td class="links" align="center">
+                  {DATA_URL_EDIT}
+				  {DATA_URL_DELETE}
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+	  
+	 
+   </table>
+   </form>
+   <br /> 
+   
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+      <ul>
+         <li>Untuk tampilan Kode Program, Kegiatan maupun sub Kegiatan terdiri dari 6 digit. Untuk Program terdiri dari 2 digit paling kiri. 4 digit sisanya dikanan dikasih 4 digit 0. Untuk Kegiatan 2 digit kiri diambil dari Program induknya dan 2 ditengahnya dari kode kegiatan itu sendiri dan 2 digit dibelakang dikasih 2 digit 0..</li>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

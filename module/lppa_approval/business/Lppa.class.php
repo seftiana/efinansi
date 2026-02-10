@@ -1,0 +1,150 @@
+<?php
+
+/**
+* ================= doc ====================
+* FILENAME     : Lppa.class.php
+* @package     : Lppa
+* scope        : PUBLIC
+* @Author      : Eko Susilo
+* @Created     : 2015-03-17
+* @Modified    : 2015-03-17
+* @Analysts    : Dyah fajar N
+* @copyright   : Copyright (c) 2012 Gamatechno
+* ================= doc ====================
+*/
+
+require_once GTFWConfiguration::GetValue('application','docroot') .
+'module/user_unit_kerja/business/UserUnitKerja.class.php';
+
+class Lppa extends Database
+{
+   # internal variables
+   private $mNumber;
+   protected $mSqlFile;
+   protected $mUserId = null;
+   public $_POST;
+   public $_GET;
+   public $method;
+   
+   # Constructor
+   public function __construct ($connectionNumber = 0)
+   {
+      $this->mSqlFile   = 'module/lppa_approval/business/lppa.sql.php';
+      $this->_POST      = is_object($_POST) ? $_POST->AsArray() : $_POST;
+      $this->_GET       = is_object($_GET) ? $_GET->AsArray() : $_GET;
+      $this->method     = strtolower($_SERVER['REQUEST_METHOD']);
+      parent::__construct($connectionNumber);
+   }
+
+   private function setUserId()
+   {
+      if(class_exists('Security')){
+         if(method_exists(Security::Instance(), 'GetUserId')){
+            $this->mUserId    = Security::Instance()->GetUserId();
+         }else{
+            $this->mUserId    = Security::Instance()->mAuthentication->GetCurrentUser()->GetUserId();
+         }
+      }
+   }
+
+    public function GetLppaById($id)
+    {
+        //$this->SetDebugOn();
+        $result = $this->Open($this->mSqlQueries['get_lppa_by_id'], array($id));
+        return $result[0];
+    }
+
+    public function GetCountListLppa()
+    {
+        $result = $this->Open($this->mSqlQueries['get_count_list_lppa'], array());
+        return $result[0]['total'];
+    }
+    
+    public function GetListLppa($offset, $limit, $data)
+    {
+        $result = $this->Open($this->mSqlQueries['get_list_lppa'], array(
+            $data['ta_id'],
+            $data['unit_id'],
+            $data['unit_id'],
+            $data['unit_id'],
+            $offset,
+            $limit
+         ));
+        return $result;
+    }
+    
+    public function GetLaporanLppa($idLppa)
+    {
+        $result = $this->Open($this->mSqlQueries['get_laporan_lppa'], array($idLppa));
+        return $result;
+    }
+
+
+
+    
+   public function UpdateApprovalLppa($data = array())
+   {
+        $result  = $this->Execute($this->mSqlQueries['update_approval_lppa'], array(
+              $data['is_approval'],
+              $data['lppa_id']
+        ));
+        
+        return $result;
+   }
+
+   //get combo tahun anggaran
+   public function GetComboTahunAnggaran() 
+   {
+      $result = $this->Open($this->mSqlQueries['get_combo_tahun_anggaran'], array());
+      return $result;
+   }
+   
+   public function GetTahunAnggaranAktif() 
+   {
+      $result = $this->Open($this->mSqlQueries['get_tahun_anggaran_aktif'], array());
+      return $result[0];
+   }   
+      
+
+   public function getDateRange()
+   {
+      //$this->SetDebugOn();
+      $result     = array();
+      $data       = $this->Open($this->mSqlQueries['get_range_tanggal'], array());
+      $getdate    = getdate();
+      $currMon    = (int)$getdate['mon'];
+      $currYear   = (int)$getdate['year'];
+      
+      if(!empty($data)){
+         $result['start_date']    = date('Y-m-d', strtotime($data[0]['tanggal_awal']));
+         $result['end_date']      = date('Y-m-t', strtotime($data[0]['tanggal_akhir']));
+         $result['min_year']      = date('Y', strtotime($data[0]['tanggal_awal']));
+         $result['max_year']      = date('Y', strtotime($data[0]['tanggal_akhir']));
+      }else{
+         $result['start_date']       = date('Y-m-d', mktime(0,0,0, $currMon, 1, $currYear));
+         $result['end_date']         = date('Y-m-t', mktime(0,0,0, $currMon, 1, $currYear));
+         $result['min_year']      = $currYear;
+         $result['max_year']      = $currYear;
+      }
+
+      return $result;
+   }
+
+   public function getPeriodeTahun($param = array())
+   {
+      $default    = array(
+         'active' => false,
+         'open' => false
+      );
+      $options    = array_merge($default, (array)$param);
+      $return     = $this->Open($this->mSqlQueries['get_periode_tahun'], array(
+         (int)($options['active'] === false),
+         (int)($options['open'] === false)
+      ));
+
+      return $return;
+   }      
+
+
+}
+?>

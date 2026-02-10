@@ -1,0 +1,312 @@
+<!-- patTemplate:tmpl name="content" -->
+
+<script language="javascript" type="text/javascript">
+/*   anime = new janime;
+   anime.element = 'month-list';
+   anime.speed = 50;
+   anime.minHeight = 0;
+   anime.maxHeight = 370;
+   function showhidemonth(valueName){
+      if(valueName == 'show'){
+         document.getElementById('btn-show-hide').value = 'hide';
+         anime.slideOpen();
+      }else{
+         document.getElementById('btn-show-hide').value = 'show';
+         anime.slideClose();
+      }
+   }*/
+</script>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="rencana_penerimaan_detail" / -->
+</h1>
+<br/>
+
+<table class="table-details" width="100%">
+   <tr class="subhead">
+      <th colspan="2">
+         Detail Rencana Penerimaan
+      </th>
+   </tr>
+   <tr>
+      <th style="width: 135px;">
+         <!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / -->
+      </th>
+      <td>
+         {TA_NAMA}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / -->
+      </th>
+      <td>
+         {UNIT_NAMA}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="kode_penerimaan" / -->
+      </th>
+      <td>
+         {KODEPENERIMAAN_KODE}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="nama_penerimaan" / -->
+      </th>
+      <td>
+         {KODEPENERIMAAN_NAMA}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="volume" / -->
+      </th>
+      <td>
+         {VOLUME}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="nama_satuan" / -->
+      </th>
+      <td>
+         {SATUAN}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         Tarif (<!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->.)
+      </th>
+      <td>
+         {TARIF}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         Volume x Tarif (<!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->.)</th>
+      <td>
+         {NOMINAL}
+      </td>
+   </tr>
+   <tr style="display: none;">
+      <th>% Pagu</th>
+      <td>{PAGU}</td>
+   </tr>
+   <tr style="display: none;">
+      <th>Jumlah Pagu (<!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->.)</th>
+      <td>{TOTALPAGU}</td>
+   </tr>
+   <tr>
+      <th>
+         Catatan/Keterangan
+      </th>
+      <td>
+         {KETERANGAN}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="sumber_dana" / -->
+      </th>
+      <td>
+         {SUMBER_DANA_NAMA}
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="status_approval" / -->
+      </th>
+      <td>
+         <!-- patTemplate:tmpl name="content_status" type="condition" conditionvar="STATUS" -->
+            <!-- patTemplate:sub condition="REQUEST" -->
+               <label style="font-weight: bold;">
+                  <img src="images/icons/16/yellow.gif" style="margin-bottom: -3px;" /> Diajukan
+               </label>
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="APPROVED" -->
+               <label style="font-weight: bold;">
+                  <img src="images/icons/16/tick_circle.png" style="margin-bottom: -3px;" /> Disetujui
+               </label>
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="REJECT" -->
+               <label style="font-weight: bold;">
+                  <img src="images/icons/16/icon-warning-16x16.gif" style="margin-bottom: -3px;" /> Ditolak
+               </label>
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </td>
+   </tr>
+   <tr>
+      <th>
+         <!-- patTemplate:gtfwgetconfig config="language" name="total_penerimaan" / --> (<!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->.)
+      </th>
+      <td>
+         {NOMINAL_TOTAL}
+      </td>
+   </tr>
+   <tr class="subhead">
+      <th style="padding-left:25px;" colspan="2">
+         <b><!-- patTemplate:gtfwgetconfig config="language" name="rencana_penerimaan_perbulan" / --> </b> <input type="button" value="show" onclick="showhidemonth(this.value)" id="btn-show-hide" style="display:none;" />
+      </th>
+   </tr>
+   <tr>
+      <td colspan="2" style="padding: 0px;">
+         <table class="table-common" width="100%">
+            <thead>
+               <tr>
+                  <th>
+                     <!-- patTemplate:gtfwgetconfig config="language" name="bulan" / -->
+                  </th>
+                  <th style="width: 45px;">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="persentase" / -->
+                  </th>
+                  <th style="width: 95px;">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+                  </th>
+               </tr>
+            </thead>
+            <tbody id="PlaceHolder_rincianPenerimaan" style="display: none;">
+               <!-- data detail rincian penerimaan per bulan -->
+            </tbody>
+         </table>
+      </td>
+   </tr>
+</table>
+
+   <br/>
+<script>
+document.getElementById('PlaceHolder_rincianPenerimaan').style.height = 0;
+document.getElementById('btn-show-hide').style.display = '';
+
+function showhidemonth(valueName){
+   if(valueName == 'show'){
+      $('#PlaceHolder_rincianPenerimaan').slideDown('slow', function(){
+         document.getElementById('btn-show-hide').value = 'hide';
+      });
+      // anime.slideOpen();
+   }else{
+      $('#PlaceHolder_rincianPenerimaan').slideUp('slow', function(){
+         document.getElementById('btn-show-hide').value = 'show';
+      });
+      // anime.slideClose();
+   }
+}
+
+var formatNumber = function (num, mode){
+   var num, decimal_place = 0;
+   //var point = ',', pointRegex = /,/g; <- membuang dua angka di belakang koma
+   var thousand = '.', thousandRegex = /\./g;
+   var minus = '-';
+   var multiplier = Math.pow(10, decimal_place);
+
+   if (mode > 0)
+   {
+      num = num.toString().replace(thousandRegex, '');
+      num = num.toString().replace(minus, '');
+      if (mode == 2) return num; // just delete thousand mark
+      if (mode == 1) return isNaN(parseFloat(num)) ? 0: parseFloat(num); // go back to english format
+   }
+
+   num = parseFloat(num);
+   if (isNaN(num)) num = 0;
+   if (num.toString().indexOf('e') != -1) return 'Out of range';
+   num = (Math.round(num * multiplier)) / multiplier;
+
+   var str = num.toString().split('.');
+   var quotient = str[0];
+
+   var x = quotient.length % 3;
+   var newQuotient = quotient.substr(0, x);
+
+   for (var i = x; i < quotient.length; i += 3)
+      newQuotient += thousand + quotient.substr(i, 3);
+   if (newQuotient.charAt(0) == thousand) newQuotient = newQuotient.substr(1);
+
+   return newQuotient ;//+ point + reminder;
+}
+
+document.getElementById('PlaceHolder_rincianPenerimaan').addItem  = function(id, nama, persen, nominal){
+   var element_id       = 'rincian_'+id;
+   if (document.getElementById(element_id)) {
+      return true;
+   }
+   var frag             = document.createDocumentFragment();
+   var childObj         = this.getElementsByTagName('tr');
+   for (var i = childObj.length - 1; i >= 0; i--) {
+      if(childObj[i].id === 'empty-row' || childObj[i].id == 'row-total'){
+         this.removeChild(childObj[i]);
+      }
+   };
+
+   if(childObj.length % 2 == 0){
+      var class_name    = 'table-common-even';
+   }else{
+      var class_name    = '';
+   }
+
+   var tr         = document.createElement('tr');
+   tr.id          = element_id;
+   tr.className   = class_name;
+
+   var tdNama     = document.createElement('td');
+   var labelNama  = document.createElement('label');
+   labelNama.style.fontWeight  = 'bold';
+   labelNama.innerHTML         = nama.toUpperCase();
+
+   var tdPersen      = document.createElement('td');
+   tdPersen.style.textAlign   = 'right';
+
+   var labelPersen         = document.createElement('label');
+   labelPersen.style.fontWeight    = 'bold';
+   labelPersen.style.textAlign     = 'right';
+   labelPersen.innerHTML           = formatNumber(persen);
+
+   var tdNominal     = document.createElement('td');
+   tdNominal.style.textAlign  = 'right';
+
+   var labelNominal        = document.createElement('label');
+   labelNominal.style.fontWeight    = 'bold';
+   labelNominal.style.textAlign     = 'right';
+   labelNominal.innerHTML           = formatNumber(nominal);
+
+   // append data rincian
+   tdNama.appendChild(labelNama);
+   tdPersen.appendChild(labelPersen);
+   tdNominal.appendChild(labelNominal);
+
+   tr.appendChild(tdNama);
+   tr.appendChild(tdPersen);
+   tr.appendChild(tdNominal);
+   frag.appendChild(tr);
+
+   var tdNominalTotal         = document.createElement('td');
+   var inputNominalTotal      = document.createElement('input');
+   inputNominalTotal.type     = 'hidden';
+   inputNominalTotal.name     = 'rincian[nominal_total]';
+   inputNominalTotal.value    = 0;
+
+   var labelNominalTotal         = document.createElement('label');
+   labelNominalTotal.style.fontWeight   = 'bold';
+   labelNominalTotal.style.display      = 'block';
+   labelNominalTotal.style.textAlign    = 'right';
+   labelNominalTotal.id          = 'rincian_nominal_total';
+   labelNominalTotal.innerHTML   = 0;
+   tdNominalTotal.appendChild(inputNominalTotal);
+   tdNominalTotal.appendChild(labelNominalTotal);
+
+   this.appendChild(frag);
+}
+
+var dataRincian   = {RINCIAN_PENERIMAAN_DATA};
+for(var i in dataRincian){
+   document.getElementById('PlaceHolder_rincianPenerimaan').addItem(
+      dataRincian[i].id,
+      dataRincian[i].name,
+      dataRincian[i].persen,
+      dataRincian[i].nominal
+   );
+}
+</script>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,73 @@
+<!-- patTemplate:tmpl name="content" -->            
+<script language="JavaScript">
+   function {COMBO_NAME}_show_day(n) {
+      
+  m = parseInt(document.getElementById('{COMBO_NAME}_mon').options[document.getElementById('{COMBO_NAME}_mon').selectedIndex].value);
+  d = 31;
+  if((m==4)||(m==6)||(m==9)||(m==11)) { d = 30; }
+  if(m==2) {
+    d = 29;
+    y = document.getElementById('{COMBO_NAME}_year').value;
+    a = new Date(y,m-1,d);
+    if(a.getDate()==1) { d = 28; }
+  }
+ 
+  if(n>d) { n = d; }
+  s = '';
+  for(i=0;i<=d;i++) { 
+     
+     
+     iDay = i;
+     iDayVal = iDay<10?'0'+iDay:iDay;
+     iDay = iDayVal=='00'?'':iDayVal;
+      
+     s+='<option '+(i==n?'selected':'')+' value='+iDayVal+'>'+iDay+'</option>'; 
+   }
+ 
+  document.getElementById("{COMBO_NAME}_day").innerHTML=s;
+}
+
+function {COMBO_NAME}_date_change() {
+  d = document.getElementById('{COMBO_NAME}_day').options[document.getElementById('{COMBO_NAME}_day').selectedIndex].value;
+  {COMBO_NAME}_show_day(d);
+}
+</script>
+   <div>
+      <select name="{COMBO_NAME}_day" id="{COMBO_NAME}_day" {STATUS_TANGGAL} style="display:{SET_DISPLAY}">
+         <!-- patTemplate:tmpl name="list_date" type="condition" conditionvar="IS_EMPTY" -->
+				<!-- patTemplate:sub condition="YES" -->                              
+               <option value="">Data tidak ditemukan</option>
+				<!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->               
+               <!-- patTemplate:tmpl name="item_date" -->                                 
+                  <option value="{COMBO_VALUE}" {COMBO_SELECTED}>{COMBO_LABEL}</option>               
+               <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->   
+      </select>
+      <select name="{COMBO_NAME}_mon" id="{COMBO_NAME}_mon" {STATUS_BULAN} onChange="{COMBO_NAME}_date_change()">         
+         <!-- patTemplate:tmpl name="list_month" type="condition" conditionvar="IS_EMPTY" -->
+				<!-- patTemplate:sub condition="YES" -->               
+               <option value="">Data tidak ditemukan</option>
+				<!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+               <!-- patTemplate:tmpl name="item_month" -->
+                  <option value="{COMBO_VALUE}" {COMBO_SELECTED}>{COMBO_LABEL}</option>               
+               <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->   
+      </select>
+      <select name="{COMBO_NAME}_year" id="{COMBO_NAME}_year" {STATUS_TAHUN} onChange="{COMBO_NAME}_date_change()">
+         <!-- patTemplate:tmpl name="list_year" type="condition" conditionvar="IS_EMPTY" -->
+				<!-- patTemplate:sub condition="YES" -->               
+               <option value="">Data tidak ditemukan</option>
+				<!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+               <!-- patTemplate:tmpl name="item_year" -->
+                  <option value="{COMBO_VALUE}" {COMBO_SELECTED}>{COMBO_LABEL}</option>               
+               <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->           
+      </select>
+   </div> 
+<!-- /patTemplate:tmpl -->

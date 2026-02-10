@@ -1,0 +1,339 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css">
+input[readonly]{
+   border: none;
+   color: #005E20 !important;
+   font-weight: bold;
+   background: none;
+}
+table.table-common thead > tr > th{
+   text-align: center;
+   vertical-align: middle;
+}
+
+.rightElement{
+   text-align: left !important;
+   font-size:13px !important;
+}
+</style>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="manajemen_pembalik_approval_pencairan" / -->
+</h1>
+<br/>
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br/>
+<!-- /patTemplate:tmpl -->
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form dest_subcontent-element" data-target="{URL_RETURN}" id="frmInput" name="frmInput">
+   <input type="hidden" name="dataId" value="{ID}"  />
+   <input type="hidden" name="status_approval" value="{STATUS_APPROVAL}"  />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="pembalik_approval_pencairan" / -->
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode_tahun" / -->
+         </th>
+         <td>
+            {TA_NAMA}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / -->
+         </th>
+         <td>
+            {UNIT_KODE} &mdash; {UNIT_NAMA}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="program" / -->
+         </th>
+         <td>
+            {PROGRAM_KODE} &mdash; {PROGRAM_NAMA}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / -->
+         </th>
+         <td>
+            {KEGIATAN_KODE} &mdash; {KEGIATAN_NAMA}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / -->
+         </th>
+         <td>
+            {SUB_KEGIATAN_KODE} &mdash; {SUB_KEGIATAN_NAMA}
+         </td>
+      </tr>
+      <tr style="display:none;">
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / -->
+         </th>
+         <td>
+            {KETERANGAN}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <td>
+            <!-- patTemplate:var name="TANGGAL" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nomor_pengajuan" / -->
+         </th>
+         <td>
+            {NOMOR_PENGAJUAN}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_diajukan" / -->
+         </th>
+         <td>
+            <strong>
+               <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->. {NOMINAL_LABEL}
+            </strong>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_disetujui" / -->
+         </th>
+         <td>
+            <span style="float: left; margin-right: 6px; font-weight: bold;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="rp" / -->
+            </span>
+            <input type="text" readonly="readonly"  name="nominal_approve" id="txt_nominal_approve" value="{NOMINAL_APPROVE}" class="gvFloat rightElement" />
+         </td>
+      </tr>
+      <tr class="buttons">
+         <th>&nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+            <input type="reset"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+         </td>
+      </tr>
+      <tr class="subhead">
+         <th colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+         </th>
+      </tr>
+      <tr>
+         <td colspan="2" style="padding: 0px;">
+            <table class="table-common" style="width: 100%;">
+               <thead>
+                  <tr>
+                     <th colspan="2">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+                     </th>
+                     <th rowspan="2" style="width: 115px;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="kode_coa" / -->
+                     </th>
+                     <th rowspan="2" style="width: 115px;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / -->
+                     </th>
+                     <th colspan="2">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="nominal" / -->
+                     </th>
+                  </tr>
+                  <tr>
+                     <th style="width: 95px;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+                     </th>
+                     <th>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+                     </th>
+                     <th style="width: 115px;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="nominal_usulan_rp" / -->
+                     </th>
+                     <th style="width: 115px;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="nominal_setuju_rp" / -->
+                     </th>
+                  </tr>
+               </thead>
+               <tbody id="komponen_PlaceHolder">
+                  <tr id="empty_row">
+                     <td colspan="5" style="font-style: italic; text-align: center;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </td>
+      </tr>
+   </table>
+</form>
+<script type="text/javascript">
+var form             = document.forms['frmInput'];
+var formElements     = form.elements;
+var tBody            = document.getElementById('komponen_PlaceHolder');
+tBody.addItem        = function(id, realisasiId, kode, nama, makKode,deskripsi, nominal, nominalApprove){
+   var el_id      = 'detailId_'+id;
+   if (document.getElementById(el_id)) {
+      return true;
+   }
+   var childNodes    = this.getElementsByTagName('tr');
+   for (var i = childNodes.length - 1; i >= 0; i--) {
+      if(childNodes[i].id == 'empty_row'){
+         this.removeChild(childNodes[i]);
+      }
+   };
+
+   var tr      = document.createElement('tr');
+   tr.id       = el_id;
+
+   var inputPengrealDetId     = document.createElement('input');
+   inputPengrealDetId.type    = 'hidden';
+   inputPengrealDetId.name    = 'KOMP['+id+'][id]';
+   inputPengrealDetId.value   = id;
+
+   var inputPengrealId        = document.createElement('input');
+   inputPengrealId.type       = 'hidden';
+   inputPengrealId.name       = 'KOMP['+id+'][pr_id]';
+   inputPengrealId.value      = realisasiId;
+
+   var tdKomponenKode         = document.createElement('td');
+   var labelKomponenKode      = document.createElement('label');
+   labelKomponenKode.style.fontWeight  = 'bold';
+   labelKomponenKode.style.textAlign   = 'center';
+   labelKomponenKode.style.display     = 'block';
+   labelKomponenKode.style.width       = '100%';
+   labelKomponenKode.style.verticalAlign  = 'middle';
+   labelKomponenKode.innerHTML   = kode;
+   tdKomponenKode.appendChild(labelKomponenKode);
+
+   var tdKomponenNama         = document.createElement('td');
+   var labelKomponenNama      = document.createElement('label');
+   labelKomponenNama.innerHTML   = nama;
+   labelKomponenNama.style.fontWeight  = 'bold';
+   labelKomponenNama.style.textAlign   = 'left';
+   labelKomponenNama.style.display     = 'block';
+   labelKomponenNama.style.width       = '100%';
+   labelKomponenNama.style.verticalAlign  = 'middle';
+   tdKomponenNama.appendChild(labelKomponenNama);
+
+   var tdMakKode        = document.createElement('td');
+   var labelMak         = document.createElement('label');
+   labelMak.innerHTML   = makKode;
+   labelMak.style.fontWeight  = 'bold';
+   labelMak.style.textAlign   = 'center';
+   labelMak.style.display     = 'block';
+   labelMak.style.width       = '100%';
+   labelMak.style.verticalAlign  = 'middle';
+   tdMakKode.appendChild(labelMak);
+
+   var tdDeskripsi        = document.createElement('td');
+   var labelDeksripsi         = document.createElement('label');
+   labelDeksripsi.innerHTML   = deskripsi;
+   labelDeksripsi.style.fontWeight  = 'bold';
+   labelDeksripsi.style.textAlign   = 'center';
+   labelDeksripsi.style.display     = 'block';
+   labelDeksripsi.style.width       = '100%';
+   labelDeksripsi.style.verticalAlign  = 'middle';
+   tdDeskripsi.appendChild(labelDeksripsi);
+   
+   var tdNominalUsulan        = document.createElement('td');
+   var inputNominalUsulan     = document.createElement('input');
+   inputNominalUsulan.value   = nominal;
+   inputNominalUsulan.readOnly   = true;
+   inputNominalUsulan.className  = 'gvFloat';
+   inputNominalUsulan.name       = 'KOMP['+id+'][nominal_usulan]';
+   inputNominalUsulan.type       = 'text';
+   inputNominalUsulan.size       = '20';
+
+   tdNominalUsulan.appendChild(inputNominalUsulan);
+
+   var tdNominalApproval      = document.createElement('td');
+   var inputNominalApproval   = document.createElement('input');
+   inputNominalApproval.type  = 'text';
+   inputNominalApproval.name  = 'KOMP['+id+'][nominal_approve]';
+   inputNominalApproval.className      = 'gvFloat';
+   inputNominalApproval.size           = '20';
+   inputNominalApproval.value          = nominalApprove;
+   inputNominalApproval.readOnly       = true;
+   inputNominalApproval.setAttribute('onkeyup', 'setBudgetNominal(this);');
+   tdNominalApproval.appendChild(inputNominalApproval);
+
+   tr.appendChild(inputPengrealDetId);
+   tr.appendChild(inputPengrealId);
+   tr.appendChild(tdKomponenKode);
+   tr.appendChild(tdKomponenNama);
+   tr.appendChild(tdMakKode);
+   tr.appendChild(tdDeskripsi);
+   tr.appendChild(tdNominalUsulan);
+   tr.appendChild(tdNominalApproval);
+
+   this.appendChild(tr);
+
+   var childNode  = tdNominalUsulan.firstChild;
+   do {
+      if (childNode.tagName && childNode.tagName.toUpperCase() == 'INPUT'){
+         // gValidationNumber['.gvNum'](childNode);
+         gValidation20090108['.gvFloat'](childNode);
+      }
+   } while (childNode = childNode.nextSibling);
+
+   var childNode2  = tdNominalApproval.firstChild;
+   do {
+      if (childNode2.tagName && childNode2.tagName.toUpperCase() == 'INPUT'){
+         gValidation20090108['.gvFloat'](childNode2);
+      }
+   } while (childNode2 = childNode2.nextSibling);
+
+   return true;
+};
+
+var paternInputUsulan      = /KOMP\[(\d+)\]\[nominal_usulan\]/;
+var paternInputApproval    = /KOMP\[(\d+)\]\[nominal_approve\]/;
+var patern                 = /(\w+)\[(\d+)\]\[(\w+)\]/;
+var setApproval      = function(){
+   var childObj         = tBody.getElementsByTagName('input');
+   var nominalApproval  = 0;
+   var inputNominal     = document.getElementsByName('nominal_approve')[0];
+   if(childObj && typeof(childObj) != 'undefined'){
+      for (var i = childObj.length - 1; i >= 0; i--) {
+         var name       = childObj[i].name.match(paternInputApproval);
+         var nominal    = 0;
+
+         if(childObj[i].name && name){
+            var nameIndex  = name[1];
+            nominalApproval   += parseFloat(childObj[i].gvGetValue());
+         }
+      };
+   }
+
+   inputNominal.gvSetValue(parseFloat(nominalApproval));
+   return true;
+}
+
+var KOMPONEN   = {KOMPONEN_DATA};
+for (var i in KOMPONEN){
+   tBody.addItem(
+      KOMPONEN[i].realisasi_det_id,
+      KOMPONEN[i].realisasi_id,
+      KOMPONEN[i].komponen_kode,
+      KOMPONEN[i].komponen_nama,
+      KOMPONEN[i].mak_kode,
+      KOMPONEN[i].deskripsi,
+      KOMPONEN[i].nominal_budget,
+      KOMPONEN[i].nominal_approve
+   );
+}
+setApproval();
+</script>
+<!-- /patTemplate:tmpl -->

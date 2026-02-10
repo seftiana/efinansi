@@ -1,0 +1,170 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+   var xpopup;
+   function bukaPopupCetak(xurl) {
+      xpopup = window.open(xurl,'xpopup','width=900,height=600,resizable=yes,scrollbars=yes,right=0;center');
+      xpopup.focus();
+   }
+
+   function bukaPopupCOA(xurl) {
+      showPopup(xurl,'',550,550);
+   }
+</script>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="laporan_buku_besar_sementara" / -->
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox" name="frmFilterBox">
+   <table>
+      <tr>
+         <th colspan="2">
+            <h2>
+               <strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="rekening" / -->
+         </th>
+         <td>
+            <input type="hidden" name="coa_id" id="coa" value="{COA_ID}" />
+            <input type="text" name="coa_nama" id="coa_label" value="{COA_NAMA}" size="40" readonly="readonly" />
+            <input type="button" onclick="showPopup('{URL_POPUP_COA}','',550,550);" value=" ... " />
+         </td>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_account" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="sub_account"  / -->          
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_awal"  / -->
+            <label style="font-weight: bold; display: block; width: 100%; margin: 0.3em;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="s_d" / -->
+            </label>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_akhir"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan" / --> &raquo;" class="buttonSubmit"/>
+            <input type="reset" name="btncari" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan_semua" / --> &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+<div class="pageBar">
+<!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   <div class="toolbar">
+      <a href="javascript:void(0)" onclick="bukaPopupCetak('{URL_CETAK}')" title="Cetak" >
+         <img src="images/button-print.gif" alt="Cetak"> <!-- patTemplate:gtfwgetconfig config="language" name="cetak" / -->
+      </a>
+      <a href="{URL_EXCEL}" title="<!-- patTemplate:gtfwgetconfig config="language" name="export_excel" / -->" target="_blank">
+         <img src="images/icons/16/export_excel.gif" alt=""><!-- patTemplate:gtfwgetconfig config="language" name="excel" / -->
+      </a>
+   </div>
+</div>
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th width="100">
+           Tanggal
+         </th>
+         <th width="150">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no_bukti" / -->
+         </th>
+         <th>
+            Keterangan
+         </th>
+          <th width="120">
+            <!-- patTemplate:gtfwgetconfig config="language" name="debet_rp" / -->
+         </th>
+         <th width="120">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kredit_rp" / -->
+         </th>
+          <th width="120">
+            Saldo
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="10" align="center">
+                  <em> <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> </em>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+                <!-- patTemplate:tmpl name="data_item_grid" type="condition" conditionvar="HEADER" -->
+                    <!-- patTemplate:sub condition="NO" -->
+                        <tr class="{LAP_CLASS_NAME}" style="{IS_SHOW}">
+                            <td align="center">
+                            <!-- patTemplate:var name="TANGGAL_JURNAL_ENTRI" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+                            </td>
+                            <td>{NOMOR_REFERENSI}</td>
+                            <td>{KETERANGAN}</td>
+                            <td style="text-align:right;">{DEBET}</td>
+                            <td style="text-align:right;">{KREDIT}</td>
+                            <td style="text-align:right;">{SALDO_AKHIR}</td>
+                        </tr>
+                        <!-- patTemplate:tmpl name="jumlah" visibility="hidden" -->
+                          <tr class="{LAP_CLASS_NAME}">
+                            <td align="center">
+                            &nbsp;
+                            </td>
+                            <td> </td>           
+                            <td>JUMLAH</td>
+                            <td> </td>
+                            <td> </td>
+                           <td style="text-align:right;">{SALDO_AKHIR}</td>
+                        </tr>
+                        <!-- /patTemplate:tmpl -->
+                    <!-- /patTemplate:sub -->      
+                    <!-- patTemplate:sub condition="YES" -->
+                        <tr class="{LAP_CLASS_NAME}">
+                            <td colspan="6" align="center">
+                                <strong>{KETERANGAN}</strong>
+                            </td>
+                        </tr> 
+                         <tr class="{LAP_CLASS_NAME}">
+                            <td align="center">
+                            &nbsp;
+                            </td>
+                            <td> </td>           
+                            <td>SALDO AWAL</td>
+                            <td> </td>
+                            <td> </td>
+                           <td style="text-align:right;">{SALDO_AWAL}</td>
+                        </tr>
+                    <!-- /patTemplate:sub -->                          
+               <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:tmpl -->
+            <tr class="table-common-even1" >
+                        <td align="center">
+                        &nbsp;
+                        </td>
+                        <td> </td>           
+                        <td ><b>TOTAL JUMLAH</b></td>
+                        <td> </td>
+                        <td> </td>
+                        <td style="text-align:right;"><b>{TOTAL_SALDO}</b></td>
+                    </tr>
+         <!-- /patTemplate:sub -->         
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<!-- /patTemplate:tmpl -->

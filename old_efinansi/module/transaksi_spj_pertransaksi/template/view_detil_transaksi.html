@@ -1,0 +1,111 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function centangin_semua(varname, start_num, end_num) {
+		var obj = document.getElementById('cek_all');
+		var ceks;
+		if(obj.checked == false) {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+				if(ceks) ceks.checked = false;
+			}
+		} else {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+				if(ceks) ceks.checked = true;
+			}
+		}
+	}
+	function show_checkbox() {
+		if(document.getElementById('cek_all'))
+			document.getElementById('cek_all').style.display='';
+	}
+	document.onload = show_checkbox();
+</script>
+<script language="javascript" type="text/javascript">
+   var xpopup;
+   function bukaPopupCetak(xurl) {
+      xpopup = window.open(xurl,'xpopup','width=900,height=600,resizable=yes,scrollbars=yes,right=0;center');
+      xpopup.focus();
+   }
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="detil_transaksi" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table  width="800">
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+	  <tr>              
+		 <th width="30%"><!-- patTemplate:gtfwgetconfig config="language" name="periode" / --></th>
+		 <td><!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="mulai" / -->&nbsp;<!-- patTemplate:gtfwgetconfig config="language" name="s_d" / -->&nbsp;<!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="selesai" / --><input type="submit" name="btncari" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan" / --> &raquo;" class="buttonSubmit"/></td>
+	  </tr>
+	  <!-- patTemplate:tmpl name="periode_item" visibility="hidden" --><tr>
+		<th><!-- patTemplate:gtfwgetconfig config="language" name="transaksi" / --> </th>
+		<td>
+		{LIST_PERIODE}<br />
+		</td>
+	</tr><!-- /patTemplate:tmpl -->
+   </table>
+</form>
+
+<br />
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+   <form method="POST" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar"> 
+   		<a class="xhr dest_subcontent-element" href="{URL_KEMBALI}" title="Kembali" ><img src="images/arrow_ltr.png" alt=""><!-- patTemplate:gtfwgetconfig config="language" name="kembali" / --></a>
+		<!--<input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="inputButton" />-->
+      </div>
+   </div>
+   <table class="table-common" width="800">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <!--<th width="5"><input type="checkbox" style="display:none" name="cek_all" id="cek_all" value="ALL" onclick="centangin_semua('detil_id_','{FIRST_NUMBER}','{LAST_NUMBER}');" /></th>-->
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="no_bukti" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="jenis" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="tipe" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="uraian" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="total_rp" / --></th>
+         <th width="125"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="9" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">{DATA_NUMBER}</td>
+			      <!--<td align="center">
+					<input type="checkbox" name="id[]" id="detil_id_{DATA_NUMBER}" value="{DATA_ID}" /><input type="hidden" name="name[{DATA_ID}]" value="{DATA_URAIAN}" /></td>-->
+               <td>{DATA_TANGGAL}</td>
+               <td>{DATA_KKB}</td>
+               <td>{DATA_JENIS}</td>
+               <td>{DATA_TIPE}</td>
+               <td>{DATA_URAIAN}</td>
+               <td align="right">{DATA_NOMINAL_LABEL}</td>
+               <td class="links" align="center">
+                  {DATA_URL_EDIT}
+                  {DATA_URL_DELETE}
+                  <!--<a class="xhr dest_subcontent-element" onClick="javascript: return showBoxConfirmDelete('{DATA_IDDELETE}', '{DATA_KKB}', '{DATA_URLDELETE}');" href="{DATA_URL_DELETE}" title="Hapus"><img src="images/button-delete.gif" alt="Hapus"/></a>-->
+                  <a class="xhr dest_subcontent-element" href="{DATA_URL_CETAK}" title="<!-- patTemplate:gtfwgetconfig config="language" name="cetak" / -->"><img src="images/button-print.gif" alt="Cetak"/></a>
+                  <a class="xhr dest_subcontent-element" href="{DATA_URL_CETAK_BUKTI}" title="{DATA_LABEL_CETAK_BUKTI}"><img src="images/button-print.gif" alt="{DATA_LABEL_CETAK_BUKTI}"/></a>
+                  <!--{DATA_URL_CETAK_BUKTI}-->
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   </form>
+   <br /> 
+<!-- /patTemplate:tmpl -->

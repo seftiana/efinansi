@@ -1,0 +1,74 @@
+<!-- patTemplate:tmpl name="content" -->
+<script>
+ function bukaPopupDetail(xurl) {
+      showPopup(xurl,'Detail Tipe Transaksi',600,500);
+   }
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_form_transaksi" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+      <tr>              
+         <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="nama_form" / --></th>
+         <td><input type="text" name="keyword" value="{KEYWORD}" size="30" /></td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan" / --> &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<table class="table-common" width="100%">
+   <tr>
+      <th width="5px" nowrap><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+      <th nowrap><!-- patTemplate:gtfwgetconfig config="language" name="kode_form" / --></th>
+      <th nowrap><!-- patTemplate:gtfwgetconfig config="language" name="nama_form" / --></th>
+      <th nowrap><!-- patTemplate:gtfwgetconfig config="language" name="nama_jurnal" / --></th>
+      <th width="63px"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+   </tr>
+   <!-- patTemplate:tmpl name="dataGrid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+      <!-- patTemplate:sub condition="YES" -->
+      <tr><td colspan="6" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+      <!-- /patTemplate:sub -->
+      <!-- patTemplate:sub condition="NO" -->
+      <tr class="{CLASS_NAME}">
+         <td align="center">{NOMOR}</td>
+         <td>{FORMCODE}</td>
+         <td>{FORMNAME}</td>
+         <td>{NAMA_JURNAL}</td>
+         <td class="links" nowrap>
+            <!--a title="Lihat Detail" class="xhr dest_subcontent-element" href="{URL_DETAIL}"><img src="images/button-detail.gif" alt=""/></a-->
+            <a href="javascript:void(0)"
+				 onclick="bukaPopupDetail('{URL_DETAIL}')" title="look up" >
+				 <img src="images/button-detail.gif" alt=""/>
+				 </a>
+            <a title="Ubah Data" class="xhr dest_subcontent-element" href="{URL_EDIT}"><img src="images/button-edit.gif" alt=""/></a>
+         </td>
+      </tr>
+      <!-- /patTemplate:sub -->
+   <!-- /patTemplate:tmpl -->
+</table>
+<div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+      <ul>
+         <li>Jika Nama Jurnal Tidak ada, maka form transaksi tersebut tidak di jurnal</li>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

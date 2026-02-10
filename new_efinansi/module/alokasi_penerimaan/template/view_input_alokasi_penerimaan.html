@@ -1,0 +1,114 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	var xpopup = false;
+	function fokus(elemId) {
+		document.getElementById(elemId).focus();
+		document.getElementById(elemId).select;
+	}
+	function bukaPopupKodePenerimaan(xurl) {	
+		showPopup(xurl,'','600','500');
+	}
+ 	function bukaPopupUnitKerja(xurl) {
+		
+	  showPopup(xurl,'','600','500');
+   }
+	
+</script>
+
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_alokasi_penerimaan" / --></h1>
+<br/>
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="notebox-alert">
+      {ISI_PESAN}
+   </div>
+   <br/>
+   <!-- /patTemplate:tmpl -->
+   
+<form method="POST" name="frmKegiatan" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
+<table class="table-edit" width="100%">
+    <tr class="subhead">
+        <th colspan="2">{ACTION_LABEL} <!-- patTemplate:gtfwgetconfig config="language" name="alokasi_penerimaan" / --></th>
+    </tr>
+		 
+ 	<tr>
+       <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / 
+            <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+       </th>
+       <td>
+            <input type="hidden" name="alokasi_id" value="{DATA_ALOKASI_ID}"  />
+           <input type="text" id="nama_unit" name="nama_unit" value="{DATA_NAMA_UNIT}" size="40"
+                 readonly="readonly" />
+		   <input type="hidden" id="id_unit" name="id_unit" value="{DATA_ID_UNIT}"/>
+           <input type="hidden" id="id_unit_lama" name="id_unit_lama" value="{DATA_ID_UNIT_LAMA}"/>
+		  <a href="javascript:void(0)" onclick="bukaPopupUnitKerja('{URL_POPUP_UNIT_KERJA}')" 
+                title="look up" ><img src="images/button-search.gif" alt="look up"/></a>&nbsp;*
+        </td>
+    </tr>
+    <tr>
+         <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kode_penerimaan" / --></th>
+         <td>
+                <input type="text" id="nama_terima" name="nama_terima" value="{DATA_NAMA_TERIMA}" size="40"
+                    readonly="readonly" />
+                <input type="hidden" id="id_kode_terima" name="id_kode_terima" value="{DATA_ID_KODE_TERIMA}"/>
+                <input type="hidden" id="id_kode_terima_lama" name="id_kode_terima_lama"
+                 value="{DATA_ID_KODE_TERIMA_LAMA}"/>
+                <a href="javascript:void(0)" onclick="bukaPopupKodePenerimaan('{URL_POPUP_KODE_PENERIMAAN}')" 
+                            title="look up" ><img src="images/button-search.gif" alt="look up"/></a>&nbsp;*
+         </td>
+    </tr>
+		 		 
+	 <tr>
+        <th ><!-- patTemplate:gtfwgetconfig config="language" name="alokasi_unit" / --></th>
+        <td>
+            <input type="text" name="alokasi_unit" value="{DATA_ALOKASI_UNIT}" size="5"  class="gvFloat4" />&nbsp;%&nbsp;*</td>
+     </tr>
+     <tr>
+        <th><!-- patTemplate:gtfwgetconfig config="language" name="alokasi_pusat" / --></th>
+        <td>
+            <input type="text" name="alokasi_pusat" value="{DATA_ALOKASI_PUSAT}" size="5"  class="gvFloat4"  />&nbsp;%&nbsp;*</td>
+     </tr>
+     <tr>
+        <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> Pusat</th>
+        <td>
+            
+            <input type="text" id="nama_unit_pusat" name="nama_unit_pusat" value="{DATA_NAMA_UNIT_PUSAT}" size="40"
+                 readonly="readonly" />
+		   <input type="hidden" id="id_unit_pusat" name="id_unit_pusat" value="{DATA_ID_UNIT_PUSAT}"/>
+           <input type="hidden" id="id_unit_pusat_lama" name="id_unit_pusat_lama" value="{DATA_ID_UNIT_PUSAT_LAMA}"/>
+		  <a href="javascript:void(0)" onclick="bukaPopupUnitKerja('{URL_POPUP_UNIT_KERJA_PUSAT}')" 
+                title="look up" ><img src="images/button-search.gif" alt="look up"/></a>&nbsp;*
+     </tr>
+    <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="alokasi_operan" / --></th>
+            <td>
+             <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="alokasi_operan"  / -->
+             <input type="hidden" id="alokasi_operan_lama" name="alokasi_operan_lama"
+              value="{DATA_ALOKASI_OPERAN_LAMA}"/>
+			</td>
+    </tr>
+     <tr>
+        <th><!-- patTemplate:gtfwgetconfig config="language" name="alokasi_batas" / --></th>
+        <td>
+            <input type="text" name="alokasi_nilai_batas" value="{DATA_ALOKASI_NILAI_BATAS}" size="20" class="gvNum"  /></td>
+     </tr>         
+         <tr class="buttons">
+            <th>&nbsp;
+            </th>
+            <td>
+               <input type="submit" name="btnsimpan" value=" <!-- patTemplate:gtfwgetconfig config="language" name="simpan" / --> " class="buttonSubmit"/>
+               <input  type="submit"  name="btnbalik" value=" <!-- patTemplate:gtfwgetconfig config="language" name="batal" / --> " class="buttonSubmit"/>
+            </td>
+         </tr>
+      </table>
+   </form>
+   
+   <br/>
+   
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+      <ul>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --></li>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

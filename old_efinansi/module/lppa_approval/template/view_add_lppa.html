@@ -1,0 +1,178 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+
+    function bukaPopupUnitKerja(xurl) 
+    {
+        
+        showPopup(xurl,'',550,550);
+    }
+    
+    function bukaPopupRealisasi(xurl)
+    {
+        var unitId = document.getElementById('unit_kerja_id').value;
+        if(unitId == ''){
+            alert('Silah pilih unit kerja');
+        }else{
+            var queryString   = '&unit_id='+unitId;
+            var xurl          = xurl + queryString;
+            showPopup(xurl, '', 800, 500);
+        }
+            
+    }
+        
+    //document.onmousedown=focusPopup();
+</script>
+<h1>
+  Approval LPPA
+</h1>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<form method="POST" action="{URL_ACTION}" class="xhr_form std_form dest_subcontent-element" id="frmInput" name="frmInput">
+   <input type="hidden" name="lppa_id" value="{LPPA_ID}"  />
+   <input type="hidden" name="unit_kerja_id_old" value="{UNIT_KERJA_ID_OLD}"  />
+   <input type="hidden" name="tahun_anggaran_id_old" value="{TAHUN_ANGGARAN_ID_OLD}"  />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            Approval Data
+         </th>
+      </tr>
+         <tr>
+            <th width="120"><!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / --></th>
+            <td>
+                <input type="hidden" name="tahun_anggaran_nama" value="{TAHUN_ANGGARAN_NAMA}"  />{TAHUN_ANGGARAN_NAMA}
+            </td>
+         </tr>
+          <tr>
+             <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / --></th>
+             <td>
+                <input type="hidden" name="unit_kerja_id" id="unit_kerja_id" value="{UNIT_KERJA_ID}" />
+                    <label><b>{UNIT_KERJA_NAMA}</b></label>
+                    <input type="hidden" name="unit_kerja_nama" 
+                        id="unit_kerja_nama" value="{UNIT_KERJA_NAMA}" />
+             </td>
+          </tr>     
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="mak" / -->
+         </th>
+         <td>
+            <input type="hidden" name="realisasi_id" id="realisasi_id" value="{REALISASI_ID}" />
+            <input type="hidden" name="realisasi_no" id="realisasi_nama" value="{REALISASI_NO}" />
+            {REALISASI_NO}
+         </td>
+      </tr>
+     
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="uraian" / -->
+         </th>
+         <td>
+             <input type="hidden" name="uraian" id="txt_uraian" value="{URAIAN}" />
+            {URAIAN}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="penanggung_jawab" / -->
+         </th>
+         <td>
+            <input type="hidden" name="penanggung_jawab" id="penanggung_jawab" value="{PENANGGUNG_JAWAB}" /> 
+            {PENANGGUNG_JAWAB}
+         </td>
+      </tr>    
+      <tr>
+         <th>
+            Mengetahui
+         </th>
+         <td>
+            <input type="hidden" name="mengetahui" id="mengetahui" value="{MENGETAHUI}" />
+            {MENGETAHUI}
+         </td>
+      </tr>     
+    
+ <tr class="subhead">
+         <th colspan="2">
+            Komponen Anggaran
+         </th>
+      </tr>
+      <tr>
+         <td colspan="2" style="padding: 0px;">
+            <table class="table-common" width="100%">
+               <thead>
+                  <tr>
+                     <th colspan="2" style="text-align: center; width: 115px; vertical-align: middle; font-weight: bold;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="komponen" / -->
+                     </th>
+                     <th style="text-align: center; vertical-align: middle; font-weight: bold; width: 115px;" rowspan="2">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="kode_coa" / -->
+                     </th>
+                     <th style="text-align: center; vertical-align: middle; font-weight: bold; width: 115px;" rowspan="2">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / -->
+                     </th>
+                     <th style="text-align: center; vertical-align: middle; font-weight: bold; width: 235px;" rowspan="2">
+                         <!-- patTemplate:gtfwgetconfig config="language" name="nominal" / -->
+                     </th>
+                  </tr>
+                  <tr>
+                     <th style="text-align: center; width: 115px; vertical-align: middle; font-weight: bold;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+                     </th>
+                     <th style="text-align: center; vertical-align: middle; font-weight: bold;">
+                        <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+                     </th>
+                   
+                  </tr>
+               </thead>
+               <tbody >
+                <!-- patTemplate:tmpl name="data_komp" type="condition" conditionvar="IS_DATA_EMPTY" -->
+                    <!-- patTemplate:sub condition="YES" -->
+                    <tr>
+                        <td colspan="5" align="center">
+                            <em>
+                                -- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong"  / --> --
+                            </em>
+                        </td>
+                    </tr>
+                    <!-- /patTemplate:sub -->
+                    <!-- patTemplate:sub condition="NO" -->
+                        <!-- patTemplate:tmpl name="data_komp_item" -->
+                  <tr>
+                     <td align="center">{KOMP_KOMPONEN_KODE}</td>
+                     <td>{KOMP_KOMPONEN_NAMA}</td>
+                     <td>{KOMP_KOMPONEN_COA_KODE}</td>
+                     <td>{KOMP_KOMPONEN_DESKRIPSI_LPPA}</td>
+                     <td align="right">{KOMP_NOMINAL_F}</td>               
+                        <!-- /patTemplate:tmpl -->
+                    <!-- /patTemplate:sub -->
+                <!-- /patTemplate:tmpl -->
+               </tbody>
+            </table>
+         </td>
+      </tr>      
+        <tr>
+         <th>
+            Status Approval
+         </th>
+         <td>
+                <input type="radio" name="is_approval" value="Y" {YA_CHEKED}>Ya
+                <input type="radio" name="is_approval" value="T" {TIDAK_CHEKED}>Tidak
+         </td>
+      </tr>       
+      <tr class="buttons">
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+            <input type="submit" name="btnbalik" value=" Batal " class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+<!-- /patTemplate:tmpl -->

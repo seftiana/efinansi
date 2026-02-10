@@ -1,0 +1,96 @@
+<?php
+
+class AppPopupUnitkerja extends Database 
+{
+
+   protected $mSqlFile= 'module/lap_rekap_program/business/apppopupunitkerja.sql.php';
+   
+   function __construct($connectionNumber=0) 
+   {
+      parent::__construct($connectionNumber);       
+   }
+      		
+	function GetDataUnitkerja ($offset, $limit, $kode='', $unitkerja='', $tipeunit='', $parentId) 
+	{
+		/**
+		if($tipeunit != "") 
+			$str_tipeunit = " AND unitkerjaTipeUnitId = " . $tipeunit;
+		else 
+			$str_tipeunit = "";
+
+		if($role['role_name'] == "OperatorUnit") 
+			$str_unit = " AND (unitkerjaParentId=" . $unitkerjaUser['unit_kerja_id'] . 
+				" OR unitkerjaId=" . $unitkerjaUser['unit_kerja_id'] . ")";
+		else 
+			$str_unit="";
+		$sql = $this->GetQueryKeren($this->mSqlQueries['get_data_unitkerja'], 
+			array('%'.$kode.'%', '%'.$kode.'%', '%'.$unitkerja.'%', '%'.$unitkerja.'%', 
+				$str_tipeunit, $str_unit, $offset, $limit));
+		//echo "<pre>" . $sql . "</pre>";
+		return $this->Open($sql, array());
+		*/
+		$result = $this->Open($this->mSqlQueries['get_list_unit_kerja'],
+					array(
+							$parentId,
+							'.%',
+							$parentId,
+							'%'.$kode.'%',
+							'%'.$unitkerja.'%',
+							'%'.$tipeunit.'%',
+							$offset, $limit
+						 )
+					);
+     	return $result;
+	}
+
+	function GetCountDataUnitkerja ($kode='', $unitkerja='', $tipeunit='', $parentId) 
+	{
+		/**
+		if($tipeunit != "") 
+			$str_tipeunit = " AND unitkerjaTipeUnitId = " . $tipeunit;
+		else 
+			$str_tipeunit = "";
+
+		if($role['role_name'] == "OperatorUnit") 
+			$str_unit = " AND (unitkerjaParentId=" . 
+				$unitkerjaUser['unit_kerja_id'] . " OR unitkerjaId=" . $unitkerjaUser['unit_kerja_id'] . ")";
+		else 
+			$str_unit="";
+		$sql = $this->GetQueryKeren($this->mSqlQueries['get_count_data_unitkerja'], 
+			array('%'.$kode.'%', '%'.$kode.'%', '%'.$unitkerja.'%', '%'.$unitkerja.'%', $str_tipeunit, $str_unit));
+		//echo $sql;
+		$result = $this->Open($sql, array());
+		*/
+		$result = $this->Open($this->mSqlQueries['get_count_list_unit_kerja'],
+					array(
+							$parentId,
+							'.%',
+							$parentId,
+							'%'.$kode.'%',
+							'%'.$unitkerja.'%',
+							'%'.$tipeunit.'%'
+						 )
+						);
+		if (!$result) {
+			return 0;
+		} else {
+			return $result[0]['total'];
+		}
+	}
+	function GetDataTipeUnit($unitkerjaId = NULL) {
+		$result = $this->Open($this->mSqlQueries['get_data_tipe_unit'], array());
+		return $result;
+	}
+
+	 /**
+      * added
+      * untuk mengetahui jumlah total sub unit yang dimiliki oleh unit
+      * @since 6 januari 2012
+      */
+      public function GetTotalSubUnitKerja($parentId)
+	 {
+	 	$result = $this->Open($this->mSqlQueries['get_total_sub_unit_kerja'], array($parentId));
+	 	return $result[0]['total'];
+	 }
+}
+

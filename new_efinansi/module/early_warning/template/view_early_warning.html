@@ -1,0 +1,36 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+
+   function getEarlyWarning(){
+      $.get('{URL_EARLY_WARNING}',function(data,textStatus,XMLHttpRequest){
+
+         subcontent=$("#early_warning").find('.subcontent-element');
+         if(data!=""){
+
+            subcontent.html(data);
+
+            Behaviour.apply('early_warning');
+            clearTimeout(earlyTime);
+
+            //setTimeout("getEarlyWarning()", 5000);
+         }else{
+            //setTimeout("getEarlyWarning()", 20000);
+         }
+      });
+   }
+//   getEarlyWarning();
+   //earlyTime = setTimeout("getEarlyWarning()", 20000);
+
+// ]]>
+</script>
+<h1>List</h1>
+<ul>
+   <!-- patTemplate:tmpl name="early_warning" visibility="hidden" -->
+      <li>{TEXT}({TOTAL})</li>
+   <!-- /patTemplate:tmpl -->
+</ul>
+<!-- patTemplate:tmpl name="empty_warning" visibility="hidden" -->
+      {TEXT}
+   <!-- /patTemplate:tmpl -->
+<!-- /patTemplate:tmpl -->

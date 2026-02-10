@@ -1,0 +1,160 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="rencana_strategis" / -->
+</h1>
+<br/>
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br/>
+<!-- /patTemplate:tmpl -->
+<form method="POST" name="frmRenstra" action="{URL_ACTION}" class="xhr_form std_form dest_subcontent-element" data-target="{URL_RETURN}" id="frmInput">
+   <input type="hidden" name="data_id" value="{ID}"  />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            Add <!-- patTemplate:gtfwgetconfig config="language" name="rencana_strategis" / -->
+         </th>
+      </tr>
+      <tr>
+         <th width="150">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <td>
+            <input type="text" name="nama" value="{NAMA}" size="30" /> *
+         </td>
+      </tr>
+      <tr>
+         <th width="150">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal_awal" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_awal"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th width="150">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal_akhir" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_akhir"  / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="pimpinan" / -->
+         </th>
+         <td>
+            <input type="text" name="pimpinan" value="{PIMPINAN}" size="45" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="visi" / -->
+         </th>
+         <td>
+            <textarea name="visi" cols="50" rows="5" style="width: 75%; resize: none;">{VISI}</textarea>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="misi" / -->
+         </th>
+         <td>
+            <textarea name="misi" cols="50" rows="5" style="width: 75%; resize: none;">{MISI}</textarea>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tema" / -->
+         </th>
+         <td>
+            <textarea name="tujuan_umum" cols="50" rows="5" style="width: 75%; resize: none;">{TUJUAN_UMUM}</textarea>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tujuan" / -->
+         </th>
+         <td>
+            <textarea name="tujuan_khusus" cols="50" rows="5" style="width: 75%; resize: none;">{TUJUAN_KHUSUS}</textarea>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="catatan" / -->
+         </th>
+         <td>
+            <textarea name="catatan" cols="50" rows="5" style="width: 75%; resize: none;">{CATATAN}</textarea>
+         </td>
+      </tr>
+
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="sasaran" / -->
+         </th>
+         <td>
+            <textarea name="sasaran" cols="50" rows="5" style="width: 75%; resize: none;">{SASARAN}</textarea>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="strategi" / -->
+         </th>
+         <td>
+            <textarea name="strategi" cols="50" rows="5" style="width: 75%; resize: none;">{STRATEGI}</textarea>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="indikator_kinerja" / -->
+         </th>
+         <td>
+            <textarea name="kebijakan" cols="50" rows="5" style="width: 75%; resize: none;">{KEBIJAKAN}</textarea>
+         </td>
+      </tr>
+      <tr>
+         <th width="150">
+            <!-- patTemplate:gtfwgetconfig config="language" name="status" / -->
+         </th>
+         <td>
+            <input type="hidden" name="status" value="{STATUS}" />
+            <label>
+               <!-- patTemplate:tmpl name="status_aktif" type="condition" conditionvar="STATUS" -->
+                  <!-- patTemplate:sub condition="ACTIVE" -->
+                     <img src="images/icons/16/icon-done-16x16.png" style="margin-bottom: -4px; margin-right: 6px;" /> <strong>AKTIF</strong>
+                  <!-- /patTemplate:sub -->
+                  <!-- patTemplate:sub condition="NOT_ACTIVE" -->
+                     <img src="images/icons/16/icon-warning-16x16.gif" style="margin-bottom: -4px; margin-right: 6px;" /> <strong>TIDAK AKTIF</strong>
+                  <!-- /patTemplate:sub -->
+               <!-- /patTemplate:tmpl -->
+            </label>
+         </td>
+      </tr>
+      <tr class="buttons">
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+            <input  type="reset"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+<br/>
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / -->
+      </li>
+      <li>
+         <strong>STATUS</strong> Tidak dapat di ubah melalui form update
+      </li>
+   </ul>
+</div>
+<!-- /patTemplate:tmpl -->

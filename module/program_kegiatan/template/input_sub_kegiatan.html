@@ -1,0 +1,188 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	var xpopup;
+	function bukaPopupKegiatan(xurl) {
+		showPopup(xurl,'',550, 550);
+		//xpopup.focus();
+		//popupClose();
+	}
+
+	function bukaPopupRKAKLSubKegiatan(xurl) {
+		showPopup(xurl,'',550,550);
+		//xpopup.focus();
+	}
+ 
+//unit kerja ref
+CheckBoxFW_initiate = function (Obj)
+{
+   if (!Obj || Obj.className.indexOf('CheckBoxFW_parent') < 0 || !Obj.form) return;
+
+   var CBList = new Array;
+   var CheckedAll = true;
+   var FormObj = Obj.form;
+
+   for (var i = 0; i < FormObj.length; i++) if (FormObj[i] == Obj) break;
+   if (i == FormObj.length) return;
+
+   for(i += 1; i < FormObj.length; i++)
+   {
+      var CBObj = FormObj[i];
+      if (CBObj.type.toUpperCase() != 'CHECKBOX') continue;
+      if (CBObj.className.indexOf('CheckBoxFW_child') >= 0)
+      {
+         CBObj.onchange = function () {Obj.checkChild();}
+         CBList[CBList.length] = CBObj;
+         if (!CBObj.checked) CheckedAll = false;
+      }
+      if (CBObj.className.indexOf('CheckBoxFW_parent') >= 0) break;
+   }
+
+   if (CBList.length > 0)
+   {
+      Obj.onchange = function ()
+      {
+         for (var i = 0; i < CBList.length; i++)
+            CBList[i].checked = this.checked;
+      }
+
+      Obj.checkChild = function ()
+      {
+         var CheckedAll = true;
+         for (var i = 0; i < CBList.length; i++) if (!CBList[i].checked)
+         {
+            CheckedAll = false;
+            break;
+         }
+         this.checked = CheckedAll;
+      }
+
+      Obj.checked = CheckedAll;
+   }
+}
+
+for (var i = 0; i < document.getElementById('frmSubKegiatan').length; i++)
+   CheckBoxFW_initiate(document.getElementById('frmSubKegiatan')[i]);
+//end list unit kerja ref
+
+</script>
+
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="manajemen_sub_kegiatan" / --></h1>
+<br/>
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="notebox-alert">
+      {ISI_PESAN}
+   </div>
+   <br/>
+   <!-- /patTemplate:tmpl -->
+
+
+   <form method="POST" name="frmSubKegiatan" action="{URL_ACTION}" class="xhr_form std_form" id="frmSubKegiatan" >
+   <input type="hidden" name="data[subkegiatan][id]" value="{DATA_SUBKEGIATAN_ID}"  />
+	<input type="hidden" name="data[subkegiatan][ta_id]" value="{TAHUN_ID}" />
+	<input type="hidden" name="data[subkegiatan][program_label]" id="program_label" value="{PROGRAM_LABEL}" />
+      <table class="table-edit" width="100%">
+         <tr class="subhead">
+            <th colspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / --></th>
+         </tr>
+			<tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="tahun" / --></th>
+            <td>{TAHUN_NAME}</td>
+         </tr>
+		 <!-- <tr>
+         <tr>
+            <th width="150">Program</th>
+            <td></td>
+         </tr>	 -->
+		 <tr id="tr_program_label" style="display:{PROGRAM_LABEL_DISPLAY};">
+			<th><!-- patTemplate:gtfwgetconfig config="language" name="nama_kegiatan" / --></th>
+			<td id="td_program_label">{PROGRAM_LABEL}</td>
+		 </tr>
+		 <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_kegiatan" / --></th>
+            <td><input type="text" name="data[subkegiatan][kegiatan_nama][readonly]" id="data_kegiatan_nama" value="{SEARCH_KEGIATAN_NAMA}" size="50" readonly="readonly" / > <input type="button" name="btnshift" value="..."  onClick="bukaPopupKegiatan('{POPUP_KEGIATAN}');" />
+				<input type="hidden" name="data[subkegiatan][kegiatan_nama]" id="data_kegiatan_nama_hidden" value="{SEARCH_KEGIATAN_NAMA}" size="25"  / >
+				<input type="hidden" name="data[subkegiatan][kegiatan_id]" id="data_kegiatan_id" value="{SEARCH_SUBKEGIATAN_PROGRAMID}" size="25" />
+
+            </td>
+         </tr>
+		 <tr>
+            <th width="150" nowrap="nowrap"><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+            <td><input type="text" name="data[subkegiatan][kode]" value="{DATA_SUBKEGIATAN_KODE}" size="30" notab="2" />&nbsp;&nbsp;&nbsp;*</td>
+         </tr>
+         <tr style="display:none">
+         	<th nowrap="nowrap">
+                Referensi IK
+            </th>
+            <td>
+                
+                
+                <!-- input type="hidden" name="data[subkegiatan][ik_id]" value="{IK_ID}" id="ik_id" />
+                <input type="text" name="data[subkegiatan][ik_nama]" value="{IK_NAMA}" readonly size="40" id="ik_nama" />
+                <input type="button" name="btnshift" value="..."  onClick="bukaPopupKegiatan('{POPUP_IK}');" />
+                <br / -->
+
+                <!-- patTemplate:tmpl name="ik_ref" -->
+                <input type="checkbox" name="data[subkegiatan][ik_id][{IK_ID}]"
+                         value="{IK_ID}" {IK_CEK} />{IK_KODE} - {IK_NAMA}
+                    <br />
+                <!-- /patTemplate:tmpl -->
+                
+            </td>
+         </tr>
+         
+         <tr style="display:none">
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kode_label_kegiatan" / --></th>
+            <td><input type="text" name="data[subkegiatan][kode_label]" value="{DATA_SUBKEGIATAN_KODE_LABEL}" size="20"  notab="2"/>
+         </tr>
+         <tr>
+            <th width="150" nowrap="nowrap"><!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / --></th>
+            <td><input type="text" name="data[subkegiatan][nama]" value="{DATA_SUBKEGIATAN_NAMA}" size="55" notab="3" />&nbsp;&nbsp;&nbsp;* </td>
+         </tr>
+         
+         
+          <tr>
+            <th width="150" nowrap="nowrap">Unit Kerja
+			</th>
+            <td nowrap="nowrap" id="list_unit_ref">
+                <input type="hidden" name="data[subkegiatan][checkbox]" value="0" />
+				{LIST_UNIT_KERJA}
+			
+			</td>
+         </tr>
+         
+         
+         <tr>
+		  <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="nama_subkegiatan_rkakl" / --></th>
+		   <td>
+				<input type="hidden" name="data[subkegiatan][rkakl_subkegiatan]" id="rkakl_subkegiatan" value="{DATA_SUBKEGIATAN_RKAKL}" />
+				<!-- input type="text" name="data[subkegiatan][rkakl_subkegiatan_label]" id="rkakl_subkegiatan_label" value="{DATA_SUBKEGIATAN_RKAKL_LABEL}" size="40" readonly="readonly" / -->
+				<textarea name="data[subkegiatan][rkakl_subkegiatan_label]" id="rkakl_subkegiatan_label" cols="45" rows="2">{DATA_SUBKEGIATAN_RKAKL_LABEL}</textarea>
+				<span style="vertical-align:top;">
+				<input type="button"  name="but_rkakl_subkegiatan" onclick="javascript:bukaPopupRKAKLSubKegiatan('{POPUP_RKAKL_SUBKEGIATAN}')" value=" ... " />
+				</span>
+          </td>
+
+		 </tr>
+         <tr class="buttons">
+            <th>&nbsp;
+            </th>
+            <td>
+               <input type="submit" name="btnsimpan" value=" Simpan " class="buttonSubmit"/>
+               <input  type="submit"  name="btnbalik" value=" Batal " class="buttonSubmit"/>
+			   <input type="submit" name="btnNomorSelanjutnya" id="btnNomorSelanjutnya" value="CariMax" class="buttonSubmit" style="visibility:hidden;"/>
+            </td>
+         </tr>
+      </table>
+   </form>
+
+   <br/>
+
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+      <ul>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --></li>
+      </ul>
+   </div>
+   
+<!-- /patTemplate:tmpl -->

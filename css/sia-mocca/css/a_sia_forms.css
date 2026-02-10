@@ -1,0 +1,88 @@
+.form-common {
+	font-family: Arial, sans-serif; 
+	font-size: 1em;
+}
+
+.form-common input {
+	font-family: Arial, sans-serif; 
+	font-size: 10pt;
+	margin: 0px 0px;
+	padding: 1px 2px;
+}
+
+.form-common textarea {
+	font-family: Arial, sans-serif; 
+	font-size: 10pt;
+	margin: 0px 0px 10px 0px;
+	padding: 2px 3px;
+}
+
+.form-common select {
+	font-family: Arial, sans-serif; 
+	font-size: 10pt;
+	margin: 0px 0px;
+}
+
+.form-common textarea {
+	font-family: Arial, sans-serif; 
+	font-size: 10pt;
+	margin: 0px 0px;
+}
+
+.form-common label {
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 4px 0px;
+	vertical-align: middle;
+	display: inline;
+}
+
+.form-label {
+	padding: 2px 0px 0px 9px;
+	margin: 0px 0px;
+	vertical-align: middle;
+	float: left;
+	display: inline;
+	clear: both;
+}
+
+#form-optionlabel {
+	width: 20px;
+	vertical-align: middle;
+}
+
+.form-okButton {
+	font-family: Tahoma, Arial, sans-serif; 
+	font-size: 10pt;
+	margin: 10px 10px 10px 0px;
+	width: 50px;
+	height: 20px;
+}
+
+.form-area {
+	width: 90%;
+	background-color: #FCFCFA;
+	padding: 10px 10px 10px 10px;
+	border: 1px solid #E0E1D9;
+}
+
+.form-tasks {
+}
+
+.form-tasks select {
+	border: 1px solid #f8f9f5;
+	background-color: #f8f9f5;
+	overflow: scroll;
+	height: 200px;
+	width: 300px;
+	float: left;
+}
+
+.form-tasks option {
+	background-color: #f8f9f5;
+	background-image: url(../images/next.gif);
+	background-position: top left;
+	background-repeat: no-repeat;
+	padding: 3px 5px 3px 30px;
+	margin: 5px 3px 10px 5px;
+	cursor: default;
+}

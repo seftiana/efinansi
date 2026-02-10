@@ -1,0 +1,67 @@
+<!-- patTemplate:tmpl name="content" -->
+   <br />
+	<h1><!-- patTemplate:gtfwgetconfig config="language" name="laporan_saldo_master" / --></h1>
+	<table class="empty-table">
+   <tr>
+      <td>
+	      <!-- patTemplate:gtfwgetconfig config="language" name="interval_waktu" / -->
+      </td>
+      <td>
+         : {TGL_AWAL} s/d {TGL_AKHIR}
+      </td>
+   </tr>
+   </table>
+   <table width="80%">
+   <thead>
+      <tr>
+         <!-- th><!-- patTemplate:gtfwgetconfig config="language" name="no" / -->.</th -->
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="no_rekening" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="saldo_awal_rp" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="mutasi_debet_rp" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="mutasi_kredit_rp" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="saldo_akhir_rp" / --></th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="4" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_saldo_item" type="condition" conditionvar="STATUS" -->
+            <!-- patTemplate:sub condition="default" -->
+            <tr class="{CLASS_TD_NAME}">
+               <!-- td align="center">{NO}</td -->
+               <td>{NO_REKENING}</td>
+               <td>{NAMA_REKENING}</td>
+               <td style="text-align:right;">{SALDO_AWAL}</td>
+               <td style="text-align:right;">{MUTASI_DEBET}</td>
+               <td style="text-align:right;">{MUTASI_KREDIT}</td>
+               <td style="text-align:right;">{SALDO_AKHIR}</td>
+            </tr>
+            <!-- /patTemplate:sub -->
+            
+            <!-- patTemplate:sub condition="sub_total" -->
+            <tr class="table-common-even">
+                <td colspan="2" align="center"><b><!-- patTemplate:gtfwgetconfig config="language" name="sub_total" / --></b></td>
+		<td style="text-align:right;"><b>{SALDO_AWAL}</b></td>
+		<td style="text-align:right;"><b>{MUTASI_DEBET}</b></td>
+		<td style="text-align:right;"><b>{MUTASI_KREDIT}</b></td>
+		<td style="text-align:right;"><b>{SALDO_AKHIR}</b></td>
+            </tr>  
+            <!-- /patTemplate:sub -->
+            
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+   </table>
+
+   <!--<div class="sign">
+      <p>Yogyakarta, {DATE}</p>
+      <p>Pimpinan Unit / Sub Unit</p>
+      <p class="date">{UNIT_KERJA}</p>
+      <p>({NAMA_PIMPINAN})</p>
+   </div>-->
+<!-- /patTemplate:tmpl -->

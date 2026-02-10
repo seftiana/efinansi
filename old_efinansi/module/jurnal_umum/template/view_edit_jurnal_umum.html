@@ -1,0 +1,721 @@
+<!-- patTemplate:tmpl name="content" -->
+<style type="text/css">
+table.table-details tfoot tr.buttons input[type="submit"],
+table.table-details tfoot tr.buttons input[type="reset"]{
+   display: inline-block;
+  *display: inline;
+  padding: 4px 12px;
+  margin-bottom: 0;
+  *margin-left: .3em;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  *background-color: #e6e6e6;
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  border: 1px solid #cccccc;
+  *border: 0;
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  border-bottom-color: #b3b3b3;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  *zoom: 1;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+     -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+</style>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="jurnal_umum" / -->
+</h1>
+<!-- patTemplate:tmpl name="auto_approval" visibility="hidden" -->
+   <div class="notebox-alert" >
+      <h3>Auto Approval</h3>
+      Setting auto approval jurnal aktif. Semua proses pencatatan Jurnal akan otomatis disetujui.
+   </div>
+<!-- /patTemplate:tmpl -->
+<br/>
+<div class="pageBar">
+   <div class="toolbar">
+      <a class="xhr dest_subcontent-element" href="{URL_RETURN}" title="Daftar Jurnal Umum" >
+         <img src="images/button-detail.gif" alt="^" /> Daftar Jurnal Umum
+      </a>
+   </div>
+</div>
+<form method="POST" name="frmInput" action="{URL_ACTION}" class="xhr_form std_form dest_subcontent-element" data-target="{URL_RETURN}" id="frmInput" >
+   <input type="hidden" name="data_id" value="{ID}" />
+   <input type="hidden" name="pembukuan_referensi_id" value="{PEMBUKUAN_ID}" />
+   <input type="hidden" name="data[referensi_id]" id="referensi_id" value="{REFERENSI_ID}" />
+   <table class="table-edit" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            <!-- patTemplate:gtfwgetconfig config="language" name="ubah" / --> Data
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="referensi" / -->
+         </th>
+         <td>
+            <label style="font-weight: bold;">
+               {REFERENSI}
+            </label>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal_transaksi" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="referensi_tanggal" / -->
+         </td>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="keterangan" / -->
+         </th>
+         <td>
+            <textarea name="keterangan" id="referensi_keterangan" rows="4" cols='50' style="width: 70%; resize: none;">{KETERANGAN}</textarea>
+         </td>
+      </tr>
+      <!-- patTemplate:tmpl name="approval" visibility="hidden" -->
+         <tr>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="is_kas" / -->
+            </th>
+            <td>
+               <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="status"  / -->
+            </td>
+         </tr>
+         <tr>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="bentuk_transaksi" / -->
+            </th>
+            <td>
+               <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="bentuk_transaksi"  / -->
+            </td>
+         </tr>
+      <!-- /patTemplate:tmpl -->
+   </table>
+   <br>
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+      <div class="{CLASS_PESAN}" >
+         {ISI_PESAN}
+      </div>
+      <br/>
+   <!-- /patTemplate:tmpl -->
+
+   <table class="table-details" >
+      <thead>
+         <tr>
+            <td width="30">
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="debet" / -->
+               </strong>
+            </td>
+            <td width="5">:</td>
+            <td class="links" align="center" style="text-align: right;">
+               <a class="dest_subcontent-element" href="javascript:void(0)" onclick="javascript:showPopup('{POPUP_COA}&tipe=debet','',600, 500);" title="Tambah Debet">
+                  <img src="images/icons/16/button-add.gif" style="margin-bottom: -4px;" />
+                  <b><!-- patTemplate:gtfwgetconfig config="language" name="tambah_akun" / --></b>
+               </a>
+            </td>
+         </tr>
+      </thead>
+      <tbody>
+         <tr>
+            <td colspan="3" style="padding: 0px; margin: 0px;">
+               <table class="table-common" style="width: 100%;">
+                  <thead>
+                     <tr>
+                        <th style="width: 115px;">
+                           <!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / -->
+                        </th>
+                        <th style="width: 145px;">
+                           <!-- patTemplate:gtfwgetconfig config="language" name="sub_account" / -->
+                        </th>
+                        <th style="width: 215px;">
+                           <!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / -->
+                        </th>
+                        <th style="width: 115px;">
+                           <!-- patTemplate:gtfwgetconfig config="language" name="no_referensi" / -->
+                        </th>
+                        <th>
+                           <!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / -->
+                        </th>
+                        <th style="width: 115px;">
+                           <!-- patTemplate:gtfwgetconfig config="language" name="nilai_rp" / -->
+                        </th>
+                        <th style="width: 20px;">
+                           <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+                        </th>
+                     </tr>
+                  </thead>
+                  <tbody id="CoaPlaceHolder_debet">
+                     <tr id="debet-empty-row">
+                        <td colspan="7" style="text-align: center;">
+                           Pilih data Akun
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+         </tr>
+      </tbody>
+      <tbody><tr><td colspan="3">&nbsp;<!-- sepataror --></td></tr></tbody>
+      <thead>
+         <tr>
+            <td width="30">
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="kredit" / -->
+               </strong>
+            </td>
+            <td width="5">:</td>
+            <td class="links" align="center" style="text-align: right;">
+               <a class="dest_subcontent-element" href="javascript:void(0)" onclick="javascript:showPopup('{POPUP_COA}&tipe=kredit', '', 600, 500);" title="Tambah Kredit">
+                  <img src="images/icons/16/button-add.gif" style="margin-bottom: -4px;" />
+                  <b><!-- patTemplate:gtfwgetconfig config="language" name="tambah_akun" / --></b>
+               </a>
+            </td>
+         </tr>
+      </thead>
+      <tbody>
+         <tr>
+            <td colspan="3" style="padding: 0px; margin: 0px;">
+               <table class="table-common" style="width: 100%;">
+                  <thead>
+                     <tr>
+                        <th style="width: 115px;">
+                           <!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / -->
+                        </th>
+                        <th style="width: 145px;">
+                           <!-- patTemplate:gtfwgetconfig config="language" name="sub_account" / -->
+                        </th>
+                        <th style="width: 215px;">
+                           <!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / -->
+                        </th>
+                        <th style="width: 115px;">
+                           <!-- patTemplate:gtfwgetconfig config="language" name="no_referensi" / -->
+                        </th>
+                        <th>
+                           <!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / -->
+                        </th>
+                        <th style="width: 115px;">
+                           <!-- patTemplate:gtfwgetconfig config="language" name="nilai_rp" / -->
+                        </th>
+                        <th style="width: 20px;">
+                           <!-- patTemplate:gtfwgetconfig config="language" name="aksi" / -->
+                        </th>
+                     </tr>
+                  </thead>
+                  <tbody id="CoaPlaceHolder_kredit">
+                     <tr id="kredit-empty-row">
+                        <td colspan="7" style="text-align: center;">
+                           Pilih data Akun
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+         </tr>
+      </tbody>
+      <tfoot>
+         <tr class="buttons">
+            <td colspan="3" style="text-align: right;">
+               <input name="btnReset" value=" <!-- patTemplate:gtfwgetconfig config="language" name="batal" / --> " class="buttonSubmit" type="RESET">
+               <input name="btnsimpan" value=" <!-- patTemplate:gtfwgetconfig config="language" name="simpan" / --> " class="buttonSubmit" type="submit">
+            </td>
+         </tr>
+      </tfoot>
+   </table>
+</form>
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+document.getElementById('CoaPlaceHolder_debet').addItem     = function(id, kode, nama, subAkun, referensi, keterangan, nominal){
+   var elemen_id  = 'jurnal_debet_'+id;
+   if(document.getElementById(elemen_id)){
+      return true;
+   }
+   var frag             = document.createDocumentFragment();
+   var childObj         = this.getElementsByTagName('tr');
+
+   for (var i = childObj.length - 1; i >= 0; i--) {
+      if(childObj[i].id === 'debet-empty-row' || childObj[i].id == 'row-debet-total'){
+         this.removeChild(childObj[i]);
+      }
+   };
+
+   var tr      = document.createElement('tr');
+   tr.id       = elemen_id;
+
+   var inputId       = document.createElement('input');
+   inputId.type      = 'hidden';
+   inputId.id        = 'debet-id-'+id;
+   inputId.name      = 'debet['+id+'][id]';
+   inputId.value     = id;
+
+   var tdKode        = document.createElement('td');
+   tdKode.style.textAlign  = 'center';
+   var inputKode     = document.createElement('input');
+   inputKode.type    = 'hidden';
+   inputKode.name    = 'debet['+id+'][kode]';
+   inputKode.id      = 'debet-kode-'+id;
+   inputKode.value   = kode;
+
+   var labelKode     = document.createElement('label');
+   labelKode.innerHTML  = kode;
+   labelKode.style.display    = 'block';
+   labelKode.style.width      = '100%';
+   tdKode.appendChild(labelKode);
+
+   var tdNama        = document.createElement('td');
+   var inputNama     = document.createElement('input');
+   inputNama.type    = 'hidden';
+   inputNama.id      = 'debet-nama-'+id;
+   inputNama.name    = 'debet['+id+'][nama]';
+   inputNama.value   = nama;
+   var labelNama     = document.createElement('label');
+   labelNama.innerHTML  = nama;
+   tdNama.appendChild(labelNama);
+
+   var tdSubAkun     = document.createElement('td');
+   var inputSubAkun  = document.createElement('input');
+   inputSubAkun.type       = 'text';
+   inputSubAkun.name       = 'debet['+id+'][subaccount]';
+   inputSubAkun.className  = 'input_mask';
+   inputSubAkun.size       = '22';
+   inputSubAkun.id         = 'debet-sub-account-'+id;
+   inputSubAkun.value      = subAkun;
+   inputSubAkun.setAttribute('data-mask', '{SUB_AKUN_PATERN}');
+   tdSubAkun.appendChild(inputSubAkun);
+
+   var tdReferensi   = document.createElement('td');
+   var inputReferensi      = document.createElement('input');
+   inputReferensi.type     = 'text';
+   inputReferensi.name     = 'debet['+id+'][nomor_referensi]';
+   inputReferensi.id       = 'debet-referensi-'+id;
+   inputReferensi.value    = referensi;
+   tdReferensi.appendChild(inputReferensi);
+
+   var tdKeterangan  = document.createElement('td');
+   var inputKeterangan     = document.createElement('textarea');
+   inputKeterangan.name    = 'debet['+id+'][keterangan]';
+   inputKeterangan.style.resize  = 'none';
+   inputKeterangan.style.width   = '100%';
+   inputKeterangan.id            = 'debet-keterangan-'+id;
+   inputKeterangan.value         = keterangan;
+   tdKeterangan.appendChild(inputKeterangan);
+
+   var tdNominal     = document.createElement('td');
+   var inputNominal           = document.createElement('input');
+   inputNominal.type          = 'text';
+   inputNominal.name          = 'debet['+id+'][nominal]';
+   inputNominal.className     = 'gvFloat';
+   inputNominal.id            = 'debet-nominal-'+id;
+   inputNominal.value         = nominal;
+   inputNominal.setAttribute('onkeyup', 'setNominalJurnal("'+this.id+'");');
+   tdNominal.appendChild(inputNominal);
+
+   var tdAksi        = document.createElement('td');
+   tdAksi.className  = 'links';
+   tdAksi.style.padding       = 0;
+   tdAksi.style.paddingTop    = '4px';
+   tdAksi.style.textAlign     = 'center';
+   var linkAksiDelete         = document.createElement('a');
+   linkAksiDelete.style.float = 'none';
+   linkAksiDelete.style.display = 'inline-block';
+   linkAksiDelete.href        = 'javascript:void(0);';
+   linkAksiDelete.title       = 'Delete '+id;
+   linkAksiDelete.setAttribute('onclick', 'deleteRecord("'+this.id+'", this);');
+   var iconDelete             = document.createElement('img');
+   iconDelete.src             = 'images/icons/16/button-delete.gif';
+   iconDelete.alt             = 'delete';
+   linkAksiDelete.appendChild(iconDelete);
+   tdAksi.appendChild(linkAksiDelete);
+
+   tr.appendChild(inputId);
+   tr.appendChild(inputKode);
+   tr.appendChild(inputNama);
+   tr.appendChild(tdKode);
+   tr.appendChild(tdSubAkun);
+   tr.appendChild(tdNama);
+   tr.appendChild(tdReferensi);
+   tr.appendChild(tdKeterangan);
+   tr.appendChild(tdNominal);
+   tr.appendChild(tdAksi);
+
+   frag.appendChild(tr);
+
+   // elemen row total
+   var trTotal       = document.createElement('tr');
+   trTotal.id        = 'row-debet-total';
+   trTotal.style.fontWeight      = 'bold';
+
+   var tdTotalLabel              = document.createElement('td');
+   tdTotalLabel.innerHTML        = 'Total';
+   tdTotalLabel.style.textAlign  = 'center';
+   tdTotalLabel.setAttribute('colspan', '5');
+
+   var tdTotalNominal            = document.createElement('td');
+   var labelNominalTotal         = document.createElement('label');
+   labelNominalTotal.id          = 'debet-total';
+   labelNominalTotal.style.display     = 'block';
+   labelNominalTotal.style.fontWeight  = 'bold';
+   labelNominalTotal.style.textAlign   = 'right';
+   labelNominalTotal.style.width       = '100%';
+   labelNominalTotal.innerHTML         = 0;
+   tdTotalNominal.appendChild(labelNominalTotal);
+
+   var tdEmptyTotal              = document.createElement('td');
+   trTotal.appendChild(tdTotalLabel);
+   trTotal.appendChild(tdTotalNominal);
+   trTotal.appendChild(tdEmptyTotal);
+   frag.appendChild(trTotal);
+   this.appendChild(frag);
+
+   setNominalJurnal(this.id);
+
+   var childObjNominal = tdNominal.firstChild;
+   do {
+      if (childObjNominal.tagName && childObjNominal.tagName.toUpperCase() == 'INPUT' && childObjNominal.getAttribute('class') != null && childObjNominal.getAttribute('class').toUpperCase() == 'GVFLOAT'){
+         gValidation20090108['.gvFloat'](childObjNominal);
+      }
+   } while (childObjNominal   = childObjNominal.nextSibling);
+
+   var subAkunNode      = tdSubAkun.firstChild;
+   do {
+      if (subAkunNode.tagName && subAkunNode.tagName.toUpperCase() == 'INPUT' && subAkunNode.getAttribute('class') != null && subAkunNode.getAttribute('class').toUpperCase() == 'INPUT_MASK'){
+         // $(subAkunNode).inputmask('{SUB_AKUN_PATERN}');
+         custom_js['.input_mask'](subAkunNode);
+      }
+   } while (subAkunNode   = subAkunNode.nextSibling);
+
+
+   return true;
+}
+
+document.getElementById('CoaPlaceHolder_kredit').addItem     = function(id, kode, nama, subAkun, referensi, keterangan, nominal){
+   var elemen_id  = 'jurnal_kredit_'+id;
+   if(document.getElementById(elemen_id)){
+      return true;
+   }
+   var frag             = document.createDocumentFragment();
+   var childObj         = this.getElementsByTagName('tr');
+
+   for (var i = childObj.length - 1; i >= 0; i--) {
+      if(childObj[i].id === 'kredit-empty-row' || childObj[i].id == 'row-kredit-total'){
+         this.removeChild(childObj[i]);
+      }
+   };
+
+   var tr      = document.createElement('tr');
+   tr.id       = elemen_id;
+
+   var inputId       = document.createElement('input');
+   inputId.type      = 'hidden';
+   inputId.id        = 'kredit-id-'+id;
+   inputId.name      = 'kredit['+id+'][id]';
+   inputId.value     = id;
+
+   var tdKode        = document.createElement('td');
+   tdKode.style.textAlign  = 'center';
+   var inputKode     = document.createElement('input');
+   inputKode.type    = 'hidden';
+   inputKode.name    = 'kredit['+id+'][kode]';
+   inputKode.id      = 'kredit-kode-'+id;
+   inputKode.value   = kode;
+
+   var labelKode     = document.createElement('label');
+   labelKode.innerHTML  = kode;
+   labelKode.style.display    = 'block';
+   labelKode.style.width      = '100%';
+   tdKode.appendChild(labelKode);
+
+   var tdNama        = document.createElement('td');
+   var inputNama     = document.createElement('input');
+   inputNama.type    = 'hidden';
+   inputNama.id      = 'kredit-nama-'+id;
+   inputNama.name    = 'kredit['+id+'][nama]';
+   inputNama.value   = nama;
+   var labelNama     = document.createElement('label');
+   labelNama.innerHTML  = nama;
+   tdNama.appendChild(labelNama);
+
+   var tdSubAkun     = document.createElement('td');
+   var inputSubAkun  = document.createElement('input');
+   inputSubAkun.type       = 'text';
+   inputSubAkun.name       = 'kredit['+id+'][subaccount]';
+   inputSubAkun.className  = 'input_mask';
+   inputSubAkun.size       = '22';
+   inputSubAkun.id         = 'kredit-sub-account-'+id;
+   inputSubAkun.value      = subAkun;
+   inputSubAkun.setAttribute('data-mask', '{SUB_AKUN_PATERN}');
+   tdSubAkun.appendChild(inputSubAkun);
+
+   var tdReferensi   = document.createElement('td');
+   var inputReferensi      = document.createElement('input');
+   inputReferensi.type     = 'text';
+   inputReferensi.name     = 'kredit['+id+'][nomor_referensi]';
+   inputReferensi.id       = 'kredit-referensi-'+id;
+   inputReferensi.value    = referensi;
+   tdReferensi.appendChild(inputReferensi);
+
+   var tdKeterangan  = document.createElement('td');
+   var inputKeterangan     = document.createElement('textarea');
+   inputKeterangan.name    = 'kredit['+id+'][keterangan]';
+   inputKeterangan.style.resize  = 'none';
+   inputKeterangan.style.width   = '100%';
+   inputKeterangan.id            = 'kredit-keterangan-'+id;
+   inputKeterangan.value         = keterangan;
+   tdKeterangan.appendChild(inputKeterangan);
+
+   var tdNominal     = document.createElement('td');
+   var inputNominal           = document.createElement('input');
+   inputNominal.type          = 'text';
+   inputNominal.name          = 'kredit['+id+'][nominal]';
+   inputNominal.className     = 'gvFloat';
+   inputNominal.id            = 'kredit-nominal-'+id;
+   inputNominal.value         = nominal;
+   inputNominal.setAttribute('onkeyup', 'setNominalJurnal("'+this.id+'");');
+   tdNominal.appendChild(inputNominal);
+
+   var tdAksi        = document.createElement('td');
+   tdAksi.className  = 'links';
+   tdAksi.style.padding       = 0;
+   tdAksi.style.paddingTop    = '4px';
+   tdAksi.style.textAlign     = 'center';
+   var linkAksiDelete         = document.createElement('a');
+   linkAksiDelete.style.float = 'none';
+   linkAksiDelete.style.display = 'inline-block';
+   linkAksiDelete.href        = 'javascript:void(0);';
+   linkAksiDelete.title       = 'Delete '+id;
+   linkAksiDelete.setAttribute('onclick', 'deleteRecord("'+this.id+'", this);');
+   var iconDelete             = document.createElement('img');
+   iconDelete.src             = 'images/icons/16/button-delete.gif';
+   iconDelete.alt             = 'delete';
+   linkAksiDelete.appendChild(iconDelete);
+   tdAksi.appendChild(linkAksiDelete);
+
+   tr.appendChild(inputId);
+   tr.appendChild(inputKode);
+   tr.appendChild(inputNama);
+   tr.appendChild(tdKode);
+   tr.appendChild(tdSubAkun);
+   tr.appendChild(tdNama);
+   tr.appendChild(tdReferensi);
+   tr.appendChild(tdKeterangan);
+   tr.appendChild(tdNominal);
+   tr.appendChild(tdAksi);
+
+   frag.appendChild(tr);
+
+   // elemen row total
+   var trTotal       = document.createElement('tr');
+   trTotal.id        = 'row-kredit-total';
+   trTotal.style.fontWeight      = 'bold';
+
+   var tdTotalLabel              = document.createElement('td');
+   tdTotalLabel.innerHTML        = 'Total';
+   tdTotalLabel.style.textAlign  = 'center';
+   tdTotalLabel.setAttribute('colspan', '5');
+
+   var tdTotalNominal            = document.createElement('td');
+   var labelNominalTotal         = document.createElement('label');
+   labelNominalTotal.id          = 'kredit-total';
+   labelNominalTotal.style.display     = 'block';
+   labelNominalTotal.style.fontWeight  = 'bold';
+   labelNominalTotal.style.textAlign   = 'right';
+   labelNominalTotal.style.width       = '100%';
+   labelNominalTotal.innerHTML         = 0;
+   tdTotalNominal.appendChild(labelNominalTotal);
+
+   var tdEmptyTotal              = document.createElement('td');
+   trTotal.appendChild(tdTotalLabel);
+   trTotal.appendChild(tdTotalNominal);
+   trTotal.appendChild(tdEmptyTotal);
+   frag.appendChild(trTotal);
+   this.appendChild(frag);
+
+   setNominalJurnal(this.id);
+
+   var childObjNominal = tdNominal.firstChild;
+   do {
+      if (childObjNominal.tagName && childObjNominal.tagName.toUpperCase() == 'INPUT' && childObjNominal.getAttribute('class') != null && childObjNominal.getAttribute('class').toUpperCase() == 'GVFLOAT'){
+         gValidation20090108['.gvFloat'](childObjNominal);
+      }
+   } while (childObjNominal   = childObjNominal.nextSibling);
+
+   var subAkunNode      = tdSubAkun.firstChild;
+   do {
+      if (subAkunNode.tagName && subAkunNode.tagName.toUpperCase() == 'INPUT' && subAkunNode.getAttribute('class') != null && subAkunNode.getAttribute('class').toUpperCase() == 'INPUT_MASK'){
+         // $(subAkunNode).inputmask('{SUB_AKUN_PATERN}');
+         custom_js['.input_mask'](subAkunNode);
+      }
+   } while (subAkunNode   = subAkunNode.nextSibling);
+
+
+   return true;
+}
+
+var deleteRecord     = function(elemenId, el){
+   var tBody         = document.getElementById(elemenId);
+   if(typeof(tBody) != 'undefined' && tBody != null){
+      var emptyRow   = 'debet-empty-row';
+      var totalRow   = 'row-debet-total';
+
+      if(tBody.id.toUpperCase().indexOf('KREDIT') >= 0){
+         emptyRow    = 'kredit-empty-row';
+         totalRow    = 'row-debet-total';
+      }
+      var record        = el.parentNode.parentNode;
+      var firstNode     = tBody.firstChild.nextSibling;
+      var childObj      = tBody.getElementsByTagName('tr');
+
+      if(firstNode.id != emptyRow || firstNode.id != totalRow){
+         tBody.removeChild(record);
+         if(childObj.length === 0){
+            setEmptyRecord(tBody);
+         }else{
+            if(childObj[0].id == totalRow){
+               setEmptyRecord(tBody);
+            }else{
+               setNominalJurnal(tBody.id);
+            }
+         }
+      }else{
+         setEmptyRecord(tBody);
+      }
+   }else{
+      console.log('Cannot find HTML elemen');
+   }
+}
+
+var setEmptyRecord      = function(elemen){
+   var emptyRow   = 'debet-empty-row';
+
+   if(elemen.id.toUpperCase().indexOf('KREDIT') >= 0){
+      emptyRow    = 'kredit-empty-row';
+   }
+
+   var childObj   = elemen.getElementsByTagName('tr');
+   for (var i = childObj.length - 1; i >= 0; i--) {
+      elemen.removeChild(childObj[i]);
+   };
+
+   var frag       = document.createDocumentFragment();
+   var tr         = document.createElement('tr');
+   tr.id          = emptyRow;
+   var td         = document.createElement('td');
+   td.setAttribute('colspan', 7);
+   td.style.textAlign   = 'center';
+   td.innerHTML   = 'Pilih Data Akun';
+
+   tr.appendChild(td);
+   frag.appendChild(tr);
+   elemen.insertBefore(frag, elemen.firstChild);
+
+   return true;
+}
+
+var clearCurrency = function(str){
+   num      = str.toString();
+   num      = num.replace(/\$|\./g, '');
+   num      = num.replace(/\$|\,/g,'.');
+   num      = parseFloat(num);
+   return num;
+}
+
+var formatNumber = function (num, mode){
+   var num     = num.toString();
+   num         = num.replace(/\$|\,/g,'');
+   if(isNaN(num)){
+      num      = "0";
+   }
+   sign        = (num == (num = Math.abs(num)));
+   num         = Math.floor(num*100+0.50000000001);
+   cents       = num%100;
+   num         = Math.floor(num/100).toString();
+   if(cents<10){
+      cents    = "0" + cents;
+   }
+   for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++){
+      num      = num.substring(0,num.length-(4*i+3))+'.'+num.substring(num.length-(4*i+3));
+   }
+
+   return ((sign)?'':'-') + num + ',' + cents;;
+}
+
+var setNominalJurnal    = function (elemenId){
+   var elemen           = document.getElementById(elemenId)
+   var childObj         = elemen.getElementsByTagName('input');
+   var elemenId         = elemen.id.toUpperCase();
+
+   var patern           = /debet\[(\d+)\]\[nominal\]/;
+   var nominalHolder    = document.getElementById('debet-total');
+   if(elemenId.indexOf('KREDIT') >= 0){
+      patern            = /kredit\[(\d+)\]\[nominal\]/;
+      nominalHolder     = document.getElementById('kredit-total');
+   }
+   var nominalTotal     = 0;
+
+   if(childObj.length > 0){
+      for (var i = childObj.length - 1; i >= 0; i--) {
+         var str  = childObj[i].name;
+         if(str.match(patern)){
+            var nominal       = clearCurrency(childObj[i].value);
+            nominalTotal      += nominal;
+         }
+      };
+   }
+
+   if(nominalHolder != null || typeof(nominalHolder) != 'undefined'){
+      nominalHolder.innerHTML       = formatNumber(nominalTotal);
+   }
+}
+
+var dataAkunKredit      = {AKUN_KREDIT_DATA};
+var dataAkunDebet       = {AKUN_DEBET_DATA};
+
+if(dataAkunDebet.length > 0){
+   for(var i in dataAkunDebet){
+      document.getElementById('CoaPlaceHolder_debet').addItem(
+         dataAkunDebet[i].id,
+         dataAkunDebet[i].kode,
+         dataAkunDebet[i].nama,
+         dataAkunDebet[i].sub_akun,
+         dataAkunDebet[i].referensi,
+         dataAkunDebet[i].keterangan,
+         dataAkunDebet[i].nominal
+      );
+   }
+}
+
+if(dataAkunKredit.length > 0){
+   for(var i in dataAkunKredit){
+      document.getElementById('CoaPlaceHolder_kredit').addItem(
+         dataAkunKredit[i].id,
+         dataAkunKredit[i].kode,
+         dataAkunKredit[i].nama,
+         dataAkunKredit[i].sub_akun,
+         dataAkunKredit[i].referensi,
+         dataAkunKredit[i].keterangan,
+         dataAkunKredit[i].nominal
+      );
+   }
+}
+// ]]>
+</script>
+<!-- /patTemplate:tmpl -->

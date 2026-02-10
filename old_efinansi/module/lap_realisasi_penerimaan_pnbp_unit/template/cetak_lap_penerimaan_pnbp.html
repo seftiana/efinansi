@@ -1,0 +1,79 @@
+<!-- patTemplate:tmpl name="content" -->
+<center><h1><!-- patTemplate:gtfwgetconfig config="language" name="lap_penerimaan_pnbp_alokasi_unit" / --></h1></center>
+<br />
+<center><h1><!-- patTemplate:gtfwgetconfig config="language" name="tahun_periode" / --> {TAHUN_PERIODE}</h1></center>
+<br />
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->: {UNIT_KERJA_LABEL}</h1>
+   <table class="table-common" width="900px">
+<tr>
+         <th rowspan="2" width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+         <th rowspan="2" width="200"><!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / --> / <br/>
+		 <!-- patTemplate:gtfwgetconfig config="language" name="jenis_penerimaan" / --></th>
+         <th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="target_pnbp" / --></th>
+         <th colspan="12"><!-- patTemplate:gtfwgetconfig config="language" name="realisasi_pnbp" / --></th>
+			<th rowspan="2"><!-- patTemplate:gtfwgetconfig config="language" name="total_realisasi" / --></th>
+		</tr>
+      <tr>                  
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="januari" / --></th>
+			<th><!-- patTemplate:gtfwgetconfig config="language" name="februari" / --></th>
+			<th><!-- patTemplate:gtfwgetconfig config="language" name="maret" / --></th>
+			<th><!-- patTemplate:gtfwgetconfig config="language" name="april" / --></th>
+			<th><!-- patTemplate:gtfwgetconfig config="language" name="mei" / --></th>
+			<th><!-- patTemplate:gtfwgetconfig config="language" name="juni" / --></th>
+			<th><!-- patTemplate:gtfwgetconfig config="language" name="juli" / --></th>
+			<th><!-- patTemplate:gtfwgetconfig config="language" name="agustus" / --></th>
+			<th><!-- patTemplate:gtfwgetconfig config="language" name="september" / --></th>
+			<th><!-- patTemplate:gtfwgetconfig config="language" name="oktober" / --></th>
+			<th><!-- patTemplate:gtfwgetconfig config="language" name="november" / --></th>
+			<th><!-- patTemplate:gtfwgetconfig config="language" name="desember" / --></th>
+		</tr>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="15" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}" >
+               <td align="center">{DATA_NOMOR}</td>
+					<td>{DATA_KODE}</td>
+               <td>{DATA_NAMA}</td>					
+               <td style="text-align:right;">{DATA_TARGET_PNBP}</td>
+					<td style="text-align:right;">{DATA_REALJAN}</td>
+					<td style="text-align:right;">{DATA_REALFEB}</td>
+					<td style="text-align:right;">{DATA_REALMAR}</td>
+					<td style="text-align:right;">{DATA_REALAPR}</td>
+					<td style="text-align:right;">{DATA_REALMEI}</td>					
+               <td style="text-align:right;">{DATA_REALJUN}</td>
+					<td style="text-align:right;">{DATA_REALJUL}</td>
+					<td style="text-align:right;">{DATA_REALAGS}</td>
+					<td style="text-align:right;">{DATA_REALSEP}</td>
+					<td style="text-align:right;">{DATA_REALOKT}</td>
+					<td style="text-align:right;">{DATA_REALNOV}</td>
+					<td style="text-align:right;">{DATA_REALDES}</td>
+					<td style="text-align:right;">{DATA_TOTAL_REALISASI}</td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+            <!-- patTemplate:tmpl name="data_total" -->
+            <tr class="table-common-even" style="text-align:right; font-weight:bold;">
+               <td colspan="3">Total</td>
+               <td >{TOTAL_TARGET_PNBP}</td>
+					<td >{TOTAL_JAN}</td>
+					<td >{TOTAL_FEB}</td>
+					<td >{TOTAL_MAR}</td>
+					<td >{TOTAL_APR}</td>
+					<td >{TOTAL_MEI}</td>
+               <td >{TOTAL_JUN}</td>
+					<td >{TOTAL_JUL}</td>
+					<td >{TOTAL_AGS}</td>
+					<td >{TOTAL_SEP}</td>
+					<td >{TOTAL_OKT}</td>
+					<td >{TOTAL_NOV}</td>
+					<td >{TOTAL_DES}</td>
+					<td >{TOTAL_TOTAL_REALISASI}</td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+<!-- /patTemplate:tmpl -->

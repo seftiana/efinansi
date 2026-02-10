@@ -1,0 +1,92 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+   var xpopup;
+   function bukaPopupCetak(xurl) {
+      xpopup = window.open(xurl,'xpopup','width=900,height=600,resizable=yes,scrollbars=yes,right=0;center');
+      xpopup.focus();
+   }
+
+   function bukaPopupUnitkerja(xurl) {
+      xpopup =window.open(xurl,'xpopup','width=600,height=500,resizable=yes,scrollbars=yes,right=0;center');
+      xpopup.focus();
+   }
+</script>
+<h1>List Penyusutan</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+      <tr>
+         <th>Jenis KIB</th>
+         <td><!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="jenis_kib"  / --></td>
+      </tr>
+      <tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --> / Nama Aset</th>
+         <td><input type="text" name="key" id="key" value="{KEY}" /></td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+   <br />
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar">
+         <a class="xhr dest_subcontent-element" href="{URL_BACK}" title="<!-- patTemplate:gtfwgetconfig config="language" name="kembali" / -->" ><img src="images/arrow_ltr.png" alt="Kembali"><!-- patTemplate:gtfwgetconfig config="language" name="kembali" / --></a>
+         <a href="javascript:void(0)" onclick="bukaPopupCetak('{URL_CETAK}')" title="<!-- patTemplate:gtfwgetconfig config="language" name="cetak" / -->" ><img src="images/button-print.gif" alt="Cetak"> <!-- patTemplate:gtfwgetconfig config="language" name="cetak" / --></a>
+         <a href="{URL_EXPORT}" title="Export Excel" ><img src="images/button-tindaklanjuti.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="excel" / --></a>
+      </div>
+   </div>
+
+   <table class="table-common" width="800px">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <th>Kode Aset</th>
+         <th>Nama Aset</th>
+         <th>Unit PJ Barang</th>
+         <th>Nilai Perolehan (Rp)</th>
+         <th>Nilai Penyusutan (Rp)</th>
+         <th>Akumulasi Penyusutan (Rp)</th>
+         <th>Nilai Buku (Rp)</th>
+         <th width="30"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="9" align="center"><em>-- <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --> --</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{CLASS_NAME}">
+               <td align="center">{NOMOR}</td>
+               <td align="center">{KODE_ASET}</td>
+               <td>{NAMA_ASET}</td>
+               <td>{UNITKERJANAMA}</td>
+               <td align="right">{MSTPENYSTNNILAIPEROLEHAN}</td>
+               <td align="right">{NILAI_PENYUSUTAN}</td>
+               <td align="right">{TOTAL_PENYUSUTAN}</td>
+               <td align="right">{NILAI_BUKU}</td>
+               <td class="links" align="center">
+                  <a class="xhr dest_subcontent-element" href="{URL_LOG}" title="Log Penyusutan"><img src="images/button-detail.gif" alt="Log Penyusutan"/></a>
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+
+<!-- /patTemplate:tmpl -->

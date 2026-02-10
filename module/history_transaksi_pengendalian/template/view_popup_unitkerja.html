@@ -1,0 +1,80 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function setParent(xid, xlabel) {
+		document.getElementById('unitkerja').value=xid;
+		document.getElementById('unitkerja_label').value=xlabel;
+		popupClose();
+	}
+</script>
+<h1>List Unit Kerja</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong>Pencarian</strong></h2></th>
+      </tr>
+         <tr>
+            <th width="30%">Kode Unit/ Sub Unit</label></th>
+            <td><input type="text" name="unitkerja_kode" value="{UNITKERJA_KODE}" size="20" />
+         </tr>
+      <tr>              
+         <th>Unit/ Sub Unit</label></th>
+         <td><input type="text" name="unitkerja" value="{UNITKERJA}" size="30" /></td>
+      </tr>
+         <tr>
+            <th>Tipe Unit</label></th>
+            <td>
+         <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tipeunit"  / -->
+            </td>
+         </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   </div>
+   <br />
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5">No</th>
+         <th>Kode</th>
+         <th>Unit/ Sub Unit</th>
+         <th>Tipe</th>
+         <th width="31">Pilih</th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_unitkerja" type="condition" conditionvar="UNITKERJA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="6" align="center"><em>-- Data tidak ditemukan --</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_unitkerja_item" -->
+            <tr class="{UNITKERJA_CLASS_NAME}">
+               <td align="center">{UNITKERJA_NUMBER}</td>
+               <td>{UNITKERJA_KODEUNIT}</td>
+               <td>{UNITKERJA_UNIT}</td>
+               <td>{UNITKERJA_TIPEUNIT}</td>
+			   <td class="links" align="center">
+					<a href="javascript:setParent('{UNITKERJA_ID}','{UNITKERJA_LABEL_UNIT}')" onclick=""><img alt="Pilih" src="images/button-check.gif"/></a>
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   <br /> 
+<div>
+<!-- /patTemplate:tmpl -->

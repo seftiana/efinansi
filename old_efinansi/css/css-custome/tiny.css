@@ -1,0 +1,13 @@
+.tiny th, .tiny td{
+	font-size:8px;
+}
+#common-landscape{
+	padding:0px;
+}
+#page-landscape{
+	margin:0px;
+	width:29.70cm;
+}
+.content{
+	padding:0px;
+}

@@ -1,0 +1,152 @@
+<!-- patTemplate:tmpl name="content" -->
+<script>
+	function getBentukTransaksi(idData){
+		GtfwAjax.replaceContentWithUrl('bentuk_transaksi', '<!-- patTemplate:gtfwgeturl module="kelompok_laporan_anggaran" sub="comboBentukTransaksiLaporan" action="view" type="html" htmlentities="no" / -->&ascomponent=1&dataId=' + idData);
+        
+        GtfwAjax.replaceContentWithUrl('no_urutan', '<!-- patTemplate:gtfwgeturl module="kelompok_laporan_anggaran" sub="NoUrutan" action="view" type="html" htmlentities="no" / -->&ascomponent=1&dataId=' + idData);
+	}
+	
+	function getNoUrut(idData){
+		GtfwAjax.replaceContentWithUrl('no_urutan', '<!-- patTemplate:gtfwgeturl module="kelompok_laporan_anggaran" sub="NoUrutan" action="view" type="html" htmlentities="no" / -->&ascomponent=1&dataId=' + idData);
+	}
+	
+	function hapus_pagu_bas_mak(obj) 
+	{
+		document.getElementById("data_pagu_bas_mak").removeChild(obj.parentNode.parentNode);
+		
+	}
+
+   function showPopupPaguBasMak(url,title){
+		showPopup(url,title, 600, 500);
+   }	
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="kelompok_laporan_anggaran" / --></h1>
+<br/>
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="notebox-alert">
+      {ISI_PESAN}
+   </div>
+   <br/>
+   <!-- /patTemplate:tmpl -->
+   
+   
+   <form method="POST" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" name="frmInput" >
+   <input type="hidden" name="dataId" value="{DATAID}"  />
+   <!-- input type="hidden" name="page" value="{PAGE}"  / -->
+      <table class="table-edit" width="100%">
+         <tr class="subhead">
+            <th colspan="2">{JUDUL} <!-- patTemplate:gtfwgetconfig config="language" name="kelompok_laporan" / --></th>
+         </tr>
+			<tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="jenis_laporan" / --></th>
+            <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="jns_lap"  / -->
+            </td>
+         </tr>
+         <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="bentuk_transaksi" / --></th>
+            <td id="bentuk_transaksi">
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="bentuk_transaksi"  / -->
+            </td>
+         </tr>
+         <tr>
+            <th width="150"><!-- patTemplate:gtfwgetconfig config="language" name="kelompok_laporan" / --></th>
+            <td><input type="text" name="klp_lap" value="{KLP_LAPORAN}" size="40" />&nbsp;*</td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="is_tambah" / --></th>
+            <td>
+               <select name="is_tambah">
+                  <option value="Ya" {SLC_TB_YA} ><!-- patTemplate:gtfwgetconfig config="language" name="ya" / --></option>
+                  <option value="Tidak" {SLC_TB_TIDAK} ><!-- patTemplate:gtfwgetconfig config="language" name="tidak" / --></option>
+               </select>
+            </td>
+         </tr>
+         
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="no_urut" / --></th>
+            <td id="no_urutan">
+               <input type="text" name="no_urutan" value="{NO_URUTAN}" size="5" />&nbsp;*</td>
+            </td>
+         </tr>
+         <tr>
+            <th>Daftar MAK</th>
+            <td >
+				<div class="toolbar">
+				<a href="#"  onclick="javascript:showPopupPaguBasMak('{URL_POPUP_PAGU_BAS_MAK}','Daftar Mak');" >
+					<img src="images/button-add.gif" alt=""> <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / -->&nbsp;MAK
+					</a>
+				</div>
+            </td>
+         </tr>
+                <tr>
+          <td colspan="2">
+            <table class="table-common" width="100%">
+               <thead>
+                  <tr>
+                     <th width="25"><!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+                     <input type="hidden" name="maks" id="maks" value="{MAKS}" />
+                     </th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+                     <th><!-- patTemplate:gtfwgetconfig config="language" name="mak" / --></th>
+                     <th width="20"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+                  </tr>
+               </thead>
+				<tbody id="data_pagu_bas_mak">
+					<!-- patTemplate:tmpl name="data_mak" type="condition" conditionvar="IS_DATA_EMPTY" -->
+					<!-- patTemplate:sub condition="YES" -->
+					<!-- tr id='data_kosong'>
+						<td colspan="4" style='text-align: center; font-style: italic'>--<!-- patTemplate:gtfwgetconfig config="language" name="belum_ada_yang_dipilih" / -->! --</td>
+					</tr -->
+					<!-- /patTemplate:sub -->
+					<!-- patTemplate:sub condition="NO" -->
+						<!-- patTemplate:tmpl name="data_item" -->
+					<tr class="{DATA_CLASS_NAME}">
+						<td align="center">
+							<input type="hidden" name="nomor" id="nomor" value="{DATA_NOMOR}" />
+							{DATA_NOMOR}
+						</td>	
+						                    <td>
+                       <input type="hidden" id="pbm_{DATA_INDEX}" value="{DATA_MAK_ID}" />
+                        {DATA_MAK_KODE}
+                        <input type="hidden" name="pagu_bas_mak[{DATA_INDEX}][mak_id]" value="{DATA_MAK_ID}" />
+                        <input type="hidden" name="pagu_bas_mak[{DATA_INDEX}][mak_kode]" value="{DATA_MAK_KODE}" />
+                        <input type="hidden" name="pagu_bas_mak[{DATA_INDEX}][mak_nama]" value="{DATA_MAK_NAMA}" />
+						</td>
+						<td>
+							{DATA_MAK_NAMA}
+						</td>                      
+						 <td style="text-align: center;">
+                        <a href="javascript:void(null)" title="Hapus" onclick="hapus_pagu_bas_mak(this)">
+							<img src="images/button-delete.gif" alt="Hapus" /></a>
+						</td>
+					</tr>
+                       <!-- /patTemplate:tmpl -->
+                       
+					<!-- /patTemplate:sub -->
+					<!-- /patTemplate:tmpl -->
+               </tbody>
+            </table>
+          </td>
+        </tr>
+         <tr class="buttons">
+            <th>&nbsp;
+            </th>
+            <td>
+               <input type="submit" name="btnsimpan" value=" <!-- patTemplate:gtfwgetconfig config="language" name="simpan" / --> " class="buttonSubmit"/>
+               <input  type="submit"  name="btnbalik" value=" <!-- patTemplate:gtfwgetconfig config="language" name="batal" / --> " class="buttonSubmit"/>
+            </td>
+         </tr>
+      </table>
+   </form>
+   
+   <br/>
+   
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+      <ul>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --></li>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,28 @@
+.table-header
+{
+   border: 0px;
+   font-size: inherit;
+}
+
+.table-header td, .table-header th
+{
+   border: 0px;
+   vertical-align: top;
+   padding: 2px;
+   margin: 0px;
+}
+
+.table-header th
+{
+   width: 12px;
+   background: none;
+   text-align: left;
+   text-transform: none;
+   white-space: pre; 
+}
+
+.div-ttd
+{
+   width: 40%;
+   text-align: center;
+}

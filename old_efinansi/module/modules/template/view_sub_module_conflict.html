@@ -1,0 +1,174 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   Detail Module
+</h1>
+<br />
+<!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+<div class="{CLASS_PESAN}">
+   {ISI_PESAN}
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+<form method="POST" action="{URL_ACTION}" class="xhr_form dest_subcontent-element" data-target="{URL_RETURN}" id="frmInput">
+   <input type="hidden" name="module_name" value="{NAME}" />
+   <div class="pageBar">
+      <div class="toolbar">
+         <a class="xhr dest_subcontent-element" href="{URL_RETURN}" title="Redirect" >
+            Return
+            <img src="images/redirect.gif" alt="" style="float: right; margin-left: 0.3635rem; padding-top: 0.09735rem;">
+         </a>
+         <input type="submit" name="btnExecute" value="Fix Conflict" class="inputButton" />
+      </div>
+   </div>
+   <table class="table-details" width="100%">
+      <tr class="subhead">
+         <th colspan="2">
+            <strong>
+               Detail Module
+            </strong>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 135px;">
+            Module Name
+         </th>
+         <td>
+            {NAME}
+         </td>
+      </tr>
+      <tr>
+         <th>
+            Path
+         </th>
+         <td>
+            {PATH}
+         </td>
+      </tr>
+      <tr class="subhead">
+         <th colspan="2">
+            Sub Module [conflict]
+         </th>
+      </tr>
+      <tr>
+         <td colspan="2" style="padding: 0px;">
+            <!-- patTemplate:tmpl name="sub_module_conflict" type="condition" conditionvar="DATA_EMPTY" -->
+               <!-- patTemplate:sub condition="YES" -->
+                  <center>
+                     <strong>
+                        <em>
+                           Module terdaftar
+                        </em>
+                     </strong>
+                  </center>
+               <!-- /patTemplate:sub -->
+               <!-- patTemplate:sub condition="NO" -->
+                  <!-- start: Table List -->
+                  <table class="table-common" width="100%">
+                     <thead>
+                        <tr>
+                           <th style="width: 25px;">
+                              <input type="checkbox" class="CheckBoxFW_parent" />
+                           </th>
+                           <th>
+                              NAME
+                           </th>
+                           <th style="width: 45px;">
+                              ACTION
+                           </th>
+                           <th style="width: 45px;">
+                              TYPE
+                           </th>
+                           <th style="width: 95px;">
+                              ACCESS
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <!-- patTemplate:tmpl name="list_conflict_sub_module" -->
+                           <tr class="{CLASS_NAME}">
+                              <td style="text-align: center; padding-left: 18px;">
+                                 <input type="checkbox" class="CheckBoxFW_child" name="module[{MODULE_ID}][id]" value="{MODULE_ID}" />
+                              </td>
+                              <td>
+                                 {SUB_MODULE}
+                              </td>
+                              <td style="text-align: center;">
+                                 {ACTION}
+                              </td>
+                              <td style="text-align: center;">
+                                 {TYPE}
+                              </td>
+                              <td style="text-align: center;">
+                                 {ACCESS}
+                              </td>
+                           </tr>
+                        <!-- /patTemplate:tmpl -->
+                     </tbody>
+                  </table>
+                  <!-- end: Table List -->
+               <!-- /patTemplate:sub -->
+            <!-- /patTemplate:tmpl -->
+         </td>
+      </tr>
+   </table>
+</form>
+<script type="text/javascript">
+CheckBoxFW_initiate = function (Obj)
+{
+   if (!Obj || Obj.className.indexOf('CheckBoxFW_parent') < 0 || !Obj.form) return;
+
+   var CBList     = new Array;
+   var CheckedAll = true;
+   var FormObj    = Obj.form;
+
+   for (var i = 0; i < FormObj.length; i++) if (FormObj[i] == Obj) break;
+   if (i == FormObj.length) return;
+
+   for(i += 1; i < FormObj.length; i++)
+   {
+      var CBObj = FormObj[i];
+      if (CBObj.type.toUpperCase() != 'CHECKBOX') continue;
+      if (CBObj.className.indexOf('CheckBoxFW_child') >= 0)
+      {
+         CBObj.onchange = function () {
+            Obj.checkChild();
+         }
+         CBList[CBList.length] = CBObj;
+         if (!CBObj.checked) CheckedAll = false;
+      }
+      if (CBObj.className.indexOf('CheckBoxFW_parent') >= 0) break;
+   }
+
+   if (CBList.length > 0)
+   {
+      Obj.onchange = function ()
+      {
+         for (var i = 0; i < CBList.length; i++){
+            if(CBList[i].getAttribute('disabled') == null){
+               CBList[i].checked = this.checked;
+            }
+         }
+      }
+
+      Obj.checkChild = function ()
+      {
+         var CheckedAll = true;
+         for (var i = 0; i < CBList.length; i++) if (!CBList[i].checked)
+         {
+            CheckedAll = false;
+            break;
+         }
+         this.checked = CheckedAll;
+      }
+
+      Obj.checked = CheckedAll;
+   }
+}
+var formObj       = document.getElementById('frmInput');
+if(typeof(formObj) != 'undefined' && formObj != null){
+   for (var i = 0; i < formObj.length; i++){
+      CheckBoxFW_initiate(formObj[i]);
+   }
+}
+</script>
+<!-- /patTemplate:tmpl -->

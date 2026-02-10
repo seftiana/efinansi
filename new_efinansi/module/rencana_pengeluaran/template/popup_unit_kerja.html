@@ -1,0 +1,77 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+		
+	function setParent(id,nama) {
+	   //alert(id);
+	   //alert(nama);
+       var form = document.forms['frmInput'];
+       form.unit_id.value = id;
+       form.unit_nama_ro.value= nama;   
+       form.unit_nama_hidden.value= nama;          
+      popupClose();
+   }
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="list_unit_kerja" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup"">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+      <tr>              
+         <th width="30%"><!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / --></th>
+         <td><input type="text" name="satker" value="{SATKER}" size="30" /></td>
+      </tr>
+      <tr>              
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="pimpinan" / --></th>
+         <td><input type="text" name="pimpinan" value="{PIMPINAN}" size="30" /></td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+   
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   </div>
+   <br />
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="pimpinan" / --></th>
+         <th width="31"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_satker" type="condition" conditionvar="SATKER_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="5" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_satker_item" -->
+            <tr class="{SATKER_CLASS_NAME}">
+               <td align="center">{SATKER_NUMBER}</td>
+               <td>{SATKER_SATKER_NAMA}</td>
+               <td>{SATKER_SATKER_PIMPINAN}</td>
+               <!-- <td class="links" align="center">
+					<a href="javascript:void(0)" onclick="javascript:setParent('{SATKER_ENC_SATKER_ID}','{SATKER_ENC_SATKER_NAMA}')"><img alt="Pilih" src="images/button-check.gif"/></a>
+               </td> -->
+			   <td class="links" align="center">
+					<a href="javascript:void(0)" onclick="javascript:setParent('{SATKER_SATKER_ID}','{SATKER_SATKER_NAMA}')"><img alt="Pilih" src="images/button-check.gif"/></a>
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+<div>
+<!-- /patTemplate:tmpl -->

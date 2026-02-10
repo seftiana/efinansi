@@ -1,0 +1,16 @@
+<!-- patTemplate:tmpl name="content" -->   
+   <select name="ComboJenisIdentitas" {COMBO_STATUS}>      
+      <option value="All">Semua</option>      
+      <!-- patTemplate:tmpl name="list_jenis_identitas" type="condition" conditionvar="IS_EMPTY" -->
+				<!-- patTemplate:sub condition="YES" -->               
+               <option value="">Data tidak ditemukan</option>
+				<!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+               <!-- patTemplate:tmpl name="item_jenis_identitas" -->
+                  <option value="{COMBO_VALUE}" {COMBO_SELECTED}>{COMBO_LABEL}</option>
+               <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+      <option value="unreg" {COMBO_SELECTED}>Tidak Terdaftar</option>      
+   </select>
+<!-- /patTemplate:tmpl -->

@@ -1,0 +1,88 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1 id="">Laporan Kertas Kerja Konversi Rupiah Murni</h1>
+<br />
+<form method="post" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table style="width:500px">
+      <tr>
+         <td width="100px">Periode Anggaran</td>
+         <td>{THANGGARNAMA}</td>
+      </tr>
+      <tr>
+         <td>
+            Tanggal Awal
+         </td>
+         <td>
+            <!-- patTemplate:var name="thanggarBuka" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+         </td>
+      </tr>
+      <tr>
+         <td>
+            Tanggal Akhir
+         </td>
+         <td>
+            <!-- patTemplate:var name="tanggal_sekarang" modifier="gtfwindonesiandate" format="long" separator=" " / -->
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+
+<!-- start: Table List -->
+      <table class="table-common" width="800px">
+         <tr>
+            <th colspan="3">SAK</th>
+            <th colspan="3">SAP</th>
+         </tr>
+         <tr>
+            <th>
+               AKUN
+            </th>
+            <th>
+               URAIAN
+            </th>
+            <th>
+               JUMLAH
+            </th>
+           <th>
+               AKUN
+            </th>
+            <th>
+               URAIAN
+            </th>
+            <th>
+               JUMLAH
+            </th>
+         </tr>
+
+         <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+            <!-- patTemplate:sub condition="YES" -->
+            <tr><td colspan="6" align="center"><em>-- Data tidak ditemukan --</em></td></tr>
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+               <!-- patTemplate:tmpl name="data_item" -->
+               <tr class="{CLASS_NAME}">
+                  <td style="text-align:center" width="100">
+                     {SAK_AKUN}
+                  </td>
+                  <td width="200">
+                     {SAK_URAIAN}
+                  </td>
+                  <td style="text-align:right">
+                     {SAK_JUMLAH}
+                  </td>
+                  <td style="text-align:center" width="100">
+                     {SAP_AKUN}
+                  </td>
+                  <td width="200">
+                     {SAP_URAIAN}
+                  </td>
+                  <td style="text-align:right">
+                     {SAP_JUMLAH}
+                  </td>
+               </tr>
+               <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+         <!-- /patTemplate:tmpl -->
+      </table>
+<!-- /patTemplate:tmpl -->

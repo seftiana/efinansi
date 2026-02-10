@@ -1,0 +1,415 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="laporan_posisi_keuangan" / --> Sementara
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterbox" name="filterbox" class="dataquest xhr_simple_form dest_subcontent-element">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="interval_tanggal" / -->
+         </th>
+         <td>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_awal"  / -->
+            </div>
+            <div>
+               <!-- patTemplate:gtfwgetconfig config="language" name="s_d" / -->
+            </div>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_akhir"  / -->
+            </div>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+<div class="pageBar">
+   <div class="toolbar">
+      <a href="javascript:void(0);" title="Cetak Data" onclick="cetak('{URL_CETAK}', 'Print');">
+         <img src="images/icons/16/button-print.gif" alt="cetak">
+         Cetak
+      </a>
+      <a href="{URL_EXPORT_EXCEL}" target="_BLANK" title="Export Data" >
+         <img src="images/icons/16/export_excel.gif" alt="export">
+         Export
+      </a>
+   </div>
+</div>
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="aset" / -->
+</h1>
+<!-- +++++++++++++++++++++++++++++[ CURRENT ASSETS ]++++++++++++++++++++++++++++++++ -->
+<!-- patTemplate:tmpl name="aktiva_lancar" type="condition" conditionvar="DATA_EMPTY" -->
+   <!-- patTemplate:sub condition="YES" -->
+      &nbsp;
+   <!-- /patTemplate:sub -->
+   <!-- patTemplate:sub condition="NO" -->
+      <table class="table-common" style="width: 100%;">
+         <thead>
+            <tr>
+               <th>
+                  {LABEL}
+               </th>
+               <th style="width: 135px;">
+                  <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+               </th>
+            </tr>
+         </thead>
+         <tbody>
+            <!-- patTemplate:tmpl name="data_item_aktiva_lancar" -->
+               <tr class="{LAP_CLASS_NAME}">
+                  <td>
+                     {NAMA}
+                  </td>
+                  <td style="text-align: right;">
+                     <a href="javascript:void(0)" onclick="showPopup('{URL_DETAIL_CURRENT}', 'Detail', 600, 300)" title="Show Detail" >
+                        {NOMINAL}
+                     </a>
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         </tbody>
+         <tfoot>
+            <tr class="{LAP_CLASS_NAME}">
+               <td>
+                  <strong style="font-style:italic">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="jumlah" / --> {LABEL}
+                  </strong>
+               </td>
+               <td style="text-align: right; font-weight: bold;">
+                  {SUM_CURRENT_BALANCE}
+               </td>
+            </tr>
+         </tfoot>
+      </table>
+   <!-- /patTemplate:sub -->
+<!-- /patTemplate:tmpl -->
+<!-- +++++++++++++++++++++++[ CURRENT ASSETS ]++++++++++++++++++++++++++++++++ -->
+
+<!-- +++++++++++++++++++++++[ FIXED ASSETS ]+++++++++++++++++++++++++++++++++ -->
+<!-- patTemplate:tmpl name="aktiva_tidak_lancar" type="condition" conditionvar="DATA_EMPTY" -->
+   <!-- patTemplate:sub condition="YES" -->
+      &nbsp;
+   <!-- /patTemplate:sub -->
+   <!-- patTemplate:sub condition="NO" -->
+      <table class="table-common" style="width: 100%;">
+         <thead>
+            <tr>
+               <td colspan="3">
+                  &nbsp;
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  {LABEL}
+               </th>
+               <th style="width: 135px;">
+                  <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+               </th>
+            </tr>
+         </thead>
+         <tbody>
+            <!-- patTemplate:tmpl name="data_item_aktiva_tidak_lancar" -->
+               <tr class="{LAP_CLASS_NAME}">
+                  <td>
+                     {NAMA}
+                  </td>
+                  <td style="text-align: right;">
+                     <a href="javascript:void(0)" onclick="showPopup('{URL_DETAIL_CURRENT}', 'Detail', 600, 300)" title="Show Detail" >
+                        {NOMINAL}
+                     </a>
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         </tbody>
+         <tfoot>
+            <tr class="{LAP_CLASS_NAME}">
+               <td>
+                  <strong style="font-style:italic">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="jumlah" / --> {LABEL}
+                  </strong>
+               </td>
+               <td style="text-align: right; font-weight: bold;">
+                  {SUM_CURRENT_BALANCE}
+               </td>
+            </tr>
+         </tfoot>
+      </table>
+   <!-- /patTemplate:sub -->
+<!-- /patTemplate:tmpl -->
+<!-- +++++++++++++++++++++++++++++++++++++[ FIXED ASSETS ]+++++++++++++++++++++++++++++++++++++ -->
+
+<!-- +++++++++++++++++++++++[ FIXED ASSETS ]+++++++++++++++++++++++++++++++++ -->
+<!-- patTemplate:tmpl name="aktiva_lain" type="condition" conditionvar="DATA_EMPTY" -->
+   <!-- patTemplate:sub condition="YES" -->
+      &nbsp;
+   <!-- /patTemplate:sub -->
+   <!-- patTemplate:sub condition="NO" -->
+      <table class="table-common" style="width: 100%;">
+         <thead>
+            <tr>
+               <td colspan="3">
+                  &nbsp;
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  {LABEL}
+               </th>
+               <th style="width: 135px;">
+                  <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+               </th>
+            </tr>
+         </thead>
+         <tbody>
+            <!-- patTemplate:tmpl name="data_item_aktiva_lain" -->
+               <tr class="{LAP_CLASS_NAME}">
+                  <td>
+                     {NAMA}
+                  </td>
+                  <td style="text-align: right;">
+                     <a href="javascript:void(0)" onclick="showPopup('{URL_DETAIL_CURRENT}', 'Detail', 600, 300)" title="Show Detail" >
+                        {NOMINAL}
+                     </a>
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         </tbody>
+         <tfoot>
+            <tr class="{LAP_CLASS_NAME}">
+               <td>
+                  <strong style="font-style:italic">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="jumlah" / --> {LABEL}
+                  </strong>
+               </td>
+               <td style="text-align: right; font-weight: bold;">
+                  {SUM_CURRENT_BALANCE}
+               </td>
+            </tr>
+         </tfoot>
+      </table>
+   <!-- /patTemplate:sub -->
+<!-- /patTemplate:tmpl -->
+<!-- +++++++++++++++++++++++++++++++++++++[ FIXED ASSETS ]+++++++++++++++++++++++++++++++++++++ -->
+
+<!-- +++++++++++++++++++++++++++++++++++++[ ASSET AMOUNT ]++++++++++++++++++++++++++++++++++++ -->
+<table class="table-edit" style="width: 100%;">
+   <tr class="{LAP_CLASS_NAME}">
+      <td>
+         <strong>
+            <!-- patTemplate:gtfwgetconfig config="language" name="jumlah_aktiva" / -->
+         </strong>
+      </td>
+      <td style="text-align: right; width: 165px; padding: 4px 5px 4px 5px; font-weight: bold;">
+         {TOTAL_CURRENT_AKTIVA}
+      </td>
+   </tr>
+</table>
+<br />
+<!-- +++++++++++++++++++++++++++++++++++++[ ASSET AMOUNT ]++++++++++++++++++++++++++++++++++++ -->
+
+<br />
+<!-- ++++++++++++++++++++++++++++++[ LIABILITIES AND NET ASSET ]++++++++++++++++++++++++++++++ -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="kewajiban_dan_aktiva_bersih" / -->
+</h1>
+<!-- ++++++++++++++++++++++++++++++[ LIABILITIES AND NET ASSET ]++++++++++++++++++++++++++++++ -->
+
+<!-- ++++++++++++++++++++++++++++++++++++[ LIABILITIES ]++++++++++++++++++++++++++++++++++++++ -->
+<table class="table-common" style="width: 100%;">
+   <thead>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kewajiban" / -->
+         </th>
+         <th style="width: 135px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="kewajiban_jangka_pendek" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            &nbsp;
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <tr>
+               <td colspan="3">
+                  <strong>
+                     {LABEL}
+                  </strong>
+               </td>
+            </tr>
+            <!-- patTemplate:tmpl name="data_item_kewajiban_jangka_pendek" -->
+               <tr class="{LAP_CLASS_NAME}">
+                  <td>
+                     {NAMA}
+                  </td>
+                  <td style="text-align: right;">
+                     <a href="javascript:void(0)" onclick="showPopup('{URL_DETAIL_CURRENT}', 'Detail', 600, 300)" title="Show Detail" >
+                        {NOMINAL}
+                     </a>
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+            <tr class="{LAP_CLASS_NAME}">
+               <td>
+                  <strong style="font-style:italic">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="jumlah" / --> {LABEL}
+                  </strong>
+               </td>
+               <td style="text-align: right; font-weight: bold;">
+                  {SUM_CURRENT_BALANCE}
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+      <!-- patTemplate:tmpl name="kewajiban_jangka_panjang" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            &nbsp;
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <tr>
+               <td colspan="3">
+                  <strong>
+                     {LABEL}
+                  </strong>
+               </td>
+            </tr>
+            <!-- patTemplate:tmpl name="data_item_kewajiban_jangka_panjang" -->
+               <tr class="{LAP_CLASS_NAME}">
+                  <td>
+                     {NAMA}
+                  </td>
+                  <td style="text-align: right;">
+                     <a href="javascript:void(0)" onclick="showPopup('{URL_DETAIL_CURRENT}', 'Detail', 600, 300)" title="Show Detail" >
+                        {NOMINAL}
+                     </a>
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+            <tr class="{LAP_CLASS_NAME}">
+               <td>
+                  <strong style="font-style:italic">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="jumlah" / --> {LABEL}
+                  </strong>
+               </td>
+               <td style="text-align: right; font-weight: bold;">
+                  {SUM_CURRENT_BALANCE}
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<!-- ++++++++++++++++++++++++++++++++++++[ LIABILITIES ]++++++++++++++++++++++++++++++++++++++ -->
+
+<!-- ++++++++++++++++++++++++++++++++++++[ NET ASSET ]++++++++++++++++++++++++++++++++++++++++ -->
+<!-- patTemplate:tmpl name="aktiva_bersih" type="condition" conditionvar="DATA_EMPTY" -->
+   <!-- patTemplate:sub condition="YES" -->
+      &nbsp;
+   <!-- /patTemplate:sub -->
+   <!-- patTemplate:sub condition="NO" -->
+      <table class="table-common" style="width: 100%;">
+         <thead>
+            <tr>
+               <td colspan="3">
+                  &nbsp;
+               </td>
+            </tr>
+            <tr>
+               <th>
+                  {LABEL}
+               </th>
+               <th style="width: 135px;">
+                  <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+               </th>
+            </tr>
+         </thead>
+         <tbody>
+            <!-- patTemplate:tmpl name="data_item_aktiva_bersih" -->
+               <tr class="{LAP_CLASS_NAME}">
+                  <td>
+                     {NAMA}
+                  </td>
+                  <td style="text-align: right;">
+                     <a href="javascript:void(0)" onclick="showPopup('{URL_DETAIL_CURRENT}', 'Detail', 600, 300)" title="Show Detail" >
+                        {NOMINAL}
+                     </a>
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         </tbody>
+         <tfoot>
+            <tr class="{LAP_CLASS_NAME}">
+               <td>
+                  <strong style="font-style:italic">
+                     <!-- patTemplate:gtfwgetconfig config="language" name="jumlah" / --> {LABEL}
+                  </strong>
+               </td>
+               <td style="text-align: right; font-weight: bold;">
+                  {SUM_CURRENT_BALANCE}
+               </td>
+            </tr>
+         </tfoot>
+      </table>
+   <!-- /patTemplate:sub -->
+<!-- /patTemplate:tmpl -->
+<!-- ++++++++++++++++++++++++++++++++++++[ NET ASSET ]++++++++++++++++++++++++++++++++++++++++ -->
+
+<table class="table-edit" style="width: 100%;">
+   <tr class="{LAP_CLASS_NAME}">
+      <td>
+         <strong>
+            <!-- patTemplate:gtfwgetconfig config="language" name="jumlah_kewajiban_dan_aktiva_bersih" / -->
+         </strong>
+      </td>
+      <td style="text-align: right; width: 165px; padding: 4px 5px 4px 5px; font-weight: bold;">
+         {TOTAL_CURRENT_LIABILITIES}
+      </td>
+   </tr>
+</table>
+<script type="text/javascript">
+function cetak(url, label)
+{
+
+   var width  = 940;
+   var height = 600;
+   var left   = (screen.width  - width)/2;
+   var top    = (screen.height - height)/2;
+   var params = 'width='+width+', height='+height;
+   params += ', top='+top+', left='+left;
+   params += ', directories=no';
+   params += ', location=no';
+   params += ', menubar=no';
+   params += ', resizable=no';
+   params += ', scrollbars=yes';
+   params += ', status=no';
+   params += ', toolbar=no';
+   newwin=window.open(url,label, params);
+   if (window.focus) {
+      newwin.focus();
+   }
+
+   return false;
+}
+</script>
+<!-- /patTemplate:tmpl -->

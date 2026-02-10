@@ -1,0 +1,130 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type='text/javascript'>
+
+function setParent(obj,id,kode,nama) {
+
+   var random=Math.floor(Math.random()*666);
+
+   var tr = document.createElement('tr');
+   var td_kode = document.createElement('td');
+   var td_nama = document.createElement('td');
+   var td_sub_account = document.createElement('td');
+   var td_keterangan = document.createElement('td');
+   var td_deskripsi = document.createElement('td');
+   var td_nilai = document.createElement('td');
+   var td_delete = document.createElement('td');
+   var tbodi = document.getElementById("table-{TIPE_POPUP}");
+
+   td_kode.innerHTML = '<input type="hidden" name="data[debet][tambah][id][]" value="' + id + '" /> ' + '<input type="hidden" name="data[debet][tambah][kode][]" value="' + kode + '" /> ' + kode;
+   td_sub_account.innerHTML = '<input class="input_mask" data-mask="99-99-99-99-99-99-99" type="text" name="data[debet][tambah][sub_account][]" value="" /> ';
+   td_keterangan.setAttribute('align','center');
+   td_keterangan.innerHTML = '<input type="text" name="data[debet][tambah][keterangan][]" value="" /> ';
+   td_deskripsi.setAttribute('align','center');
+   td_deskripsi.innerHTML = '<input type="text" name="data[debet][tambah][deskripsi][]" value="" /> ';
+   td_nama.innerHTML = '<input type="hidden" name="data[debet][tambah][nama][]" value="' + nama + '" /> ' + nama;
+   td_nilai.innerHTML = '<input class="gvFloat debet" type="text" name="data[debet][tambah][nilai][]" style="text-align:right" id="' + random + '" onKeyUp="setTotalDebet()" />';
+   td_delete.innerHTML = '<a href="javascript:void(null)" title="Hapus" onclick="hapus_akun(this);setTotalDebet()"><img src="images/button-delete.gif" alt="Hapus" /></a>';
+
+   tr.appendChild(td_kode);
+   tr.appendChild(td_sub_account);
+   tr.appendChild(td_nama);
+   tr.appendChild(td_keterangan);
+   tr.appendChild(td_deskripsi);
+   tr.appendChild(td_nilai);
+   tr.appendChild(td_delete);
+   tbodi.appendChild(tr);
+   gValidation20090108['.gvFloat'](td_nilai.getElementsByTagName('input')[0]);
+   Behaviour.apply();
+   /*obj.style.display='none';*/
+}
+
+function setParentKredit(obj,id,kode,nama) {
+
+   var random=Math.floor(Math.random()*666);
+
+   var tr = document.createElement('tr');
+   var td_kode = document.createElement('td');
+   var td_nama = document.createElement('td');
+   var td_sub_account = document.createElement('td');
+   var td_keterangan = document.createElement('td');
+   var td_deskripsi = document.createElement('td');
+   var td_nilai = document.createElement('td');
+   var td_delete = document.createElement('td');
+   var tbodi = document.getElementById("table-{TIPE_POPUP}");
+
+   td_kode.innerHTML = '<input type="hidden" name="data[kredit][tambah][id][]" value="' + id + '" /> ' + '<input type="hidden" name="data[kredit][tambah][kode][]" value="' + kode + '" /> ' + kode;
+   td_sub_account.innerHTML = '<input class="input_mask" data-mask="99-99-99-99-99-99-99" type="text" name="data[kredit][tambah][sub_account][]" value="" /> ';
+   td_nama.innerHTML = '<input type="hidden" name="data[kredit][tambah][nama][]" value="' + nama + '" /> ' + nama;
+   td_keterangan.innerHTML = '<input type="text" name="data[kredit][tambah][keterangan][]" value="" /> ';
+   td_deskripsi.innerHTML = '<input type="text" name="data[kredit][tambah][deskripsi][]" value="" /> ';
+   td_nilai.innerHTML = '<input class="gvFloat credit" type="text" name="data[kredit][tambah][nilai][]" style="text-align:right" id="' + random + '" onKeyUp="setTotalCredit()"  />';
+   td_delete.innerHTML = '<a href="javascript:void(null)" title="Hapus" onclick="hapus_akun(this); setTotalCredit()"><img src="images/button-delete.gif" alt="Hapus" /></a>';
+
+   tr.appendChild(td_kode);
+   tr.appendChild(td_sub_account);
+   tr.appendChild(td_nama);
+   tr.appendChild(td_keterangan);
+   tr.appendChild(td_deskripsi);
+   tr.appendChild(td_nilai);
+   tr.appendChild(td_delete);
+   tbodi.appendChild(tr);
+   gValidation20090108['.gvFloat'](td_nilai.getElementsByTagName('input')[0]);
+   Behaviour.apply();
+   /*obj.style.display='none';*/
+}
+</script>
+
+</script>
+
+<form name="frmInput" method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+      <tr>
+         <th width="20%"><!-- patTemplate:gtfwgetconfig config="language" name="nama_coa" / --></th>
+         <td><input type="text" name="data[nama]" value="{SEARCH_NAMA}" size="40" /></td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Cari Coa &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+
+<table class="table-common" width="100%">
+   <tr>
+      <th width="10"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+      <th><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+	  <th><!-- patTemplate:gtfwgetconfig config="language" name="nama" / --></th>
+      <th width="70"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+   </tr>
+   <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_EMPTY" -->
+      <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="4" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+      <!-- /patTemplate:sub -->
+      <!-- patTemplate:sub condition="NO" -->
+         <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{DATA_CLASS_NAME}">
+               <td align="center">{DATA_NO}</td>
+			   <td>{DATA_KODE}</td>
+               <td>{DATA_NAMA}</td>
+               <td align="center" class="links">
+			      {DATA_SET_PARENT}
+               </td>
+            </tr>
+         <!-- /patTemplate:tmpl -->
+      <!-- /patTemplate:sub -->
+   <!-- /patTemplate:tmpl -->
+</table>
+<div class="pageBar">
+</div>
+
+<!-- /patTemplate:tmpl -->

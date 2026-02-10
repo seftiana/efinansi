@@ -1,0 +1,110 @@
+/* CSS Document */
+html,body {
+	background-color: #FFFFFF;
+	margin: 0;
+	padding: 0;
+}
+
+.kuitansi {
+	width: 19cm;
+	height: 14cm;
+	border: 1px solid #440000;
+	font-size: 100%;
+	/*overflow: hidden;*/
+}
+
+.logo {
+	float: left;
+	margin: 0px 1em 0px 0px;
+	width: 1.5cm;
+}
+
+.header {
+	margin: 0.5cm 1cm;
+	font-family: sans-serif;
+	font-size: 10pt;
+	line-height: 1em;
+}
+
+.header h1 {
+	font-family: serif;
+	font-size: 1.3em;
+	margin: 0.2em 0;
+}
+
+.header h2 {
+	font-family: serif;
+	font-size: 1.8em;
+	margin: 0.3em 0;
+}
+
+.header h3 {
+	font-family: sans-serif;
+	font-size: 1.0em;
+	font-weight: normal;
+	margin: 0.3em 0;
+}
+
+.header p {
+	margin: 0.1em 0;
+} 
+
+.header hr {
+	clear: both;
+	border: 1px solid #000000;
+}
+
+.content {
+	margin: 0.5cm 1cm;
+	font-family: sans-serif;
+	font-size: 10pt;
+	line-height: 1em;
+}
+
+.table-list {
+	border: none;
+	border-collapse: collapse;
+	padding: 0.1em 0.3em;
+}
+
+.table-list th {
+	text-align: left;
+	padding: 0.2em 0.3em;
+}
+
+.table-list td {
+	text-align: left;
+	padding: 0.2em 0.3em;
+}
+
+.table-list .total {
+	border-top: 1px solid #000000;
+	border-bottom: 2px solid #000000;
+	padding: 0.5em 0.3em;
+}
+
+.siganture {
+	margin: 0.5cm 0px 0px 0px;
+}
+
+.siganture table {
+	width: 100%;
+	border: none;
+	cell-collapse: collapse;
+}
+
+.siganture table td {
+	text-align: center;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.align-right {
+	text-align: center;
+}

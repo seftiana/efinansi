@@ -1,0 +1,95 @@
+<!-- patTemplate:tmpl name="content" -->
+<!--<div class="a4-landscape"><br><br>-->
+<h1 align="center">Journal - Voucher</h1>
+<br />
+<br />
+<table class="empty-table" style="border:0px">
+  <tr>
+    <td width="15%"><!-- patTemplate:gtfwgetconfig config="language" name="no_referensi" / --></td><td>: {NO_REFERENSI}</td>
+  </tr>
+  <tr>
+	<td><!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / --></td><td>: <!-- patTemplate:var name="tanggal" modifier="gtfwindonesiandate" format="long" separator=" " / --> </td>
+  </tr>
+  <tr>
+    <td width="15%"><!-- patTemplate:gtfwgetconfig config="language" name="periode" / --></td><td>: {PERIODE}</td>
+  </tr>
+</table>
+<table width="100%" align="center" border="0">
+<thead>
+<tr>
+<th><!-- patTemplate:gtfwgetconfig config="language" name="rekening" / --></th>
+<th><!-- patTemplate:gtfwgetconfig config="language" name="nama_akun" / --></th>
+<th><!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / --></th>
+<th><!-- patTemplate:gtfwgetconfig config="language" name="debet" / --></th>
+<th><!-- patTemplate:gtfwgetconfig config="language" name="kredit" / --></th>
+</tr>
+</thead>
+<tbody>
+<!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+				<!-- patTemplate:sub condition="YES" -->
+				<tr><td colspan="6" style="text-align:center"><em><!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / --></em></td></tr>
+				<!-- /patTemplate:sub -->
+				<!-- patTemplate:sub condition="NO" -->
+					<!-- patTemplate:tmpl name="data_item" -->
+					<tr class="{CLASS_NAME}">
+						<td align="left">{KODE_AKUN}</td>
+						<td align="left">{NAMA_AKUN}</td>
+						<td align="left">{DESKRIPSI}</td>
+						<td style="text-align:right">{DEBET}</td>
+						<td style="text-align:right">{KREDIT}</td>
+					</tr>
+					<!-- /patTemplate:tmpl -->
+				<!-- /patTemplate:sub -->
+			<!-- /patTemplate:tmpl -->
+<tr>
+<td colspan="3">
+<!-- patTemplate:gtfwgetconfig config="language" name="terbilang" / --> : {TERBILANG} (Rupiah)
+</td>
+<td style="text-align:right">{TOTAL_DEBET}
+</td>
+<td style="text-align:right">{TOTAL_KREDIT}
+</td>
+</tr>
+</tbody>
+</table>
+<!-- start: table signer -->
+<table border="0" cellspacing="0" cellpadding="0">
+<thead>
+	<tr>
+	<td style="text-align:center">Authorized</td>
+	<td style="text-align:center">Approved</td>
+	<td style="text-align:center">Vouching Audit</td>
+	<td style="text-align:center">Checked</td>
+	<td style="text-align:center">Prepared</td>
+	<td style="text-align:center" colspan="2">Received the above amount in full</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<td rowspan="4"></td>
+	<td rowspan="4"></td>
+	<td rowspan="4"></td>
+	<td rowspan="4"></td>
+	<td rowspan="4"></td>
+	</tr>
+	<tr>
+		<td width="100px"><!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / --></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td><!-- patTemplate:gtfwgetconfig config="language" name="tanda_tangan" / --></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td><!-- patTemplate:gtfwgetconfig config="language" name="nama" / --></td>
+		<td></td>
+	</tr>
+</tbody>
+</table>
+<!-- stop: table signer -->
+<div style="font-weight:normal; text-align:left; font-size:10pt" align="left">
+<!-- patTemplate:gtfwgetconfig config="language" name="tanggal_cetak" / --> : <!-- patTemplate:var name="tanggal_cetak" modifier="gtfwindonesiandate" format="long" separator=" " / -->,
+<!-- patTemplate:gtfwgetconfig config="language" name="jam_cetak" / --> : {JAM_CETAK},
+<!-- patTemplate:gtfwgetconfig config="language" name="pengguna" / --> : {USER},
+</div>
+<!-- /patTemplate:tmpl -->

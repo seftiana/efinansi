@@ -1,0 +1,152 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	var xpopup;
+	function bukaPopupCetak(xurl) {
+		xpopup = window.open(xurl,'xpopup','width=900,height=600,resizable=yes,scrollbars=yes,right=0;center');
+		xpopup.focus();
+	}
+
+	function removeColumn(className){
+		$('.'+className).remove();
+	};
+
+	function bukaPopupCOA(xurl) {
+		showPopup(xurl,'',550,550);
+		//xpopup.focus();
+	}
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="laporan_buku_besar" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+   <table>
+      <tr>
+         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+      </tr>
+      <tr>
+         <th width="30%"><!-- patTemplate:gtfwgetconfig config="language" name="rekening" / --></th>
+         <td>
+				<input type="hidden" name="coa_id" id="coa_id" value="{COA_ID}" />
+				<input type="text" name="coa_label" id="coa_label" value="{COA_LABEL}"
+					 size="40" readonly="readonly" />
+			 <input type="button"  name="but_coa"
+			 onclick="javascript:bukaPopupCOA('{URL_POPUP_COA}')" value=" ... " />
+         </td>
+      </tr>
+	 	<tr>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="interval_waktu" / --></th>
+		 	<td>
+		 		<!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_awal"  / -->
+		 		<!-- patTemplate:gtfwgetconfig config="language" name="s_d" / -->
+		 		<!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_akhir"  / -->
+		 	</td>
+		<tr>
+		<th><!-- patTemplate:gtfwgetconfig config="language" name="sub_account" / --></th>
+			<td>
+		 		<input class="input_mask" data-mask="****-**-**-**-**-**-**" type="text" name="subAkun" size="25" value="{SUBAKUN}">
+		 	</td>
+		</tr>
+   	</tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+   <br />
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar">
+   		<a href="javascript:void(0)" onclick="bukaPopupCetak('{URL_CETAK}')" title="Cetak" ><img src="images/button-print.gif" alt="Cetak"> <!-- patTemplate:gtfwgetconfig config="language" name="cetak" / --></a>
+   		<a href="{URL_EXCEL}" title="Export Excel" ><img src="images/button-simpan.gif" alt=""><!-- patTemplate:gtfwgetconfig config="language" name="excel" / --></a>
+		<a href="{URL_RTF}" title="Export Rtf" ><img src="images/button-simpan.gif" alt=""><!-- patTemplate:gtfwgetconfig config="language" name="rtf" / --></a>
+      </div>
+   </div>
+   <table class="table-common" width="800px">
+      <tr>
+         <th class="tgl_jurnal"><!-- patTemplate:gtfwgetconfig config="language" name="tanggal_jurnal" / -->
+         <a href="javascript:removeColumn('tgl_jurnal')"><img src="images/icon-warning-16x16.gif" /></a>
+         </th>
+         <th class="rekening"><!-- patTemplate:gtfwgetconfig config="language" name="rekening" / -->
+         <a href="javascript:removeColumn('rekening')"><img src="images/icon-warning-16x16.gif" /></a></th>
+         <th class="coa"><!-- patTemplate:gtfwgetconfig config="language" name="coa" / -->
+         <a href="javascript:removeColumn('coa')"><img src="images/icon-warning-16x16.gif" /></a></th>
+		 <th class="subakun"><!-- patTemplate:gtfwgetconfig config="language" name="sub_account" / -->
+         <a href="javascript:removeColumn('subakun')"><img src="images/icon-warning-16x16.gif" /></a></th>
+         <th class="keterangan"><!-- patTemplate:gtfwgetconfig config="language" name="uraian" / -->
+         <a href="javascript:removeColumn('keterangan')"><img src="images/icon-warning-16x16.gif" /></a></th>
+         <th class="referensi"><!-- patTemplate:gtfwgetconfig config="language" name="referensi" / -->
+         <a href="javascript:removeColumn('referensi')"><img src="images/icon-warning-16x16.gif" /></a>
+         </th>
+         <th class="saldo_awal"><!-- patTemplate:gtfwgetconfig config="language" name="saldo_awal_rp" / -->
+         <a href="javascript:removeColumn('saldo_awal')"><img src="images/icon-warning-16x16.gif" /></a>
+         </th>
+         <th class="debet"><!-- patTemplate:gtfwgetconfig config="language" name="debet_rp" / -->
+         <a href="javascript:removeColumn('debet')"><img src="images/icon-warning-16x16.gif" /></a>
+         </th>
+         <th class="kredit"><!-- patTemplate:gtfwgetconfig config="language" name="kredit_rp" / -->
+         <a href="javascript:removeColumn('kredit')"><img src="images/icon-warning-16x16.gif" /></a>
+         </th>
+         <th class="saldo_akhir"><!-- patTemplate:gtfwgetconfig config="language" name="saldo_akhir_rp" / -->
+         <a href="javascript:removeColumn('saldo_akhir')"><img src="images/icon-warning-16x16.gif" /></a></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_lap" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="10" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_item" -->
+            <tr class="{LAP_CLASS_NAME}">
+               <td align="center" class="tgl_jurnal">{LAP_INDODATE}</td>
+               <td class="rekening">{LAP_REKENING}</td>
+               <td class="coa">{LAP_COA}</td>
+			   <td class="subakun">{LAP_SUBACCOUNT}</td>
+			   	<td class="keterangan">{LAP_KETERANGAN}</td>
+               <td class="referensi">{LAP_REFERENSI}</td>
+               <td class="saldo_awal" style="text-align:right;">{LAP_SALDO_AWAL}</td>
+               <td class="debet" style="text-align:right;">{LAP_DEBET}</td>
+               <td class="kredit" style="text-align:right;">{LAP_KREDIT}</td>
+               <td class="saldo_akhir" style="text-align:right;">{LAP_SALDO_AKHIR}</td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   <br />
+   <div class="petunjuk-area">
+	<h4>Petunjuk</h4>
+	<ul>
+		<li>Pada pengisian sub akun, dapat digunakan angka dan huruf apapun. Secara default huruf 'x' yang digunakan
+			<ul>
+				<li>Pengisian elemen sub akun berupa angka, akan mencari elemen sub akun dengan angka sesuai inputan</li>
+					<ul>
+						<li>Misal 01-00-01-02-02-04</li>
+						<li>Seluruh elemen sub akun akan dicari berdasarkan inputan angka tersebut</li>
+					</ul>
+				<li>Pengisian elemen sub akun berupa huruf, akan mencari seluruh data berdasarkan elemen sub akun tersebut</li>
+					<ul>
+						<li>Misal <b>xx</b>-01-02-00-02-00</li>
+						<li>Elemen pertama sub akun akan dicari semua datanya, kemudian elemen lainnya karena menggunakan angka, akan dicari berdasarkan inputan angka tersebut</li>
+					</ul>
+				<li>Pengisian elemen sub akun berupa huruf dan angka, akan mencari seluruh data berdasarkan elemen sub akun tersebut ( dianggap sama dengan pengisian elemen sub akun menggunakan huruf seperti contoh di atas )</li>
+					<ul>
+						<li>Misal <b>1x-2a</b>-02-00-02-00</li>
+						<li>Elemen pertama dan kedua sub akun akan dicari semua datanya, kemudian elemen lainnya karena menggunakan angka, akan dicari berdasarkan inputan angka tersebut</li>
+					</ul>
+			</ul>
+		</li>
+	</ul>
+	</div>
+
+
+   </div>
+<!-- /patTemplate:tmpl -->

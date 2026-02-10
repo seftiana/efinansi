@@ -1,0 +1,54 @@
+<!-- patTemplate:tmpl name="content" -->	
+<h1>{JUDUL}</h1>
+<br />
+
+<!-- patTemplate:tmpl name="button_cetak" -->	
+<h2>{SUB_JUDUL}</h2><br />
+<div class="pageBar">
+   <form action="{URL_ACTION}" method="POST">
+   	  {FILTER}
+   </form>
+   <div class="toolbar">
+         <a href="#" onClick="window.open('{URL_CETAK}')"  title="Cetak Statistik"><img src="images/button-print.gif" />
+         <!-- patTemplate:gtfwgetconfig config="language" name="cetak" / --> </a>
+         <a href="#" onClick="window.open('{URL_EXCEL}')"  title="Ekspor Excel"><img src="images/transkrip_nilai.gif" />
+         <!-- patTemplate:gtfwgetconfig config="language" name="excel" / --> </a>
+   </div>
+</div>
+<br />
+<!-- /patTemplate:tmpl -->
+
+<!-- patTemplate:tmpl name="button_view" -->	
+{HASIL}
+<br />
+<!-- /patTemplate:tmpl -->
+
+<!-- patTemplate:tmpl name="button_grafik" -->	
+{GRAFIK}
+<br />
+<!-- /patTemplate:tmpl -->
+
+   <div class="pageBar" style="display: {NONE};">
+      <div class="toolbar" >
+         <a href="#" title="Set Retribusi" 
+         onClick="window.open('{URL_RETRIBUSI}','','height=600,resizable=yes,scrollbars=yes,width=750'); return false;"> 
+         <!-- patTemplate:gtfwgetconfig config="language" name="set_retribusi" / --></a>
+      </div>
+   </div>
+<!-- patTemplate:tmpl name="balik" visibility="hidden" -->	
+   <div class="pageBar">
+      <div class="toolbar" >
+         <a class="xhr dest_subcontent-element" href="{URL_BALIK}" title="Kembali"> <!-- patTemplate:gtfwgetconfig config="language" name="kembali" / --> </a> 	
+      </div>
+   </div>
+<!-- /patTemplate:tmpl -->
+
+<!-- patTemplate:tmpl name="petunjuk" visibility="hidden" -->	
+<div class="petunjuk-area">
+   <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->:</h4>
+   <ul>
+      {PETUNJUK_ISI}
+   </ul>
+</div>
+<!-- /patTemplate:tmpl -->
+<!-- /patTemplate:tmpl -->	

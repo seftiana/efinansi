@@ -1,0 +1,84 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type='text/javascript'>
+function setParent(pid, id, tipe, nama, kodesistem, level, maks_number)
+{
+   document.getElementById('kellap_pid').value                = pid;
+   document.getElementById('kellap_parent_id').value          = id;
+   document.getElementById('kellap_parent_tipe').value        = tipe;
+   document.getElementById('kellap_parent_nama').value        = nama;
+   document.getElementById('kellap_parent_kode_sistem').value = kodesistem;
+   document.getElementById('kellap_parent_level').value       = level;
+   // document.getElementById('kellap_no_akhir').value           = maks_number;
+   // document.getElementById('kellap_no_selanjutnya').value     = parseInt(maks_number) + parseInt(1);
+
+   var next_number = parseInt(maks_number) + parseInt(1);
+
+   document.getElementById('no_urutan').innerHTML       =  "<input type='hidden' name='kellap_no_akhir' value='"+maks_number+"' id='kellap_no_akhir' /><input type='text' name='kellap_no_selanjutnya' value='"+next_number+"' size='5' class='gvNum' id='kellap_no_selanjutnya' /> * "+'(No. Urutan Terakhir : '+maks_number+')';
+   popupClose();
+}
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="kelompok_laporan" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+   <table>
+      <tr>
+         <th colspan="2">
+            <h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2>
+         </th>
+      </tr>
+      <tr>
+         <th width="150px">
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / --> <!-- patTemplate:gtfwgetconfig config="language" name="kelompok_laporan" / -->
+         </th>
+         <td>
+            <input type="hidden" name="parent_id" value="{PARENT_ID}" size="30" />
+            <input type="text" name="nama_kellap" value="{NAMA_KELLAP}" size="30" />
+         </td>
+      </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" <!-- patTemplate:gtfwgetconfig config="language" name="tampilkan" / --> &raquo;" class="buttonSubmit"/>
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   </div>
+   <table class="table-common" width="100%">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="nama" / --> <!-- patTemplate:gtfwgetconfig config="language" name="kelompok_laporan" / --></th>
+         <th>Kelompok</th>
+         <th width="31"><!-- patTemplate:gtfwgetconfig config="language" name="pilih" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="kellap_parent" type="condition" conditionvar="KELLAP_PARENT_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="6" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_kellap_parent" -->
+            <tr class="{CLASS_NAME}">
+               <td align="center">{NUMBER}</td>
+               <td align="center">{KELLAP_KS}</td>
+               <td>{KELLAP_NAMA}</td>
+               <td align="center">{KELLAP_KELOMPOK}</td>
+   			   <td class="links" align="center">
+   					<a href="javascript:setParent('{KELLAP_PID}','{KELLAP_ID}','{KELLAP_TIPE}','{KELLAP_NAMA}','{KELLAP_KS}','{KELLAP_LEVEL}','{KELLAP_MAKS_NUMBER}')" onclick=""><img alt="Pilih" src="images/button-check.gif"/></a>
+               </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   <br />
+<div>
+<!-- /patTemplate:tmpl -->

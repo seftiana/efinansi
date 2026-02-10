@@ -1,0 +1,191 @@
+#header h1 {
+   display:block
+}
+
+#header h2 {
+   display:block
+}
+
+.animation-icon{
+   height: 100px;
+   width: 200px;
+}
+
+/* row hover highlight rowDiff,rowDiff2 */
+.rowDiff td {background-color: transparent;}
+.rowDiff:hover {background-color: #F9D54B !important;}
+.rowDiff2 td {background-color: #FFFDEF;color: #965F11;}
+.rowDiff2:hover td{ background-color: #F9D54B !important;color: #000000;}
+.rowDiff3 td {background-color: #FFFBDD;color: #965F11;font-size: 13px;}
+.rowDiff3:hover td {background-color: #F9D54B !important;color: #000000;}
+
+.hoverTd td{
+   background-color: #91bdff;
+}
+
+#tooltip{
+   position: absolute;
+   /* formatting only styles */
+   padding: 5px;
+   margin: 20px 0px 0px 30px;
+   z-index: 100;
+   background: #e6f8ff; border: 1px dotted #c0c0c0;
+   color:#306386;
+   width:auto;
+}
+
+@media screen{
+    #filterbox.dataquest.xhr_simple_form.dest_subcontent-element table tr td textarea{
+        float: left;
+        resize: none;
+    }
+}
+table.table-common.treeTable tbody tr td:first-child{
+	cursor: default;
+   padding: 0px 0px 0px 20px;
+}
+
+#gtfw_menu{
+   margin-top:3px;
+}
+
+input[readonly], input[readonly="readonly"], textarea[readonly], textarea[readonly="readonly"]
+{
+   color: #999;
+   cursor: help;
+   background-color: #FCFCFC;
+   border-color: #CCC !important;
+}
+a.btn{
+   display: inline-block;
+   font-weight: bold;
+   text-decoration: none;
+   cursor: default;
+}
+.buttons a.btn-action{
+   color: #2E3724;
+   background-color: #F3FFE6;
+   background-image: url('../images/editdata_button_bg.gif');
+   background-repeat: repeat-x;
+   border: 0px solid #BBE184;
+   font-size: 12pt;
+   font-family: Arial, Helvetica, sans-serif;
+   font-weight: bold;
+   padding: 3px 10px;
+   float: left;
+   margin: 0px 1px 0px 0px;
+   text-decoration: none;
+   cursor: default;
+}
+.buttons a.btn-action:hover{
+   color: #005E20;
+   border: 0px solid #8DC63F;
+   background-color: #FFFFFF;/*F3FFE6;*/
+}
+
+#gtfw_menu{
+	margin-top:3px;
+}
+
+#header, #navigation{
+	width:100%;
+	float:left;
+	position:fixed;
+	top:0px;
+	display:block;
+    z-index:50;
+}
+
+#navigation{
+	top:60px;
+	/*overflow:visible;*/
+}
+
+#subcontent-wide{
+	left:200px;
+	width:80%;
+	height:auto;
+}
+.animation-icon{
+   /*height: 100px;
+   width: 200px;*/
+}
+
+.navigation-infobar ul.standard li{
+   float:left;
+   width:20px;
+   display: inline;
+}
+
+.logout a{
+   padding-left:50px;
+}
+
+.navigation-infobar a:hover{
+   text-decoration: none;
+}
+
+#navigation .breadcrumb  li.home a {
+	background-image:url(../sia-mocca/images/button-home.gif);
+}
+
+#loading-status-active {
+	background-image: url(../../images/loading-box-small.gif);
+}
+
+#loading-box-active {
+	/*background-image: url(../../images/icons_small/loading-box-small.gif);*/
+}
+
+#navigation .breadcrumb{
+   width:110px;
+}
+
+.small{
+	width:650px;
+}
+
+#notif-menu{
+	float: left;
+	width: 70px;
+}
+
+.animation-icon{
+	right:270px;
+}
+
+#treeboxbox_tree td{
+	padding:0px;
+	border-top:none;
+}
+
+.containerTableStyle{
+	background-color:#FFFFFF;
+}
+
+#form-login {
+   width: 254px;
+}
+
+input[type="submit"].btnDelete,
+input[type="button"].btnDelete,
+input[type="submit"]:hover.btnDelete,
+input[type="button"]:hover.btnDelete{
+   background-image: url(data:image/gif;base64,R0lGODlhEAAQANUAAAAAAP//////+P/0u/+5dP/x4/+gY//u5f/Xyf9uQdFsUf+hiP+iiv+nkv+slv+AZeB4Yf+diP+hjv+mkv+olP+5qf/TybZRPrNPPbZQP7ZTQcJeS/+divhaRLRLPbNNPbBLPMpZSf+djvBNPO5PPO5OPe5RPexPPeZPPLZLPbZLPrZMPqhFPKdEPKZEPKFBPNNBPP88POo/PMw/PKs8PI88PFo8PP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAADcALAAAAAAQABAAAAZ2wJtwCKPRYMOkkia0KYcoo3RKmyVpFcRBULBUOjKZc4itmc9m8VKkGEAcoZF6ycgMNI2VaX7lYAYtFConfGQLfy0Tg4VCNIeADYtjVwsfAy4TKYSTZBEXAyx5JYw3NBJtGxRxpDQxBAYJMbKkDza2t7YPT7tPQQA7);
+   background-repeat: no-repeat;
+   background-position: 5px 50%;
+   margin: 0px;
+   padding: 2px 7px 4px 20px !important;
+}
+
+input[type="submit"]:hover.btnDelete,
+input[type="button"]:hover.btnDelete{
+   font-weight: normal;
+   color: #6E5802;
+}
+
+input[type="submit"]:active.btnDelete,
+input[type="button"]:active.btnDelete{
+   padding: 2px 7px 4px 20px !important;
+   border-width: 1px;
+}

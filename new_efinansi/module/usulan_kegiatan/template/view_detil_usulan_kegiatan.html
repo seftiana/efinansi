@@ -1,0 +1,141 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+	function centangin_semua(varname, start_num, end_num) {
+		var obj = document.getElementById('cek_all');
+		var ceks;
+		if(obj.checked == false) {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+				if(ceks) ceks.checked = false;
+			}
+		} else {
+			for(i=start_num;i<=end_num;i++) {
+				ceks = document.getElementById(varname + i);
+				if(ceks) ceks.checked = true;
+			}
+		}
+	}
+	function show_checkbox () {
+		if(document.getElementById('cek_all'))
+			document.getElementById('cek_all').style.display='';
+	}
+	document.onload = show_checkbox();
+	var xpopup = false;
+	function fokus(elemId) {
+		document.getElementById(elemId).focus();
+		document.getElementById(elemId).select;
+	}
+	function bukaPopupSubProgram(xurl) {
+		showPopup(xurl,'xpopup',550, 550);
+	}
+	//document.onmousedown=focusPopup();
+</script>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="daftar_rencana_unit" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_subcontent-element" id="filterbox">
+<input type="hidden" name="kegiatan_id" value="{KEGIATAN_ID}" />
+   <table>
+         <tr>
+            <th width="30%"><!-- patTemplate:gtfwgetconfig config="language" name="tahun_anggaran" / --></th>
+            <td>{TAHUN_ANGGARAN_LABEL}</td>
+         </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="unit" / --> / 
+			<!-- patTemplate:gtfwgetconfig config="language" name="sub_unit_kerja" / --></th>
+            <td><!-- {SATKER_LABEL} --> {UNITKERJA_LABEL}</td>
+         </tr>
+		  <!--tr>
+			 <th></th>
+			 <td>{UNITKERJA_LABEL}</td>
+		  </tr -->
+		  <tr>
+			 <th><!-- patTemplate:gtfwgetconfig config="language" name="program" / --></th>
+			 <td>{PROGRAM_LABEL}</td>
+		  </tr>
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --></th>
+            <td><input type="hidden" name="subprogram" id="subprogram" value="{SUBPROGRAM}" /><textarea name="subprogram_label" id="subprogram_label" readonly="readonly" cols="40" rows="1">{SUBPROGRAM_LABEL}</textarea><input type="button"  name="but_subprogram" onclick="bukaPopupSubProgram('{URL_POPUP_SUBPROGRAM}')" value=" ... " /></td>
+         </tr>
+		 <!--  <tr>
+			 <th>Jenis Kegiatan</th>
+			 <td>{JENIS_KEGIATAN_LABEL}</td>
+		  </tr> -->
+         <tr>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="jenis" / --></th>
+            <td>
+				<!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="jenis_kegiatan"  / -->
+			</td>
+         </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td><input type="submit" name="btnTampilkan" value=" Tampilkan " class="buttonSubmit"/><input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" onclick="javascript:document.getElementById('subprogram').value='';document.getElementById('subprogram_label').innerHTML='';" />
+         </td>
+      </tr>
+   </table>
+</form>
+
+<br />
+
+   <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
+   <div class="{CLASS_PESAN}">
+      {ISI_PESAN}
+   </div>
+   <!-- /patTemplate:tmpl -->
+
+   <br />
+   <form method="POST" action="{URL_DELETE}" class="xhr_simple_form dest_subcontent-element" id="form_list">
+   <div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+      <div class="toolbar">
+   		<a class="xhr dest_subcontent-element" href="{URL_ADD}" title="Tambah Data Usulan Kegiatan" tabindex="2"><img src="images/button-add.gif" alt=""> Tambah</a>
+		<input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="inputButton" />
+   		<a class="xhr dest_subcontent-element" href="{URL_KEGIATAN}" title="List Kegiatan" tabindex="2"><img src="images/button-detail.gif" alt=""><!-- patTemplate:gtfwgetconfig config="language" name="list_kegiatan" / --></a>
+      </div>
+   </div>
+   <table class="table-common" width="810">
+      <tr>
+         <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+		 <th><input type="checkbox" style="display:none" name="cek_all" id="cek_all" value="ALL" onclick="centangin_semua('detil_usulan_kegiatan_id_','{FIRST_NUMBER}','{LAST_NUMBER}');" /></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="kegiatan" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="sub_kegiatan" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="jenis" / --></th>
+         <th><!-- patTemplate:gtfwgetconfig config="language" name="approval" / --></th>
+		 <th><!-- patTemplate:gtfwgetconfig config="language" name="prioritas" / --></th>
+         <th width="33"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+      </tr>
+      <!-- patTemplate:tmpl name="data_detilusulankegiatan" type="condition" conditionvar="DETILUSULANKEGIATAN_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+         <tr><td colspan="8" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_detilusulankegiatan_item" -->
+            <tr class="{DETILUSULANKEGIATAN_CLASS_NAME}">
+               <td align="center">{DETILUSULANKEGIATAN_NUMBER}</td>
+			   <td align="center">
+					<!-- patTemplate:tmpl name="detilusulankegiatanisapproved" type="condition" conditionvar="DETILUSULANKEGIATAN_IS_APPROVED" -->
+			         <!-- patTemplate:sub condition="BELUM" -->
+					<input type="checkbox" name="id[]" id="detil_usulan_kegiatan_id_{DETILUSULANKEGIATAN_NUMBER}" value="{DETILUSULANKEGIATAN_ID}" /><input type="hidden" name="name[{DETILUSULANKEGIATAN_ID}]" value="{DETILUSULANKEGIATAN_SUBKEGIATAN}" />
+					<!-- /patTemplate:sub -->
+					<!-- /patTemplate:tmpl -->
+					</td>
+               <td>{DETILUSULANKEGIATAN_KEGIATAN}</td>
+               <td>{DETILUSULANKEGIATAN_SUBKEGIATAN}</td>
+               <td>{DETILUSULANKEGIATAN_JENIS}</td>
+               <td>{DETILUSULANKEGIATAN_APPROVAL}</td>
+			   <td>{DETILUSULANKEGIATAN_PRIORITAS}</td>
+               <td>{DETILUSULANKEGIATAN_URL_EDIT}</td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </table>
+   </form>
+   <br />
+
+   <div class="petunjuk-area">
+      <h4><!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / --></h4>
+      <ul>
+         <li><!-- patTemplate:gtfwgetconfig config="language" name="info_wajib_diisi" / --></li>
+      </ul>
+   </div>
+<!-- /patTemplate:tmpl -->

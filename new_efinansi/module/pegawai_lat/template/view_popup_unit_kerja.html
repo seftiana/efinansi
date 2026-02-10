@@ -1,0 +1,156 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   <!-- patTemplate:gtfwgetconfig config="language" name="unit_kerja" / -->
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+   <table>
+      <tr>
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+         <tr>
+            <th style="width: 95px;">
+               <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+            </th>
+            <td>
+               <input type="text" name="kode" value="{KODE}" size="20" />
+            </td>
+         </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+         </th>
+         <td>
+            <input type="text" name="nama" value="{NAMA}" size="30" />
+         </td>
+      </tr>
+         <tr>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="tipe_unit" / -->
+            </th>
+            <td>
+               <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tipeunit"  / -->
+            </td>
+         </tr>
+      <tr>
+         <th>&nbsp;</th>
+         <td>
+            <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+            <input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th width="5">
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th style="width: 95px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="unit" / -->/ <!-- patTemplate:gtfwgetconfig config="language" name="sub_unit" / -->
+         </th>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tipe" / -->
+         </th>
+         <th width="31">
+            <!-- patTemplate:gtfwgetconfig config="language" name="pilih" / -->
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="6" align="center">
+                  <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+               <tr class="{CLASS_NAME}" style="{ROW_STYLE}">
+                  <td align="center">
+                     {NOMOR}
+                  </td>
+                  <td align="right">
+                     {KODE}
+                  </td>
+                  <td>
+                     {NAMA}
+                  </td>
+                  <td>
+                     {TIPE_NAMA}
+                  </td>
+                  <td class="links" align="center">
+                     <a href="javascript:void(0);" onclick="javascript:setParent('{ID}','{KODE}','{NAMA_UNIT}');">
+                        <img alt="Pilih" src="images/button-check.gif" />
+                     </a>
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+   </tbody>
+</table>
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<script type="text/javascript">
+function setParent (id, kode, nama) {
+   var formSearch       = document.forms['filterbox'];
+   var formInput        = document.forms['frmInput'];
+
+   if(typeof(formSearch) != 'undefined' && formSearch != null){
+      var unitId        = formSearch['unit_id'];
+      var unitNama      = formSearch['unit_nama'];
+
+      unitId.value      = id;
+      unitNama.value    = nama;
+   }
+   if (typeof(formInput) != 'undefined') {
+      var unitId        = formInput['unit_id'];
+      var unitNama      = formInput['unit_nama'];
+
+      var programId        = formInput['program'];
+      var programNama      = formInput['program_nama'];
+      var kegiatanId       = formInput['kegiatan'];
+      var kegiatanNama     = formInput['kegiatan_nama'];
+      var subKegiatanId    = formInput['sub_kegiatan'];
+      var subKegiatanNama  = formInput['sub_kegiatan_nama'];
+      var programLabel     = document.getElementById('program_label');
+      var kegiatanLabel    = document.getElementById('kegiatan_label');
+
+      if(unitId.value != id){
+         programId.value         = '';
+         programNama.value       = '';
+         programLabel.innerHTML  = '';
+         kegiatanId.value        = '';
+         kegiatanNama.value      = '';
+         kegiatanLabel.innerHTML = '';
+         subKegiatanId.value     = '';
+         subKegiatanNama.value   = '';
+      }
+
+      unitId.value      = id;
+      unitNama.value    = nama;
+   };
+
+   popupClose();
+}
+</script>
+<!-- /patTemplate:tmpl -->

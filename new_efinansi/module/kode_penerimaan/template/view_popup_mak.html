@@ -1,0 +1,103 @@
+<!-- patTemplate:tmpl name="content" -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+   function setParent(xid, xlabel) {
+		//document.getElementById('data[kodepenerimaan][kode_rkakl]').value=xid;
+		//document.getElementById('kode_rkakl_label').value=xlabel;
+		document.getElementById('mak_id').value      = xid;
+		document.getElementById('mak_nama').value    = xlabel;
+		popupClose();
+	}
+// ]]>
+</script>
+<h1>
+   Popup MAP
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="popup-filterbox" name="filterbox" 
+class="dataquest xhr_simple_form dest_popup-subcontent">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <strong>
+                  <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+               </strong>
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+         </th>
+         <td>
+            <input type="text" name="kode" id="kode" size="35" value="{SEARCH_KODE}" />
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   
+</div>
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+   <tr>
+      <th>
+         No
+      </th>
+      <th>
+         Kode
+      </th>
+      <th>
+         Nama
+      </th>
+      <th>
+         Aksi
+      </th>
+   </tr>
+   <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+      <!-- patTemplate:sub condition="YES" -->
+         <tr>
+            <td colspan="4">
+               <center>
+                  <em>
+                     <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                  </em>
+               </center>
+            </td>
+         </tr>
+      <!-- /patTemplate:sub -->
+      <!-- patTemplate:sub condition="NO" -->
+         <!-- patTemplate:tmpl name="data_list" -->
+            <tr class="{DATA_CLASS_NAME}" style="{DATA_ROW_STYLE}">
+               <td align="center" width="20">
+                  {DATA_NOMOR}
+               </td> 
+               <td style="width: 115px; text-align: center;">
+                  {DATA_KODE}
+               </td>
+               <td>
+                  {DATA_NAMA}
+               </td>
+               <td style="width: 25px;">
+                  <a href="javascript:void(0);" title="pilih" onclick="setParent('{DATA_ID}','{DATA_KODE} - {DATA_NAMA}');" style="{DATA_LINK}">
+                     <img src="images/button-check.gif" alt="Pilih" />
+                  </a>
+               </td>
+            </tr>
+         <!-- /patTemplate:tmpl -->
+      <!-- /patTemplate:sub -->
+   <!-- /patTemplate:tmpl -->
+</table>
+<!-- end: Table List -->
+<!-- /patTemplate:tmpl -->
