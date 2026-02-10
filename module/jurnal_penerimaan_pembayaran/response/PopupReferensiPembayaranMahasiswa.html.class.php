@@ -1,6 +1,7 @@
 <?php
 
 require_once GTFWConfiguration::GetValue('application', 'docroot'). 'module/jurnal_penerimaan_pembayaran/business/AppReferensiPembayaranMahasiswa.class.php';
+require_once GTFWConfiguration::GetValue('application', 'docroot'). 'module/jurnal_penerimaan_pembayaran/business/AppReferensiPembayaranEfinansi.class.php';
 
 class PopupReferensiPembayaranMahasiswa extends HtmlResponse {
 
@@ -63,22 +64,9 @@ class PopupReferensiPembayaranMahasiswa extends HtmlResponse {
         $dataList = $mObj->getDataReferensiPembayaran($offset, $limit, (array) $requestData);
         $total_data = $mObj->getCount();
 		
-		$dataList[0]['coa_id']=215;
-		$dataList[0]['trans_tt_id']=1;
-		$dataList[0]['coa_is_debet_positif']=1;
-		$dataList[0]['coa_kode_akun'] ='51103-1';
-		$dataList[0]['coa_nama_akun'] ='Biaya Proses Kurikulum dan SAP';
-		$dataList[1]['coa_id']=216;
-		$dataList[1]['trans_tt_id']=1;
-		$dataList[1]['coa_is_debet_positif']=1;
-		$dataList[1]['coa_kode_akun'] ='51103-2';
-		$dataList[1]['coa_nama_akun'] ='Biaya Proses Kurikulum dan SAP 2';
-		echo'<pre>';
-// print_r($offset);
-// print_r($limit);
-// print_r($requestData);
-// print_r($queryString);
-print_r($dataList);
+// echo'<pre>';
+// print_r($dataList);
+// echo'</pre>';
 // die;
 
         #send data to pagging component
@@ -146,28 +134,32 @@ print_r($dataList);
         if (empty($dataList)) {
             $this->mrTemplate->AddVar('data_grid', 'DATA_EMPTY', 'YES');
         } else {
+			$mEfi = new AppReferensiPembayaranEfinansi();
+			
             $this->mrTemplate->AddVar('data_grid', 'DATA_EMPTY', 'NO');
             $index = 0;
             foreach ($dataList as $list) {
                 $transaksi[$list['id']] = $list;
                 if(!empty($list['coa_id'])) {
-                    $dataCoa[$list['id']][] = array(
+					$getCoa = $mEfi->GetCoaDebet($list['coa_id']); 
+                    /*$dataCoa[$list['id']][] = array(
                         'coa_id'                => $list['coa_id'],
                         'coa_is_debet_positif'  => $list['coa_is_debet_positif'],
                         'coa_kode'              => $list['coa_kode_akun'],
-                        'coa_nama'              => $list['coa_nama_akun'],
+                        'coa_nama'              => 'huy'.$list['coa_nama_akun'],
+                        'nominal'               => $list['nominal']
+                    );*/
+					
+					$dataCoa[$list['id']][] = array(
+                        'coa_id'                => $getCoa[0]['coaId'],
+                        'coa_is_debet_positif'  => 1,
+                        'coa_kode'              => $getCoa[0]['coaKodeAkun'],
+                        'coa_nama'              => $getCoa[0]['coaNamaAkun'],
                         'nominal'               => $list['nominal']
                     );
                 }
 				
-				$list['coa_id']=215;
-				$list['trans_tt_id']=1;
-                $list['coa_is_debet_positif']=1;
-                $list['coa_kode_akun'] ='51103-1';
-                $list['coa_nama_akun'] ='Biaya Proses Kurikulum dan SAP';
-         
-				
-				
+					
                 $list['nomor'] = $start;
                 $list['class_name'] = ($start % 2 <> 0) ? 'table-common-even' : '';
                 $list['nominal'] = number_format($list['nominal'], 0, ',', '.');
@@ -179,7 +171,7 @@ print_r($dataList);
                 $index++;
             }
         }
-echo "huhuy";
+
         $object['transaksi']['data'] = json_encode($transaksi);
         $object['coa']['data'] = json_encode($dataCoa);
         $this->mrTemplate->AddVars('content', $object['transaksi'], 'TRANSAKSI_');

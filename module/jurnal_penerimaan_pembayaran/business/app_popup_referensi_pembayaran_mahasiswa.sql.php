@@ -30,6 +30,8 @@ SELECT
 	a.pembyrnId AS id,
 	jenisBiayaKode AS 'kode_biaya',
 	aa.pembyrnJnsBiayaId AS 'id_jenis_biaya',
+	jenisBiayaMapingCoa AS 'coa_id',
+	'1' AS coa_is_debet_positif,
 	jenisBiayaNama AS 'jenis_biaya',
 	SUM(aa.pembyrnNominal) AS 'nominal',
 	SUM(aa.pembyrnPotongan) AS 'potongan',
