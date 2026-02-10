@@ -46,6 +46,14 @@
    </table>
 </form>
 <br />
+
+<input 
+  type="button" 
+  value="Pilih Semua" 
+  class="buttonSubmit"
+  onclick="pilihSemuaData();" 
+/>
+
 <div class="pageBar">
    <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
 </div>
@@ -118,6 +126,8 @@
 <!-- end: Table List -->
 
 <script type="text/javascript">
+var isPilihSemua = false;
+
 var dataTransaksi    = {TRANSAKSI_DATA};
 var form             = document.forms['frmInput'];
 var setData          = function(id){
@@ -148,9 +158,10 @@ var setData          = function(id){
       //alert(id);
       document.getElementById('button-coa-debet').style.display = 'block';
       document.getElementById('trans_tt_id').value = tipe_id;
+	  if (!isPilihSemua) {
       document.getElementById('CoaPlaceHolder_debet').deleteAllItem();
       document.getElementById('CoaPlaceHolder_kredit').deleteAllItem();
-      
+      }
       //if( tipe_id == 2){
       //    document.getElementById('button-coa-debet').style.display = 'block';
       //} else {      
@@ -188,8 +199,36 @@ var setData          = function(id){
         }
            //document.getElementById('button-coa-debet').style.display = 'none';
       //}
+	  if (!isPilihSemua) {
       popupClose();
+	  }
    }
+
+function pilihSemuaData() {
+	isPilihSemua = true;
+	 // kosongkan SEKALI
+    document.getElementById('CoaPlaceHolder_debet').deleteAllItem();
+    document.getElementById('CoaPlaceHolder_kredit').deleteAllItem();
+    // ambil semua ID transaksi dari dataTransaksi
+    for (var id in dataTransaksi) {
+        if (dataTransaksi.hasOwnProperty(id)) {
+
+            // isi data utama (referensi, nominal, dll)
+            setData(id);
+
+            // update COA Debet / Kredit
+            document.update_COA_list(
+				id,
+				dataTransaksi[id].trans_tt_id
+			);
+        }
+    }
+
+	isPilihSemua = false;
+    // tutup popup setelah semua masuk
+    popupClose();
+}
+
 
 </script>
 

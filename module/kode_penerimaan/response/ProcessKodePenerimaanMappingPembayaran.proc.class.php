@@ -35,7 +35,9 @@ class ProcessKodePenerimaanMappingPembayaran
 			if($this->validation('Perubahan')) {
 				$updateData = $this->KodePenerimaan->DoUpdateMapping($this->data['kodepenerimaan']);
 				$updateDataBiaya = $this->KodePenerimaanMappingPembayaran->DoUpdateCoaMapBiayaPembayaran($this->data['kodepenerimaan']);
-				if(($updateData['dbResult'] === true) and ($updateDataBiaya) ) {
+				// echo "<pre>ahay"; print_r($updateData['dbResult']);
+				// echo "<pre>uhuy"; print_r($updateDataBiaya['dbResult']);die;
+				if(($updateData['dbResult'] === true) and ($updateDataBiaya['dbResult'] === true) ) {
 					$this->msg = 'Perubahan Data Berhasil Dilakukan';
 					$urlRedirect = $this->generateUrl('msg');
 				} else {

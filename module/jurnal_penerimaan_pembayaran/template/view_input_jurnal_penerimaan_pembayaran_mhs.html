@@ -78,20 +78,10 @@ table.table-details input[readonly].gvFloat{
    <table class="table-edit" width="100%">
       <tr class="subhead">
          <th colspan="2">
-            <!-- patTemplate:gtfwgetconfig config="language" name="tambah" / --> Data
+            Tambah Data
          </th>
       </tr>
-      <!--tr>
-         <th style="width: 130px;">
-            < ! -- patTemplate:gtfwgetconfig config="language" name="referensi" / -- >
-         </th>
-         <td>
-            <input type="hidden" name="referensi_id" value="{REFERENSI_ID}" id="txt_referensi_id" />
-            <input type="hidden" name="is_institute" value="{IS_INSTITUTE}" id="txt_is_institute" />
-            <input type="text" name="referensi_nama" id="txt_referensi_nama" size="35" value="{REFERENSI_NAMA}" readonly />
-            <input type="button" value=" ... " onclick="showPopup('{POPUP_REFERENSI_TRANSAKSI}', '', 600, 550);" />
-         </td>
-      </tr-->
+
 	  <tr>
          <th style="width: 130px;">
             Pembayaran Mahasiswa
@@ -153,14 +143,14 @@ table.table-details input[readonly].gvFloat{
          <tr >
             <td width="30">
                <strong>
-                  <!-- patTemplate:gtfwgetconfig config="language" name="debet" / -->
+                  Debet
                </strong>
             </td>
             <td width="5">:</td>
             <td class="links" align="center" style="text-align: right;">
                <a class="dest_subcontent-element" href="javascript:void(0)" onclick="javascript:showPopup('{POPUP_COA}&tipe=debet','',600, 500);" title="Tambah Debet" id="button-coa-debet" {STATUS_DISPLAY}>
                   <img src="images/icons/16/button-add.gif" style="margin-bottom: -4px;" />
-                  <b><!-- patTemplate:gtfwgetconfig config="language" name="tambah_akun" / --></b>
+                  <b>Tambah Akun</b>
                </a>
             </td>
          </tr>
@@ -172,22 +162,22 @@ table.table-details input[readonly].gvFloat{
                   <thead>
                      <tr>
                         <th style="width: 115px;">
-                           <!-- patTemplate:gtfwgetconfig config="language" name="kode_rekening" / -->
+                           Kode Akun
                         </th>
                         <th style="width: 145px;">
-                           <!-- patTemplate:gtfwgetconfig config="language" name="sub_account" / -->
+                           Atribut
                         </th>
                         <th style="width: 215px;">
-                           <!-- patTemplate:gtfwgetconfig config="language" name="nama_rekening" / -->
+                           Nama Rekening
                         </th>
                         <th style="width: 115px; display: none;">
-                           <!-- patTemplate:gtfwgetconfig config="language" name="no_referensi" / -->
+                           Nomor Rerefensi
                         </th>
                         <th>
-                           <!-- patTemplate:gtfwgetconfig config="language" name="deskripsi" / -->
+                           Deskripsi
                         </th>
                         <th style="width: 115px;">
-                           <!-- patTemplate:gtfwgetconfig config="language" name="nilai_rp" / -->
+                           Nilai (Rp.)
                         </th>
                         <th style="width: 20px;">
                           
@@ -756,14 +746,14 @@ var setNominalJurnal    = function (elemenId, el){
          }
       };
    }
-   if(nominalTotal > maxNominal){
+  /* if(nominalTotal > maxNominal){
       alert('Nominal melebihi nominal transaksi');
       if(el && typeof(el) != 'undefined'){
          nominalTotal-=parseFloat(el.gvGetValue());
          el.gvSetValue(parseFloat(0));
          el.focus();
       }
-   }
+   }*/
 
    if(nominalHolder != null || typeof(nominalHolder) != 'undefined'){
       nominalHolder.innerHTML       = formatNumber(nominalTotal);

@@ -72,7 +72,7 @@ class PopupReferensiTransaksi extends HtmlResponse {
 // print_r($requestData);
 // print_r($queryString);
 print_r($dataList);
-die;
+// die;
         #send data to pagging component
         Messenger::Instance()->SendToComponent(
                 'paging', 'Paging', 'view', 'html', 'paging_top', array(

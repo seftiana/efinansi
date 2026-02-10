@@ -63,12 +63,22 @@ class PopupReferensiPembayaranMahasiswa extends HtmlResponse {
         $dataList = $mObj->getDataReferensiPembayaran($offset, $limit, (array) $requestData);
         $total_data = $mObj->getCount();
 		
-		// echo'<pre>';
+		$dataList[0]['coa_id']=215;
+		$dataList[0]['trans_tt_id']=1;
+		$dataList[0]['coa_is_debet_positif']=1;
+		$dataList[0]['coa_kode_akun'] ='51103-1';
+		$dataList[0]['coa_nama_akun'] ='Biaya Proses Kurikulum dan SAP';
+		$dataList[1]['coa_id']=216;
+		$dataList[1]['trans_tt_id']=1;
+		$dataList[1]['coa_is_debet_positif']=1;
+		$dataList[1]['coa_kode_akun'] ='51103-2';
+		$dataList[1]['coa_nama_akun'] ='Biaya Proses Kurikulum dan SAP 2';
+		echo'<pre>';
 // print_r($offset);
 // print_r($limit);
 // print_r($requestData);
 // print_r($queryString);
-// print_r($dataList);
+print_r($dataList);
 // die;
 
         #send data to pagging component
@@ -169,7 +179,7 @@ class PopupReferensiPembayaranMahasiswa extends HtmlResponse {
                 $index++;
             }
         }
-
+echo "huhuy";
         $object['transaksi']['data'] = json_encode($transaksi);
         $object['coa']['data'] = json_encode($dataCoa);
         $this->mrTemplate->AddVars('content', $object['transaksi'], 'TRANSAKSI_');
