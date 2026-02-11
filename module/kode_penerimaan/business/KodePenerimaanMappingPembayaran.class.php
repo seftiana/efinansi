@@ -28,13 +28,28 @@ class KodePenerimaanMappingPembayaran extends Database
 	//==GET==
 	public function GetData ($offset, $limit, $data) 
 	{
-		$result = $this->Open($this->mSqlQueries['get_data_jenis_pembayaran'], array('%'.$data['kode'].'%','%'.$data['nama'].'%',$offset,$limit));
+		$result = $this->Open($this->mSqlQueries['get_data_jenis_pembayaran'],
+			array(
+				'%'.$data['kode'].'%',
+				'%'.$data['nama'].'%',
+				$data['prodi'],$data['prodi'],
+				$data['coa'],$data['coa'],
+				$offset,$limit
+			));
 		return $result;
 	}
 
 	public function GetCount ($data) 
 	{
-		$result = $this->Open($this->mSqlQueries['get_count'], array('%'.$data['kode'].'%','%'.$data['nama'].'%'));
+		$result = $this->Open($this->mSqlQueries['get_count'], 
+			array(
+				'%'.$data['kode'].'%',
+				'%'.$data['nama'].'%',
+				$data['prodi'],$data['prodi'],
+				$data['coa'],$data['coa']
+			)
+		);
+		
 		if (!$result)
 			return 0;
 		else
@@ -45,30 +60,6 @@ class KodePenerimaanMappingPembayaran extends Database
 	{
 		$result = $this->Open($this->mSqlQueries['get_data_jenis_pembayaran_id'], array($id));
 		return $result;
-	}
-
-	public function GetDataById($id) 
-	{
-		$result = $this->Open($this->mSqlQueries['get_data_by_id'], array($id));
-		return $result;
-	}
-	
-	public function GetLastKodePenerimaanId()
-	{
-		$result = $this->Open($this->mSqlQueries['get_last_kode_penerimaan_id'], array());
-      return $result[0]['last_id'];
-	}
-	
-	public function GetCoaMap($id)
-	{
-		$result = $this->Open($this->mSqlQueries['get_coa_map'], array($id));
-      	return $result;
-	}
-	
-	public function GetCountCoaMap($id)
-	{
-		$result = $this->Open($this->mSqlQueries['get_count_coa_map'], array($id));
-      	return $result['0']['total'];
 	}
 
 	public function DoAdd($data) 
@@ -87,29 +78,6 @@ class KodePenerimaanMappingPembayaran extends Database
 		return array('dbResult' => $dbResult);
 		
 	}
-   
-	public function DoAddCoa($coaid,$id) 
-	{
-		$result = $this->Execute($this->mSqlQueries['do_add_coa_map'], 
-	  			array(
-	  				$coaid,
-				  	$id)
-				  );
-
-		return $result;
-	}
-	
-	public function DoUpdateCoaMap($data) 
-	{
-		$result = $this->Execute($this->mSqlQueries['do_update_coa_map'], 
-  				array(
-		  			  $data['id'],
-					  $data['coaid'],
-					  $data['id'])
-				  );
-		//$this->mdebug(1);
-		return $result;
-	}
 
 	public function DoDelete($id) 
 	{
@@ -123,15 +91,8 @@ class KodePenerimaanMappingPembayaran extends Database
 		//return $dbResult;
 		return array('dbResult' => $dbResult);
 	}
-   
-	public function DoDeleteCoaMap($id) 
-	{
-		$result=$this->Execute($this->mSqlQueries['do_delete_coa_map'], array($id));
-		return $result;
-	}
 	
-	public function ChangeKeyName($input = array(), $case = 'lower')
-   {
+	public function ChangeKeyName($input = array(), $case = 'lower'){
       if(!is_array($input)){
          return $input;
       }
@@ -156,24 +117,7 @@ class KodePenerimaanMappingPembayaran extends Database
 	  // echo '<pre>';print_r($return);die;
       return $return;
    }
-   
-	/**
- 	 * added
- 	 * @since 29 Fabruari 2012
- 	 * mendapatkan satuan dari satuan komponen
- 	 */
- 
-	public function GetListSatuan()
- 	{
-		return $this->Open($this->mSqlQueries['get_list_satuan'], array());
- 	}
  	
- 	public function GetSatuanById($id='')
- 	{
-		return $this->Open($this->mSqlQueries['get_satuan_by_id'], array($id));
- 	}
- 	
-	
 	public function DoUpdateCoaMapBiayaPembayaran($data) 
 	{
 		$this->StartTrans();
@@ -188,6 +132,12 @@ class KodePenerimaanMappingPembayaran extends Database
 		$dbResult = $result;
 		$this->EndTrans($dbResult);
 		return array('dbResult' => $dbResult);
+	}
+	
+	public function GetProdi()
+	{
+		$result = $this->Open($this->mSqlQueries['get_prodi'], array());
+		return $result;
 	}
 }
 ?>

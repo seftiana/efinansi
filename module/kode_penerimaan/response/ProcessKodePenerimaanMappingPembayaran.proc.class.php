@@ -1,7 +1,7 @@
 <?php
 
 require_once GTFWConfiguration::GetValue('application', 'docroot'). 	'module/kode_penerimaan/business/KodePenerimaanMappingPembayaran.class.php';
-require_once GTFWConfiguration::GetValue('application', 'docroot'). 	'module/kode_penerimaan/business/KodePenerimaan.class.php';
+require_once GTFWConfiguration::GetValue('application', 'docroot'). 'module/kode_penerimaan/business/KodePenerimaan.class.php';
 
 class ProcessKodePenerimaanMappingPembayaran 
 {

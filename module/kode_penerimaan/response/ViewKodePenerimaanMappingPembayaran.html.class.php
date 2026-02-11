@@ -15,62 +15,108 @@ class ViewKodePenerimaanMappingPembayaran extends HtmlResponse {
    } 
    
    
-   function ProcessRequest() { 
-	  if(isset($_POST['btncari'])) {
+   function ProcessRequest() {
+
+		if(isset($_POST['btncari'])) {
 			$kode = $_POST['kode'];
-            $nama = $_POST['nama'];   
-      } elseif(isset($_GET['cari'])){
+            $nama = $_POST['nama']; 
+            $prodi = $_POST['prodi'];
+            $coa = $_POST['coa'];
+		} elseif(isset($_GET['cari'])){
 		    $kode=Dispatcher::Instance()->Decrypt($_GET['kode']);
 			$nama=Dispatcher::Instance()->Decrypt($_GET['nama']);
+			$prodi=Dispatcher::Instance()->Decrypt($_GET['prodi']);
+			$coa=Dispatcher::Instance()->Decrypt($_GET['coa']);
         } else{
              $kode='';
 			 $nama='';
+			 $prodi='all';
+			 $coa='all';
         } 
 	        
-      $itemViewed = 20;
-      $currPage = 1;
-      $startRec = 0 ;
-      if(isset($_GET['page'])) {
-         $currPage = (string)$_GET['page']->StripHtmlTags()->SqlString()->Raw();  
-         $startRec =($currPage-1) * $itemViewed;
-      }
+		$itemViewed = 20;
+		$currPage = 1;
+		$startRec = 0 ;
+		if(isset($_GET['page'])) {
+			$currPage = (string)$_GET['page']->StripHtmlTags()->SqlString()->Raw();  
+			$startRec =($currPage-1) * $itemViewed;
+		}
 	  
-	  $search['kodepenerimaan']['kode']=$kode;
-	  $search['kodepenerimaan']['nama']=$nama;
-	  $totalData = $this->proc->KodePenerimaanMappingPembayaran->GetCount($search['kodepenerimaan']);
-	  $dataListJenisPembayaran = $this->proc->KodePenerimaanMappingPembayaran->GetData($startRec,$itemViewed, $search['kodepenerimaan']);
+		$search['kodepenerimaan']['kode']=$kode;
+		$search['kodepenerimaan']['nama']=$nama;
+		$search['kodepenerimaan']['prodi']=$prodi;
+		$search['kodepenerimaan']['coa']=$coa;
+		$totalData = $this->proc->KodePenerimaanMappingPembayaran->GetCount($search['kodepenerimaan']);
+		$dataListJenisPembayaran = $this->proc->KodePenerimaanMappingPembayaran->GetData($startRec,$itemViewed, $search['kodepenerimaan']);
 	  
-	  // echo '<br>'.$startRec;
-	  // echo '<br>'.$itemViewed;
-	  // echo'<pre>';print_r($dataListJenisPembayaran);die;echo'</pre>';
+		  // echo '<br>'.$startRec;
+		  // echo '<br>'.$itemViewed;
+		  // echo'<pre>';print_r($dataListJenisPembayaran);die;echo'</pre>';
 	
-      $url = Dispatcher::Instance()->GetUrl(Dispatcher::Instance()->mModule, 
+		$url = Dispatcher::Instance()->GetUrl(Dispatcher::Instance()->mModule, 
                Dispatcher::Instance()->mSubModule, 
                Dispatcher::Instance()->mAction, 
                Dispatcher::Instance()->mType. 
                '&kode=' .Dispatcher::Instance()->Encrypt($kode) . 
                '&nama=' . Dispatcher::Instance()->Encrypt($nama) .
+               '&prodi=' . Dispatcher::Instance()->Encrypt($prodi) .
+               '&coa=' . Dispatcher::Instance()->Encrypt($coa) .
                '&cari=' . Dispatcher::Instance()->Encrypt(1));
 			   
-      Messenger::Instance()->SendToComponent('paging', 'Paging', 'view', 'html', 'paging_top', 
-         array($itemViewed,$totalData, $url, $currPage), 
-         Messenger::CurrentRequest);    
+		Messenger::Instance()->SendToComponent('paging', 'Paging', 'view', 'html', 'paging_top',array($itemViewed,$totalData, $url, $currPage),Messenger::CurrentRequest);    
 	 
 
         //start menghandle pesan yang diparsing
-	    
 		$tmp=$this->proc->parsingUrl(__FILE__);		 
 		if(!empty($tmp))
 		  $return['msg']=$tmp['msg'];  
 		//end handle
+		
+		# Combobox
+		$arrProdi  = $this->proc->KodePenerimaanMappingPembayaran->GetProdi();
+		Messenger::Instance()->SendToComponent(
+			 'combobox',
+			 'Combobox',
+			 'view',
+			 'html',
+			 'prodi',
+			 array(
+				'prodi',
+				$arrProdi,
+				$prodi,
+				true,
+				'id="cmb_prodi"'
+			 ),
+			Messenger::CurrentRequest
+		);
+		
+		$arrCoa  = $this->proc->KodePenerimaan->GetArrCoa();
+		Messenger::Instance()->SendToComponent(
+			 'combobox',
+			 'Combobox',
+			 'view',
+			 'html',
+			 'coa',
+			 array(
+				'coa',
+				$arrCoa,
+				$coa,
+				true,
+				'id="cmb_coa"'
+			 ),
+			Messenger::CurrentRequest
+		);
+		#end combo
        
-      $return['data'] = $dataListJenisPembayaran;
-      $return['start'] = $startRec+1;
-	  $return['kode'] = $kode;
-      $return['nama'] = $nama;
+		$return['data'] = $dataListJenisPembayaran;
+		$return['start'] = $startRec+1;
+		$return['kode'] = $kode;
+		$return['nama'] = $nama;
+		$return['prodi'] = $prodi;
+		$return['coa'] = $coa;
       
-	return $return;
-   }
+		return $return;
+	}
    
 	function ParseTemplate($data = NULL) 
 	{
@@ -83,7 +129,9 @@ class ViewKodePenerimaanMappingPembayaran extends HtmlResponse {
 		
 		$this->mrTemplate->AddVar('content', 'URL_EXCEL', $urlExcel);
 		$this->mrTemplate->AddVar('content', 'SEARCH_KP_KODE', $data['kode']);
-		$this->mrTemplate->AddVar('content', 'SEARCH_KP_NAMA', $data['nama']);	  
+		$this->mrTemplate->AddVar('content', 'SEARCH_KP_NAMA', $data['nama']);
+		$this->mrTemplate->AddVar('content', 'SEARCH_KP_PRODI', $data['prodi']);
+		$this->mrTemplate->AddVar('content', 'SEARCH_KP_COA', $data['coa']);
 		$this->mrTemplate->AddVar('content', 'URL_SEARCH', Dispatcher::Instance()->GetUrl('kode_penerimaan', 'kodePenerimaanMappingPembayaran', 'view', 'html') );
 		$this->mrTemplate->AddVar('content', 'URL_ADD', Dispatcher::Instance()->GetUrl('kode_penerimaan', 'inputKodePenerimaanMappingPembayaran', 'view', 'html') );	  	  
 	  

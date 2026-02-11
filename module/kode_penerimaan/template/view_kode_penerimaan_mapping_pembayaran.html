@@ -5,16 +5,28 @@
 
    <table >
       <tr>
-         <th colspan="2"><h2><strong><!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / --></strong></h2></th>
+         <th colspan="2"><h2><strong>Pencarian</strong></h2></th>
       </tr>	           
 		 <tr>
             <th width="150">Kode Pembayaran</th>
-            <td><input type="text" name="kode" value="{SEARCH_KP_KODE}" size="30" />
+            <td><input type="text" name="kode" value="{SEARCH_KP_KODE}" size="30" /></td>
          </tr>  
          <tr>
-            <th>Nama Jenis Pembayaran</th>
-            <td><input type="text" name="nama" value="{SEARCH_KP_NAMA}" size="30" />
-         </tr>         
+            <th>Nama Pembayaran</th>
+            <td><input type="text" name="nama" value="{SEARCH_KP_NAMA}" size="30" /></td>
+         </tr>
+		<tr>
+            <th>Program Studi</th>
+            <td>
+				 <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="prodi"  / -->
+			</td>
+         </tr>
+		<tr>
+            <th>Akun COA</th>
+            <td>
+				<!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="coa"  / -->
+			</td>
+         </tr>		 
       <tr>
          <th>&nbsp;</th>
          <td>

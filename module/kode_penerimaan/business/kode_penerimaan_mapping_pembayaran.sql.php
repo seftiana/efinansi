@@ -1,9 +1,4 @@
-<?php
-
-//===GET===
-$sql['get_last_kode_penerimaan_id']=
-"SELECT MAX(kodeterimaId) as last_id
-      FROM kode_penerimaan_ref";   
+<?php 
 
 $sql['get_data']=
 "
@@ -35,55 +30,6 @@ WHERE
     LIMIT %s, %s
 ";
 
-$sql['get_data_by_id'] ="
-SELECT
-    kp.kodeterimaId AS id, 
-    kp.kodeterimaKode AS kode, 
-    kp.kodeterimaNama AS nama,
-    kp.kodeterimaTipe AS tipe , 
-    kp.kodeterimaRKAKLKodePenerimaanId AS kode_rkakl,
-    coa.coaNamaAkun AS nama_coa, 
-    coa.coaKodeAkun AS kode_coa,
-    coa.coaid AS coaid,
-    rkakl.rkaklKodePenerimaanNama AS kode_rkakl_nama, 
-    kp.kodeterimaIsAktif AS aktif,
-    kp.kodeterimaSumberdanaId AS sd_id,
-    sd.sumberdanaNama AS sd_nama, 
-    paguBasId AS mak_id, 
-    CONCAT(paguBasKode, ' - ', paguBasKeterangan) AS mak_nama,
-    kp.kodeterimaParentId AS parent_id,
-    CONCAT(kpr_p.kodeterimaKode,' - ', kpr_p.`kodeterimaNama`) AS parent_nama
-FROM
-    kode_penerimaan_ref kp
-    LEFT JOIN finansi_coa_map fcp ON (fcp.kodeterimaId = kp.kodeterimaId)
-    LEFT JOIN coa ON (coa.coaid = fcp.coaId)
-    LEFT JOIN finansi_ref_rkakl_kode_penerimaan  rkakl
-        ON (kp.kodeterimaRKAKLKodePenerimaanId = 
-      rkakl.rkaklKodePenerimaanId)
-    LEFT JOIN finansi_ref_sumber_dana sd ON sd.sumberdanaId =  kp.kodeterimaSumberdanaId 
-    LEFT JOIN finansi_ref_pagu_bas 
-      ON paguBasId = kp.kodeterimaPaguBasId
-    LEFT JOIN kode_penerimaan_ref kpr_p
-     ON kpr_p.`kodeterimaId`= kp.`kodeterimaParentId`  
-WHERE
-     kp.kodeterimaId = '%s'
-    LIMIT 1
-";
-
-
-$sql['get_coa_map']="
-SELECT * FROM finansi_coa_map WHERE kodeterimaId = %s
-";
-
-$sql['get_count_coa_map']="
-SELECT 
-	COUNT(coaId) AS total
-FROM finansi_coa_map 
-	WHERE kodeterimaId = %s
-";
-   
-//===DO===
-
 $sql['do_add'] = "
 	INSERT INTO finansi_mapping_coa(
       mpcoaJenisBiayaId,
@@ -105,32 +51,7 @@ $sql['do_update'] =
 $sql['do_delete'] = "
 	DELETE FROM finansi_mapping_coa WHERE mpcoaId = %s 
 ";
-      
-      
-/**
- * added
- * @since 29 Februari 2012
- * Query untuk satuan dari satuan komponen
- */
-$sql['get_list_satuan'] = "
-	SELECT
-		satkompId AS `id`,
-		satkompNama AS `name`
-	FROM
-		satuan_komponen
-";
-$sql['get_satuan_by_id'] = "
-	SELECT
-		satuan_komponen.satkompId AS `id`,
-		satuan_komponen.satkompNama AS `name`
-	FROM
-		kode_penerimaan_ref
-		LEFT JOIN satuan_komponen ON satuan_komponen.satkompId = kode_penerimaan_ref.kodeterimaSatKompId 
-	WHERE
-		kode_penerimaan_ref.kodeterimaId = '%s'
-";
 
-//new add cecep 30 juli 2025
 $sql['get_data_jenis_pembayaran']="
 SELECT
 	mpcoaId AS id,
@@ -146,6 +67,8 @@ LEFT JOIN pm_program_studi_ref ON mpcoaProdiId=prodiId
 LEFT JOIN pm_jenjang ON prodiJenjangId=jenjangId
 WHERE 1=1
 	AND jenisBiayaKode LIKE %s AND jenisBiayaNama LIKE %s
+	AND (mpcoaProdiId = '%s' OR 'all' = '%s')
+	AND (mpcoaCoaId = '%s' OR 'all' = '%s')
 	ORDER BY jenisBiayaNama ASC
     LIMIT %s, %s
 ";
@@ -158,6 +81,8 @@ $sql['get_count'] =
 	  LEFT JOIN pm_jenis_biaya ON mpcoaJenisBiayaId=jenisBiayaId
    WHERE
      jenisBiayaKode LIKE %s AND jenisBiayaNama LIKE %s
+	 AND (mpcoaProdiId = '%s' OR 'all' = '%s')
+	 AND (mpcoaCoaId = '%s' OR 'all' = '%s')
    ";
 
 $sql['get_data_jenis_pembayaran_id'] = "
@@ -179,8 +104,7 @@ $sql['get_data_jenis_pembayaran_id'] = "
     AND mpcoaId = '%s'
  ";
    
-$sql['get_data_jenis_pembayaran_all']=
-"
+$sql['get_data_jenis_pembayaran_all']="
 SELECT
 	jenisBiayaId AS id,
 	jenisBiayaKode AS kode,
@@ -190,6 +114,18 @@ FROM
     pm_jenis_biaya
 WHERE jenisBiayaId > 0
 	ORDER BY jenisBiayaNama ASC
+";
+
+$sql['get_prodi']="
+SELECT
+	prodiId AS id,
+	prodiId AS kode,
+	CONCAT(jenjangKode,' ',prodiNamaProdi) AS name
+FROM
+    pm_program_studi_ref
+	LEFT JOIN pm_jenjang ON prodiJenjangId=jenjangId
+WHERE 1=1
+ORDER BY jenjangKode,prodiNamaProdi ASC
 ";
 
 ?>

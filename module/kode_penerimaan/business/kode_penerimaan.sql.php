@@ -218,7 +218,7 @@ LEFT JOIN coa ON fcm.coaId = coa.coaId
 WHERE mapJenisPembayaranId = '%s'
 ";
 
-$sql['get_coa'] = "
+$sql['get_coa_by_id'] = "
 SELECT coaId,
 	coaKodeAkun,
 	coaNamaAkun,
@@ -239,4 +239,12 @@ INSERT INTO finansi_penerimaan_pembayaran_map(
       (%s,%s)
 ";
 
+$sql['get_coa_all'] = "
+SELECT coaId AS id,
+	coaKodeAkun,
+	coaNamaAkun,
+	CONCAT(coaKodeAkun,' ',coaNamaAkun)AS name
+FROM coa
+ORDER BY coaKodeAkun
+";
 ?>
