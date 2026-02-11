@@ -1,14 +1,14 @@
 <!-- patTemplate:tmpl name="content" -->
 <script language="javascript" type="text/javascript">
 	function setParent2(xid, xkode, xlabel) {
-		document.getElementById('penerimaan_id').value=xid;
-		document.getElementById('penerimaan_kode').value=xkode;
-		document.getElementById('penerimaan_nama').value=xlabel;
+		document.getElementById('prodi_id').value=xid;
+		document.getElementById('prodi_kode').value=xkode;
+		document.getElementById('prodi_nama').value=xlabel;
 		popupClose();
 	}
 </script>
 
-<h1>Daftar Jenis Penerimaan</h1>
+<h1>Daftar Program Studi</h1>
 
 <form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" name="popup-filterbox">
 
@@ -17,7 +17,7 @@
          <th colspan="2"><h2><strong>Pencarian</strong></h2></th>
       </tr>
          <tr>
-            <th>Jenis Biaya</th>
+            <th>Nama Prodi</th>
             <td><input type="text" name="nama" value="{NAMA}" size="30" />
          </tr>
       <tr>
@@ -42,8 +42,8 @@
    <table class="table-common" width="100%">
       <tr>
          <th width="5">No</th>
-         <th>Kode Biaya</th>
-         <th>Nama Biaya</th>
+         <th>Kode Prodi</th>
+         <th>Nama Prodi</th>
          <th width="65">Aksi</th>
       </tr>
       <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->

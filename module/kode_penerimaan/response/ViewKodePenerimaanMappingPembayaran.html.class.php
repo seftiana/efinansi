@@ -64,7 +64,6 @@ class ViewKodePenerimaanMappingPembayaran extends HtmlResponse {
 		  $return['msg']=$tmp['msg'];  
 		//end handle
        
-      // $return['data'] = $dataList;
       $return['data'] = $dataListJenisPembayaran;
       $return['start'] = $startRec+1;
 	  $return['kode'] = $kode;
@@ -116,23 +115,30 @@ class ViewKodePenerimaanMappingPembayaran extends HtmlResponse {
 			for ($i=0; $i<sizeof($dataGrid);) { 
 				$dataGrid[$i]['nomor']=$no;
 				$no++;
-		        $getCoa = $this->proc->KodePenerimaan->GetCoaMapByIdPembayaran($dataGrid[$i]['id']); 
+		        $getCoa = $this->proc->KodePenerimaan->GetCoaMapByIdPembayaran($dataGrid[$i]['mpcoaCoaId']); 
 			    $idEnc = Dispatcher::Instance()->Encrypt($dataGrid[$i]['id']);
+			    $coaEnc = Dispatcher::Instance()->Encrypt($dataGrid[$i]['mpcoaCoaId']);
 			   
-                $dataGrid[$i]['url_edit'] = Dispatcher::Instance()->GetUrl('kode_penerimaan', 'inputKodePenerimaanMappingPembayaran', 'view', 'html') . 
-                  '&grp=' . $idEnc.
-                  '&kode='.$dataGrid[$i]['kode'].
-                  '&nama='.$dataGrid[$i]['nama'].
-                  '&cari='.Dispatcher::Instance()->Encrypt(1);
-				  
-			
+                $dataGrid[$i]['url_edit'] = Dispatcher::Instance()->GetUrl('kode_penerimaan', 'inputKodePenerimaanMappingPembayaran', 'view','html') . 
+                '&grp=' . $idEnc.
+                '&coa=' . $coaEnc.
+                '&cari='.Dispatcher::Instance()->Encrypt(1);
 				$dataGrid[$i]['url_edit']='<a class="xhr dest_subcontent-element" href="'.$dataGrid[$i]['url_edit'].'" title="Ubah"><img src="images/button-edit.gif" alt="Ubah"/></a>'; 
-				
 				 
-			     
-			    $dataGrid[$i]['coa'] = $getCoa[0]['ket_coa'];
-			    $dataGrid[$i]['penerimaan'] = $getCoa[0]['ket_penerimaan'];
-			    $dataGrid[$i]['aktif'] = $getCoa[0]['kodeterimaIsAktif'];
+				//dipake componenet confirm delete
+			    $urlAccept = 'kode_penerimaan|deleteKodePenerimaanMappingPembayaran|do|html-kode|nama|cari-'.
+										$data['kode'].'|'.$data['nama'].'|'.Dispatcher::Instance()->Encrypt(1);
+                $urlReturn = 'kode_penerimaan|kodePenerimaanMappingPembayaran|view|html-kode|nama|cari-'.
+										$data['kode'].'|'.$data['nama'].'|'.Dispatcher::Instance()->Encrypt(1);
+			    $label = 'Mapping Kode Pembayaran COA';
+			    $dataName = 'Nama Pembayaran : '.$dataGrid[$i]['nama'].'<br>Prodi : '.$dataGrid[$i]['prodi'].'<br>COA : '.$getCoa[0]['coaKodeAkun'].' '.$getCoa[0]['coaNamaAkun'];
+				$dataGrid[$i]['url_delete'] = Dispatcher::Instance()->GetUrl('confirm', 'confirmDelete', 'do', 'html').'&urlDelete='. $urlAccept.'&urlReturn='.$urlReturn.'&id='.$idEnc.'&label='.$label.'&dataName='.$dataName;
+				$dataGrid[$i]['url_delete']='<a class="xhr dest_subcontent-element" href="'.$dataGrid[$i]['url_delete'].'" title="Hapus"><img src="images/button-delete.gif" alt="Hapus"/></a>';
+				
+				
+			    $dataGrid[$i]['coa_id'] = $getCoa[0]['coaId'];
+			    $dataGrid[$i]['coa_kode'] = $getCoa[0]['coaKodeAkun'];
+			    $dataGrid[$i]['coa_nama'] = $getCoa[0]['coaNamaAkun'];
 				 
 				$dataKirim = $dataGrid[$i];
 			    $i++;

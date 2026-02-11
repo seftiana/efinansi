@@ -197,23 +197,6 @@ $sql['get_satuan_by_id'] = "
 	WHERE
 		kode_penerimaan_ref.kodeterimaId = '%s'
 ";
-
-/* add cecep 30 juli 2025 */
-$sql['get_coa_map_by_id_pembayaran'] = "
-	SELECT
-		kpr.kodeterimaId,
-		kpr.kodeterimaKode,
-		kpr.kodeterimaNama,
-		kpr.kodeterimaIsAktif,
-		coa.coaKodeAkun,
-		coa.coaNamaAkun,
-		CONCAT('[',kpr.kodeterimaKode,'] ',kpr.kodeterimaNama)AS ket_penerimaan,
-		CONCAT('[',coa.coaKodeAkun,'] ',coa.coaNamaAkun)AS ket_coa
-	FROM kode_penerimaan_ref kpr
-	LEFT JOIN finansi_coa_map fcm ON kpr.kodeterimaId = fcm.kodeterimaId
-	LEFT JOIN coa ON fcm.coaId = coa.coaId
-	WHERE kpr.kodeterimaJenisPembayaranId = '%s'
-";
  
 /* add cecep 22 januari 2026 */
 $sql['get_coa_map_id_pembayaran'] = "
@@ -233,6 +216,15 @@ LEFT JOIN kode_penerimaan_ref kpr ON mapKodeterimaId=kpr.kodeterimaId
 LEFT JOIN finansi_coa_map fcm ON kpr.kodeterimaId = fcm.kodeterimaId
 LEFT JOIN coa ON fcm.coaId = coa.coaId
 WHERE mapJenisPembayaranId = '%s'
+";
+
+$sql['get_coa'] = "
+SELECT coaId,
+	coaKodeAkun,
+	coaNamaAkun,
+	CONCAT('[',coaKodeAkun,'] ',coaNamaAkun)AS ket_coa
+FROM coa
+WHERE coaId = '%s'
 ";
 
 $sql['do_delete_map_pembayaran_penerimaan'] = "

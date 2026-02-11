@@ -1,20 +1,19 @@
 <?php
 
-class AppPopupJenisPembayaran extends Database 
+class AppPopupProdi extends Database 
 {
 
-   protected $mSqlFile= 'module/kode_penerimaan/business/app_popup_jenis_pembayaran.sql.php';
+   protected $mSqlFile= 'module/kode_penerimaan/business/app_popup_prodi.sql.php';
    
    public function __construct($connectionNumber=1) 
    {
       parent::__construct($connectionNumber);       
    }
       
-   //popup sumber dana
+
    public function GetData($offset, $limit, $nama) 
    {
 		$result = $this->Open($this->mSqlQueries['get_data'], array('%'.$nama.'%', $offset, $limit));
-		//echo $this->getLastError();
 		return $result;
    }
 

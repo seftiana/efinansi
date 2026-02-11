@@ -84,61 +84,28 @@ FROM finansi_coa_map
    
 //===DO===
 
-$sql['do_add'] = 
-   "INSERT INTO kode_penerimaan_ref(
-      kodeterimaKode,
-      kodeterimaNama,
-      kodeterimaTipe,
-      kodeterimaRKAKLKodePenerimaanId,
-      kodeterimaPaguBasId,
-      kodeterimaIsAktif,
-      kodeterimaSumberdanaId,
-      kodeterimaParentId
-   )
-   VALUES 
-      ('%s','%s','%s','%s','%s','%s', '%s', '%s')";
-
-$sql['do_add_coa_map'] = 
-   "INSERT INTO finansi_coa_map(
-         coaId,
-        kodeterimaId
-        )
-   VALUES 
-      ('%s','%s')";
+$sql['do_add'] = "
+	INSERT INTO finansi_mapping_coa(
+      mpcoaJenisBiayaId,
+      mpcoaProdiId,
+      mpcoaCoaId
+	)VALUES ('%s','%s','%s')
+";
 
 $sql['do_update'] = 
-   "UPDATE kode_penerimaan_ref
+   "UPDATE finansi_mapping_coa
    SET       
-      kodeterimaKode = '%s',
-      kodeterimaNama = '%s',
-      kodeterimaTipe = '%s',
-      kodeterimaRKAKLKodePenerimaanId = '%s',
-      kodeterimaPaguBasId = '%s', 
-      kodeterimaIsAktif = '%s',
-      kodeterimaSumberdanaId = '%s',
-      kodeterimaParentId = '%s'
+      mpcoaJenisBiayaId = '%s',
+      mpcoaProdiId = '%s',
+      mpcoaCoaId = '%s'
    WHERE 
-      kodeterimaId = '%s'
+      mpcoaId = '%s'
  ";
 
-$sql['do_update_coa_map'] = 
-   "UPDATE finansi_coa_map
-   SET       
-      kodeterimaId = '%s',
-      coaId = '%s'
-   WHERE 
-      kodeterimaId = '%s'
- ";
-
-$sql['do_delete'] = 
-   "DELETE FROM kode_penerimaan_ref
-   WHERE 
-      kodeterimaId = %s ";
+$sql['do_delete'] = "
+	DELETE FROM finansi_mapping_coa WHERE mpcoaId = %s 
+";
       
-$sql['do_delete_coa_map'] = 
-   "DELETE FROM finansi_coa_map
-   WHERE 
-      kodeterimaId = %s ";
       
 /**
  * added
@@ -193,16 +160,24 @@ $sql['get_count'] =
      jenisBiayaKode LIKE %s AND jenisBiayaNama LIKE %s
    ";
 
-$sql['get_data_jenis_pembayaran_id'] = 
-   "SELECT 
-		jenisBiayaId AS id,
+$sql['get_data_jenis_pembayaran_id'] = "
+	SELECT
+		mpcoaId AS id,
+		jenisBiayaId,
 		jenisBiayaKode AS kode,
-		jenisBiayaNama AS nama
-    FROM
-      pm_jenis_biaya
-   WHERE
-     jenisBiayaId = '%s'
-   ";
+		jenisBiayaNama AS nama,
+		1 AS total_child,
+		mpcoaCoaId,
+		mpcoaProdiId,
+		CONCAT(jenjangKode,' ',prodiNamaProdi) AS prodi,
+		prodiKodeProdi
+	FROM finansi_mapping_coa
+	LEFT JOIN pm_jenis_biaya ON mpcoaJenisBiayaId=jenisBiayaId
+	LEFT JOIN pm_program_studi_ref ON mpcoaProdiId=prodiId
+	LEFT JOIN pm_jenjang ON prodiJenjangId=jenjangId
+	WHERE 1=1
+    AND mpcoaId = '%s'
+ ";
    
 $sql['get_data_jenis_pembayaran_all']=
 "
@@ -216,13 +191,5 @@ FROM
 WHERE jenisBiayaId > 0
 	ORDER BY jenisBiayaNama ASC
 ";
-
-$sql['do_update_biaya_map'] = 
-   "UPDATE pm_jenis_biaya
-   SET       
-      jenisBiayaMapingCoa = '%s'
-   WHERE 
-      jenisBiayaId = '%s'
- ";
 
 ?>

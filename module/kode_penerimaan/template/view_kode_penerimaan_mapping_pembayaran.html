@@ -47,12 +47,12 @@
    <table class="table-common" width="100%">
       <tr>
          <th style="width: 4%;">No</th>	 
-         <th style="width: 8%;">Kode Pembayaran</th>
-         <th style="width: 27%;">Nama Jenis Pembayaran</th>
-		 <th style="width: 26%;">COA</th>         
-		 <th style="width: 27%;">Kode Penerimaan</th>
-		 <th style="width: 4%;">Status</th>
-         <th style="width: 4%;">Aksi</th>
+         <th style="width: 5%;">Kode Pembayaran</th>
+         <th style="width: 22%;">Nama Pembayaran</th>
+         <th style="width: 25%;">Program Studi</th>
+		 <th style="width: 10%;">COA</th>         
+		 <th style="width: 26%;">Nama COA</th>
+         <th style="width: 5%;">Aksi</th>
       </tr>
       <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="IS_DATA_EMPTY" -->
          <!-- patTemplate:sub condition="YES" -->
@@ -64,11 +64,12 @@
                <td align="center">{DATA_NOMOR}</td>			   
 		       <td>{DATA_KODE}</td>
                <td>{DATA_NAMA}</td>
-               <td>{DATA_COA}</td>
-               <td>{DATA_PENERIMAAN}</td>
-			   <td align="center" style="width: 35px;">{DATA_AKTIF}</td>
+               <td>{DATA_PRODI}</td>
+               <td>{DATA_COA_KODE}</td>
+               <td>{DATA_COA_NAMA}</td>
                <td class="links" align="center">
                   {DATA_URL_EDIT}
+				  {DATA_URL_DELETE}
                </td>
             </tr>
             <!-- /patTemplate:tmpl -->

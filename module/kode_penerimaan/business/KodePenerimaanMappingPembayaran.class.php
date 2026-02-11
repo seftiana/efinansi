@@ -71,66 +71,20 @@ class KodePenerimaanMappingPembayaran extends Database
       	return $result['0']['total'];
 	}
 
-
-	//===DO==
-
 	public function DoAdd($data) 
 	{	   
 		$this->StartTrans();
 		$result = $this->Execute($this->mSqlQueries['do_add'], 
 	  			array(
-	  				$data['kode'],
-				  	$data['nama'],
-				  	$data['is_header'],
-				  	empty($data['kode_rkakl'])? NULL:$data['kode_rkakl'], 
-				  	empty($data['mak_id']) ? NULL : trim($data['mak_id']), 
-				  	$data['aktif'],
-				  	empty($data['sd_id']) ? NULL : trim($data['sd_id']),
-				  	empty($data['parent_id']) ? 0 : trim($data['parent_id'])
-				  	)
-				  );
+	  				$data['penerimaan_id'],
+				  	$data['prodi_id'],
+				  	$data['coaid']
+				 )
+			);
 				  
-		if($result && (!empty($data['coaid']))){
-			$result = $this->Execute($this->mSqlQueries['do_add_coa_map'], 
-					array(
-						$data['coaid'],
-						$this->LastInsertId())
-						);
-		}
-      	/**
-		 * send data 
-		 */
-			$sendData['kodeterimaId'] = $this->LastInsertId();
-			$sendData['kodeterimaKode'] = $data['kode'];
-			$sendData['kodeterimaNama'] = $data['nama'];
-			$sendData['kodeterimaTipe'] = $data['is_header'];
-			$sendData['kodeterimaRKAKLKodePenerimaanId'] = (empty($data['kode_rkakl'])? NULL:$data['kode_rkakl']);
-			$sendData['kodeterimaPaguBasId'] = (empty($data['mak_id']) ? NULL : trim($data['mak_id']));
-			$sendData['kodeterimaIsAktif'] = $data['aktif'];
-			$sendData['kodeterimaSatKompId'] = NULL;
-			$sendData['kodeterimaSumberdanaId'] = (empty($data['sd_id']) ? NULL : trim($data['sd_id']));
-			$sendData['kodeterimaParentId'] =(empty($data['parent_id']) ? 0 : trim($data['parent_id']));			
-		/**
-		 * end send data
-		 */
-		 
-		if($this->mClientServiceOn === 'true'){			
-			Application::Instance()->SetRestServiceAddress($this->mServiceAddressId,$this->mModServiceInsert);			
-			$resultService = Application::Instance()->SendRestDataDB($sendData,$result);
-			
-			if(!empty($resultService['status'])  && $resultService['status'] === '201'){
-				$resultService['status'] = 'dataSend';
-				$dbResult = $result;	
-			} else {
-				$resultService['status'] = 'dataNotSend';
-				$dbResult = false;
-			}
-		} else {
-			$dbResult = $result;
-		}
-		
+		$dbResult = $result;
 		$this->EndTrans($dbResult);		
-		return array('dbResult' => $dbResult ,'serviceResult'=>$resultService['status']);
+		return array('dbResult' => $dbResult);
 		
 	}
    
@@ -143,77 +97,6 @@ class KodePenerimaanMappingPembayaran extends Database
 				  );
 
 		return $result;
-	}
-
-	public function DoUpdate($data) 
-	{
-		$this->StartTrans();
-		$result = $this->Execute($this->mSqlQueries['do_update'], 
-  				array(
-		  			  $data['kode'],
-				  	  $data['nama'],
-					  $data['is_header'],
-					  empty($data['kode_rkakl'])? NULL:$data['kode_rkakl'],
-					  empty($data['mak_id']) ? NULL : $data['mak_id'],
-					  $data['aktif'],
-					  empty($data['sd_id']) ? NULL : $data['sd_id'],
-					  empty($data['parent_id']) ? 0 : trim($data['parent_id']),
-					  $data['id'])
-				  );
-		if($result) {
-			$getCountCoa = $this->GetCountCoaMap($data['id']);
-			if ($getCountCoa > 0){
-				 $result = $this->Execute($this->mSqlQueries['do_update_coa_map'], 
-							array(
-								$data['id'],
-								$data['coaid'],
-								$data['id'])
-								);
-			} else {
-				if((!empty($data['coaid'])) && (!empty($data['id']))){
-					$result = $this->Execute($this->mSqlQueries['do_add_coa_map'], 
-							array(
-									$data['coaid'],
-									$data['id']
-								));
-				}				
-			}
-		}
-      	/**
-		 * send data 
-		 */
-			$sendData['kodeterimaId'] =  $data['id'];
-			$sendData['kodeterimaKode'] = $data['kode'];
-			$sendData['kodeterimaNama'] = $data['nama'];
-			$sendData['kodeterimaTipe'] = $data['is_header'];
-			$sendData['kodeterimaRKAKLKodePenerimaanId'] = (empty($data['kode_rkakl'])? NULL:$data['kode_rkakl']);
-			$sendData['kodeterimaPaguBasId'] = (empty($data['mak_id']) ? NULL : trim($data['mak_id']));
-			$sendData['kodeterimaIsAktif'] = $data['aktif'];
-			$sendData['kodeterimaSatKompId'] = NULL;
-			$sendData['kodeterimaSumberdanaId'] = (empty($data['sd_id']) ? NULL : trim($data['sd_id']));
-			$sendData['kodeterimaParentId'] =(empty($data['parent_id']) ? 0 : trim($data['parent_id']));			
-		/**
-		 * end send data
-		 */
-		 
-		if($this->mClientServiceOn === 'true'){			
-			Application::Instance()->SetRestServiceAddress($this->mServiceAddressId,$this->mModServiceInsert);
-			$resultService = Application::Instance()->SendRestDataDB($sendData,$result);
-			
-			if(!empty($resultService['status'])  && $resultService['status'] === '201'){
-				$resultService['status'] = 'dataSend';
-				$dbResult = $result;	
-			} else {
-				$resultService['status'] = 'dataNotSend';
-				$dbResult = false;
-			}
-		} else {
-			$dbResult = $result;
-		}
-		
-		$this->EndTrans($dbResult);		
-		return array('dbResult' => $dbResult ,'serviceResult'=>$resultService['status']);
-		      
 	}
 	
 	public function DoUpdateCoaMap($data) 
@@ -233,35 +116,12 @@ class KodePenerimaanMappingPembayaran extends Database
 		$this->StartTrans();
 		$result=$this->Execute($this->mSqlQueries['do_delete'], array($id));
 		
-		if($result){
-			$getCountCoa = $this->GetCountCoaMap($id);
-			if($getCountCoa > 0 ){
-				$result = $this->Execute($this->mSqlQueries['do_delete_coa_map'], array($id));
-			}
-		}
+
+		$dbResult = $result;
 		
-		$sendData['kodeterimaId'] = $id;
-		
-		if($this->mClientServiceOn === 'true'){
-			
-			Application::Instance()->SetRestServiceAddress($this->mServiceAddressId,$this->mModServiceDelete);
-			$resultService = Application::Instance()->SendRestDataDB($sendData,$result);
-							
-			if(!empty($resultService['status'])  && $resultService['status'] === '201'){
-				$resultService['status'] = 'dataSend';
-				$dbResult = $result;	
-			} else {					
-				$resultService['status'] = 'dataNotSend';
-				$dbResult = false;
-			}
-			
-		} else {
-			$dbResult = $result;
-		}
-			
 		$this->EndTrans($dbResult);
 		//return $dbResult;
-		return array('dbResult' => $dbResult ,'serviceResult'=>$resultService['status']);
+		return array('dbResult' => $dbResult);
 	}
    
 	public function DoDeleteCoaMap($id) 
@@ -317,16 +177,17 @@ class KodePenerimaanMappingPembayaran extends Database
 	public function DoUpdateCoaMapBiayaPembayaran($data) 
 	{
 		$this->StartTrans();
-		$result = $this->Execute($this->mSqlQueries['do_update_biaya_map'], 
+		$result = $this->Execute($this->mSqlQueries['do_update'], 
   				array(
 		  			  $data['penerimaan_id'],
-					  $data['jenis_pembayaran_id'])
-				  );
-		//$this->mdebug(1);
+		  			  $data['prodi_id'],
+					  $data['coaid'],
+					  $data['id']
+				)
+			);
 		$dbResult = $result;
 		$this->EndTrans($dbResult);
 		return array('dbResult' => $dbResult);
-		// return $result;
 	}
 }
 ?>

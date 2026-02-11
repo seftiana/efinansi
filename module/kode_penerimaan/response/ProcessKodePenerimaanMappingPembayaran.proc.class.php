@@ -28,16 +28,41 @@ class ProcessKodePenerimaanMappingPembayaran
 		 
     }
 	
+	public function Add() 
+    {
+		// echo'<pre>';print_r($this->data['kodepenerimaan']);die;
+		if(isset($_POST['btnsimpan'])){
+			if($this->validation('Penambahan')){	
+				$addData = $this->KodePenerimaanMappingPembayaran->DoAdd($this->data['kodepenerimaan']);
+            
+				if (($addData['dbResult'] === true)){
+					$this->msg = 'Penambahan data Berhasil Dilakukan';
+					$urlRedirect=$this->generateUrl('msg');
+				} else {
+					$this->msg = 'Gagal Melakukan Tambah Data.';
+					$urlRedirect=$this->generateUrl('err');
+				}	
+			            
+			} else {		    			
+				$urlRedirect = $this->generateUrl('err');
+			}
+		  
+		} else {
+	      //kalo yang ditekan tombol balik
+		  $urlRedirect = Dispatcher::Instance()->GetUrl($this->moduleName, $this->moduleHome, 'view', 'html') ;
+		}
+		return $urlRedirect;
+	}
+	
 	public function Update()
 	{
 		// echo'<pre>';print_r($this->data['kodepenerimaan']);die;
 		if(isset($_POST['btnsimpan'])){
 			if($this->validation('Perubahan')) {
-				$updateData = $this->KodePenerimaan->DoUpdateMapping($this->data['kodepenerimaan']);
+				// $updateData = $this->KodePenerimaan->DoUpdateMapping($this->data['kodepenerimaan']);
 				$updateDataBiaya = $this->KodePenerimaanMappingPembayaran->DoUpdateCoaMapBiayaPembayaran($this->data['kodepenerimaan']);
-				// echo "<pre>ahay"; print_r($updateData['dbResult']);
-				// echo "<pre>uhuy"; print_r($updateDataBiaya['dbResult']);die;
-				if(($updateData['dbResult'] === true) and ($updateDataBiaya['dbResult'] === true) ) {
+				// if(($updateData['dbResult'] === true) and ($updateDataBiaya['dbResult'] === true) ) {
+				if(($updateDataBiaya['dbResult'] === true) ) {
 					$this->msg = 'Perubahan Data Berhasil Dilakukan';
 					$urlRedirect = $this->generateUrl('msg');
 				} else {
@@ -55,6 +80,29 @@ class ProcessKodePenerimaanMappingPembayaran
 		return $urlRedirect;
 	}
 	
+	public function Delete() 
+	{
+	    // echo'<pre>';print_r($_POST);die;
+		if(isset($_POST['idDelete'])) {
+		   $grp=Dispatcher::Instance()->Decrypt($_GET['grp']);		   
+		   $grp=$_POST['idDelete'];		   
+		   $deleteData = $this->KodePenerimaanMappingPembayaran->DoDelete($grp);
+		  
+			if(($deleteData['dbResult'] === true)) {
+				$this->msg = 'Berhasil Melakukan Hapus Data';
+				$urlRedirect = $this->generateUrl('msg',true);
+			} else {			
+				$this->msg = 'Gagal Melakukan Hapus Data.';
+				$urlRedirect = $this->generateUrl('err',true);
+			}		   
+		    
+		} else {
+		   $this->msg = 'Penghapusan data gagal dilakukan';
+		   $urlRedirect = $this->generateUrl('err',true);
+		}
+		return $urlRedirect;
+	}
+	
 	public function validation($action) 
 	{
 	   
@@ -64,18 +112,27 @@ class ProcessKodePenerimaanMappingPembayaran
 		   return false;
 		}				
 	  
+		// jenis biaya
 	    if(isset($this->$data['kodepenerimaan']['penerimaan_id']) && (trim($this->data['kodepenerimaan']['penerimaan_id']) != ''))
 	      $this->data['kodepenerimaan']['penerimaan_id']= Dispatcher::Instance()->Decrypt($this->data['kodepenerimaan']['penerimaan_id']);
 	      
-	   
 	    if(!isset($this->data['kodepenerimaan']['penerimaan_kode']) || trim($this->data['kodepenerimaan']['penerimaan_kode']) == '')
-	      $this->msg.='Mapping Kode Penerimaan Tidak Boleh Kosong <br />';
-	    
-		
+	      $this->msg.='Kode Pembayaran Tidak Boleh Kosong <br />';
 			    
-		if(!isset($this->data['kodepenerimaan']['nama']) || trim($this->data['kodepenerimaan']['nama']) == '')
-	      $this->msg.='Mapping Nama Penerimaan Tidak Boleh Kosong <br />';
-
+		
+		// program studi
+	    if(isset($this->$data['kodepenerimaan']['prodi_id']) && (trim($this->data['kodepenerimaan']['prodi_id']) != ''))
+	      $this->data['kodepenerimaan']['prodi_id']= Dispatcher::Instance()->Decrypt($this->data['kodepenerimaan']['prodi_id']);
+			    
+		if(!isset($this->data['kodepenerimaan']['prodi_nama']) || trim($this->data['kodepenerimaan']['prodi_nama']) == '')
+	      $this->msg.='Nama Prodi Tidak Boleh Kosong <br />';
+	  
+		// coa akun
+	    if(isset($this->$data['kodepenerimaan']['coaid']) && (trim($this->data['kodepenerimaan']['coaid']) != ''))
+	      $this->data['kodepenerimaan']['coaid']= Dispatcher::Instance()->Decrypt($this->data['kodepenerimaan']['coaid']);
+	  
+	    if(!isset($this->data['kodepenerimaan']['kode_coa']) || trim($this->data['kodepenerimaan']['kode_coa']) == '')
+	      $this->msg.='Kode COA Tidak Boleh Kosong <br />';
 			
 			
 		if($this->msg=='')

@@ -283,7 +283,7 @@ class KodePenerimaan extends Database
 		return $this->Open($this->mSqlQueries['get_satuan_by_id'], array($id));
  	}
  	
-	/* add cecep 30 juli 2025 */
+	/* add cecep 26 juli 2026 */
 	public function GetDataByIdJnsPembayaran($id) 
 	{
 		$result = $this->Open($this->mSqlQueries['get_coa_map_id_pembayaran'], array($id));
@@ -292,7 +292,7 @@ class KodePenerimaan extends Database
 	
  	public function GetCoaMapByIdPembayaran($id)
 	{
-		$result = $this->Open($this->mSqlQueries['get_coa_map_id_pembayaran'], array($id));
+		$result = $this->Open($this->mSqlQueries['get_coa'], array($id));
       	return $result;
 	}
 	

@@ -3,22 +3,23 @@
 //popup sumber dana
 $sql['get_data'] =
 	"SELECT
-		kodeterimaId AS id,
-		kodeterimaKode AS kode,
-		kodeterimaNama AS nama,
-		kodeterimaIsAktif
+		jenisBiayaId AS id,
+		jenisBiayaKode AS kode,
+		jenisBiayaNama AS nama,
+		jenisBiayaStatus
 	FROM
-		kode_penerimaan_ref
-	WHERE kodeterimaNama LIKE %s
-	ORDER BY kodeterimaNama ASC
+		pm_jenis_biaya
+	WHERE jenisBiayaNama LIKE %s
+	AND jenisBiayaId > 0
+	ORDER BY jenisBiayaNama ASC
 	LIMIT %s, %s
 	";
 
 $sql['get_count'] =
    "SELECT
-      COUNT(kodeterimaId) AS total
+      COUNT(jenisBiayaId) AS total
 	FROM
-		kode_penerimaan_ref
-	WHERE kodeterimaNama LIKE %s
+		pm_jenis_biaya
+	WHERE jenisBiayaNama LIKE %s
    ";
 ?>

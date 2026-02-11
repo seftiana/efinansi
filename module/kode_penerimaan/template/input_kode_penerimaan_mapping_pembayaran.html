@@ -10,11 +10,14 @@
 	}
  	function bukaPopupCoa(xurl) {
 	  showPopup(xurl,'Coa',700,550);
-   }
+    }
+	function bukaPopupProdi(xurl) {
+	  showPopup(xurl,'',700,550);
+    }
 	
 </script>
 
-<h1>Mapping Data Jenis Pembayaran dengan COA</h1>
+<h1>{JUDUL} Mapping Data Jenis Pembayaran dengan COA</h1>
 <br/>
 
    <!-- patTemplate:tmpl name="warning_box" visibility="hidden" -->
@@ -26,35 +29,36 @@
    
    
    <form method="POST" name="frmKegiatan" action="{URL_ACTION}" class="xhr_form std_form" id="frmInput" >
-   <input type="hidden" name="data[kodepenerimaan][id]" value="{DATA_KODEPENERIMAAN_ID}"  />
-      <table class="table-edit" width="100%">  		 		 
-		 <tr>
-            <th width="150">ID Pembayaran</th>
-            <td>
-				<input type="text" name="data[kodepenerimaan][jenis_pembayaran_id]" id="jenis_pembayaran_id" value="{DATA_JENIS_PEMBAYARAN_ID}" readonly="readonly" />
-			</td>
-         </tr>
-		 <tr>
-            <th width="150">Kode Pembayaran</th>
-            <td>
-				<input type="text" name="data[kodepenerimaan][jenis_pembayaran_kode]" id="jenis_pembayaran_kode" value="{DATA_JENIS_PEMBAYARAN_KODE}" readonly="readonly" />
-			</td>
-         </tr>
-		 <tr>
-            <th width="150">Nama Pembayaran</th>
-            <td>
-				<input type="text" name="data[kodepenerimaan][jenis_pembayaran_nama]" id="jenis_pembayaran_nama" size="35" value="{DATA_JENIS_PEMBAYARAN_NAMA}" readonly="readonly">
-			</td>
-         </tr>
+   <input type="hidden" name="data[kodepenerimaan][id]" value="{DATA_ID}"  />
+      <table class="table-edit" width="100%">
 
 		 <tr>
-            <th>Mapping Penerimaan</th>
+            <th>Nama Pembayaran</th>
             <td>
 				<input type="hidden" name="data[kodepenerimaan][penerimaan_id]" id="penerimaan_id" value="{DATA_KODEPENERIMAAN_ID}" readonly="readonly" />
 				<input type="text" name="data[kodepenerimaan][penerimaan_kode]" id="penerimaan_kode" value="{DATA_KODEPENERIMAAN_KODE}" readonly="readonly"/>
 				<input type="text" name="data[kodepenerimaan][nama]" id="penerimaan_nama" size="35" value="{DATA_KODEPENERIMAAN_NAMA}" readonly="readonly">
 				&nbsp;<input type="button" name="but_jenis_pembayaran" id="but_jenis_pembayaran" onclick="bukaPopupKodePenerimaan('{URL_POPUP_PEMBAYARAN}')" value=" ... " />&nbsp;</td>
          </tr>
+		 
+		 <tr>
+            <th>Program Studi</th>
+            <td>
+				<input type="hidden" name="data[kodepenerimaan][prodi_id]" id="prodi_id" value="{DATA_PRODI_ID}" readonly="readonly" />
+				<input type="text" name="data[kodepenerimaan][prodi_kode]" id="prodi_kode" value="{DATA_PRODI_KODE}" readonly="readonly"/>
+				<input type="text" name="data[kodepenerimaan][prodi_nama]" id="prodi_nama" size="35" value="{DATA_PRODI_NAMA}" readonly="readonly">
+				&nbsp;<input type="button" name="btn_prodi" id="btn_prodi" onclick="bukaPopupProdi('{URL_POPUP_PRODI}')" value=" ... " />&nbsp;</td>
+         </tr>
+		 
+		 <tr>
+			<th width="150">COA</th>
+			<td>
+				<input type="text" id="kode_coa" name="data[kodepenerimaan][kode_coa]" value="{DATA_KODE_COA}" 
+				size="55" readonly="readonly" />&nbsp;
+				<input type="hidden" id="id_coa" name="data[kodepenerimaan][coaid]" value="{DATA_ID_COA}"/> 
+				<input type="button" id="btn_coa" name="btn_coa" value=" ... " onclick="bukaPopupCoa('{URL_POPUP_COA}')" />
+			</td>
+		 </tr>
                   
          <tr class="buttons">
             <th>&nbsp;
