@@ -38,7 +38,6 @@ class ViewKodePenerimaanMappingPembayaran extends HtmlResponse {
 	  $search['kodepenerimaan']['kode']=$kode;
 	  $search['kodepenerimaan']['nama']=$nama;
 	  $totalData = $this->proc->KodePenerimaanMappingPembayaran->GetCount($search['kodepenerimaan']);
-	  // $dataList = $this->proc->KodePenerimaan->GetData($startRec,$itemViewed, $search['kodepenerimaan']);
 	  $dataListJenisPembayaran = $this->proc->KodePenerimaanMappingPembayaran->GetData($startRec,$itemViewed, $search['kodepenerimaan']);
 	  
 	  // echo '<br>'.$startRec;
@@ -87,7 +86,7 @@ class ViewKodePenerimaanMappingPembayaran extends HtmlResponse {
 		$this->mrTemplate->AddVar('content', 'SEARCH_KP_KODE', $data['kode']);
 		$this->mrTemplate->AddVar('content', 'SEARCH_KP_NAMA', $data['nama']);	  
 		$this->mrTemplate->AddVar('content', 'URL_SEARCH', Dispatcher::Instance()->GetUrl('kode_penerimaan', 'kodePenerimaanMappingPembayaran', 'view', 'html') );
-		//$this->mrTemplate->AddVar('content', 'URL_ADD', Dispatcher::Instance()->GetUrl('kode_penerimaan', 'inputKodePenerimaan', 'view', 'html') );	  	  
+		$this->mrTemplate->AddVar('content', 'URL_ADD', Dispatcher::Instance()->GetUrl('kode_penerimaan', 'inputKodePenerimaanMappingPembayaran', 'view', 'html') );	  	  
 	  
 		if (isset ($data['msg'])) {	     
          $this->mrTemplate->SetAttribute('warning_box', 'visibility', 'visible');

@@ -17,9 +17,7 @@ class KodePenerimaanMappingPembayaran extends Database
 	protected $mServiceAddressId = '520';	
 	protected $mModServiceInsert = "?mod=pemetaan_kode_penerimaan&sub=InsertKodePenerimaanRef&act=rest&typ=rest&";
 	protected $mModServiceDelete = "?mod=pemetaan_kode_penerimaan&sub=DeleteKodePenerimaanRef&act=rest&typ=rest&";
-	/**
-	 * end
-	 */
+
 	 
 	public function __construct($connectionNumber=1) 
 	{
