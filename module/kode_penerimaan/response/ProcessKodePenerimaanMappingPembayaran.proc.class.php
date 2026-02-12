@@ -121,12 +121,12 @@ class ProcessKodePenerimaanMappingPembayaran
 			    
 		
 		// program studi
-	    if(isset($this->$data['kodepenerimaan']['prodi_id']) && (trim($this->data['kodepenerimaan']['prodi_id']) != ''))
+	   /* if(isset($this->$data['kodepenerimaan']['prodi_id']) && (trim($this->data['kodepenerimaan']['prodi_id']) != ''))
 	      $this->data['kodepenerimaan']['prodi_id']= Dispatcher::Instance()->Decrypt($this->data['kodepenerimaan']['prodi_id']);
 			    
 		if(!isset($this->data['kodepenerimaan']['prodi_nama']) || trim($this->data['kodepenerimaan']['prodi_nama']) == '')
 	      $this->msg.='Nama Prodi Tidak Boleh Kosong <br />';
-	  
+	  */
 		// coa akun
 	    if(isset($this->$data['kodepenerimaan']['coaid']) && (trim($this->data['kodepenerimaan']['coaid']) != ''))
 	      $this->data['kodepenerimaan']['coaid']= Dispatcher::Instance()->Decrypt($this->data['kodepenerimaan']['coaid']);

@@ -12,13 +12,13 @@
 * ================= doc ====================
 */
 require_once GTFWConfiguration::GetValue('application','docroot').
-'module/jurnal_penerimaan/business/AppPopupCoa.class.php';
+'module/jurnal_penerimaan_pembayaran/business/AppPopupCoa.class.php';
 
 class PopupCoa extends HtmlResponse
 {
    function TemplateModule(){
       $this->SetTemplateBasedir(GTFWConfiguration::GetValue('application','docroot').
-      'module/jurnal_penerimaan/template/');
+      'module/jurnal_penerimaan_pembayaran/template/');
       $this->SetTemplateFile('popup_coa.html');
    }
 
@@ -102,7 +102,7 @@ class PopupCoa extends HtmlResponse
       $requestQuery     = $data['request_query'];
       $dataCoa          = array();
       $urlSearch        = Dispatcher::Instance()->GetUrl(
-         'jurnal_penerimaan',
+         'jurnal_penerimaan_pembayaran',
          'Coa',
          'popup',
          'html'

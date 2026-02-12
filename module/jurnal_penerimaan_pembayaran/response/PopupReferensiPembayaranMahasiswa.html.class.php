@@ -140,8 +140,8 @@ class PopupReferensiPembayaranMahasiswa extends HtmlResponse {
             $index = 0;
             foreach ($dataList as $list) {
                 $transaksi[$list['id']] = $list;
-                if(!empty($list['coa_id'])) {
-					$getCoa = $mEfi->GetCoaDebet($list['coa_id']); 
+  
+				$getCoa = $mEfi->GetCoaDebet($list['coa_id']); 
                     /*$dataCoa[$list['id']][] = array(
                         'coa_id'                => $list['coa_id'],
                         'coa_is_debet_positif'  => $list['coa_is_debet_positif'],
@@ -152,17 +152,18 @@ class PopupReferensiPembayaranMahasiswa extends HtmlResponse {
 					
 					$dataCoa[$list['id']][] = array(
                         'coa_id'                => $getCoa[0]['coaId'],
-                        'coa_is_debet_positif'  => 1,
+                        'coa_is_debet_positif'  => $getCoa[0]['coa_is_debet_positif'],
                         'coa_kode'              => $getCoa[0]['coaKodeAkun'],
                         'coa_nama'              => $getCoa[0]['coaNamaAkun'],
-                        'nominal'               => $list['nominal']
+                        'nominal'               => $list['real_bayar']
                     );
-                }
+        
+                $list['akun_coa'] = $getCoa[0]['coaKodeAkun'];
+                $list['nama_coa'] = $getCoa[0]['coaNamaAkun'];
 				
-					
                 $list['nomor'] = $start;
                 $list['class_name'] = ($start % 2 <> 0) ? 'table-common-even' : '';
-                $list['nominal'] = number_format($list['nominal'], 0, ',', '.');
+                $list['nominal'] = number_format($list['real_bayar'], 0, ',', '.');
                 $list['real_bayar'] = number_format($list['real_bayar'], 0, ',', '.');
 
                 $this->mrTemplate->AddVars('data_list', $list);

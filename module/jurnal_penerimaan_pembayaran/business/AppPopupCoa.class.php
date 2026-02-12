@@ -64,7 +64,7 @@ class AppPopupCoa extends Database
    # Constructor
    function __construct ($connectionNumber = 0)
    {
-      $this->mSqlFile   = 'module/jurnal_penerimaan/business/apppopupcoa.sql.php';
+      $this->mSqlFile   = 'module/jurnal_penerimaan_pembayaran/business/apppopupcoa.sql.php';
       $this->_POST      = is_object($_POST) ? $_POST->AsArray() : $_POST;
       $this->_GET       = is_object($_GET) ? $_GET->AsArray() : $_GET;
       parent::__construct($connectionNumber);
