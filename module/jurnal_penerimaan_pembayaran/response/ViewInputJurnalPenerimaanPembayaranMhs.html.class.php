@@ -87,7 +87,19 @@ class ViewInputJurnalPenerimaanPembayaranMhs extends HtmlResponse
             }
          }
       }
-
+	
+	  # GTFW Tanggal
+        Messenger::Instance()->SendToComponent(
+            'tanggal', 'Tanggal', 'view', 'html', 'tanggal_transaksi', array(
+				date('Y-m-d'),
+				$minYear,
+				$maxYear,
+				false,
+				false,
+				false
+            ), Messenger::CurrentRequest
+        );
+		
       # Combobox
       Messenger::Instance()->SendToComponent(
          'combobox',

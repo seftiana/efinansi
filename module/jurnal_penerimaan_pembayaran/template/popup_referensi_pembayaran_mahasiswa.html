@@ -10,29 +10,13 @@
             </h2>
          </th>
       </tr>
-	  <tr>
-         <th>
-            Tahun
-         </th>
-         <td>
-            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tahun"  / -->
-         </td>
-      </tr>
-      <tr>
-         <th>
-            Bulan
-         </th>
-         <td>
-            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="bulan"  / -->
-         </td>
-      </tr>
       
       <tr>
          <th style="width: 135px;">
-            <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+            Tanggal Pembayaran
          </th>
          <td>
-            <input type="text" name="kode" id="kode" size="35" value="{KODE}" />
+			 <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="referensi_tanggal" / -->
          </td>
       </tr>
       <tr>
@@ -200,14 +184,14 @@ var setData          = function(id){
            //document.getElementById('button-coa-debet').style.display = 'none';
       //}
 	  if (!isPilihSemua) {
-      popupClose();
+      //popupClose();
 	  }
    }
 
 function pilihSemuaData() {
 	isPilihSemua = true;
 	var totalNominal = 0;
-	var totalKeterangan = [];
+
 	 // kosongkan SEKALI
     document.getElementById('CoaPlaceHolder_debet').deleteAllItem();
     document.getElementById('CoaPlaceHolder_kredit').deleteAllItem();
@@ -218,10 +202,6 @@ function pilihSemuaData() {
             // isi data utama (referensi, nominal, dll)
             //setData(id); 
 			totalNominal += parseFloat(dataTransaksi[id].nominal) || 0;
-			
-			if(dataTransaksi[id].keterangan){
-                totalKeterangan.push(dataTransaksi[id].keterangan);
-            }
             
 			// update COA Debet / Kredit
             document.update_COA_list(
@@ -232,7 +212,6 @@ function pilihSemuaData() {
     }
 	
 	form.elements.nominal.gvSetValue(totalNominal);
-	form.elements.keterangan.value = totalKeterangan.length > 0 ? totalKeterangan[0] : '';
 	 
 	isPilihSemua = false;
     // tutup popup setelah semua masuk

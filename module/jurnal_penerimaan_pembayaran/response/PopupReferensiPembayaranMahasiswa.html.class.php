@@ -20,21 +20,21 @@ class PopupReferensiPembayaranMahasiswa extends HtmlResponse {
     function ProcessRequest() {
         $mObj = new AppReferensiPembayaranMahasiswa();
         $requestData = array();   
-        $tahun            = $mObj->getTahunPembayaran();
-        $bulan            = $mObj->getBulan();
+        // $tahun            = $mObj->getTahunPembayaran();
+        // $bulan            = $mObj->getBulan();
 
         if (isset($mObj->_POST['btnSearch'])) {
-            $requestData['kode'] = trim($mObj->_POST['kode']);
-            $requestData['bulan'] = trim($mObj->_POST['bulan']);
-            $requestData['tahun'] = trim($mObj->_POST['tahun']);
+            $requestData['referensi_tanggal_day'] = trim($mObj->_POST['referensi_tanggal_day']);
+            $requestData['referensi_tanggal_mon'] = trim($mObj->_POST['referensi_tanggal_mon']);
+            $requestData['referensi_tanggal_year'] = trim($mObj->_POST['referensi_tanggal_year']);
         } elseif (isset($mObj->_GET['search'])) {
-            $requestData['kode'] = Dispatcher::Instance()->Decrypt($mObj->_GET['kode']);
-            $requestData['bulan'] = Dispatcher::Instance()->Decrypt($mObj->_GET['bulan']);
-            $requestData['tahun'] = Dispatcher::Instance()->Decrypt($mObj->_GET['tahun']);
+            $requestData['referensi_tanggal_day'] = Dispatcher::Instance()->Decrypt($mObj->_GET['referensi_tanggal_day']);
+            $requestData['referensi_tanggal_mon'] = Dispatcher::Instance()->Decrypt($mObj->_GET['referensi_tanggal_mon']);
+            $requestData['referensi_tanggal_year'] = Dispatcher::Instance()->Decrypt($mObj->_GET['referensi_tanggal_year']);
         } else {
-            $requestData['kode'] = '';
-            $requestData['bulan'] = 'all';
-            $requestData['tahun'] = date('Y');
+            $requestData['referensi_tanggal_day'] = date('d');
+            $requestData['referensi_tanggal_mon'] = date('m');
+            $requestData['referensi_tanggal_year'] = date('Y');
         }
 
         if (method_exists(Dispatcher::Instance(), 'getQueryString')) {
@@ -63,51 +63,29 @@ class PopupReferensiPembayaranMahasiswa extends HtmlResponse {
         $destination_id = "popup-subcontent";
         $dataList = $mObj->getDataReferensiPembayaran($offset, $limit, (array) $requestData);
         $total_data = $mObj->getCount();
-		
-// echo'<pre>';
-// print_r($dataList);
-// echo'</pre>';
-// die;
-
+	
         #send data to pagging component
         Messenger::Instance()->SendToComponent(
-                'paging', 'Paging', 'view', 'html', 'paging_top', array(
-            $limit,
-            $total_data,
-            $url,
-            $page,
-            $destination_id
-                ), Messenger::CurrentRequest
+            'paging', 'Paging', 'view', 'html', 'paging_top', array(
+				$limit,
+				$total_data,
+				$url,
+				$page,
+				$destination_id
+            ), Messenger::CurrentRequest
         );
-
-
+	
+		# GTFW Tanggal
         Messenger::Instance()->SendToComponent(
-         'combobox',
-         'Combobox',
-         'view',
-         'html',
-         'bulan',
-         array(
-            'bulan',
-            $bulan,
-            $requestData['bulan'],
-            false,
-            'id="cmb_month"'
-         ), Messenger::CurrentRequest);
-		 
-		  Messenger::Instance()->SendToComponent(
-         'combobox',
-         'Combobox',
-         'view',
-         'html',
-         'tahun',
-         array(
-            'tahun',
-            $tahun,
-            $requestData['tahun'],
-            false,
-            'id="cmb_year"'
-         ), Messenger::CurrentRequest);
+            'tanggal', 'Tanggal', 'view', 'html', 'referensi_tanggal', array(
+				$requestData['referensi_tanggal_year'].'-'.$requestData['referensi_tanggal_mon'].'-'.$requestData['referensi_tanggal_day'],
+				$minYear,
+				$maxYear,
+				false,
+				false,
+				false
+            ), Messenger::CurrentRequest
+        );
       
         $return['query_string'] = $queryString;
         $return['request_data'] = $requestData;
@@ -140,23 +118,14 @@ class PopupReferensiPembayaranMahasiswa extends HtmlResponse {
             $index = 0;
             foreach ($dataList as $list) {
                 $transaksi[$list['id']] = $list;
-  
 				$getCoa = $mEfi->GetCoaDebet($list['coa_id']); 
-                    /*$dataCoa[$list['id']][] = array(
-                        'coa_id'                => $list['coa_id'],
-                        'coa_is_debet_positif'  => $list['coa_is_debet_positif'],
-                        'coa_kode'              => $list['coa_kode_akun'],
-                        'coa_nama'              => 'huy'.$list['coa_nama_akun'],
-                        'nominal'               => $list['nominal']
-                    );*/
-					
-					$dataCoa[$list['id']][] = array(
+				$dataCoa[$list['id']][] = array(
                         'coa_id'                => $getCoa[0]['coaId'],
                         'coa_is_debet_positif'  => $getCoa[0]['coa_is_debet_positif'],
                         'coa_kode'              => $getCoa[0]['coaKodeAkun'],
                         'coa_nama'              => $getCoa[0]['coaNamaAkun'],
                         'nominal'               => $list['real_bayar']
-                    );
+                );
         
                 $list['akun_coa'] = $getCoa[0]['coaKodeAkun'];
                 $list['nama_coa'] = $getCoa[0]['coaNamaAkun'];

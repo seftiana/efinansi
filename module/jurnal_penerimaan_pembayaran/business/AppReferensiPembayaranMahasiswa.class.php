@@ -87,12 +87,13 @@ class AppReferensiPembayaranMahasiswa extends Database
       }
    }
 
-   public function getDataReferensiPembayaran($offset, $limit, $param = array()){
-			
-         // '%'.$param['kode'].'%',
+   public function getDataReferensiPembayaran($offset, $limit, $param = array())
+   {	
+		$tgl_mulai = $param['referensi_tanggal_year'].'-'.$param['referensi_tanggal_mon'].'-'.$param['referensi_tanggal_day'].' 00:00:00';
+		$tgl_selesai = $param['referensi_tanggal_year'].'-'.$param['referensi_tanggal_mon'].'-'.$param['referensi_tanggal_day'].' 23:59:59';
 		$return     = $this->Open($this->mSqlQueries['get_data_referensi_pembayaran'], array(
-			$param['tahun'],
-			$param['bulan'],
+			$tgl_mulai,
+			$tgl_selesai,
 			$offset,
 			$limit
 		));

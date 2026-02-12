@@ -72,23 +72,46 @@ table.table-details input[readonly].gvFloat{
    </div>
 </div>
 <form method="POST" action="{URL_ACTION}" class="xhr_form std_form dest_subcontent-element" data-target="{URL_RETURN}" id="frmInput" name="frmInput">
-   <input type="text" name="data_id" value="{ID}" />
-   <input type="text" name="trans_tt_id" id="trans_tt_id" value="{TRANS_TT_ID}" />
-   <input type="text" name="pembukuan_referensi_id" value="{PEMBUKUAN_ID}" />
+   <input type="hidden" name="data_id" value="{ID}" />
+   <input type="hidden" name="trans_tt_id" id="trans_tt_id" value="{TRANS_TT_ID}" />
+   <input type="hidden" name="pembukuan_referensi_id" value="{PEMBUKUAN_ID}" />
    <table class="table-edit" width="100%">
       <tr class="subhead">
          <th colspan="2">
             Tambah Data
          </th>
       </tr>
-
+	  <tr>
+         <th style="width: 130px;">
+            Tanggal Pembayaran
+         </th>
+         <td>
+			 <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="tanggal_transaksi" / -->
+         </td>
+      </tr>
+	  <tr>
+         <th>
+            Diterima Dari 
+         </th>
+         <td>
+			<input type="text" name="nama_penyetor" id="txt_nama_penyetor" value="" size="50">
+         </td>
+      </tr>
+	  <tr>
+         <th>
+            Kepada 
+         </th>
+         <td>
+			<input type="text" name="nama_penerima" id="txt_nama_penerima" value="" size="50">
+         </td>
+      </tr>
 	  <tr>
          <th style="width: 130px;">
             Pembayaran Mahasiswa
          </th>
          <td>
             <input type="text" name="referensi_id" value="{REFERENSI_ID}" id="txt_referensi_id" />
-            <input type="text" name="is_institute" value="{IS_INSTITUTE}" id="txt_is_institute" />
+            <input type="hidden" name="is_institute" value="{IS_INSTITUTE}" id="txt_is_institute" />
             <input type="text" name="referensi_nama" id="txt_referensi_nama" size="35" value="{REFERENSI_NAMA}" readonly />
             <input type="button" value=" ... " onclick="showPopup('{POPUP_REFERENSI_PEMBAYARAN_MAHASISWA}', '', 600, 550);" />
          </td>
@@ -104,6 +127,7 @@ table.table-details input[readonly].gvFloat{
             <input type="text" name="nominal" id="txt_nominal" value="{NOMINAL}" class="gvFloat" readonly />
          </td>
       </tr>
+	  
       <tr>
          <th>
             Keterangan
