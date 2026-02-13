@@ -22,7 +22,7 @@ class PopupReferensiPembayaranMahasiswa extends HtmlResponse {
         $requestData = array();   
         // $tahun            = $mObj->getTahunPembayaran();
         // $bulan            = $mObj->getBulan();
-
+	
         if (isset($mObj->_POST['btnSearch'])) {
             $requestData['referensi_tanggal_day'] = trim($mObj->_POST['referensi_tanggal_day']);
             $requestData['referensi_tanggal_mon'] = trim($mObj->_POST['referensi_tanggal_mon']);
@@ -32,9 +32,9 @@ class PopupReferensiPembayaranMahasiswa extends HtmlResponse {
             $requestData['referensi_tanggal_mon'] = Dispatcher::Instance()->Decrypt($mObj->_GET['referensi_tanggal_mon']);
             $requestData['referensi_tanggal_year'] = Dispatcher::Instance()->Decrypt($mObj->_GET['referensi_tanggal_year']);
         } else {
-            $requestData['referensi_tanggal_day'] = date('d');
-            $requestData['referensi_tanggal_mon'] = date('m');
-            $requestData['referensi_tanggal_year'] = date('Y');
+            $requestData['referensi_tanggal_day'] = date('d', strtotime($_GET['tgl']));
+            $requestData['referensi_tanggal_mon'] = date('m', strtotime($_GET['tgl']));
+            $requestData['referensi_tanggal_year'] = date('Y', strtotime($_GET['tgl']));
         }
 
         if (method_exists(Dispatcher::Instance(), 'getQueryString')) {

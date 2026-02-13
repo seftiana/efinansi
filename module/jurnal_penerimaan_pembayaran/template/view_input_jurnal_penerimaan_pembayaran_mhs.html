@@ -90,6 +90,18 @@ table.table-details input[readonly].gvFloat{
          </td>
       </tr>
 	  <tr>
+         <th style="width: 130px;">
+            Pembayaran Mahasiswa
+         </th>
+         <td>
+            <input type="text" name="referensi_id" value="{REFERENSI_ID}" id="txt_referensi_id" />
+            <input type="hidden" name="is_institute" value="{IS_INSTITUTE}" id="txt_is_institute" />
+            <input type="text" name="referensi_nama" id="txt_referensi_nama" size="35" value="{REFERENSI_NAMA}" readonly />
+            <!--input type="button" value=" ... " onclick="showPopup('{POPUP_REFERENSI_PEMBAYARAN_MAHASISWA}', '', 600, 550);" /-->
+            <input type="button" value=" ... " onclick="openPopupReferensi();" />
+         </td>
+      </tr>
+	  <tr>
          <th>
             Diterima Dari 
          </th>
@@ -105,17 +117,7 @@ table.table-details input[readonly].gvFloat{
 			<input type="text" name="nama_penerima" id="txt_nama_penerima" value="" size="50">
          </td>
       </tr>
-	  <tr>
-         <th style="width: 130px;">
-            Pembayaran Mahasiswa
-         </th>
-         <td>
-            <input type="text" name="referensi_id" value="{REFERENSI_ID}" id="txt_referensi_id" />
-            <input type="hidden" name="is_institute" value="{IS_INSTITUTE}" id="txt_is_institute" />
-            <input type="text" name="referensi_nama" id="txt_referensi_nama" size="35" value="{REFERENSI_NAMA}" readonly />
-            <input type="button" value=" ... " onclick="showPopup('{POPUP_REFERENSI_PEMBAYARAN_MAHASISWA}', '', 600, 550);" />
-         </td>
-      </tr>
+	  
       <tr>
          <th>
             Nominal
@@ -695,7 +697,7 @@ var deleteRecord     = function(elemenId, el){
 
       if(tBody.id.toUpperCase().indexOf('KREDIT') >= 0){
          emptyRow    = 'kredit-empty-row';
-         totalRow    = 'row-debet-total';
+         totalRow    = 'row-kredit-total';
       }
       var record        = el.parentNode.parentNode;
       var firstNode     = tBody.firstChild.nextSibling;
@@ -770,8 +772,8 @@ var setNominalJurnal    = function (elemenId, el){
          }
       };
    }
-  /* if(nominalTotal > maxNominal){
-      alert('Nominal melebihi nominal transaksi');
+  /*if(nominalTotal > maxNominal){
+      alert('Nominal melebihi nominal transaksi' + nominalTotal + ' / '+ maxNominal);
       if(el && typeof(el) != 'undefined'){
          nominalTotal-=parseFloat(el.gvGetValue());
          el.gvSetValue(parseFloat(0));
@@ -829,6 +831,25 @@ document.getElementById('CoaPlaceHolder_debet').deleteAllItem = function ()
 document.getElementById('CoaPlaceHolder_kredit').deleteAllItem = function ()
 {
      setEmptyRecord(this);
+}
+
+function openPopupReferensi() {
+
+    // ambil select tanggal (sesuaikan id kalau berbeda)
+    var hari  = document.getElementById('tanggal_transaksi_day').value;
+	var bulan = document.getElementById('tanggal_transaksi_mon').value;   // ← ini diperbaiki
+	var tahun = document.getElementById('tanggal_transaksi_year').value;
+
+
+    // format ke Y-m-d
+    var tanggal = tahun + '-' 
+        + (bulan.length == 1 ? '0'+bulan : bulan) + '-' 
+        + (hari.length == 1 ? '0'+hari : hari);
+
+    var url = '{POPUP_REFERENSI_PEMBAYARAN_MAHASISWA}'
+        + '&tgl=' + encodeURIComponent(tanggal);
+
+    showPopup(url, '', 600, 550);
 }
 
 </script>

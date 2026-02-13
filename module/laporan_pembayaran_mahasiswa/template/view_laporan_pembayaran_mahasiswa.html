@@ -1,0 +1,194 @@
+<!-- patTemplate:tmpl name="content" -->
+<h1>
+   Laporan Pembayaran Mahasiswa
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" id="filterbox" name="filterbox" class="dataquest xhr_simple_form dest_subcontent-element">
+   <table>
+      <tr class="subhead">
+         <th colspan="2">
+            <h2>
+               <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+            </h2>
+         </th>
+      </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode" / -->
+         </th>
+         <td>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="start_date"  / -->
+            </div>
+            <div>
+               <!-- patTemplate:gtfwgetconfig config="language" name="s_d" / -->
+            </div>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="end_date"  / -->
+            </div>
+         </td>
+      </tr>
+      <tr>
+         <th>
+            &nbsp;
+         </th>
+         <td>
+            <input type="submit" name="btnSearch" value="Tampilkan &raquo;" class="buttonSubmit" />
+            <input type="reset" name="btnReset" value="Reset" class="buttonSubmit" />
+         </td>
+      </tr>
+   </table>
+</form>
+<br />
+<div class="pageBar">
+   <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+   <div class="toolbar">
+      <a href="{URL_EXPORT}" title="Export Laporan Harian Kas" target="_blank">
+         <img src="images/icons/16/export_excel.gif" alt="">
+         <!-- patTemplate:gtfwgetconfig config="language" name="excel" / -->
+      </a>
+   </div>
+</div>
+<!-- start: Table List -->
+<table class="table-common" width="100%">
+   <thead>
+      <tr>
+         <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+         </th>
+         <th>
+            No. Pendaftaran
+         </th>
+         <th>
+            NIM
+         </th>
+         <th>
+            Nama
+         </th>
+         <th>
+            Program Studi
+         </th>
+		 <th>
+            Jenis Biaya
+         </th>
+		 <th>
+            COA
+         </th>
+		 <th>
+            Nominal
+         </th>
+		 <th>
+            Potongan
+         </th>
+		 <th>
+            Deposit
+         </th>
+		 <th>
+            Real Bayar
+         </th>
+		<th>
+            Tgl. Bayar
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+         <!-- patTemplate:sub condition="YES" -->
+            <tr>
+               <td colspan="12">
+                  <center>
+                     <em>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->
+                     </em>
+                  </center>
+               </td>
+            </tr>
+         <!-- /patTemplate:sub -->
+         <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_list" -->
+               <tr class="{DATA_CLASS_NAME}">
+                  <td align="center">
+                     {NOMOR}
+                  </td>
+                  <td align="center">
+                     {MAHASISWANOTEST}
+                  </td>
+                  <td align="center">
+                     {NIM}
+                  </td>
+                  <td>
+                     {NAMA}
+                  </td>
+                  <td>
+                     {PRODI}
+                  </td>
+				  <td>
+                     {JENIS_BIAYA}
+                  </td>
+				  <td style="text-align: right;">
+                     {COA_ID}
+                  </td>
+                  <td style="text-align: right;">
+                     {NOMINAL}
+                  </td>
+                  <td style="text-align: right;">
+                     {POTONGAN}
+                  </td>
+                  <td style="text-align: right;">
+                     {DEPOSIT}
+                  </td>
+				  <td style="text-align: right;">
+                     {ASLI_BAYAR}
+                  </td>
+				  <td>
+                     {TGL_BAYAR}
+                  </td>
+               </tr>
+            <!-- /patTemplate:tmpl -->
+			
+         <!-- /patTemplate:sub -->
+      <!-- /patTemplate:tmpl -->
+				<tr class="table-common-even2" style="font-weight: bold;">
+                  <td style="text-align: right;" colspan="10">
+                      Total Per Page
+                  </td>
+                  <td align="right">
+                     {TOTAL_REAL_BAYAR_PER_PAGE}
+                  </td>
+				   <td align="right">
+                     
+                  </td>
+               </tr>
+			   <tr class="table-common-even2" style="font-weight: bold;">
+                  <td style="text-align: right;" colspan="10">
+                      Total All
+                  </td>
+                  <td align="right">
+                     {TOTAL_REAL_BAYAR_ALL}
+                  </td>
+				   <td align="right">
+                     
+                  </td>
+               </tr>
+
+   </tbody>
+</table>
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   
+   <ul>
+      <li>
+         <img src="images/lamp-green.gif" style="margin-bottom: -4px;"/> Menandakan transaksi sudah dijurnalkan
+      </li>
+      <li>
+         <img src="images/lamp-yellow.gif" style="margin-bottom: -4px;"/> Menandakan transaksi belum dijurnalkan
+      </li>
+      <li>
+         <!-- patTemplate:gtfwgetconfig config="language" name="klik" / --> <img src="images/icons/16/export_excel.gif" style="margin-bottom: -4px;"/> Untuk melakukan export excel 
+      </li>
+   </ul>
+</div>
+<!-- end: Table List -->
+<!-- /patTemplate:tmpl -->

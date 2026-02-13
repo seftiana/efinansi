@@ -19,7 +19,7 @@
 			 <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="referensi_tanggal" / -->
          </td>
       </tr>
-      <tr>
+      <tr style="display:none;">
          <th>
             &nbsp;
          </th>
@@ -54,9 +54,6 @@
          <th>
             Nama COA
          </th>
-		 <th>
-            Bulan
-         </th>
          <th>
             Bayar (Rp)
          </th>
@@ -90,9 +87,6 @@
                   <td>
                      {NAMA_COA}
                   </td>
-				  <td>
-                     {BULAN} {TAHUN}
-                  </td>
                   <td align="right">
                      {REAL_BAYAR}
                   </td>
@@ -110,6 +104,10 @@
 <!-- end: Table List -->
 
 <script type="text/javascript">
+document.getElementById('referensi_tanggal_day').disabled = true;
+document.getElementById('referensi_tanggal_mon').disabled = true;
+document.getElementById('referensi_tanggal_year').disabled = true;
+
 var isPilihSemua = false;
 
 var dataTransaksi    = {TRANSAKSI_DATA};
@@ -134,28 +132,28 @@ var setData          = function(id){
   //popupClose();
 }
 
-
-
  
-   document.update_COA_list = function (id,tipe_id)
+document.update_COA_list = function (id,tipe_id)
    {
       //alert(id);
       document.getElementById('button-coa-debet').style.display = 'block';
       document.getElementById('trans_tt_id').value = tipe_id;
-	  if (!isPilihSemua) {
-      document.getElementById('CoaPlaceHolder_debet').deleteAllItem();
-      document.getElementById('CoaPlaceHolder_kredit').deleteAllItem();
-      }
-      //if( tipe_id == 2){
-      //    document.getElementById('button-coa-debet').style.display = 'block';
-      //} else {      
+	  
+		//if (!isPilihSemua) {
+		  //document.getElementById('CoaPlaceHolder_debet').deleteAllItem();
+		  //document.getElementById('CoaPlaceHolder_kredit').deleteAllItem();
+		//}
+      if( tipe_id == 2){
+          document.getElementById('button-coa-debet').style.display = 'block';
+      } else {      
      
         var data = {COA_DATA};
         if(data[id]) {
             var dataToMount   = data[id];
             if(dataToMount.length > 0){
                for (var i in dataToMount){
-                    if(dataToMount[i]['coa_is_debet_positif'] == 1) {   
+			   
+                    if(dataToMount[i]['coa_is_debet_positif'] == 1) {  
                         document.getElementById('CoaPlaceHolder_debet').addItem(
                            dataToMount[i]['coa_id'],            
                            dataToMount[i]['coa_kode'],
@@ -175,17 +173,18 @@ var setData          = function(id){
                            '',
                            '',
                            dataToMount[i]['nominal'],
-                           1 // artinya untuk menandai bahwa coa berasal dari transaksi referensi
+                           0 // artinya untuk menandai bahwa coa berasal dari transaksi referensi
                         );                        
                     }
+					
                }
             }
         }
            //document.getElementById('button-coa-debet').style.display = 'none';
-      //}
-	  if (!isPilihSemua) {
+      }
+	  //if (!isPilihSemua) {
       //popupClose();
-	  }
+	  //}
    }
 
 function pilihSemuaData() {
