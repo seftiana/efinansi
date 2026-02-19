@@ -1,0 +1,215 @@
+<!-- patTemplate:tmpl name="content" -->
+<style>    
+    .table-highlight td {
+        background-color: #F9F0CD;
+        font-weight: bold;
+    }
+</style>
+<h1><!-- patTemplate:gtfwgetconfig config="language" name="pembayaran_mhs" / --></h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+    <table>
+        <tr>
+            <th colspan="2">
+                <h2>
+                    <strong>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+                    </strong>
+                </h2>
+            </th>
+        </tr>
+      <tr>
+         <th style="width: 130px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+         </th>
+         <td>
+            <div>
+               <!-- patTemplate:gtfwrendermodule module="tanggal" submodule="Tanggal" action="view" name="start_date"  / -->
+            </div>
+         </td>
+         <td>
+             <input type="hidden" name="jenis_biaya_id" id="jenis_biaya_id" value="{JENIS_BIAYA_ID}" />
+             <input type="hidden" name="jenis_biaya_nama" id="jenis_biaya_nama" value="{JENIS_BIAYA_NAMA}" />
+             <input type="hidden" name="tipe_bayar_skenario" id="tipe_bayar_skenario" value="{TIPE_BAYAR_SKENARIO}" />
+         </td>
+      </tr>
+      <tr style="display:none;">
+            <th>
+                <!-- patTemplate:gtfwgetconfig config="language" name="periode_pembayaran" / -->
+            </th>
+            <td>
+                <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="periode_pembayaran"  / -->
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <!-- patTemplate:gtfwgetconfig config="language" name="tipe" / -->
+            </th>
+            <td>
+                <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tipe_pembayaran"  / -->
+            </td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+                <input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+<br />
+
+<div class="pageBar">
+    <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<table class="table-common" width="100%">
+    <thead>
+        <tr>
+            <th width="5">
+                No
+            </th>
+			<th>
+                COA
+            </th>
+			<th>
+                Nama Akun
+            </th>
+			<th>
+                Jenis Biaya
+            </th>
+			<th>
+                D/K
+            </th>
+            <th>
+                <!-- patTemplate:gtfwgetconfig config="language" name="nominal_rp" / -->
+            </th>
+            <th width="31">
+                <!-- patTemplate:gtfwgetconfig config="language" name="pilih" / -->
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+        <!-- patTemplate:sub condition="YES" -->
+        <tr>
+            <td colspan="7" align="center">
+                <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+            </td>
+        </tr>
+        <!-- /patTemplate:sub -->
+        <!-- patTemplate:sub condition="NO" -->
+        <!-- patTemplate:tmpl name="data_list" -->
+        <tr class="{CLASS_NAME}">
+            <td align="center">
+                {NOMOR}
+            </td>
+			<td>
+				{COA_KODE}
+			</td>
+			<td>
+				{COA_NAMA}
+			</td>
+			<td>
+				{NAMA_BIAYA}
+			</td>
+			<td>
+				{COA_DK}
+			</td>
+            <td align="right">
+                {F_NOMINAL}
+            </td>
+
+            <td class="links" align="center">       
+                <!-- patTemplate:tmpl name="link_pilih" visibility="hidden" -->
+                <a href="javascript:void(0)" onclick="update_COA_list('{F_COA}');"><img alt="Pilih" src="images/button-check.gif"/></a>                                  
+                <!-- /patTemplate:tmpl --> 
+            </td>
+        </tr>
+        <!-- /patTemplate:tmpl -->
+        <!-- /patTemplate:sub -->
+        <!-- /patTemplate:tmpl -->
+    </tbody>
+</table>
+<script type="text/javascript">
+  function update_COA_list(coa_id)
+{
+
+    var data = {DATA_COA};
+
+    var item = null;
+
+    for (var i = 0; i < data.length; i++)
+    {
+        if(data[i].coa_id == coa_id)
+        {
+            item = data[i];
+            break;
+        }
+    }
+
+    if(item == null)
+    {
+        alert("COA tidak ditemukan");
+        return;
+    }
+
+
+    if(item.coa_dk == 'D')
+    {
+
+        var input = document.getElementById('debet-nominal-'+item.coa_id);
+
+        if(input)
+        {
+            // ✅ REPLACE NOMINAL
+            input.value = item.nominal;
+
+            setNominalJurnal('CoaPlaceHolder_debet');
+        }
+        else
+        {
+            document.getElementById('CoaPlaceHolder_debet').addItem(
+                item.coa_id,
+                item.coa_kode,
+                item.coa_nama,
+                '',
+                '',
+                item.ket,
+                item.nominal
+            );
+        }
+
+    }
+    else
+    {
+
+        var input = document.getElementById('kredit-nominal-'+item.coa_id);
+
+        if(input)
+        {
+            input.value = item.nominal;
+
+            setNominalJurnal('CoaPlaceHolder_kredit');
+        }
+        else
+        {
+            document.getElementById('CoaPlaceHolder_kredit').addItem(
+                item.coa_id,
+                item.coa_kode,
+                item.coa_nama,
+                '',
+                '',
+                item.ket,
+                item.nominal
+            );
+        }
+
+    }
+
+}
+
+
+</script>
+<!-- /patTemplate:tmpl -->

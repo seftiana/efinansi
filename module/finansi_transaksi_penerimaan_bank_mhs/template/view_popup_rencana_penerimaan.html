@@ -1,0 +1,175 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+    function setParent(xid, xlabel,xnominal) {
+        if (document.getElementById('rpen_id')) {
+            document.getElementById('rpen_id').value = xid;
+        }
+        if (document.getElementById('rpen_nama')) {
+            document.getElementById('rpen_nama').value = xlabel;
+        }
+        if (document.getElementById('rpen_nominal')) {
+            document.getElementById('rpen_nominal').value = xnominal;
+        }
+        popupClose();
+    }
+
+</script>
+<h1>    
+<!-- patTemplate:tmpl name="kelompok_rpen_title" visibility="hidden" -->
+    <!-- patTemplate:gtfwgetconfig config="language" name="rencana_penerimaan" / -->
+<!-- /patTemplate:tmpl -->
+<!-- patTemplate:tmpl name="kelompok_lppa_title" visibility="hidden" -->
+    <!-- patTemplate:gtfwgetconfig config="language" name="lppa" / -->
+<!-- /patTemplate:tmpl -->
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+    <table>
+        <tr>
+            <th colspan="2">
+                <h2>
+                    <strong>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+                    </strong>
+                </h2>
+            </th>
+        </tr>
+      <tr>
+         <th style="width: 115px;">
+            <!-- patTemplate:gtfwgetconfig config="language" name="periode_tahun" / -->
+         </th>
+         <td>
+            <!-- patTemplate:gtfwrendermodule module="combobox" submodule="Combobox" action="view" name="periode_tahun"  / -->
+         </td>
+      </tr>        
+        <tr>
+            <th style="width: 115px;">
+                <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+            </th>
+            <td>
+                <input type="text" name="kode" value="{KODE}" size="20" />
+            </td>
+        </tr> 
+        <!-- patTemplate:tmpl name="kelompok_rpen_snama" visibility="hidden" --> 
+        <tr>
+            <th>
+                <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+            </th>
+            <td><input type="text" name="nama" value="{NAMA}" size="30" /></td>
+        </tr>
+        <!-- /patTemplate:tmpl -->
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+                <input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+<br />
+
+<div class="pageBar">
+    <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+
+
+<!-- patTemplate:tmpl name="kelompok_rpen" visibility="hidden" -->
+    <table class="table-common" width="100%">
+        <tr>
+            <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="kode" / --></th>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="nama_kegiatan" / --></th>
+            <th><!-- patTemplate:gtfwgetconfig config="language" name="nominal_disetujui" / --></th>
+            <th style="display:none;"><!-- patTemplate:gtfwgetconfig config="language" name="nominal_realisasi_rp" / --></th>
+            <th style="display:none;"><!-- patTemplate:gtfwgetconfig config="language" name="sisa_rp" / --></th>
+            <th width="31"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+        </tr>
+        <!-- patTemplate:tmpl name="data_rpen" type="condition" conditionvar="RPEN_EMPTY" -->
+            <!-- patTemplate:sub condition="YES" -->
+                <tr><td colspan="6" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+            <!-- /patTemplate:sub -->
+            <!-- patTemplate:sub condition="NO" -->
+                <!-- patTemplate:tmpl name="data_rpen_item" -->
+                <tr class="{RPEN_DETIL_CLASS_NAME}">
+                    <td align="center">{RPEN_DETIL_NUMBER}</td>
+                    <td>{RPEN_DETIL_KODE}</td>
+                    <td><!-- patTemplate:tmpl name="cekbox" -->
+                                    {RPEN_DETIL_NAMA}
+                                <!-- /patTemplate:tmpl -->
+                                <!-- patTemplate:tmpl name="content_description" visibility="hidden" -->
+                                <label style="display: block; width: 100%; padding-top: 8px; font-style: italic;">
+                                    ({KETERANGAN})
+                                </label>
+                                <!-- /patTemplate:tmpl -->
+                        </td>
+                    <td align="right">{RPEN_DETIL_NOMINAL_APROVE}</td>
+                    <td class="links" align="center">
+                        <!-- patTemplate:tmpl name="pilih" visibility="visible" -->
+                        <a href="javascript:void(0)" onclick="javascript:setParent('{RPEN_DETIL_ID}', '{RPEN_DETIL_NAMA}', '{RPEN_DETIL_NOMINAL_APROVE}')"><img alt="Pilih" src="images/button-check.gif"/></a>
+                        <!-- /patTemplate:tmpl -->
+                        
+                    </td>
+                </tr>
+                <!-- /patTemplate:tmpl -->
+            <!-- /patTemplate:sub -->
+        <!-- /patTemplate:tmpl -->
+    </table> 
+<!-- /patTemplate:tmpl -->
+
+
+<!-- patTemplate:tmpl name="kelompok_lppa" visibility="hidden" -->
+<table class="table-common" width="100%">
+    <tr>
+        <th width="5"><!-- patTemplate:gtfwgetconfig config="language" name="no" / --></th>
+        <th>
+            <!-- patTemplate:gtfwgetconfig config="language" name="tanggal" / -->
+            <!-- patTemplate:gtfwgetconfig config="language" name="lppa" / -->
+        </th>
+        <th><!-- patTemplate:gtfwgetconfig config="language" name="mak_kode" / --></th>
+        <th><!-- patTemplate:gtfwgetconfig config="language" name="total_fpa_rp" / --></th>
+        <th><!-- patTemplate:gtfwgetconfig config="language" name="total_lppa_rp" / --></th>        
+        <th><!-- patTemplate:gtfwgetconfig config="language" name="sisa_rp" / --></th>
+        <th width="31"><!-- patTemplate:gtfwgetconfig config="language" name="aksi" / --></th>
+    </tr>
+    <!-- patTemplate:tmpl name="data_lppa" type="condition" conditionvar="LPPA_EMPTY" -->
+        <!-- patTemplate:sub condition="YES" -->
+            <tr><td colspan="6" align="center"><em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em></td></tr>
+        <!-- /patTemplate:sub -->
+        <!-- patTemplate:sub condition="NO" -->
+            <!-- patTemplate:tmpl name="data_lppa_item" -->
+            <tr class="{LPPA_DETIL_CLASS_NAME}">
+                <td align="center">{LPPA_DETIL_NUMBER}</td>
+                <td>{LPPA_DETIL_TANGGAL}</td>
+                <td>{LPPA_DETIL_NO_PENGAJUAN}</td>
+                <td align="right">{LPPA_DETIL_NOMINAL_REALISASI_PENCAIRAN}</td>
+                <td align="right">{LPPA_DETIL_NOMINAL_LPPA}</td>
+                <td align="right">{LPPA_DETIL_NOMINAL_SISA}</td>
+                <td class="links" align="center"> 
+                    
+                    <!-- patTemplate:tmpl name="lppa_pilih" visibility="visible" -->
+                    <a href="javascript:void(0)" onclick="javascript:setParent('{LPPA_DETIL_LPPA_ID}', '{LPPA_DETIL_NO_PENGAJUAN}', '{LPPA_DETIL_NOMINAL_SISA}')">
+                        <img alt="Pilih" src="images/button-check.gif"/>
+                    </a> 
+                    <!-- /patTemplate:tmpl -->
+                </td>
+            </tr>
+            <!-- /patTemplate:tmpl -->
+        <!-- /patTemplate:sub -->
+    <!-- /patTemplate:tmpl -->
+</table> 
+<!-- /patTemplate:tmpl -->
+
+<br />
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li> 
+        Tombol <img alt="Pilih" src="images/button-check.gif"/> Jika Tidak muncul menandakan data sudah tercatat. Tidak bisa dipilih.
+      </li> 
+   </ul>
+</div>
+<!-- /patTemplate:tmpl --> 

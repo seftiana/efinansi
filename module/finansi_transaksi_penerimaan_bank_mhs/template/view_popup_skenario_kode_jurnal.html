@@ -1,0 +1,207 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+    function setParent(xid, xlabel, xjb_id, xjb_nama, xmode_catat) {
+       if(document.getElementById('skenario_id')) {
+           document.getElementById('skenario_id').value = xid;
+       }
+       if(document.getElementById('skenario_nama')) {
+           document.getElementById('skenario_nama').value =  xlabel;
+       }
+       if(document.getElementById('jk_jb_id')) {
+           document.getElementById('jk_jb_id').value =  xjb_id;
+       }
+       if(document.getElementById('jk_jb_nama')) {
+           document.getElementById('jk_jb_nama').value =  xjb_nama;
+       }
+       if(document.getElementById('jk_mode_catat')) {
+           document.getElementById('jk_mode_catat').value =  xmode_catat;
+       }
+   }
+    
+</script>
+<h1>
+    <!-- patTemplate:gtfwgetconfig config="language" name="skenario_jurnal" / -->
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+    <table>
+        <tr>
+            <th colspan="2">
+                <h2>
+                    <strong>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+                    </strong>
+                </h2>
+            </th>
+        </tr>
+        <tr>
+            <th style="width: 125px;">
+                <!-- patTemplate:gtfwgetconfig config="language" name="nama" / --> Skenario / COA
+            </th>
+            <td><input type="text" name="nama" value="{NAMA}" size="30" /></td>
+        </tr>       
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+                <input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+<br />
+
+<div class="pageBar">
+    <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<table class="table-common" width="100%">
+    <thead>
+        <tr>
+            <th width="5" rowspan="2">
+                <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+            </th>
+            <th colspan="2">
+                    <!-- patTemplate:gtfwgetconfig config="language" name="skenario_jurnal" / -->
+            </th>
+            <th colspan="2">
+                <!-- patTemplate:gtfwgetconfig config="language" name="posisi_coa" / -->
+            </th>
+            <th colspan="2">
+              <!-- patTemplate:gtfwgetconfig config="language" name="metode_pencatatan" / -->
+            </th>
+            <th width="31" rowspan="2">
+                <!-- patTemplate:gtfwgetconfig config="language" name="pilih" / -->
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+            </th>
+            <th>
+                <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+            </th>
+            <th>
+                <!-- patTemplate:gtfwgetconfig config="language" name="debet" / -->
+            </th>
+            <th>
+                <!-- patTemplate:gtfwgetconfig config="language" name="kredit" / -->
+            </th>
+            <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="basis_akrual" / -->
+            </th>
+              <th>
+               <!-- patTemplate:gtfwgetconfig config="language" name="basis_kas" / -->
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+        <!-- patTemplate:sub condition="YES" -->
+        <tr>
+            <td colspan="8" align="center">
+                <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+            </td>
+        </tr>
+        <!-- /patTemplate:sub -->
+        <!-- patTemplate:sub condition="NO" -->
+        <!-- patTemplate:tmpl name="data_list" -->
+        <tr class="{CLASS_NAME}" style="{STYLE_ROW}">
+            <td align="center">
+                {NOMOR}
+            </td>
+            <td>
+                {KODE}
+            </td>
+            <td>
+                {NAMA}
+            </td>
+             <td align="center">
+                <!-- patTemplate:tmpl name="is_debet" visibility="hidden" -->
+                    <img alt="Pilih" src="images/icons/16/icon-done-16x16.png"/>
+                <!-- /patTemplate:tmpl -->
+            </td>
+             <td align="center">
+                <!-- patTemplate:tmpl name="is_kredit" visibility="hidden" -->
+                     <img alt="Pilih" src="images/icons/16/icon-done-16x16.png"/>
+                <!-- /patTemplate:tmpl -->
+            </td>
+             <td align="center">
+                 <!-- patTemplate:tmpl name="is_accrual" visibility="hidden" -->
+                     <img alt="Pilih" src="images/icons/16/icon-done-16x16.png"/>
+                <!-- /patTemplate:tmpl -->
+            </td>
+             <td align="center">
+                 <!-- patTemplate:tmpl name="is_cash" visibility="hidden" -->
+                     <img alt="Pilih" src="images/icons/16/icon-done-16x16.png"/>
+                <!-- /patTemplate:tmpl -->
+            </td>
+            <td class="links" align="center">
+                <a href="javascript:void(0);" onclick="javascript:setParent('{ID}','{NAMA}','{JK_JB_ID}','{JK_JB_NAMA}','{JK_MODE_CATAT}');update_COA_list('{ID}');" style="{STYLE}">
+                    <img alt="Pilih" src="images/button-check.gif"/>
+                </a>
+            </td>
+        </tr>
+        <!-- /patTemplate:tmpl -->
+        <!-- /patTemplate:sub -->
+        <!-- /patTemplate:tmpl -->
+    </tbody>
+</table>
+
+<br />
+<div class="petunjuk-area">
+   <h4>
+      <!-- patTemplate:gtfwgetconfig config="language" name="petunjuk" / -->
+   </h4>
+   <ul>
+      <li>
+          Skenario Jurnal dapat di konfigurasi melalui Menu : <br />
+          <b><!-- patTemplate:gtfwgetconfig config="language" name="referensi_finansi" / --> ->
+          <!-- patTemplate:gtfwgetconfig config="language" name="kode_jurnal" / --></b>
+      </li>
+
+   </ul>
+</div>
+<script type="text/javascript">
+   document.update_COA_list = function (id)
+   {
+//      document.getElementById('button-coa-debet').style.display = 'block';
+      document.getElementById('CoaPlaceHolder_debet').deleteAllItem();
+      document.getElementById('CoaPlaceHolder_kredit').deleteAllItem();
+      
+        var data = {DATA_COA};
+        if(data[id]) {
+            var dataToMount   = data[id];           
+            if(dataToMount.length > 0){
+               for (var i in dataToMount){
+                   if(dataToMount[i]['is_debet'] == '1') {
+                        document.getElementById('CoaPlaceHolder_debet').addItem(
+                           dataToMount[i]['coa_id'],            
+                           dataToMount[i]['coa_kode'],
+                           dataToMount[i]['coa_nama'],
+                           '',
+                           '',
+                           '',
+                           0
+                        );
+                    } else {
+                        document.getElementById('CoaPlaceHolder_kredit').addItem(
+                            dataToMount[i]['coa_id'],            
+                            dataToMount[i]['coa_kode'],
+                            dataToMount[i]['coa_nama'],
+                            '',
+                            '',
+                            '',
+                            0
+                        );
+                    }
+               }
+            } 
+        }
+           //document.getElementById('button-coa-debet').style.display = 'none';
+      //}
+      popupClose();
+   }
+
+</script>
+<!-- /patTemplate:tmpl -->

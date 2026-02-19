@@ -1,0 +1,131 @@
+<!-- patTemplate:tmpl name="content" -->
+<script language="javascript" type="text/javascript">
+    function setParent(xid, xlabel,is_institute) {
+       if(document.getElementById('unit_kerja_id')) {
+           document.getElementById('unit_kerja_id').value = xid;
+       }
+       if(document.getElementById('unit_kerja_nama')) {
+           document.getElementById('unit_kerja_nama').value =  xlabel;
+       }
+       if(document.getElementById('is_institute')) {
+           document.getElementById('is_institute').value =  is_institute;
+       }
+       if(document.getElementById('rpen_id')) {
+           document.getElementById('rpen_id').value = '';
+       }
+       if(document.getElementById('rpen_nama')) {
+           document.getElementById('rpen_nama').value = '';
+       }
+       if(document.getElementById('rpen_nominal')) {
+           document.getElementById('rpen_nominal').value = '';
+       }
+      popupClose();
+   }
+    
+</script>
+<h1>
+    <!-- patTemplate:gtfwgetconfig config="language" name="list_sub_unit_kerja" / -->
+</h1>
+<br />
+<form method="POST" action="{URL_SEARCH}" class="dataquest xhr_simple_form dest_popup-subcontent" id="filterboxpopup">
+    <table>
+        <tr>
+            <th colspan="2">
+                <h2>
+                    <strong>
+                        <!-- patTemplate:gtfwgetconfig config="language" name="pencarian" / -->
+                    </strong>
+                </h2>
+            </th>
+        </tr>
+        <tr>
+            <th style="width: 115px;">
+                <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+            </th>
+            <td>
+                <input type="text" name="kode" value="{KODE}" size="20" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+            </th>
+            <td><input type="text" name="nama" value="{NAMA}" size="30" /></td>
+        </tr>
+        <tr>
+            <th>
+                <!-- patTemplate:gtfwgetconfig config="language" name="tipe_unit" / -->
+            </th>
+            <td>
+                <!-- patTemplate:gtfwrendermodule module="combobox" submodule="combobox" action="view" name="tipeunit"  / -->
+            </td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <input type="submit" name="btncari" value=" Tampilkan &raquo;" class="buttonSubmit"/>
+                <input type="reset" name="btnReset" value=" Reset " class="buttonSubmit" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+<br />
+
+<div class="pageBar">
+    <!-- patTemplate:gtfwrendermodule module="paging" submodule="paging" action="view" name="paging_top"  / -->
+</div>
+<table class="table-common" width="100%">
+    <thead>
+        <tr>
+            <th width="5">
+                <!-- patTemplate:gtfwgetconfig config="language" name="no" / -->
+            </th>
+            <th>
+                <!-- patTemplate:gtfwgetconfig config="language" name="kode" / -->
+            </th>
+            <th>
+                <!-- patTemplate:gtfwgetconfig config="language" name="nama" / -->
+            </th>
+            <th>
+                <!-- patTemplate:gtfwgetconfig config="language" name="tipe" / -->
+            </th>
+            <th width="31">
+                <!-- patTemplate:gtfwgetconfig config="language" name="pilih" / -->
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- patTemplate:tmpl name="data_grid" type="condition" conditionvar="DATA_EMPTY" -->
+        <!-- patTemplate:sub condition="YES" -->
+        <tr>
+            <td colspan="6" align="center">
+                <em>--<!-- patTemplate:gtfwgetconfig config="language" name="data_kosong" / -->--</em>
+            </td>
+        </tr>
+        <!-- /patTemplate:sub -->
+        <!-- patTemplate:sub condition="NO" -->
+        <!-- patTemplate:tmpl name="data_list" -->
+        <tr class="{CLASS_NAME}" style="{ROW_STYLE}">
+            <td align="center">
+                {NOMOR}
+            </td>
+            <td>
+                {KODE}
+            </td>
+            <td>
+                {NAMA}
+            </td>
+            <td>
+                {TIPE_NAMA}
+            </td>
+            <td class="links" align="center">
+                <a href="javascript:setParent('{ID}','{NAME}','{IS_INSTITUTE}')"><img alt="Pilih" src="images/button-check.gif"/></a>
+            </td>
+        </tr>
+        <!-- /patTemplate:tmpl -->
+        <!-- /patTemplate:sub -->
+        <!-- /patTemplate:tmpl -->
+    </tbody>
+</table>
+<!-- /patTemplate:tmpl -->
