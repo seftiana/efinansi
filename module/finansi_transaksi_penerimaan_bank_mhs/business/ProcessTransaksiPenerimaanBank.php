@@ -22,7 +22,7 @@ class ProcessTransaksiPenerimaanBank
       $queryReturn      = ($queryString == '' OR $queryString === NULL) ? '' : '&search=1'.$queryString;
       $this->urlReturn  = Dispatcher::Instance()->GetUrl(
          'finansi_transaksi_penerimaan_bank_mhs',
-         'TransaksiPenerimaanBank',
+         'TransaksiPenerimaanBankMhs',
          'view',
          'html'
       ) . $queryReturn;
@@ -301,7 +301,7 @@ class ProcessTransaksiPenerimaanBank
          $return['style']     = $this->cssFail;
          $return['data']      = $this->mObj->_POST;
       }else{
-		echo 'dua';die;
+		// echo 'dua';die;
          $process             = $this->mObj->doSaveJurnal($this->mData);
          if($process === true){
             $return['url']       = $this->urlReturn;

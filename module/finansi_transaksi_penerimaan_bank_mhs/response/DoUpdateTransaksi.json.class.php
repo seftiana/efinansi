@@ -1,12 +1,12 @@
 <?php
 
 require_once GTFWConfiguration::GetValue('application', 'docroot') .
-        'module/finansi_transaksi_penerimaan_bank/business/ProcessTransaksiPenerimaanBank.php';
+        'module/finansi_transaksi_penerimaan_bank_mhs/business/ProcessTransaksiPenerimaanBank.php';
 
 class DoUpdateTransaksi extends JsonResponse {
 
     function ProcessRequest() {
-        $mObj = new TransaksiPenerimaanBank();
+        $mObj = new TransaksiPenerimaanBankMhs();
         $mProcess = new ProcessTransaksiPenerimaanBank();
         $process = $mProcess->Update();
         $urlRedirect = $process['url'];

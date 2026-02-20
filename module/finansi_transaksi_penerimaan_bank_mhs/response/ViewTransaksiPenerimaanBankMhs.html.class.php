@@ -1,17 +1,17 @@
 <?php
 
 require_once GTFWConfiguration::GetValue('application', 'docroot') .
-        'module/finansi_transaksi_penerimaan_bank/business/TransaksiPenerimaanBank.class.php';
+        'module/finansi_transaksi_penerimaan_bank_mhs/business/TransaksiPenerimaanBankMhs.class.php';
 
-class ViewTransaksiPenerimaanBank extends HtmlResponse {
+class ViewTransaksiPenerimaanBankMhs extends HtmlResponse {
 
     function TemplateModule() {
-        $this->SetTemplateBasedir(GTFWConfiguration::GetValue('application', 'docroot') . 'module/finansi_transaksi_penerimaan_bank/template');
-        $this->SetTemplateFile('view_transaksi_penerimaan_bank.html');
+        $this->SetTemplateBasedir(GTFWConfiguration::GetValue('application', 'docroot') . 'module/finansi_transaksi_penerimaan_bank_mhs/template');
+        $this->SetTemplateFile('view_transaksi_penerimaan_bank_mhs.html');
     }
 
     function ProcessRequest() {
-        $mObj = new TransaksiPenerimaanBank();
+        $mObj = new TransaksiPenerimaanBankMhs();
         $messenger = Messenger::Instance()->Receive(__FILE__);
         $message = $style = NULL;
         $requestData = array();
@@ -147,33 +147,33 @@ class ViewTransaksiPenerimaanBank extends HtmlResponse {
         $dataList = $data['data_list'];
         $start = $data['start'];
         $urlSearch = Dispatcher::Instance()->GetUrl(
-                'finansi_transaksi_penerimaan_bank', 'TransaksiPenerimaanBank', 'view', 'html'
+                'finansi_transaksi_penerimaan_bank_mhs', 'TransaksiPenerimaanBankMhs', 'view', 'html'
         );
 
         $urlAdd = Dispatcher::Instance()->GetUrl(
-                        'finansi_transaksi_penerimaan_bank', 'Transaksi', 'view', 'html'
+                        'finansi_transaksi_penerimaan_bank_mhs', 'Transaksi', 'view', 'html'
                 ) . '&' . $queryString;
 
         $urlEdit = Dispatcher::Instance()->GetUrl(
-                        'finansi_transaksi_penerimaan_bank', 'editTransaksi', 'view', 'html'
+                        'finansi_transaksi_penerimaan_bank_mhs', 'editTransaksi', 'view', 'html'
                 ) . '&' . $queryString;
 
         $urlExport    = Dispatcher::Instance()->GetUrl(
-               'finansi_transaksi_penerimaan_bank',
+               'finansi_transaksi_penerimaan_bank_mhs',
                'BuktiTransaksi',
                'view',
                'xlsx'
             ).'&'.$query_string;
 
         $urlDetail    = Dispatcher::Instance()->GetUrl(
-               'finansi_transaksi_penerimaan_bank',
+               'finansi_transaksi_penerimaan_bank_mhs',
                'BuktiTransaksi',
                'view',
                'html'
             ).'&'.$query_string;
 
         $urlCetak      = Dispatcher::Instance()->GetUrl(
-                'finansi_transaksi_penerimaan_bank',
+                'finansi_transaksi_penerimaan_bank_mhs',
                 'CetakBuktiTransaksi',
                 'view',
                 'html'
@@ -269,8 +269,8 @@ class ViewTransaksiPenerimaanBank extends HtmlResponse {
                         $jurnal['row_span'] = $rows[$jurnal['kode_sistem']]['row_span'];
                         $this->mrTemplate->AddVar('data_jurnal', 'LEVEL', 'PARENT');
                         // url delete
-                        $urlAccept = 'finansi_transaksi_penerimaan_bank|DeleteTransaksi|do|json-search|' . $keyUrl . '-1|' . $valueUrl;
-                        $urlReturn = 'finansi_transaksi_penerimaan_bank|TransaksiPenerimaanBank|view|html-search|' . $keyUrl . '-1|' . $valueUrl;
+                        $urlAccept = 'finansi_transaksi_penerimaan_bank_mhs|DeleteTransaksi|do|json-search|' . $keyUrl . '-1|' . $valueUrl;
+                        $urlReturn = 'finansi_transaksi_penerimaan_bank_mhs|TransaksiPenerimaanBankMhs|view|html-search|' . $keyUrl . '-1|' . $valueUrl;
                         $label = GTFWConfiguration::GetValue('language', 'transaksi_penerimaan_bank');
                         $message = 'Penghapusan Data ini akan menghapus Data secara permanen.';
                         $jurnal['url_delete'] = Dispatcher::Instance()->GetUrl(

@@ -14,18 +14,18 @@
  * ================= doc ====================
  */
 require_once GTFWConfiguration::GetValue('application', 'docroot') .
-        'module/finansi_transaksi_penerimaan_bank/business/TransaksiPenerimaanBank.class.php';
+        'module/finansi_transaksi_penerimaan_bank_mhs/business/TransaksiPenerimaanBankMhs.class.php';
 
 class ViewEditTransaksi extends HtmlResponse {
 
     function TemplateModule() {
         $this->SetTemplateBasedir(GTFWConfiguration::GetValue('application', 'docroot') .
-                'module/finansi_transaksi_penerimaan_bank/template/');
+                'module/finansi_transaksi_penerimaan_bank_mhs/template/');
         $this->SetTemplateFile('view_edit_transaksi_penerimaan_bank.html');
     }
 
     function ProcessRequest() {
-        $mObj = new TransaksiPenerimaanBank();
+        $mObj = new TransaksiPenerimaanBankMhs();
         
         $userId = trim(Security::Instance()->mAuthentication->GetCurrentUser()->GetUserId());
 
@@ -405,28 +405,28 @@ class ViewEditTransaksi extends HtmlResponse {
         $message = $data['message'];
         $style = $data['style'];
         $urlAction = Dispatcher::Instance()->GetUrl(
-                        'finansi_transaksi_penerimaan_bank', 'UpdateTransaksi', 'do', 'json'
+                        'finansi_transaksi_penerimaan_bank_mhs', 'UpdateTransaksi', 'do', 'json'
                 ) . $queryString;
 
         $urlReturn = Dispatcher::Instance()->GetUrl(
-                        'finansi_transaksi_penerimaan_bank', 'TransaksiPenerimaanBank', 'view', 'html'
+                        'finansi_transaksi_penerimaan_bank_mhs', 'TransaksiPenerimaanBankMhs', 'view', 'html'
                 ) . $queryReturn;
 
         $urlPopupCoa = Dispatcher::Instance()->GetUrl(
-                'finansi_transaksi_penerimaan_bank', 'coa', 'popup', 'html'
+                'finansi_transaksi_penerimaan_bank_mhs', 'coa', 'popup', 'html'
         );
         $urlPopupUK = Dispatcher::Instance()->GetUrl(
-                'finansi_transaksi_penerimaan_bank', 'PopupUnitKerja', 'view', 'html'
+                'finansi_transaksi_penerimaan_bank_mhs', 'PopupUnitKerja', 'view', 'html'
         );
 
         $urlPopupRenPen = Dispatcher::Instance()->GetUrl(
-                'finansi_transaksi_penerimaan_bank', 'PopupRencanaPenerimaan', 'view', 'html'
+                'finansi_transaksi_penerimaan_bank_mhs', 'PopupRencanaPenerimaan', 'view', 'html'
         );
         $urlPopupSKJ = Dispatcher::Instance()->GetUrl(
-                'finansi_transaksi_penerimaan_bank', 'PopupSkenarioKodeJurnal', 'view', 'html'
+                'finansi_transaksi_penerimaan_bank_mhs', 'PopupSkenarioKodeJurnal', 'view', 'html'
         );
         $urlPopupPembMhs = Dispatcher::Instance()->GetUrl(
-                'finansi_transaksi_penerimaan_bank', 'PopupPembayaranMhs', 'view', 'html'
+                'finansi_transaksi_penerimaan_bank_mhs', 'PopupPembayaranMhs', 'view', 'html'
         );
 
         if($requestData['auto_number'] ==='Y') {
